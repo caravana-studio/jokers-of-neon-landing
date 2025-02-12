@@ -1,0 +1,162 @@
+.Play-header {
+  display: none;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 84%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 768px) {
+  .Play-header {
+      display: block;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+  background-color: linear-gradient(45deg, #000000, #8A2BE2);
+  background-image: url('public/colors-2.png');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+} 
+
+.content {
+  padding: 2rem;
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.h2-div1 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #8f8f8f;
+}
+
+.header-img {
+  text-align: left;
+  margin-top: 2rem;
+}
+
+.h1-div1 {
+  font-size: 3rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.h1-div1 .of {
+  font-size: 1rem;
+  font-weight: normal;
+  letter-spacing: 2px;
+  margin: 0;
+  display: block;
+}
+
+.hr-header {
+  width: 40%;
+  height: 2px;
+  background-color: white;
+  border: none;
+  margin: 1rem 0;
+}
+
+.p-div1 {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #c1c1c1;
+  line-height: 1.5;
+  max-width: 600px;
+}
+
+.div-img {
+  margin-top: 2rem;
+}
+
+h2 {
+  font-size: 1rem;
+  color: #8f8f8f;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.powered-logo {
+  height: 20px;
+  width: auto;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header {
+      padding: 10px;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+  }
+
+  .h1-div1 {
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+  }
+
+  .h2-div1 {
+      font-size: 1.2rem;
+      text-align: center;
+  }
+
+  .p-div1 {
+      font-size: 1rem;
+      max-width: 100%;
+  }
+
+  h2 {
+      font-size: 0.9rem;
+      justify-content: center;
+  }
+
+  .ul-nav {
+      gap: 15px;
+  }
+
+  .li-nav {
+      font-size: 0.9rem;
+  }
+
+  .hr-header {
+      width: 60%;
+      height: 2px;
+      background-color: white;
+      border: none;
+      margin: 1rem 0;
+      display: block; 
+      margin-left: auto; /* Centra el hr horizontalmente */
+      margin-right: auto; /* Centra el hr horizontalmente */
+  }
+
+  .header-img {
+      margin-top: 1rem;
+      text-align: center;
+  }
+}

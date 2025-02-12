@@ -1,0 +1,176 @@
+.footer {
+    background-color: #000; /* Fondo negro */
+    color: #fff; /* Texto blanco */
+    padding: 20px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+/* Layout for the footer content */
+.div-5 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Powered By section */
+.p-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.p-footer-text {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.footer-logo {
+    width: 50px;
+    height: auto;
+    margin: 5px 0;
+}
+
+/* Footer image centered */
+.footer-img {
+    width: 250px;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* Social Links section */
+.div-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+.social-links a {
+    font-size: 12px;
+}
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+.h1-div5 {
+    display: none; /* Oculta por defecto */
+}
+
+/* Mostrar solo en pantallas más pequeñas (por ejemplo, menos de 1024px de ancho) */
+@media (max-width: 750px) {
+    .h1-div5 {
+        display: block; /* Muestra el elemento */
+    }
+}
+.social-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+   
+}
+.since-1{
+    display:none;
+}
+
+.social-links a:hover {
+    color: #6c63ff; /* Color púrpura al pasar el mouse */
+}
+
+.social-links i {
+    font-size: 12px;
+    
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .p-footer{
+        font-size: 20px;
+    }
+    .footer-logo-1,
+.footer-logo-2 {
+    display: inline-block; /* Asegura que se alineen en línea */
+    margin-right: 20px; /* Espacio entre los logos */
+}
+    .div-5 {
+        display: flex;
+        flex-direction: column; /* Asegura que los elementos estén en columna */
+        align-items: center;
+        gap: 20px; /* Espacio entre los elementos */
+    }
+
+    .footer-img {
+        margin-top: 10px; /* Aumenta el margen superior */
+        margin-bottom: 40px; /* Mantén el margen inferior */
+        width: 300px; /* Ajusta el tamaño de la imagen */
+        position: relative; /* Posición relativa para ajustarse */
+        top: 170px; /* Ajusta este valor según cuánto quieras que se sobreponga */
+        z-index: 1; /* Asegúrate de que la imagen esté detrás de los enlaces sociales */
+        justify-content: center;
+    }
+
+    .social-links {
+        background-color: #fa64ff; /* Fondo púrpura */
+        padding: 10px;
+        border-radius: 5px;
+        height: 250px; /* Altura fija */
+        width: 735px; /* Ancho fijo */
+        margin: 0 auto; /* Centra horizontalmente */
+        position: relative;
+        z-index: 1; /* Prioridad sobre otros elementos */
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box; /* Controla el cálculo del tamaño */
+    }
+    .h1-div5 {
+        font-size: 24px; /* Asegúrate de que el h1 sea más grande */
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+    }   
+    
+}
+.links {
+    display: flex; /* Usa Flexbox para la distribución */
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center; /* Centra los elementos verticalmente */
+    gap: 20px; /* Espacio entre los enlaces */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+    padding: 20px; /* Agrega algo de espacio alrededor */
+    box-sizing: border-box; /* Incluye padding en el cálculo de tamaño */
+    flex-wrap: wrap; /* Permite que los enlaces se ajusten cuando la pantalla es pequeña */
+}
+
+.discord-link,
+.twitter-link {
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+    font-weight: bold;
+    color: white; /* Color de texto */
+    display: flex; /* Para alinear el icono y el texto */
+    align-items: center;
+    gap: 8px; /* Espaciado entre el icono y el texto */
+}
+
+.discord-link i,
+.twitter-link i {
+    font-size: 24px; /* Tamaño del icono */
+    border: 2px solid rgb(0, 0, 0); /* Borde blanco */
+    border-radius: 50%; /* Crea un círculo */
+   padding: 10px; /* Espacio dentro del círculo */
+     background-color: transparent; /* Color de fondo del círculo (puedes cambiarlo) */
+}
+
+@media (max-width: 600px) {
+    .links {
+        flex-direction: column; /* Alinea los enlaces verticalmente en pantallas pequeñas */
+        gap: 10px; /* Reduce el espacio entre los enlaces */
+    }
+}
