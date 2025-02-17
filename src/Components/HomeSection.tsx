@@ -62,7 +62,7 @@ export const HomeSection = () => {
         {/* Left Content */}
         <Flex
           flexDir={"column"}
-          gap={5}
+          gap={10}
           textAlign="center"
           align={"center"}
           pl={isMobile ? 0 : 40}
