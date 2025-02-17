@@ -7,6 +7,7 @@ import Div2 from "./Components/Div2";
 import Div3 from "./Components/Div3";
 import Div4 from "./Components/Div4";
 import Div5 from "./Components/Div5";
+import { HomeSection } from "./Components/HomeSection";
 
 function App() {
   const theme = extendTheme(customTheme);
@@ -14,12 +15,13 @@ function App() {
   return (
     <>
       <ChakraBaseProvider theme={theme}>
-        <Nav />
-        <Div1 />
+        <HomeSection />
+        {/* <Nav />
+        <Div1 /> */}
         <Div2 />
         <Div3 />
         <Div4 />
-        <Div5 />
+        {/* <Div5 /> */}
       </ChakraBaseProvider>
     </>
   );
