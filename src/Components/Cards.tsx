@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Flex, Image } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { isMobile } from "react-device-detect";
 
 const Card: React.FC<{
   imageSrc: string;
@@ -12,6 +13,15 @@ const Card: React.FC<{
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
+      whileTap={
+        isMobile
+          ? {
+              scale: 1.05,
+              rotate: rotate + 20,
+              transition: { duration: 0.5 },
+            }
+          : {}
+      }
       whileHover={{
         scale: 1.05,
         rotate: rotate + 2,
@@ -22,7 +32,7 @@ const Card: React.FC<{
       }}
     >
       <Box
-        width="10vw"
+        width={isMobile ? "20vw" : "10vw"}
         borderRadius="12px"
         position="relative"
         transform={`rotate(${rotate}deg)`}
