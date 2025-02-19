@@ -4,8 +4,9 @@ import theme from "../theme/theme";
 import SpineAnimation, { SpineAnimationRef } from "./SpineAnimation";
 import { useRef } from "react";
 import { CARD_HEIGHT } from "../constants/visualProps";
+import { motion } from "framer-motion";
 
-const SIZE_MULTIPLIER = isMobile ? 1.3 : 2;
+const SIZE_MULTIPLIER = isMobile ? 0.5 : 2;
 const { white, neonGreen } = theme.colors;
 
 const animationsData = {
@@ -47,14 +48,83 @@ export const BoxSection = () => {
       overflow={"hidden"}
     >
       {/* Title */}
-      <Flex></Flex>
+      <Flex
+        position="relative"
+        pt={isMobile ? 3 : 100}
+        justify={"center"}
+        alignItems={"center"}
+        flexDir={"column"}
+      >
+        <Box
+          position="absolute"
+          top="32%"
+          right={isMobile ? "50%" : "30%"}
+          width={"100%"}
+        >
+          <motion.img
+            width={isMobile ? "6%" : "3%"}
+            src="/elements/star.png"
+            alt="Rotating Star"
+            style={{
+              position: "absolute",
+              bottom: "10%",
+              left: isMobile ? "70%" : "65%",
+            }}
+            initial={{ rotate: 0 }}
+            whileInView={{ rotate: [0, -15, 15, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+
+          <motion.img
+            width={isMobile ? "15%" : "12%"}
+            src="/elements/ring.png"
+            alt="Rotating Ring"
+            style={{ position: "absolute", left: isMobile ? "70%" : "64%" }}
+            initial={{ rotate: 0 }}
+            whileInView={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </Box>
+
+        <Box
+          position="absolute"
+          top={isMobile ? "10%" : "40%"}
+          right={isMobile ? "5%" : "30%"}
+        >
+          <Image width={"50%"} src="/elements/sparkles-crop-1.png"></Image>
+        </Box>
+
+        <motion.div
+          whileInView={{ opacity: [0, 1] }}
+          transition={{ duration: 1.5 }}
+        >
+          <Text fontSize="m" letterSpacing="widest" color="white">
+            STEP INTO
+          </Text>
+        </motion.div>
+
+        <motion.div
+          whileInView={{ opacity: [0, 1], y: [20, 0] }}
+          transition={{ duration: 1.5 }}
+        >
+          <Text
+            fontSize={{ base: "3xl", md: "3.5rem" }}
+            fontWeight="bold"
+            textTransform="uppercase"
+            textShadow="0 0 15px rgba(255, 255, 255, 0.9)"
+            letterSpacing="widest"
+          >
+            STRATEGY
+          </Text>
+        </motion.div>
+      </Flex>
 
       {/* Box preview */}
       <Flex
         flexDirection={"column"}
         justifyContent={"center"}
-        minHeight={isMobile ? "100%" : "unset"}
-        height={isMobile ? "unset" : "100%"}
+        minHeight={isMobile ? "80%" : "unset"}
+        height={isMobile ? "unset" : "80%"}
       >
         <Flex
           flexDirection={"column"}
@@ -63,7 +133,6 @@ export const BoxSection = () => {
           margin={"0 auto"}
           bg="rgba(0, 0, 0, 0.6)"
           borderRadius="25px"
-          mt={4}
           p={6}
           boxShadow={`0px 0px 10px 1px ${white}`}
           zIndex={1}
