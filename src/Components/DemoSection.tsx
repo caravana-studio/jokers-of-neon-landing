@@ -1,6 +1,39 @@
 import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { isMobile } from "react-device-detect";
 
 export const DemoSection = () => {
+  const title = (
+    <Flex justifyContent={"center"} alignContent={"center"} pt={"5%"}>
+      <Text
+        color="white"
+        fontSize={{ base: "xl", sm: "lg" }}
+        mb={2}
+        sx={{
+          position: "relative",
+          _before: {
+            content: '""',
+            position: "absolute",
+            bottom: 0,
+            width: "95%",
+            height: "2px",
+            backgroundColor: "white",
+            boxShadow:
+              "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+          },
+        }}
+      >
+        DESKTOP & MOBILE VERSION
+      </Text>
+    </Flex>
+  );
+
+  const playBtn = (
+    <Button variant={"solid"} borderRadius="12px" height={"50px"} width={"20%"}>
+      <Text fontFamily="Orbitron" fontSize={[16, 18]}>
+        PLAY NOW
+      </Text>
+    </Button>
+  );
   return (
     <>
       <Flex
@@ -10,8 +43,19 @@ export const DemoSection = () => {
         overflow="hidden"
         justifyContent={"center"}
       >
-        <Flex m={20} width={"50%"} justifyContent={"center"}>
-          <Image src="/elements/suits.png" alt="Suits" objectFit="cover" />
+        <Flex
+          m={isMobile ? 0 : 20}
+          width={isMobile ? "100%" : "50%"}
+          // height={isMobile ? "50%" : "unset"}
+          justifyContent={"center"}
+          alignItems={isMobile ? "center" : "unset"}
+        >
+          <Image
+            height={isMobile ? "50%" : "unset"}
+            src="/elements/suits.png"
+            alt="Suits"
+            objectFit={isMobile ? "unset" : "cover"}
+          />
         </Flex>
       </Flex>
 
@@ -23,82 +67,90 @@ export const DemoSection = () => {
         bgPosition="center"
         color="white"
         overflow={"hidden"}
+        position={"relative"}
       >
-        <Flex justifyContent={"center"} position="relative">
-          <Image width={"40%"} src="/elements/mockup.png" />
-          <Image
-            position="absolute"
-            top="6%"
-            width={"31%"}
-            height="80%"
-            src="/elements/demo.png"
-          />
+        {isMobile && <Flex flexDirection={"column"}>{title}</Flex>}
 
-          <Flex position="absolute" top="26%" left="67%">
-            <Image width={"80%"} src="/elements/mobile-home-mockup.png" />
-          </Flex>
+        <Flex
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={isMobile ? "column" : "row"}
+          gap={isMobile ? 20 : 0}
+          pt={isMobile ? "25%" : 0}
+        >
+          <Flex width={isMobile ? "90%" : "40%"} position="relative">
+            <Image src="/elements/mockup.png" />
 
-          <Box
-            as="iframe"
-            src="https://www.youtube.com/embed/EvQawPSkAfE?loop=1&playlist=EvQawPSkAfE&autoplay=1&mute=1"
-            position="absolute"
-            top="6%"
-            width="31.1%"
-            height="80%"
-            border="none"
-          />
-        </Flex>
+            <Image
+              position="absolute"
+              top="5"
+              left="11.8%"
+              width="77.2%"
+              height="80%"
+              src="/elements/demo.png"
+            />
 
-        <Flex flexDirection={"column"} gap={10}>
-          <Flex justifyContent={"center"} alignContent={"center"} pt={"5%"}>
-            <Text
-              color="white"
-              fontSize={{ base: "md", sm: "lg" }}
-              mb={2}
-              sx={{
-                position: "relative",
-                _before: {
-                  content: '""',
-                  position: "absolute",
-                  bottom: 0,
-                  width: "95%",
-                  height: "2px",
-                  backgroundColor: "white",
-                  boxShadow:
-                    "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
-                },
-              }}
-            >
-              DESKTOP & MOBILE VERSION
-            </Text>
-          </Flex>
-          <Flex justifyContent={"center"} alignContent={"center"}>
-            <Text maxWidth={"30%"} textAlign={"center"}>
-              Step into a realm where every decision shapes your destiny. Unveil
-              the secrets of victory in our enigmatic strategic deck-building
-              game. Will you master the art of strategy and emerge triumphant?
-            </Text>
+            <Box
+              as="iframe"
+              src="https://www.youtube.com/embed/EvQawPSkAfE?loop=1&playlist=EvQawPSkAfE&autoplay=1&mute=1"
+              position="absolute"
+              top="5%"
+              left="11.5%"
+              width="78%"
+              height="85%"
+              border="none"
+            />
           </Flex>
 
           <Flex
-            pt={5}
-            justifyContent="center"
-            alignItems={"center"}
-            width="100%"
-            zIndex={1}
+            width={isMobile ? "unset" : "9%"}
+            height={isMobile ? "unset" : "1%"}
           >
-            <Button
-              variant={"solid"}
-              borderRadius="12px"
-              height={"50px"}
-              width={"20%"}
-            >
-              <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-                PLAY NOW
-              </Text>
-            </Button>
+            <Image src="/elements/mobile-home-mockup.png" />
           </Flex>
         </Flex>
+
+        {!isMobile && (
+          <Flex flexDirection={"column"} gap={10}>
+            {title}
+            {/* Desc */}
+            <Flex justifyContent={"center"} alignContent={"center"}>
+              <Text maxWidth={"30%"} textAlign={"center"}>
+                Step into a realm where every decision shapes your destiny.
+                Unveil the secrets of victory in our enigmatic strategic
+                deck-building game. Will you master the art of strategy and
+                emerge triumphant?
+              </Text>
+            </Flex>
+
+            {/* Btn */}
+            <Flex
+              pt={5}
+              justifyContent="center"
+              alignItems={"center"}
+              width="100%"
+              zIndex={1}
+            >
+              {playBtn}
+            </Flex>
+          </Flex>
+        )}
+
+        {isMobile && (
+          <Flex
+            position="absolute"
+            justifyContent="center"
+            alignItems={"center"}
+            height="100px"
+            left="5%"
+            background={"url(grid.png)"}
+            width="90%"
+            backgroundRepeat="space"
+            backgroundSize="52px auto"
+            bottom="0"
+            zIndex={1}
+          />
+        )}
       </Box>
     </>
   );
