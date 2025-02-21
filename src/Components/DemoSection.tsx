@@ -28,7 +28,12 @@ export const DemoSection = () => {
   );
 
   const playBtn = (
-    <Button variant={"solid"} borderRadius="12px" height={"50px"} width={"20%"}>
+    <Button
+      variant={"solid"}
+      borderRadius="12px"
+      height={"50px"}
+      width={isMobile ? "50%" : "20%"}
+    >
       <Text fontFamily="Orbitron" fontSize={[16, 18]}>
         PLAY NOW
       </Text>
@@ -46,7 +51,6 @@ export const DemoSection = () => {
         <Flex
           m={isMobile ? 0 : 20}
           width={isMobile ? "100%" : "50%"}
-          // height={isMobile ? "50%" : "unset"}
           justifyContent={"center"}
           alignItems={isMobile ? "center" : "unset"}
         >
@@ -152,6 +156,62 @@ export const DemoSection = () => {
           />
         )}
       </Box>
+
+      {isMobile && (
+        <Flex
+          bg="linear-gradient(to bottom, black 50%, #010304 100%)"
+          w="100vw"
+          h="50vh"
+          overflow="hidden"
+          justifyContent={"center"}
+        >
+          <Flex
+            m={isMobile ? 0 : 20}
+            width={isMobile ? "100%" : "50%"}
+            justifyContent={"center"}
+            alignItems={isMobile ? "center" : "unset"}
+          >
+            <Flex flexDirection={"column"} gap={10}>
+              {/* Desc */}
+              <Flex
+                justifyContent={"center"}
+                alignContent={"center"}
+                flexDirection={"column"}
+                gap={5}
+              >
+                <Flex justifyContent={"center"} alignContent={"center"}>
+                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                    Step into a realm where every decision shapes your destiny.
+                  </Text>
+                </Flex>
+                <Flex justifyContent={"center"} alignContent={"center"}>
+                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                    Unveil the secrets of victory in our enigmatic strategic
+                    deck-building game.
+                  </Text>
+                </Flex>
+
+                <Flex justifyContent={"center"} alignContent={"center"}>
+                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                    Will you master the art of strategy and emerge triumphant?
+                  </Text>
+                </Flex>
+              </Flex>
+
+              {/* Btn */}
+              <Flex
+                pt={5}
+                justifyContent="center"
+                alignItems={"center"}
+                width="100%"
+                zIndex={1}
+              >
+                {playBtn}
+              </Flex>
+            </Flex>
+          </Flex>
+        </Flex>
+      )}
     </>
   );
 };
