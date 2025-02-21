@@ -17,7 +17,7 @@ function App() {
         <HomeSection />
         <CardsSection />
         <BoxSection />
-        <DemoSection></DemoSection>
+        <DemoSection />
         {/* <Div4 /> */}
         {/* <Div5 /> */}
       </ChakraBaseProvider>
