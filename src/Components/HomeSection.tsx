@@ -1,27 +1,153 @@
-import { Box, Flex, Image, Text, Link, VStack, Button } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Flex,
+  Image,
+  Text,
+  Link,
+  VStack,
+  Button,
+  DrawerBody,
+  DrawerContent,
+  Drawer,
+  IconButton,
+  DrawerOverlay,
+  DrawerCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
 
 export const HomeSection = () => {
-  const TopNavBar = (
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const lineStyle = {
+    position: "relative",
+    _before: {
+      content: '""',
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      height: "0.3px",
+      backgroundColor: "white",
+    },
+  };
+
+  const DesktopNav = () => (
     <Flex justify="space-between" align="center" px={6} py={2}>
       <Image src="/logos/jn-logo.png" alt="Jokers of Neon Logo" h="40px" />
-      {!isMobile ? (
-        <Flex width={"50%"} justify="space-around" align="center">
-          <Link href="#" fontSize="sm" textTransform="uppercase">
-            About Game
-          </Link>
-          <Link href="#" fontSize="sm" textTransform="uppercase">
-            Play
-          </Link>
-          <Link href="#" fontSize="sm" textTransform="uppercase">
-            Contact
-          </Link>
-        </Flex>
-      ) : (
-        <Flex />
-      )}
+      <Flex width={"50%"} justify="space-around" align="center">
+        <Link href="#" fontSize="sm" textTransform="uppercase">
+          About Game
+        </Link>
+        <Link href="#" fontSize="sm" textTransform="uppercase">
+          Play
+        </Link>
+        <Link href="#" fontSize="sm" textTransform="uppercase">
+          Contact
+        </Link>
+      </Flex>
     </Flex>
   );
+
+  const MobileNav = () => (
+    <>
+      <Flex
+        as="nav"
+        align="center"
+        justify="space-between"
+        wrap="wrap"
+        padding="1rem"
+        color="white"
+      >
+        <Image src="/logos/jn-logo.png" alt="Jokers of Neon Logo" h="40px" />
+
+        <IconButton
+          aria-label="Open menu"
+          icon={<HamburgerIcon />}
+          variant="unstyled"
+          color="white"
+          fontSize={"1.3rem"}
+          onClick={onOpen}
+        />
+      </Flex>
+
+      <Drawer placement="right" onClose={onClose} isOpen={isOpen} size="full">
+        <DrawerOverlay />
+        <DrawerContent
+          color="white"
+          bgImage="url('/bg/bg-top.png')"
+          bgSize="initial"
+          bgPosition="center"
+        >
+          <Flex justify="space-between" align="center" pt={4}>
+            <Image
+              src="/logos/jn-logo.png"
+              alt="Jokers of Neon Logo"
+              h="40px"
+            />
+            <DrawerCloseButton as={Text} fontSize="1.3rem" pt={4}>
+              X
+            </DrawerCloseButton>
+          </Flex>
+
+          <DrawerBody
+            display="flex"
+            flexDirection="column"
+            justifyContent="space-around"
+          >
+            <VStack
+              spacing={6}
+              justifyContent={"center"}
+              align="stretch"
+              mt={10}
+            >
+              <Box sx={lineStyle}>
+                <Text
+                  textAlign="center"
+                  fontSize="xl"
+                  letterSpacing="wider"
+                  fontWeight="light"
+                  fontFamily={"Orbitron"}
+                >
+                  ABOUT GAME
+                </Text>
+              </Box>
+
+              <Box sx={lineStyle}>
+                <Text
+                  textAlign="center"
+                  fontSize="xl"
+                  letterSpacing="wider"
+                  fontWeight="light"
+                  fontFamily={"Orbitron"}
+                >
+                  PLAY
+                </Text>
+              </Box>
+
+              <Box sx={lineStyle}>
+                <Text
+                  textAlign="center"
+                  fontSize="xl"
+                  letterSpacing="wider"
+                  fontWeight="light"
+                  fontFamily={"Orbitron"}
+                >
+                  CONTACT
+                </Text>
+              </Box>
+            </VStack>
+
+            <Box textAlign="center" mb={10}>
+              <Image src="/logos/logo-variant.svg" />
+            </Box>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+
+  const TopNavBar = isMobile ? <MobileNav /> : <DesktopNav />;
 
   const poweredBy = (
     <Flex gap={4} justify="center" alignItems={"center"}>
@@ -44,7 +170,7 @@ export const HomeSection = () => {
       w="100vw"
       h="100vh"
       bgImage="url('/bg/bg-top.png')"
-      bgSize="cover"
+      bgSize="initial"
       bgPosition="center"
       color="white"
       overflow={"hidden"}
