@@ -152,7 +152,9 @@ export const HomeSection = () => {
 
   const poweredBy = (
     <Flex gap={4} justify="center" alignItems={"center"}>
-      <Text fontSize="xl">Powered by</Text>
+      <Text fontSize={[isMobile ? "xl" : "2xs", "md", "lg", "xl"]}>
+        Powered by
+      </Text>
       <Image
         src="/logos/starknet.png"
         alt="Starknet logo"
@@ -183,7 +185,9 @@ export const HomeSection = () => {
       <Flex
         flexDir={isMobile ? "column" : "row"}
         width="100%"
-        justify="space-between"
+        justifyContent="space-between"
+        alignContent={"center"}
+        // alignItems={"flex-end"}
         gap={10}
         h="90vh"
       >
@@ -193,26 +197,26 @@ export const HomeSection = () => {
           gap={10}
           textAlign="center"
           align={"center"}
-          pl={isMobile ? 0 : 40}
-          pt={isMobile ? 10 : 20}
-          mx={8}
+          justifyContent={"center"}
+          pt={isMobile ? 10 : 0}
+          mx={isMobile ? 8 : 0}
           zIndex={1}
         >
           <Text
-            fontSize={isMobile ? "sm" : "xl"}
+            fontSize={[isMobile ? "sm" : "2xs", "md", "lg", "xl"]}
             letterSpacing="2px"
-            maxW={isMobile ? "unset" : "400px"}
+            maxW={isMobile ? "unset" : "60%"}
           >
             INTRODUCING YOU THE ULTIMATE ON-CHAIN CARD GAME
           </Text>
           <Image
             src="/logos/logo-variant.png"
             alt="Jokers of Neon"
-            maxW={isMobile ? "80%" : "400px"}
+            maxW={isMobile ? "80%" : "60%"}
           />
           <Text
-            maxW={isMobile ? "unset" : "400px"}
-            fontSize={isMobile ? "xs" : "m"}
+            fontSize={[isMobile ? "sm" : "2xs", "md", "lg", "xl"]}
+            maxW={isMobile ? "unset" : "60%"}
           >
             Jokers of Neon is a strategy card game that brings strategy and
             innovation together on the blockchain.
