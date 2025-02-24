@@ -190,6 +190,7 @@ export const HomeSection = () => {
         // alignItems={"flex-end"}
         gap={10}
         h="90vh"
+        position={"relative"}
       >
         {/* Left Content */}
         <Flex
@@ -231,7 +232,7 @@ export const HomeSection = () => {
             src="/elements/spheres-crop.png"
             alt="Neon Spheres"
             maxW={isMobile ? "100vh" : "100%"}
-            zIndex={0}
+            zIndex={1}
             transform={isMobile ? "rotate(90deg)" : "unset"}
           />
         </Flex>
@@ -241,14 +242,14 @@ export const HomeSection = () => {
             position="absolute"
             justifyContent="center"
             alignItems={"center"}
-            height="100px"
+            height="15%"
             left="5%"
             background={"url(grid.png)"}
             width="90%"
             backgroundRepeat="space"
-            backgroundSize="52px auto"
+            backgroundSize="5% auto"
             bottom="0"
-            zIndex={1}
+            zIndex={0}
           />
         ) : (
           <>
