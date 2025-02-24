@@ -76,7 +76,8 @@ export const HomeSection = () => {
         <DrawerContent
           color="white"
           bgImage="url('/bg/bg-top.png')"
-          bgSize="initial"
+          bgSize="cover"
+          bgColor={"black"}
           bgPosition="center"
         >
           <Flex justify="space-between" align="center" pt={4}>
@@ -170,8 +171,9 @@ export const HomeSection = () => {
       w="100vw"
       h="100vh"
       bgImage="url('/bg/bg-top.png')"
-      bgSize="initial"
+      bgSize="cover"
       bgPosition="center"
+      bgColor={"black"}
       color="white"
       overflow={"hidden"}
     >
