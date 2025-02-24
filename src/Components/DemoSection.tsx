@@ -81,6 +81,19 @@ export const DemoSection = () => {
           flexDirection={isMobile ? "column" : "row"}
           gap={isMobile ? 20 : 0}
           pt={isMobile ? "25%" : 0}
+          sx={{
+            position: "relative",
+            _before: {
+              content: '""',
+              position: "absolute",
+              bottom: 0,
+              height: "100%",
+              width: "2px",
+              backgroundColor: "white",
+              boxShadow:
+                "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+            },
+          }}
         >
           <Flex width={isMobile ? "90%" : "40%"} position="relative">
             <Image src="/elements/mockup.png" />
@@ -109,6 +122,7 @@ export const DemoSection = () => {
           <Flex
             width={isMobile ? "unset" : "9%"}
             height={isMobile ? "unset" : "1%"}
+            zIndex={1}
           >
             <Image src="/elements/mobile-home-mockup.png" />
           </Flex>
