@@ -15,8 +15,9 @@ export const FooterSection = () => {
       <Flex>
         <Text
           fontSize={isMobile ? "xl" : "md"}
-          letterSpacing={"0.2rem"}
+          letterSpacing={"0.3rem"}
           textTransform="uppercase"
+          fontFamily="Orbitron"
         >
           Powered by
         </Text>
@@ -36,7 +37,7 @@ export const FooterSection = () => {
       </Flex>
 
       {!isMobile && (
-        <Text fontSize="md" letterSpacing={"0.2rem"}>
+        <Text fontSize="md" fontFamily="Orbitron" fontStyle="italic">
           SINCE 2024
         </Text>
       )}
@@ -109,13 +110,29 @@ export const FooterSection = () => {
             gap={10}
           >
             <Flex gap={5}>{logos}</Flex>
-            <Flex>
+            <Flex flexDirection={"column"} alignItems={"flex-end"}>
               <Text
                 fontSize="md"
-                whiteSpace="pre-line"
                 textTransform="uppercase"
+                fontFamily="Orbitron"
               >
-                Strategize{"\n"}Compete{"\n"}Conquer.
+                Strategize
+              </Text>
+
+              <Text
+                fontSize="md"
+                textTransform="uppercase"
+                fontFamily="Orbitron"
+              >
+                Compete
+              </Text>
+
+              <Text
+                fontSize="md"
+                textTransform="uppercase"
+                fontFamily="Orbitron"
+              >
+                Conquer.
               </Text>
             </Flex>
           </Flex>
@@ -136,10 +153,9 @@ export const FooterSection = () => {
           <Flex>
             <Text
               fontSize="1.5rem"
-              fontWeight={"semibold"}
               fontStyle="italic"
               textTransform="uppercase"
-              letterSpacing={"0.2rem"}
+              fontFamily="Orbitron"
             >
               SINCE 2024
             </Text>

@@ -98,7 +98,12 @@ export const BoxSection = () => {
           whileInView={{ opacity: [0, 1] }}
           transition={{ duration: 1.5 }}
         >
-          <Text fontSize="m" letterSpacing="widest" color="white">
+          <Text
+            fontSize="m"
+            letterSpacing="widest"
+            color="white"
+            fontFamily="Orbitron"
+          >
             STEP INTO
           </Text>
         </motion.div>
@@ -113,6 +118,7 @@ export const BoxSection = () => {
             textTransform="uppercase"
             textShadow="0 0 15px rgba(255, 255, 255, 0.9)"
             letterSpacing="widest"
+            fontFamily="Orbitron"
           >
             STRATEGY
           </Text>
