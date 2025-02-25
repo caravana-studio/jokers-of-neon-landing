@@ -62,8 +62,8 @@ export const CardsSection = () => {
       )}
       <Flex w="100%" maxHeight={"20%"} justify="center" overflow={"hidden"}>
         <motion.div
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          animate={{ x: ["80%", "-80%"] }}
+          transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
           style={{ whiteSpace: "nowrap", display: "inline-block" }}
         >
           <Text
@@ -72,9 +72,9 @@ export const CardsSection = () => {
             textTransform="uppercase"
             letterSpacing="wide"
             textShadow="0 0 10px rgba(255, 255, 255, 0.8)"
+            fontFamily="Orbitron"
           >
-            Build Your Deck, Rule the Game &nbsp;•&nbsp; Build Your Deck, Rule
-            the Game &nbsp;•&nbsp;
+            Build Your Deck, Rule the Game
           </Text>
         </motion.div>
       </Flex>
