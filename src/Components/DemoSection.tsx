@@ -117,14 +117,17 @@ export const DemoSection = () => {
               height="85%"
               border="none"
             />
-          </Flex>
 
-          <Flex
-            width={isMobile ? "unset" : "9%"}
-            height={isMobile ? "unset" : "1%"}
-            zIndex={1}
-          >
-            <Image src="/elements/mobile-home-mockup.png" />
+            <Flex
+              position="absolute"
+              top="10%"
+              left="80%"
+              width="78%"
+              height="85%"
+              zIndex={1}
+            >
+              <Image src="/elements/mobile-home-mockup.png" />
+            </Flex>
           </Flex>
         </Flex>
 
