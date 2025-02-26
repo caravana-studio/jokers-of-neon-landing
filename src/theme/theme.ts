@@ -70,6 +70,7 @@ export default {
     md: "78em",
     lg: "90em",
     xl: "125em",
+    xxl: "180em",
   },
 
   components: {
