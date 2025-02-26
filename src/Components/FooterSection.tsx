@@ -14,7 +14,11 @@ export const FooterSection = () => {
     >
       <Flex>
         <Text
-          fontSize={isMobile ? "xl" : "md"}
+          fontSize={{
+            base: isMobile ? "xl" : "md",
+            xl: "1.5rem",
+            xxl: "2rem",
+          }}
           letterSpacing={"0.3rem"}
           textTransform="uppercase"
           fontFamily="Orbitron"
@@ -27,17 +31,21 @@ export const FooterSection = () => {
         <Image
           src="/logos/starknet.png"
           alt="Starknet logo"
-          h={isMobile ? "50px" : "30px"}
+          h={{ base: isMobile ? "50px" : "30px", xxl: "50px" }}
         />
         <Image
           src="/logos/dojo.png"
           alt="Dojo logo"
-          h={isMobile ? "50px" : "30px"}
+          h={{ base: isMobile ? "50px" : "30px", xxl: "50px" }}
         />
       </Flex>
 
       {!isMobile && (
-        <Text fontSize="md" fontFamily="Orbitron" fontStyle="italic">
+        <Text
+          fontSize={{ base: "md", xl: "1.5rem", xxl: "2rem" }}
+          fontFamily="Orbitron"
+          fontStyle="italic"
+        >
           SINCE 2024
         </Text>
       )}
@@ -112,7 +120,7 @@ export const FooterSection = () => {
             <Flex gap={5}>{logos}</Flex>
             <Flex flexDirection={"column"} alignItems={"flex-end"}>
               <Text
-                fontSize="md"
+                fontSize={{ base: "md", xl: "1.5rem", xxl: "2rem" }}
                 textTransform="uppercase"
                 fontFamily="Orbitron"
               >
@@ -120,7 +128,7 @@ export const FooterSection = () => {
               </Text>
 
               <Text
-                fontSize="md"
+                fontSize={{ base: "md", xl: "1.5rem", xxl: "2rem" }}
                 textTransform="uppercase"
                 fontFamily="Orbitron"
               >
@@ -128,7 +136,7 @@ export const FooterSection = () => {
               </Text>
 
               <Text
-                fontSize="md"
+                fontSize={{ base: "md", xl: "1.5rem", xxl: "2rem" }}
                 textTransform="uppercase"
                 fontFamily="Orbitron"
               >
