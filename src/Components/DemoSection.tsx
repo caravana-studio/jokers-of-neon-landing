@@ -6,7 +6,7 @@ export const DemoSection = () => {
     <Flex justifyContent={"center"} alignContent={"center"} pt={"5%"}>
       <Text
         color="white"
-        fontSize={{ base: "xl", sm: "lg" }}
+        fontSize={{ base: "xl", md: "lg", xl: "2rem", xxl: "3rem" }}
         mb={2}
         sx={{
           position: "relative",
@@ -159,11 +159,18 @@ export const DemoSection = () => {
         </Flex>
 
         {!isMobile && (
-          <Flex flexDirection={"column"} gap={10}>
+          <Flex
+            flexDirection={"column"}
+            gap={{ base: "3rem", xl: "5rem", xxl: "7rem" }}
+          >
             {title}
             {/* Desc */}
             <Flex justifyContent={"center"} alignContent={"center"}>
-              <Text maxWidth={"30%"} textAlign={"center"}>
+              <Text
+                maxWidth={"30%"}
+                textAlign={"center"}
+                fontSize={{ base: "l", xl: "1.5rem", xxl: "2rem" }}
+              >
                 Step into a realm where every decision shapes your destiny.
                 Unveil the secrets of victory in our enigmatic strategic
                 deck-building game. Will you master the art of strategy and
