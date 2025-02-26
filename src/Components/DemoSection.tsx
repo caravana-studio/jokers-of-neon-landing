@@ -66,12 +66,12 @@ export const DemoSection = () => {
       <Box
         w="100vw"
         h="100vh"
-        bgImage="url('/bg/bg-bottom-2.png')"
+        bgImage="url('/bg/bg-bottom-3.png')"
         bgSize="cover"
-        bgPosition="center"
         color="white"
         overflow={"hidden"}
         position={"relative"}
+        bgColor={"black"}
       >
         {isMobile && <Flex flexDirection={"column"}>{title}</Flex>}
 
