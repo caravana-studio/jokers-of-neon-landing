@@ -34,15 +34,31 @@ export const HomeSection = () => {
 
   const DesktopNav = () => (
     <Flex justify="space-between" align="center" px={6} py={2}>
-      <Image src="/logos/jn-logo.png" alt="Jokers of Neon Logo" h="40px" />
+      <Image
+        src="/logos/jn-logo.png"
+        alt="Jokers of Neon Logo"
+        h={{ base: "40px", md: "40px", xl: "80px" }}
+      />
       <Flex width={"50%"} justify="space-around" align="center">
-        <Link href="#" fontSize="sm" textTransform="uppercase">
+        <Link
+          href="#"
+          fontSize={{ base: "sm", md: "sm", xl: "0.8rem", xxl: "1.3rem" }}
+          textTransform="uppercase"
+        >
           About Game
         </Link>
-        <Link href="#" fontSize="sm" textTransform="uppercase">
+        <Link
+          href="#"
+          fontSize={{ base: "sm", md: "sm", xl: "0.8rem", xxl: "1.3rem" }}
+          textTransform="uppercase"
+        >
           Play
         </Link>
-        <Link href="#" fontSize="sm" textTransform="uppercase">
+        <Link
+          href="#"
+          fontSize={{ base: "sm", md: "sm", xl: "0.8rem", xxl: "1.3rem" }}
+          textTransform="uppercase"
+        >
           Contact
         </Link>
       </Flex>

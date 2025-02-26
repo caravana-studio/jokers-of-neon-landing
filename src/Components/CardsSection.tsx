@@ -28,9 +28,9 @@ export const CardsSection = () => {
           "md",
           "lg",
           "2xl",
-          "2xl",
-          "3rem",
-          "3.8rem",
+          "3xl",
+          "2.2rem",
+          "3.6rem",
         ]}
         textTransform="uppercase"
         textAlign={"justify"}

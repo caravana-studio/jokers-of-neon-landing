@@ -46,6 +46,7 @@ export const BoxSection = () => {
       bgPosition="center"
       color="white"
       overflow={"hidden"}
+      bgColor={"black"}
     >
       {/* Title */}
       <Flex
@@ -99,7 +100,7 @@ export const BoxSection = () => {
           transition={{ duration: 1.5 }}
         >
           <Text
-            fontSize="m"
+            fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
             letterSpacing="widest"
             color="white"
             fontFamily="Orbitron"
@@ -113,7 +114,12 @@ export const BoxSection = () => {
           transition={{ duration: 1.5 }}
         >
           <Text
-            fontSize={{ base: "3xl", md: "3.5rem" }}
+            fontSize={{
+              base: "3xl",
+              md: "3.5rem",
+              xl: "4rem",
+              xxl: "7rem",
+            }}
             fontWeight="bold"
             textTransform="uppercase"
             textShadow="0 0 15px rgba(255, 255, 255, 0.9)"
