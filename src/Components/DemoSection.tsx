@@ -39,6 +39,25 @@ export const DemoSection = () => {
       </Text>
     </Button>
   );
+
+  const mobileMockUp = (
+    <Flex position={"relative"}>
+      <Image src="/elements/mobile-home-mockup.png" zIndex={2} />
+      <Box
+        as="iframe"
+        src="https://www.youtube.com/embed/iD-eBTScE-o?autoplay=1&mute=1&loop=1&playlist=iD-eBTScE-o"
+        position="absolute"
+        bottom="2%"
+        left="3%"
+        width="90%"
+        height="100%"
+        border="none"
+        zIndex={0}
+        allow="autoplay; encrypted-media; loop"
+      />
+    </Flex>
+  );
+
   return (
     <>
       <Flex
@@ -81,19 +100,23 @@ export const DemoSection = () => {
           flexDirection={isMobile ? "column" : "row"}
           gap={isMobile ? 20 : 0}
           pt={isMobile ? "25%" : 0}
-          sx={{
-            position: "relative",
-            _before: {
-              content: '""',
-              position: "absolute",
-              bottom: 0,
-              height: "100%",
-              width: "2px",
-              backgroundColor: "white",
-              boxShadow:
-                "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
-            },
-          }}
+          sx={
+            isMobile
+              ? {
+                  position: "relative",
+                  _before: {
+                    content: '""',
+                    position: "absolute",
+                    bottom: 0,
+                    height: "100%",
+                    width: "2px",
+                    backgroundColor: "white",
+                    boxShadow:
+                      "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+                  },
+                }
+              : {}
+          }
         >
           <Flex width={isMobile ? "90%" : "40%"} position="relative">
             <Image src="/elements/mockup.png" />
@@ -111,24 +134,28 @@ export const DemoSection = () => {
               as="iframe"
               src="https://www.youtube.com/embed/EvQawPSkAfE?loop=1&playlist=EvQawPSkAfE&autoplay=1&mute=1"
               position="absolute"
-              top="5%"
+              top={"2%"}
               left="11.5%"
               width="78%"
-              height="85%"
+              height="87%"
               border="none"
             />
 
-            <Flex
-              position="absolute"
-              top="10%"
-              left="80%"
-              width="78%"
-              height="85%"
-              zIndex={1}
-            >
-              <Image src="/elements/mobile-home-mockup.png" />
-            </Flex>
+            {!isMobile && (
+              <Flex
+                position="absolute"
+                top="10%"
+                left="80%"
+                width="78%"
+                height="85%"
+                zIndex={1}
+              >
+                {mobileMockUp}
+              </Flex>
+            )}
           </Flex>
+
+          {isMobile && <Flex zIndex={1}>{mobileMockUp} </Flex>}
         </Flex>
 
         {!isMobile && (
