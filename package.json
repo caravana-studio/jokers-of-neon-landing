@@ -13,12 +13,13 @@
     "@chakra-ui/anatomy": "^2.1.1",
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
-    "react-device-detect": "^2.2.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "@esotericsoftware/spine-player": "^4.2.36",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
-    "@fortawesome/react-fontawesome": "^0.2.0"
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
+    "react-dom": "^18.2.0",
+    "swiper": "^11.2.4"
   },
   "devDependencies": {
     "@svgx/vite-plugin-react": "^1.0.1",

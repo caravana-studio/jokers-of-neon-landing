@@ -5,6 +5,10 @@ import SpineAnimation, { SpineAnimationRef } from "./SpineAnimation";
 import { useRef } from "react";
 import { CARD_HEIGHT } from "../constants/visualProps";
 import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
 
 const SIZE_MULTIPLIER = isMobile ? 0.5 : 2;
 const { white, neonGreen } = theme.colors;
@@ -35,6 +39,163 @@ export const BoxSection = () => {
       xOffset={-650}
       scale={1}
     />
+  );
+
+  const specialBox = (
+    <Flex
+      flexDirection={"column"}
+      justifyContent={"center"}
+      minHeight={isMobile ? "80%" : "unset"}
+      height={isMobile ? "unset" : "80%"}
+      pt={"5%"}
+    >
+      <Flex
+        flexDirection={"column"}
+        justifyContent={"center"}
+        width={{ base: "85%", sm: "60%" }}
+        margin={"0 auto"}
+        bg="rgba(0, 0, 0, 0.6)"
+        borderRadius="25px"
+        p={6}
+        boxShadow={`0px 0px 10px 1px ${white}`}
+        zIndex={1}
+      >
+        <Flex
+          flexDirection={{ base: "column", sm: "row" }}
+          alignItems="center"
+          gap={4}
+          flex="1"
+          height="100%"
+        >
+          <Flex
+            w={{ base: "100%", sm: "35%" }}
+            h={`${CARD_HEIGHT * SIZE_MULTIPLIER + 30}px`}
+            justifyContent="center"
+            flexDir="column"
+          >
+            {spineAnim}
+          </Flex>
+
+          <Flex
+            flexDirection={"column"}
+            width="100%"
+            ml={{ base: "15px", sm: "30px" }}
+            flex="1"
+            height="100%"
+            justifyContent={"space-between"}
+          >
+            <Flex justifyContent="space-between" alignItems="center">
+              <Heading size={{ base: "sm", sm: "l" }} variant="italic">
+                SPECIAL PACKS
+              </Heading>
+              {!isMobile && (
+                <Image
+                  src={`/logos/jn-logo.png`}
+                  alt={"JN logo"}
+                  width="120px"
+                />
+              )}
+            </Flex>
+
+            <Box mb={4}>
+              <Text
+                color="white"
+                fontSize={{ base: "md", sm: "lg" }}
+                mb={2}
+                sx={{
+                  position: "relative",
+                  _before: {
+                    content: '""',
+                    position: "absolute",
+                    bottom: 0,
+                    width: "95%",
+                    height: "2px",
+                    backgroundColor: "white",
+                    boxShadow:
+                      "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+                  },
+                }}
+              >
+                DESCRIPTION:
+              </Text>
+              <Text color={neonGreen} fontSize={{ base: "md", sm: "xl" }}>
+                More chances of getting a special card.
+              </Text>
+            </Box>
+
+            {details && (
+              <Box mb={4}>
+                <Text
+                  color="white"
+                  fontSize={{ base: "md", sm: "lg" }}
+                  mb={2}
+                  sx={{
+                    position: "relative",
+                    _before: {
+                      content: '""',
+                      position: "absolute",
+                      bottom: 0,
+                      width: "95%",
+                      height: "2px",
+                      backgroundColor: "white",
+                      boxShadow:
+                        "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+                    },
+                  }}
+                >
+                  DETAILS:
+                </Text>
+                <Text color={neonGreen} fontSize={{ base: "md", sm: "xl" }}>
+                  {details?.split("\n").map((line, index) => (
+                    <span key={index}>
+                      {line}
+                      <br />
+                    </span>
+                  ))}
+                </Text>
+              </Box>
+            )}
+            <Box flex={1} alignItems={"end"} display={"flex"} flexDir={"row"}>
+              <Flex flexDirection={"column"} gap={5}>
+                <Flex gap={3}>
+                  <Flex gap={3}>
+                    <Heading
+                      fontSize={{ base: "sm", sm: "lg" }}
+                      variant="italic"
+                    >
+                      Price:
+                    </Heading>
+                    <Heading
+                      fontSize={{ base: "sm", sm: "lg" }}
+                      variant="italic"
+                      textDecoration={"none"}
+                    >
+                      750
+                      <span
+                        style={{ fontFamily: "Orbitron", marginLeft: "3px" }}
+                      >
+                        ¢
+                      </span>
+                    </Heading>
+                  </Flex>
+                </Flex>
+              </Flex>
+            </Box>
+          </Flex>
+        </Flex>
+      </Flex>
+
+      <Flex
+        width="60%"
+        gap={4}
+        m={1000}
+        mt={{ base: 4, sm: 8 }}
+        mb={4}
+        justifyContent={"space-between"}
+        margin={"0 auto"}
+        flexDirection={{ base: "column", sm: "row" }}
+      ></Flex>
+    </Flex>
   );
 
   return (
@@ -132,172 +293,15 @@ export const BoxSection = () => {
       </Flex>
 
       {/* Box preview */}
-      <Flex
-        flexDirection={"column"}
-        justifyContent={"center"}
-        minHeight={isMobile ? "80%" : "unset"}
-        height={isMobile ? "unset" : "80%"}
+      <Swiper
+        modules={[Pagination]}
+        spaceBetween={30}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        loop={true}
       >
-        <Flex
-          flexDirection={"column"}
-          justifyContent={"center"}
-          width={{ base: "85%", sm: "60%" }}
-          margin={"0 auto"}
-          bg="rgba(0, 0, 0, 0.6)"
-          borderRadius="25px"
-          p={6}
-          boxShadow={`0px 0px 10px 1px ${white}`}
-          zIndex={1}
-        >
-          <Flex
-            flexDirection={{ base: "column", sm: "row" }}
-            alignItems="center"
-            gap={4}
-            flex="1"
-            height="100%"
-          >
-            <Flex
-              w={{ base: "100%", sm: "35%" }}
-              h={`${CARD_HEIGHT * SIZE_MULTIPLIER + 30}px`}
-              justifyContent="center"
-              flexDir="column"
-            >
-              {spineAnim}
-            </Flex>
-
-            <Flex
-              flexDirection={"column"}
-              width="100%"
-              ml={{ base: "15px", sm: "30px" }}
-              flex="1"
-              height="100%"
-              justifyContent={"space-between"}
-            >
-              <Flex justifyContent="space-between" alignItems="center">
-                <Heading size={{ base: "sm", sm: "l" }} variant="italic">
-                  SPECIAL PACKS
-                </Heading>
-                {!isMobile && (
-                  <Image
-                    src={`/logos/jn-logo.png`}
-                    alt={"JN logo"}
-                    width="120px"
-                  />
-                )}
-              </Flex>
-
-              <Box mb={4}>
-                <Text
-                  color="white"
-                  fontSize={{ base: "md", sm: "lg" }}
-                  mb={2}
-                  sx={{
-                    position: "relative",
-                    _before: {
-                      content: '""',
-                      position: "absolute",
-                      bottom: 0,
-                      width: "95%",
-                      height: "2px",
-                      backgroundColor: "white",
-                      boxShadow:
-                        "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
-                    },
-                  }}
-                >
-                  DESCRIPTION:
-                </Text>
-                <Text color={neonGreen} fontSize={{ base: "md", sm: "xl" }}>
-                  More chances of getting a special card.
-                </Text>
-              </Box>
-
-              {details && (
-                <Box mb={4}>
-                  <Text
-                    color="white"
-                    fontSize={{ base: "md", sm: "lg" }}
-                    mb={2}
-                    sx={{
-                      position: "relative",
-                      _before: {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        width: "95%",
-                        height: "2px",
-                        backgroundColor: "white",
-                        boxShadow:
-                          "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
-                      },
-                    }}
-                  >
-                    DETAILS:
-                  </Text>
-                  <Text color={neonGreen} fontSize={{ base: "md", sm: "xl" }}>
-                    {details?.split("\n").map((line, index) => (
-                      <span key={index}>
-                        {line}
-                        <br />
-                      </span>
-                    ))}
-                  </Text>
-                </Box>
-              )}
-              <Box flex={1} alignItems={"end"} display={"flex"} flexDir={"row"}>
-                <Flex flexDirection={"column"} gap={5}>
-                  <Flex gap={3}>
-                    <Flex gap={3}>
-                      <Heading
-                        fontSize={{ base: "sm", sm: "lg" }}
-                        variant="italic"
-                      >
-                        Price:
-                      </Heading>
-                      <Heading
-                        fontSize={{ base: "sm", sm: "lg" }}
-                        variant="italic"
-                        textDecoration={"none"}
-                      >
-                        750
-                        <span
-                          style={{ fontFamily: "Orbitron", marginLeft: "3px" }}
-                        >
-                          ¢
-                        </span>
-                      </Heading>
-                    </Flex>
-                  </Flex>
-                </Flex>
-              </Box>
-            </Flex>
-          </Flex>
-        </Flex>
-
-        <Flex
-          width="60%"
-          gap={4}
-          m={1000}
-          mt={{ base: 4, sm: 8 }}
-          mb={4}
-          justifyContent={"space-between"}
-          margin={"0 auto"}
-          flexDirection={{ base: "column", sm: "row" }}
-        >
-          {/* <Coins />
-          <HStack gap={4}>
-            {buyButton}
-            <Button
-              variant="outlineSecondaryGlow"
-              onClick={() => navigate("/store")}
-              height={{ base: "40px", sm: "100%" }}
-              width={{ base: "50%", sm: "unset" }}
-            >
-              {t("store.preview-card.labels.close")}
-            </Button>
-          </HStack> */}
-        </Flex>
-      </Flex>
+        {specialBox}
+      </Swiper>
 
       {/* icons */}
       <Flex></Flex>
