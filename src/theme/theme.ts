@@ -62,6 +62,12 @@ export default {
         height: "100vh",
         width: "100vw",
       },
+      ".swiper-pagination-bullet": {
+        backgroundColor: "white !important",
+      },
+      ".swiper-pagination-bullet-active": {
+        backgroundColor: "white !important",
+      },
     },
   },
   breakpoints: {
