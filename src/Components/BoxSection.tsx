@@ -512,7 +512,78 @@ export const BoxSection = () => {
             {/* Box preview */}
             {specialBox}
           </SwiperSlide>
-          <SwiperSlide>{jokerCard}</SwiperSlide>
+          <SwiperSlide>
+            {/* Title */}
+            <Flex
+              position="relative"
+              pt={isMobile ? 3 : 100}
+              justify={"center"}
+              alignItems={"center"}
+              flexDir={"column"}
+            >
+              <Box
+                position="absolute"
+                right={isMobile ? "0%" : "30%"}
+                width={"100%"}
+              >
+                <motion.img
+                  width={isMobile ? "12%" : "8%"}
+                  src="/elements/coins-1.png"
+                  alt="Coin 1"
+                  style={{
+                    position: "absolute",
+                    bottom: "0%",
+                    left: isMobile ? "70%" : "85%",
+                  }}
+                  initial={{ rotate: 0 }}
+                  whileInView={{ rotate: [0, -15, 15, 0] }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </Box>
+
+              <motion.div
+                whileInView={{ opacity: [0, 1] }}
+                transition={{ duration: 1.5 }}
+              >
+                <Text
+                  fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
+                  letterSpacing="widest"
+                  color="white"
+                  fontFamily="Orbitron"
+                >
+                  STEP INTO
+                </Text>
+              </motion.div>
+
+              <motion.div
+                whileInView={{ opacity: [0, 1], y: [20, 0] }}
+                transition={{ duration: 1.5 }}
+              >
+                <Text
+                  fontSize={{
+                    base: "3xl",
+                    md: "3.5rem",
+                    xl: "4rem",
+                    xxl: "7rem",
+                  }}
+                  fontWeight="bold"
+                  textTransform="uppercase"
+                  textShadow="0 0 15px rgba(255, 255, 255, 0.9)"
+                  letterSpacing="widest"
+                  fontFamily="Orbitron"
+                >
+                  BOOSTING
+                </Text>
+              </motion.div>
+            </Flex>
+
+            {/* Joker preview */}
+            {jokerCard}
+          </SwiperSlide>
         </Swiper>
 
         {/* Swiper navigation arrows */}
