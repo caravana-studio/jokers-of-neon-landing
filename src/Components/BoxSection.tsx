@@ -473,6 +473,48 @@ export const BoxSection = () => {
     </Flex>
   );
 
+  const leaderboard = (
+    <Flex
+      flexDirection={"column"}
+      justifyContent={"center"}
+      pt={"5%"}
+      pb={isMobile ? "5%" : 0}
+    >
+      <Flex
+        flexDirection={"column"}
+        alignItems={"center"}
+        width={{ base: "85%", sm: "50%" }}
+        margin={"0 auto"}
+        bg="rgba(0, 0, 0, 0.6)"
+        borderRadius="25px"
+        p={6}
+        boxShadow={`0px 0px 10px 1px ${white}`}
+        zIndex={1}
+        height={"100%"}
+      >
+        <Image
+          src={
+            isMobile
+              ? "/elements/leaderboard-mobile.png"
+              : "/elements/leaderboard.png"
+          }
+          borderRadius="25px"
+        />
+      </Flex>
+
+      <Flex
+        width="60%"
+        gap={4}
+        m={1000}
+        mt={{ base: 4, sm: 8 }}
+        mb={4}
+        justifyContent={"space-between"}
+        margin={"0 auto"}
+        flexDirection={{ base: "column", sm: "row" }}
+      ></Flex>
+    </Flex>
+  );
+
   return (
     <Box
       w="100vw"
@@ -494,7 +536,7 @@ export const BoxSection = () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          // autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop={true}
         >
           <SwiperSlide>
@@ -670,6 +712,55 @@ export const BoxSection = () => {
 
             {/* Joker preview */}
             {jokerCard}
+          </SwiperSlide>
+
+          <SwiperSlide>
+            {/* Title */}
+            <Flex
+              position="relative"
+              pt={isMobile ? 3 : 100}
+              justify={"center"}
+              alignItems={"center"}
+              flexDir={"column"}
+            >
+              <motion.div
+                whileInView={{ opacity: [0, 1] }}
+                transition={{ duration: 1.5 }}
+              >
+                <Text
+                  fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
+                  letterSpacing="widest"
+                  color="white"
+                  fontFamily="Orbitron"
+                >
+                  STEP INTO
+                </Text>
+              </motion.div>
+
+              <motion.div
+                whileInView={{ opacity: [0, 1], y: [20, 0] }}
+                transition={{ duration: 1.5 }}
+              >
+                <Text
+                  fontSize={{
+                    base: "3xl",
+                    md: "3.5rem",
+                    xl: "4rem",
+                    xxl: "7rem",
+                  }}
+                  fontWeight="bold"
+                  textTransform="uppercase"
+                  textShadow="0 0 15px rgba(255, 255, 255, 0.9)"
+                  letterSpacing="widest"
+                  fontFamily="Orbitron"
+                >
+                  COMPETENCE
+                </Text>
+              </motion.div>
+            </Flex>
+
+            {/* Leaderboard preview */}
+            {leaderboard}
           </SwiperSlide>
         </Swiper>
 
