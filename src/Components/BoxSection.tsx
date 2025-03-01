@@ -78,12 +78,16 @@ export const BoxSection = () => {
             w={{ base: "100%", sm: "35%" }}
             h={{
               base: `${CARD_HEIGHT * 2 + 30}px`,
-              xl: `${CARD_HEIGHT * 3 + 30}px`,
+              xl: `${CARD_HEIGHT * 2.5 + 30}px`,
+              xxl: `${CARD_HEIGHT * 3 + 30}px`,
             }}
             justifyContent="center"
             flexDir="column"
           >
             {spineAnim}
+          </Flex>
+          <Flex position={"absolute"} bottom={0} right={"-13.5%"} width={"20%"}>
+            <Image src="/elements/star.png" />
           </Flex>
           <Flex width={isMobile ? "100%" : "75%"}>
             <Flex
