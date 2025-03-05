@@ -23,10 +23,18 @@ export const CardsSection = () => {
     >
       <Text
         mt={6}
-        fontSize={isMobile ? "60%" : "1.7rem"}
+        fontSize={[
+          isMobile ? "sm" : "2xs",
+          "md",
+          "lg",
+          "2xl",
+          "3xl",
+          "2.2rem",
+          "3.6rem",
+        ]}
         textTransform="uppercase"
         textAlign={"justify"}
-        maxW="60vw"
+        maxW="100%"
         mx="auto"
       >
         This game challenges you to accumulate points, enhance your deck, and
@@ -38,6 +46,7 @@ export const CardsSection = () => {
       </Text>
     </Box>
   );
+
   return (
     <Box
       bg="black"
@@ -47,6 +56,7 @@ export const CardsSection = () => {
       textAlign="center"
       w="100vw"
       h="100vh"
+      overflow={isMobile ? "hidden" : "unset"}
     >
       {isMobile && (
         <Flex
@@ -62,8 +72,8 @@ export const CardsSection = () => {
       )}
       <Flex w="100%" maxHeight={"20%"} justify="center" overflow={"hidden"}>
         <motion.div
-          animate={{ x: ["100%", "-100%"] }}
-          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          animate={{ x: ["80%", "-80%"] }}
+          transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
           style={{ whiteSpace: "nowrap", display: "inline-block" }}
         >
           <Text
@@ -72,23 +82,30 @@ export const CardsSection = () => {
             textTransform="uppercase"
             letterSpacing="wide"
             textShadow="0 0 10px rgba(255, 255, 255, 0.8)"
+            fontFamily="Orbitron"
           >
-            Build Your Deck, Rule the Game &nbsp;•&nbsp; Build Your Deck, Rule
-            the Game &nbsp;•&nbsp;
+            Build Your Deck, Rule the Game
           </Text>
         </motion.div>
       </Flex>
 
       <Flex
         flexDirection={isMobile ? "column" : "row"}
-        justify="space-around"
+        justify="space-evenly"
         alignItems={"center"}
         width={"100%"}
-        gap={isMobile ? 5 : 20}
-        mt={isMobile ? 10 : 0}
+        gap={isMobile ? 5 : 0}
+        mt={"2%"}
       >
-        <Flex flexDirection={"row"} gap={20} alignItems={"center"}>
-          <Flex flexDirection={isMobile ? "row" : "column"} gap={10}>
+        <Flex
+          flexDirection={"row"}
+          gap={isMobile ? 20 : "8vw"}
+          alignItems={"center"}
+        >
+          <Flex
+            flexDirection={isMobile ? "row" : "column"}
+            gap={isMobile ? 10 : "4vw"}
+          >
             <CosmicCards cardUrl="/elements/cards/card-1.png" rotate={-15} />
             <Flex mt={isMobile ? 5 : 0}>
               <CosmicCards cardUrl="/elements/cards/card-3.png" rotate={5} />
@@ -101,7 +118,7 @@ export const CardsSection = () => {
           )}
         </Flex>
 
-        <Flex width={isMobile ? "80%" : "40%"} position="relative">
+        <Flex width={isMobile ? "80%" : "30%"} position="relative">
           {textElement}
         </Flex>
 
