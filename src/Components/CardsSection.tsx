@@ -23,15 +23,13 @@ export const CardsSection = () => {
     >
       <Text
         mt={6}
-        fontSize={[
-          isMobile ? "sm" : "2xs",
-          "md",
-          "lg",
-          "2xl",
-          "3xl",
-          "2.2rem",
-          "3.6rem",
-        ]}
+        fontSize={{
+          base: isMobile ? "sm" : "md",
+          md: "xl",
+          lg: "1.55rem",
+          xl: "4xl",
+          xxl: "5xl",
+        }}
         textTransform="uppercase"
         textAlign={"justify"}
         maxW="100%"
@@ -55,7 +53,7 @@ export const CardsSection = () => {
       px={isMobile ? 0 : 6}
       textAlign="center"
       w="100vw"
-      h="100vh"
+      h={isMobile ? "100vh" : "120vh"}
       overflow={isMobile ? "hidden" : "unset"}
     >
       {isMobile && (

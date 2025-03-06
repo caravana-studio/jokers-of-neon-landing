@@ -177,7 +177,6 @@ export const HomeSection = () => {
         }}
         textTransform="uppercase"
         letterSpacing={{ base: "0.3rem", xl: "0.5rem", xxl: "0.8rem" }}
-        // font-weight={{ base: 500, xl: 800, xxl: 1000 }}
         fontWeight="semibold"
       >
         Powered by
