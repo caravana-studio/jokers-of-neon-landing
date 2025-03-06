@@ -24,7 +24,9 @@ export const CardsSection = () => {
       <Text
         mt={6}
         fontSize={{
-          base: isMobile ? "sm" : "md",
+          base: isMobile ? "xs" : "md",
+          se: "2xs",
+          mb: "sm",
           md: "xl",
           lg: "1.55rem",
           xl: "4xl",
@@ -53,7 +55,7 @@ export const CardsSection = () => {
       px={isMobile ? 0 : 6}
       textAlign="center"
       w="100vw"
-      h={isMobile ? "100vh" : "120vh"}
+      h={isMobile ? "110vh" : "120vh"}
       overflow={isMobile ? "hidden" : "unset"}
     >
       {isMobile && (
@@ -99,6 +101,7 @@ export const CardsSection = () => {
           flexDirection={"row"}
           gap={isMobile ? 20 : "8vw"}
           alignItems={"center"}
+          mt={isMobile ? 5 : 0}
         >
           <Flex
             flexDirection={isMobile ? "row" : "column"}

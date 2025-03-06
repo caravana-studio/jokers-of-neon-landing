@@ -72,6 +72,8 @@ export default {
   },
   breakpoints: {
     base: "0em",
+    se: "23.4375em", // iPhone SE
+    mb: "24em",
     sm: "42em",
     md: "78em",
     lg: "90em",
