@@ -9,7 +9,7 @@ export const DemoSection = () => {
       pt={isMobile ? 0 : "5%"}
     >
       <Text
-        font-family={"Orbitron"}
+        fontFamily={"Orbitron"}
         color="white"
         fontSize={{ base: "1.2rem", md: "lg", xl: "2rem", xxl: "3rem" }}
         fontWeight={"semibold"}
@@ -245,7 +245,9 @@ export const DemoSection = () => {
                   <Text
                     maxWidth={"80%"}
                     textAlign={"center"}
-                    fontSize={{ se: "md", mb: "xl" }}
+                    fontSize={{ se: "xs", mb: "md" }}
+                    letterSpacing={"2px"}
+                    fontFamily={"Orbitron"}
                   >
                     Step into a realm where every decision shapes your destiny.
                   </Text>
@@ -254,7 +256,9 @@ export const DemoSection = () => {
                   <Text
                     maxWidth={"80%"}
                     textAlign={"center"}
-                    fontSize={{ se: "md", mb: "xl" }}
+                    fontSize={{ se: "xs", mb: "md" }}
+                    letterSpacing={"2px"}
+                    fontFamily={"Orbitron"}
                   >
                     Unveil the secrets of victory in our enigmatic strategic
                     deck-building game.
@@ -265,7 +269,9 @@ export const DemoSection = () => {
                   <Text
                     maxWidth={"80%"}
                     textAlign={"center"}
-                    fontSize={{ se: "md", mb: "xl" }}
+                    fontSize={{ se: "xs", mb: "md" }}
+                    letterSpacing={"2px"}
+                    fontFamily={"Orbitron"}
                   >
                     Will you master the art of strategy and emerge triumphant?
                   </Text>
