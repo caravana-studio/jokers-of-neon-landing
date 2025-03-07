@@ -91,7 +91,7 @@ export const DemoSection = () => {
 
       <Box
         w="100vw"
-        h="100vh"
+        h={isMobile ? "100vh" : "110vh"}
         bgImage="url('/bg/bg-bottom-3.png')"
         bgSize="cover"
         color="white"
@@ -176,16 +176,39 @@ export const DemoSection = () => {
           >
             {title}
             {/* Desc */}
-            <Flex justifyContent={"center"} alignContent={"center"}>
+            <Flex
+              flexDir={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
               <Text
-                maxWidth={"30%"}
+                fontFamily={"Orbitron"}
+                maxWidth={"60%"}
                 textAlign={"center"}
-                fontSize={{ base: "l", xl: "1.5rem", xxl: "2rem" }}
+                fontSize={{ base: "sm", xl: "1.5rem", xxl: "2rem" }}
+                letterSpacing={"2px"}
+                pb={"2%"}
               >
                 Step into a realm where every decision shapes your destiny.
+              </Text>
+              <Text
+                fontFamily={"Orbitron"}
+                maxWidth={"40%"}
+                textAlign={"center"}
+                fontSize={{ base: "sm", xl: "1.5rem", xxl: "2rem" }}
+                letterSpacing={"2px"}
+              >
                 Unveil the secrets of victory in our enigmatic strategic
-                deck-building game. Will you master the art of strategy and
-                emerge triumphant?
+                deck-building game.
+              </Text>
+              <Text
+                fontFamily={"Orbitron"}
+                maxWidth={"60%"}
+                textAlign={"center"}
+                fontSize={{ base: "sm", xl: "1.5rem", xxl: "2rem" }}
+                letterSpacing={"2px"}
+              >
+                Will you master the art of strategy and emerge triumphant?
               </Text>
             </Flex>
 
