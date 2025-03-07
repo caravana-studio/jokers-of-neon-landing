@@ -3,22 +3,29 @@ import { isMobile } from "react-device-detect";
 
 export const DemoSection = () => {
   const title = (
-    <Flex justifyContent={"center"} alignContent={"center"} pt={"5%"}>
+    <Flex
+      justifyContent={"center"}
+      alignContent={"center"}
+      pt={isMobile ? 0 : "5%"}
+    >
       <Text
+        font-family={"Orbitron"}
         color="white"
-        fontSize={{ base: "xl", md: "lg", xl: "2rem", xxl: "3rem" }}
+        fontSize={{ base: "1.2rem", md: "lg", xl: "2rem", xxl: "3rem" }}
+        fontWeight={"semibold"}
         mb={2}
+        pb={4}
         sx={{
           position: "relative",
           _before: {
             content: '""',
             position: "absolute",
             bottom: 0,
-            width: "95%",
-            height: "2px",
+            width: "100%",
+            height: "1px",
             backgroundColor: "white",
             boxShadow:
-              "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+              "0px 0px 20px rgba(255, 255, 255, 1), 0px 0px 20px rgba(255, 255, 255, 1), 0px 0px 10px rgba(255, 255, 255, 1)",
           },
         }}
       >
@@ -50,7 +57,7 @@ export const DemoSection = () => {
         bottom="2%"
         left="3%"
         width="90%"
-        height="100%"
+        height="95%"
         border="none"
         zIndex={0}
         allow="autoplay; encrypted-media; loop"
@@ -107,18 +114,18 @@ export const DemoSection = () => {
                   _before: {
                     content: '""',
                     position: "absolute",
-                    bottom: 0,
-                    height: "100%",
-                    width: "2px",
+                    top: -2,
+                    height: "105%",
+                    width: "1px",
                     backgroundColor: "white",
                     boxShadow:
-                      "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+                      "0px 0px 20px rgba(255, 255, 255, 1), 0px 0px 20px rgba(255, 255, 255, 1), 0px 6px 10px rgba(255, 255, 255, 1)",
                   },
                 }
               : {}
           }
         >
-          <Flex width={isMobile ? "90%" : "40%"} position="relative">
+          <Flex width={isMobile ? "70%" : "40%"} position="relative">
             <Image src="/elements/mockup.png" />
 
             <Image
@@ -126,7 +133,7 @@ export const DemoSection = () => {
               top="5"
               left="11.8%"
               width="77.2%"
-              height="80%"
+              height="70%"
               src="/elements/demo.png"
             />
 
@@ -155,7 +162,11 @@ export const DemoSection = () => {
             )}
           </Flex>
 
-          {isMobile && <Flex zIndex={1}>{mobileMockUp} </Flex>}
+          {isMobile && (
+            <Flex zIndex={1} width={"30%"} justifyContent={"center"}>
+              {mobileMockUp}{" "}
+            </Flex>
+          )}
         </Flex>
 
         {!isMobile && (
@@ -202,7 +213,7 @@ export const DemoSection = () => {
             width="90%"
             backgroundRepeat="space"
             backgroundSize="52px auto"
-            bottom="0"
+            bottom="-2%"
             zIndex={1}
           />
         )}
@@ -231,19 +242,31 @@ export const DemoSection = () => {
                 gap={5}
               >
                 <Flex justifyContent={"center"} alignContent={"center"}>
-                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                  <Text
+                    maxWidth={"80%"}
+                    textAlign={"center"}
+                    fontSize={{ se: "md", mb: "xl" }}
+                  >
                     Step into a realm where every decision shapes your destiny.
                   </Text>
                 </Flex>
                 <Flex justifyContent={"center"} alignContent={"center"}>
-                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                  <Text
+                    maxWidth={"80%"}
+                    textAlign={"center"}
+                    fontSize={{ se: "md", mb: "xl" }}
+                  >
                     Unveil the secrets of victory in our enigmatic strategic
                     deck-building game.
                   </Text>
                 </Flex>
 
                 <Flex justifyContent={"center"} alignContent={"center"}>
-                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                  <Text
+                    maxWidth={"80%"}
+                    textAlign={"center"}
+                    fontSize={{ se: "md", mb: "xl" }}
+                  >
                     Will you master the art of strategy and emerge triumphant?
                   </Text>
                 </Flex>
