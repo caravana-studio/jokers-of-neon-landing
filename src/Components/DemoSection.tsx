@@ -185,7 +185,7 @@ export const DemoSection = () => {
                 fontFamily={"Orbitron"}
                 maxWidth={"60%"}
                 textAlign={"center"}
-                fontSize={{ base: "sm", xl: "1.5rem", xxl: "2rem" }}
+                fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
                 letterSpacing={"2px"}
                 pb={"2%"}
               >
@@ -195,7 +195,7 @@ export const DemoSection = () => {
                 fontFamily={"Orbitron"}
                 maxWidth={"40%"}
                 textAlign={"center"}
-                fontSize={{ base: "sm", xl: "1.5rem", xxl: "2rem" }}
+                fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
                 letterSpacing={"2px"}
               >
                 Unveil the secrets of victory in our enigmatic strategic
@@ -205,7 +205,7 @@ export const DemoSection = () => {
                 fontFamily={"Orbitron"}
                 maxWidth={"60%"}
                 textAlign={"center"}
-                fontSize={{ base: "sm", xl: "1.5rem", xxl: "2rem" }}
+                fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
                 letterSpacing={"2px"}
               >
                 Will you master the art of strategy and emerge triumphant?
