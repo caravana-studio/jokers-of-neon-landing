@@ -48,7 +48,7 @@ export const DemoSection = () => {
   );
 
   const mobileMockUp = (
-    <Flex position={"relative"} width={"40%"}>
+    <Flex position={"relative"} width={isMobile ? "100%" : "40%"}>
       <Image src="/elements/mobile-home-mockup.png" zIndex={2} />
       <Box
         as="iframe"
@@ -56,7 +56,7 @@ export const DemoSection = () => {
         position="absolute"
         bottom="2%"
         left="3%"
-        width="74%"
+        width={isMobile ? "90%" : "74%"}
         height="95%"
         border="none"
         zIndex={0}
