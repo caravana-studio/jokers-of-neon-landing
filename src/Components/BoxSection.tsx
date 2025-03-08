@@ -42,27 +42,22 @@ export const BoxSection = () => {
   );
 
   const specialBox = (
-    <Flex
-      flexDirection={"column"}
-      justifyContent={"center"}
-      pt={"5%"}
-      pb={isMobile ? "5%" : 0}
-    >
+    <Flex flexDirection={"column"} justifyContent={"center"} pt={"5%"} pb={0}>
       <Flex
         flexDirection={"column"}
         alignItems={"flex-end"}
-        width={{ base: "85%", sm: "50%" }}
+        width={{ base: "95%", sm: "50%" }}
         margin={"0 auto"}
         bg="rgba(0, 0, 0, 0.6)"
         borderRadius="25px"
-        p={6}
+        p={isMobile ? 4 : 6}
         boxShadow={`0px 0px 10px 1px ${white}`}
         zIndex={1}
-        height={isMobile ? "80vh" : "100%"}
+        height={"100%"}
       >
         <Flex
           flexDirection={{ base: "column", sm: "row" }}
-          alignItems="center"
+          alignItems={isMobile ? "flex-end" : "center"}
           gap={4}
           flex="1"
           height="100%"
@@ -71,9 +66,9 @@ export const BoxSection = () => {
           position={"relative"}
         >
           <Flex
-            position={isMobile ? "unset" : "absolute"}
-            top={isMobile ? "5%" : 0}
-            left={isMobile ? "0" : "-15%"}
+            position={"absolute"}
+            top={0}
+            left={isMobile ? "-35%" : "-15%"}
             w={{ base: "100%", sm: "35%" }}
             h={{
               base: `${CARD_HEIGHT * 2 + 30}px`,
@@ -88,7 +83,7 @@ export const BoxSection = () => {
           <Flex position={"absolute"} bottom={0} right={"-13.5%"} width={"20%"}>
             <Image src="/elements/star.png" />
           </Flex>
-          <Flex width={isMobile ? "100%" : "75%"}>
+          <Flex width={isMobile ? "55%" : "75%"}>
             <Flex
               flexDirection={"column"}
               ml={{ base: "15px", sm: "30px" }}
@@ -96,20 +91,19 @@ export const BoxSection = () => {
               height="100%"
               justifyContent={"space-between"}
             >
-              <Flex justifyContent="space-between" alignItems="center">
+              <Flex justifyContent="space-between">
                 <Heading
                   fontSize={{ base: "sm", sm: "md", xl: "2.5rem", xxl: "4rem" }}
                   variant="italic"
                 >
                   SPECIAL PACKS
                 </Heading>
-                {!isMobile && (
-                  <Image
-                    src={`/logos/jn-logo.png`}
-                    alt={"JN logo"}
-                    width="120px"
-                  />
-                )}
+
+                <Image
+                  src={`/logos/jn-logo.png`}
+                  alt={"JN logo"}
+                  width={isMobile ? "50px" : "120px"}
+                />
               </Flex>
 
               <Box mb={4}>
@@ -535,7 +529,7 @@ export const BoxSection = () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          // autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop={true}
         >
           <SwiperSlide>
