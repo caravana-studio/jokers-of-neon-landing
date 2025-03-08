@@ -11,7 +11,6 @@ import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
-const SIZE_MULTIPLIER = 2;
 const { white, neonGreen } = theme.colors;
 
 const animationsData = {
@@ -551,11 +550,11 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 top="32%"
-                right={isMobile ? "50%" : "30%"}
+                right={isMobile ? "45%" : "38%"}
                 width={"100%"}
               >
                 <motion.img
-                  width={isMobile ? "6%" : "3%"}
+                  width={isMobile ? "6%" : "4%"}
                   src="/elements/star.png"
                   alt="Rotating Star"
                   style={{
@@ -573,7 +572,7 @@ export const BoxSection = () => {
                 />
 
                 <motion.img
-                  width={isMobile ? "15%" : "12%"}
+                  width={isMobile ? "15%" : "14%"}
                   src="/elements/ring.png"
                   alt="Rotating Ring"
                   style={{
@@ -593,10 +592,10 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 top={isMobile ? "10%" : "40%"}
-                right={isMobile ? "5%" : "30%"}
+                right={isMobile ? "5%" : "25%"}
               >
                 <Image
-                  width={"50%"}
+                  width={isMobile ? "50%" : "60%"}
                   src="/elements/sparkles-crop-1.png"
                 ></Image>
               </Box>
@@ -621,10 +620,10 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: "3xl",
-                    md: "3.5rem",
-                    xl: "4rem",
-                    xxl: "7rem",
+                    base: isMobile ? "xl" : "3.5rem",
+                    md: "5.3rem",
+                    xl: "7.4rem",
+                    xxl: "10rem",
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"
@@ -653,6 +652,7 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 right={isMobile ? "0%" : "30%"}
+                bottom={isMobile ? "0%" : "50%"}
                 width={"100%"}
               >
                 <motion.img
@@ -694,10 +694,10 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: "3xl",
-                    md: "3.5rem",
-                    xl: "4rem",
-                    xxl: "7rem",
+                    base: isMobile ? "xl" : "3.5rem",
+                    md: "5.3rem",
+                    xl: "7.4rem",
+                    xxl: "10rem",
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"
@@ -743,10 +743,10 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: "3xl",
-                    md: "3.5rem",
-                    xl: "4rem",
-                    xxl: "7rem",
+                    base: isMobile ? "xl" : "3.5rem",
+                    md: "5.3rem",
+                    xl: "7.4rem",
+                    xxl: "10rem",
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"
