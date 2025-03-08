@@ -233,36 +233,36 @@ export const BoxSection = () => {
     <Flex
       flexDirection={"column"}
       justifyContent={"center"}
-      pt={"5%"}
-      pb={isMobile ? "5%" : 0}
+      pt={isMobile ? "25%" : "5%"}
+      pb={0}
     >
       <Flex
         flexDirection={"column"}
         alignItems={"flex-end"}
-        width={{ base: "85%", sm: "50%" }}
+        width={{ base: "95%", sm: "50%" }}
         margin={"0 auto"}
         bg="rgba(0, 0, 0, 0.6)"
         borderRadius="25px"
-        p={6}
+        p={isMobile ? 4 : 6}
         boxShadow={`0px 0px 10px 1px ${white}`}
         zIndex={1}
-        height={isMobile ? "80vh" : "100%"}
+        height={"100%"}
       >
         <Flex
           flexDirection={{ base: "column", sm: "row" }}
-          alignItems="center"
+          alignItems={isMobile ? "flex-end" : "center"}
           gap={4}
           flex="1"
           height="100%"
           width="100%"
-          justify={"flex-end"}
+          justify={isMobile ? "center" : "flex-end"}
           position={"relative"}
         >
           <Flex
-            position={isMobile ? "unset" : "absolute"}
-            bottom={isMobile ? "unset" : 0}
-            left={isMobile ? "0" : "-10%"}
-            w={{ base: "100%", sm: "40%" }}
+            position={"absolute"}
+            bottom={0}
+            left={isMobile ? "-20%" : "-10%"}
+            w={{ base: "70%", sm: "40%" }}
             justifyContent="center"
             flexDir="column"
           >
@@ -271,8 +271,8 @@ export const BoxSection = () => {
           <Flex
             position={"absolute"}
             bottom={isMobile ? "-5%" : "-10%"}
-            right={"-20.5%"}
-            width={isMobile ? "30%" : "20%"}
+            right={isMobile ? "-10%" : "-20.5%"}
+            width={isMobile ? "15%" : "20%"}
           >
             <motion.img
               src="/elements/coins-1.png"
@@ -290,8 +290,8 @@ export const BoxSection = () => {
           <Flex
             position={"absolute"}
             bottom={0}
-            right={isMobile ? "-20%" : "-5%"}
-            width={isMobile ? "30%" : "15%"}
+            right={isMobile ? "-5%" : "-5%"}
+            width={isMobile ? "20%" : "15%"}
           >
             <motion.img
               src="/elements/coins-4.png"
@@ -325,7 +325,7 @@ export const BoxSection = () => {
             />
           </Flex>
 
-          <Flex width={isMobile ? "100%" : "75%"}>
+          <Flex width={isMobile ? "55%" : "75%"}>
             <Flex
               flexDirection={"column"}
               ml={{ base: "15px", sm: "30px" }}
@@ -335,18 +335,17 @@ export const BoxSection = () => {
             >
               <Flex justifyContent="space-between" alignItems="center">
                 <Heading
-                  fontSize={{ base: "sm", sm: "md", xl: "2.5rem", xxl: "4rem" }}
+                  fontSize={{ base: "xs", sm: "md", xl: "2.5rem", xxl: "4rem" }}
                   variant="italic"
                 >
                   NEON JOKER
                 </Heading>
-                {!isMobile && (
-                  <Image
-                    src={`/logos/jn-logo.png`}
-                    alt={"JN logo"}
-                    width="120px"
-                  />
-                )}
+
+                <Image
+                  src={`/logos/jn-logo.png`}
+                  alt={"JN logo"}
+                  width={isMobile ? "50px" : "120px"}
+                />
               </Flex>
 
               <Box mb={4}>
