@@ -54,11 +54,15 @@ export const FooterSection = () => {
 
   const logos = (
     <>
-      <Box
+      <Flex
         border="1px solid white"
-        borderRadius="50%"
-        p={isMobile ? 3 : 2}
-        px={3}
+        w={isMobile ? "60px" : "100%"}
+        h={isMobile ? "60px" : "100%"}
+        borderRadius="full"
+        p={isMobile ? "unset" : 3}
+        alignItems="center"
+        justifyContent="center"
+        // px={3}
       >
         <Link href="https://x.com/JokersOfNeon" target="_blank">
           <Tooltip label={"Follow us on X!"} placement="left">
@@ -69,8 +73,16 @@ export const FooterSection = () => {
             />
           </Tooltip>
         </Link>
-      </Box>
-      <Box border="1px solid white" borderRadius="50%" p={isMobile ? 3 : 2}>
+      </Flex>
+      <Flex
+        border="1px solid white"
+        w={isMobile ? "60px" : "100%"}
+        h={isMobile ? "60px" : "100%"}
+        p={isMobile ? "unset" : 2}
+        borderRadius="full"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Link href="https://discord.gg/4y296W6jaq" target="_blank">
           <Tooltip label={"Join our discord!"} placement="left">
             <FontAwesomeIcon
@@ -80,7 +92,7 @@ export const FooterSection = () => {
             />
           </Tooltip>
         </Link>
-      </Box>
+      </Flex>
     </>
   );
 
