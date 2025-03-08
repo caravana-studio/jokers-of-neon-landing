@@ -15,13 +15,14 @@ export const FooterSection = () => {
       <Flex>
         <Text
           fontSize={{
-            base: isMobile ? "xl" : "md",
+            base: "md",
             xl: "1.5rem",
             xxl: "2rem",
           }}
           letterSpacing={"0.3rem"}
           textTransform="uppercase"
           fontFamily="Orbitron"
+          fontWeight={"semibold"}
         >
           Powered by
         </Text>
@@ -31,12 +32,12 @@ export const FooterSection = () => {
         <Image
           src="/logos/starknet.png"
           alt="Starknet logo"
-          h={{ base: isMobile ? "50px" : "30px", xxl: "50px" }}
+          h={{ base: isMobile ? "35px" : "30px", xxl: "50px" }}
         />
         <Image
           src="/logos/dojo.png"
           alt="Dojo logo"
-          h={{ base: isMobile ? "50px" : "30px", xxl: "50px" }}
+          h={{ base: isMobile ? "35px" : "30px", xxl: "50px" }}
         />
       </Flex>
 
@@ -62,7 +63,6 @@ export const FooterSection = () => {
         p={isMobile ? "unset" : 3}
         alignItems="center"
         justifyContent="center"
-        // px={3}
       >
         <Link href="https://x.com/JokersOfNeon" target="_blank">
           <Tooltip label={"Follow us on X!"} placement="left">
@@ -111,8 +111,11 @@ export const FooterSection = () => {
 
         {/* Image */}
         <Flex
+          justifyContent={"center"}
+          alignItems={"center"}
+          pt={isMobile ? "10%" : "5%"}
           width={isMobile ? "100%" : "20%"}
-          height={isMobile ? "70%" : "unset"}
+          height={isMobile ? "100%" : "auto"}
         >
           <Image
             width={"100%"}
@@ -172,12 +175,13 @@ export const FooterSection = () => {
         >
           <Flex>
             <Text
-              fontSize="1.5rem"
+              fontSize="md"
               fontStyle="italic"
               textTransform="uppercase"
               fontFamily="Orbitron"
+              fontWeight={"semibold"}
             >
-              SINCE 2024
+              Since 2024
             </Text>
           </Flex>
 
