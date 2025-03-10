@@ -227,6 +227,7 @@ export const HomeSection = () => {
           pt={isMobile ? 10 : 0}
           mx={isMobile ? 8 : 0}
           zIndex={1}
+          width={isMobile ? "unset" : "100%"}
         >
           <Text
             fontSize={{
@@ -262,15 +263,27 @@ export const HomeSection = () => {
         </Flex>
 
         {/* Right Content */}
-        <Flex justify="center">
-          <Image
-            src="/elements/spheres-crop.png"
-            alt="Neon Spheres"
-            maxW={isMobile ? "100vh" : "100%"}
+        {isMobile ? (
+          <Flex justify="center">
+            <Image
+              src="/elements/spheres-crop.png"
+              alt="Neon Spheres"
+              maxW={"100vh"}
+              zIndex={1}
+              transform={"rotate(90deg)"}
+            />
+          </Flex>
+        ) : (
+          <Flex
+            justify="right"
+            bgImage="url('/elements/spheres-crop.png')"
+            bgSize="cover"
+            bgPosition="center"
+            width={"100%"}
+            overflow={"visible"}
             zIndex={1}
-            transform={isMobile ? "rotate(90deg)" : "unset"}
           />
-        </Flex>
+        )}
 
         {!isMobile ? (
           <Flex
