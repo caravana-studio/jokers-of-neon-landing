@@ -115,7 +115,7 @@ export const FooterSection = () => {
           alignItems={"center"}
           pt={isMobile ? "10%" : "5%"}
           width={isMobile ? "100%" : "20%"}
-          height={isMobile ? "100%" : "auto"}
+          height={isMobile ? "100%" : "120%"}
         >
           <Image
             width={"100%"}
