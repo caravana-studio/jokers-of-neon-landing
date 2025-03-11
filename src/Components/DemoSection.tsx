@@ -180,6 +180,7 @@ export const DemoSection = () => {
               flexDir={"column"}
               justifyContent={"center"}
               alignItems={"center"}
+              pt={isMobile ? "0" : "5%"}
             >
               <Text
                 fontFamily={"Orbitron"}
