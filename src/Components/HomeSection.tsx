@@ -213,8 +213,7 @@ export const HomeSection = () => {
         width="100%"
         justifyContent="space-between"
         alignContent={"center"}
-        gap={{ se: 0, mb: 10 }}
-        // gap={0}
+        gap={{ base: 0, mb: 10 }}
         h="90vh"
         position={"relative"}
       >
@@ -269,7 +268,7 @@ export const HomeSection = () => {
             <Image
               src="/elements/spheres-crop.png"
               alt="Neon Spheres"
-              maxW={{ se: "120vw", mb: "100vh" }}
+              maxW={{ base: "120vw", mb: "100vh" }}
               zIndex={1}
               transform={"rotate(90deg)"}
             />
@@ -324,8 +323,8 @@ export const HomeSection = () => {
               <Button
                 variant={"solid"}
                 borderRadius="12px"
-                height={{ se: "40px", mb: "50px" }}
-                width={{ se: "50%", mb: "60%" }}
+                height={{ base: "40px", mb: "50px" }}
+                width={{ base: "50%", mb: "60%" }}
               >
                 <Text fontFamily="Orbitron" fontSize={[16, 18]}>
                   PLAY NOW

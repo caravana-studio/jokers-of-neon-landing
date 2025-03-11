@@ -268,7 +268,7 @@ export const DemoSection = () => {
                   <Text
                     maxWidth={"80%"}
                     textAlign={"center"}
-                    fontSize={{ se: "xs", mb: "md" }}
+                    fontSize={{ base: "xs", mb: "md" }}
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
@@ -279,7 +279,7 @@ export const DemoSection = () => {
                   <Text
                     maxWidth={"80%"}
                     textAlign={"center"}
-                    fontSize={{ se: "xs", mb: "md" }}
+                    fontSize={{ base: "xs", mb: "md" }}
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
@@ -292,7 +292,7 @@ export const DemoSection = () => {
                   <Text
                     maxWidth={"80%"}
                     textAlign={"center"}
-                    fontSize={{ se: "xs", mb: "md" }}
+                    fontSize={{ base: "xs", mb: "md" }}
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >

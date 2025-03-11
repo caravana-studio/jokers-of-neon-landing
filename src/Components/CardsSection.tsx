@@ -24,8 +24,7 @@ export const CardsSection = () => {
       <Text
         mt={6}
         fontSize={{
-          base: isMobile ? "xs" : "md",
-          se: "2xs",
+          base: isMobile ? "2xs" : "md",
           mb: "sm",
           md: "xl",
           lg: "1.55rem",
