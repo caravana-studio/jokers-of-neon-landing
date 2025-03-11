@@ -528,7 +528,7 @@ export const BoxSection = () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          // autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop={true}
         >
           <SwiperSlide>
@@ -543,11 +543,11 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 top="32%"
-                right={isMobile ? "45%" : "38%"}
+                right={isMobile ? "60%" : "38%"}
                 width={"100%"}
               >
                 <motion.img
-                  width={isMobile ? "6%" : "4%"}
+                  width={isMobile ? "8%" : "4%"}
                   src="/elements/star.png"
                   alt="Rotating Star"
                   style={{
@@ -565,7 +565,7 @@ export const BoxSection = () => {
                 />
 
                 <motion.img
-                  width={isMobile ? "15%" : "14%"}
+                  width={isMobile ? "18%" : "14%"}
                   src="/elements/ring.png"
                   alt="Rotating Ring"
                   style={{
@@ -585,7 +585,7 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 top={isMobile ? "10%" : "40%"}
-                right={isMobile ? "5%" : "25%"}
+                right={isMobile ? "-8%" : "25%"}
               >
                 <Image
                   width={isMobile ? "50%" : "60%"}
@@ -598,7 +598,12 @@ export const BoxSection = () => {
                 transition={{ duration: 1.5 }}
               >
                 <Text
-                  fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
+                  fontSize={{
+                    base: isMobile ? "2xs" : "m",
+                    md: "m",
+                    xl: "2rem",
+                    xxl: "3rem",
+                  }}
                   letterSpacing="widest"
                   color="white"
                   fontFamily="Orbitron"
@@ -613,7 +618,7 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: isMobile ? "xl" : "3.5rem",
+                    base: isMobile ? "4xl" : "3.5rem",
                     md: "5.3rem",
                     xl: "7.4rem",
                     xxl: "10rem",
@@ -645,11 +650,11 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 right={isMobile ? "0%" : "30%"}
-                bottom={isMobile ? "0%" : "50%"}
+                bottom={isMobile ? "50%" : "50%"}
                 width={"100%"}
               >
                 <motion.img
-                  width={isMobile ? "12%" : "8%"}
+                  width={isMobile ? "15%" : "8%"}
                   src="/elements/coins-1.png"
                   alt="Coin 1"
                   style={{
@@ -672,7 +677,12 @@ export const BoxSection = () => {
                 transition={{ duration: 1.5 }}
               >
                 <Text
-                  fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
+                  fontSize={{
+                    base: isMobile ? "2xs" : "m",
+                    md: "m",
+                    xl: "2rem",
+                    xxl: "3rem",
+                  }}
                   letterSpacing="widest"
                   color="white"
                   fontFamily="Orbitron"
@@ -687,7 +697,7 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: isMobile ? "xl" : "3.5rem",
+                    base: isMobile ? "4xl" : "3.5rem",
                     md: "5.3rem",
                     xl: "7.4rem",
                     xxl: "10rem",
@@ -721,7 +731,12 @@ export const BoxSection = () => {
                 transition={{ duration: 1.5 }}
               >
                 <Text
-                  fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
+                  fontSize={{
+                    base: isMobile ? "2xs" : "m",
+                    md: "m",
+                    xl: "2rem",
+                    xxl: "3rem",
+                  }}
                   letterSpacing="widest"
                   color="white"
                   fontFamily="Orbitron"
@@ -736,7 +751,7 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: isMobile ? "xl" : "3.5rem",
+                    base: isMobile ? "4xl" : "3.5rem",
                     md: "5.3rem",
                     xl: "7.4rem",
                     xxl: "10rem",
