@@ -239,7 +239,7 @@ export const BoxSection = () => {
       <Flex
         flexDirection={"column"}
         alignItems={"flex-end"}
-        width={{ base: "95%", sm: "50%" }}
+        width={{ base: "85%", sm: "50%" }}
         margin={"0 auto"}
         bg="rgba(0, 0, 0, 0.6)"
         borderRadius="25px"
@@ -528,7 +528,7 @@ export const BoxSection = () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          // autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop={true}
         >
           <SwiperSlide>
@@ -635,7 +635,19 @@ export const BoxSection = () => {
             </Flex>
 
             {/* Box preview */}
-            {specialBox}
+            {!isMobile ? (
+              specialBox
+            ) : (
+              <Flex
+                flexDirection={"column"}
+                justifyContent={"center"}
+                pt={"20%"}
+                pb={0}
+                margin={"0 auto"}
+              >
+                <Image src="/elements/box-demo-no-bg.png" />
+              </Flex>
+            )}
           </SwiperSlide>
 
           <SwiperSlide>
