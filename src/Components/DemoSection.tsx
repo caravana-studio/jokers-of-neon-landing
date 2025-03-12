@@ -91,7 +91,7 @@ export const DemoSection = () => {
 
       <Box
         w="100vw"
-        h={isMobile ? "100vh" : "110vh"}
+        h={{ base: "110vh", mb: "90vh", md: "110vh" }}
         bgImage="url('/bg/bg-bottom-3.png')"
         bgSize="cover"
         color="white"
@@ -247,7 +247,7 @@ export const DemoSection = () => {
         <Flex
           bg="linear-gradient(to bottom, black 50%, #010304 100%)"
           w="100vw"
-          h="50vh"
+          h="80vh"
           overflow="hidden"
           justifyContent={"center"}
         >
@@ -263,7 +263,7 @@ export const DemoSection = () => {
                 justifyContent={"center"}
                 alignContent={"center"}
                 flexDirection={"column"}
-                gap={5}
+                gap={{ base: 10, mb: 16 }}
               >
                 <Flex justifyContent={"center"} alignContent={"center"}>
                   <Text
