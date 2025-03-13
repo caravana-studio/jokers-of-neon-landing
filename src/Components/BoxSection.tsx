@@ -510,7 +510,7 @@ export const BoxSection = () => {
   return (
     <Box
       w="100vw"
-      h="100vh"
+      h={{ base: "80vh", mb: "60vh", sm: "100vh" }}
       bgImage="url('/bg/bg-top.png')"
       bgSize="cover"
       bgPosition="center"
