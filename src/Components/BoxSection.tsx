@@ -645,7 +645,7 @@ export const BoxSection = () => {
                 pb={0}
                 margin={"0 auto"}
               >
-                <Image src="/elements/box-demo-no-bg.png" />
+                <Image m={5} src="/elements/box-demo-no-bg.png" />
               </Flex>
             )}
           </SwiperSlide>
@@ -726,7 +726,19 @@ export const BoxSection = () => {
             </Flex>
 
             {/* Joker preview */}
-            {jokerCard}
+            {!isMobile ? (
+              jokerCard
+            ) : (
+              <Flex
+                flexDirection={"column"}
+                justifyContent={"center"}
+                pt={"20%"}
+                pb={0}
+                margin={"0 auto"}
+              >
+                <Image src="/elements/joker-demo-no-bg.png" />
+              </Flex>
+            )}
           </SwiperSlide>
 
           <SwiperSlide>
