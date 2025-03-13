@@ -198,7 +198,11 @@ export const HomeSection = () => {
     <Box
       w="100vw"
       h="100vh"
-      bgImage="url('/bg/bg-top.png')"
+      bgImage={
+        isMobile
+          ? "url('/bg/bg-top-merge-mobile.png')"
+          : "url('/bg/bg-top-merge.png')"
+      }
       bgSize="cover"
       bgPosition="center"
       bgColor={"black"}
@@ -227,7 +231,7 @@ export const HomeSection = () => {
           pt={isMobile ? 10 : 0}
           mx={isMobile ? 8 : 0}
           zIndex={1}
-          width={isMobile ? "unset" : "100%"}
+          width={isMobile ? "unset" : "50%"}
         >
           <Text
             fontSize={{
@@ -263,27 +267,6 @@ export const HomeSection = () => {
         </Flex>
 
         {/* Right Content */}
-        {isMobile ? (
-          <Flex justify="center">
-            <Image
-              src="/elements/spheres-crop.png"
-              alt="Neon Spheres"
-              maxW={{ base: "120vw", mb: "100vh" }}
-              zIndex={1}
-              transform={"rotate(90deg)"}
-            />
-          </Flex>
-        ) : (
-          <Flex
-            justify="right"
-            bgImage="url('/elements/spheres-crop.png')"
-            bgSize="cover"
-            bgPosition="center"
-            width={"100%"}
-            overflow={"visible"}
-            zIndex={1}
-          />
-        )}
 
         {!isMobile ? (
           <Flex
