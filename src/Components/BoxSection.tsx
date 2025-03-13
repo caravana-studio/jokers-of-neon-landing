@@ -528,7 +528,7 @@ export const BoxSection = () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          // autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
           loop={true}
         >
           <SwiperSlide>
@@ -644,7 +644,21 @@ export const BoxSection = () => {
                 pt={"20%"}
                 pb={0}
                 margin={"0 auto"}
+                position={"relative"}
               >
+                <Flex
+                  position={"absolute"}
+                  bottom={0}
+                  left={{ base: "-25%", mb: "-35%" }}
+                  w={{ base: "80%", mb: "100%" }}
+                  h={{
+                    base: `${CARD_HEIGHT * 1 + 30}px`,
+                  }}
+                  justifyContent="center"
+                  flexDir="column"
+                >
+                  {spineAnim}
+                </Flex>
                 <Image m={5} src="/elements/box-demo-no-bg.png" />
               </Flex>
             )}
