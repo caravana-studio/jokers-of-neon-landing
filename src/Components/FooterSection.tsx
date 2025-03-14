@@ -15,13 +15,14 @@ export const FooterSection = () => {
       <Flex>
         <Text
           fontSize={{
-            base: isMobile ? "xl" : "md",
+            base: "md",
             xl: "1.5rem",
             xxl: "2rem",
           }}
           letterSpacing={"0.3rem"}
           textTransform="uppercase"
           fontFamily="Orbitron"
+          fontWeight={"semibold"}
         >
           Powered by
         </Text>
@@ -31,12 +32,12 @@ export const FooterSection = () => {
         <Image
           src="/logos/starknet.png"
           alt="Starknet logo"
-          h={{ base: isMobile ? "50px" : "30px", xxl: "50px" }}
+          h={{ base: isMobile ? "35px" : "30px", xxl: "50px" }}
         />
         <Image
           src="/logos/dojo.png"
           alt="Dojo logo"
-          h={{ base: isMobile ? "50px" : "30px", xxl: "50px" }}
+          h={{ base: isMobile ? "35px" : "30px", xxl: "50px" }}
         />
       </Flex>
 
@@ -54,11 +55,14 @@ export const FooterSection = () => {
 
   const logos = (
     <>
-      <Box
+      <Flex
         border="1px solid white"
-        borderRadius="50%"
-        p={isMobile ? 3 : 2}
-        px={3}
+        w={isMobile ? "60px" : "100%"}
+        h={isMobile ? "60px" : "100%"}
+        borderRadius="full"
+        p={isMobile ? "unset" : 3}
+        alignItems="center"
+        justifyContent="center"
       >
         <Link href="https://x.com/JokersOfNeon" target="_blank">
           <Tooltip label={"Follow us on X!"} placement="left">
@@ -69,8 +73,16 @@ export const FooterSection = () => {
             />
           </Tooltip>
         </Link>
-      </Box>
-      <Box border="1px solid white" borderRadius="50%" p={isMobile ? 3 : 2}>
+      </Flex>
+      <Flex
+        border="1px solid white"
+        w={isMobile ? "60px" : "100%"}
+        h={isMobile ? "60px" : "100%"}
+        p={isMobile ? "unset" : 2}
+        borderRadius="full"
+        alignItems="center"
+        justifyContent="center"
+      >
         <Link href="https://discord.gg/4y296W6jaq" target="_blank">
           <Tooltip label={"Join our discord!"} placement="left">
             <FontAwesomeIcon
@@ -80,7 +92,7 @@ export const FooterSection = () => {
             />
           </Tooltip>
         </Link>
-      </Box>
+      </Flex>
     </>
   );
 
@@ -99,8 +111,11 @@ export const FooterSection = () => {
 
         {/* Image */}
         <Flex
+          justifyContent={"center"}
+          alignItems={"center"}
+          pt={isMobile ? "10%" : "5%"}
           width={isMobile ? "100%" : "20%"}
-          height={isMobile ? "70%" : "unset"}
+          height={isMobile ? "100%" : "120%"}
         >
           <Image
             width={"100%"}
@@ -160,12 +175,13 @@ export const FooterSection = () => {
         >
           <Flex>
             <Text
-              fontSize="1.5rem"
+              fontSize="md"
               fontStyle="italic"
               textTransform="uppercase"
               fontFamily="Orbitron"
+              fontWeight={"semibold"}
             >
-              SINCE 2024
+              Since 2024
             </Text>
           </Flex>
 

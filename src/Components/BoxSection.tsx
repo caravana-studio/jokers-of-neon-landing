@@ -11,7 +11,6 @@ import "swiper/css/pagination";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
-const SIZE_MULTIPLIER = 2;
 const { white, neonGreen } = theme.colors;
 
 const animationsData = {
@@ -43,27 +42,22 @@ export const BoxSection = () => {
   );
 
   const specialBox = (
-    <Flex
-      flexDirection={"column"}
-      justifyContent={"center"}
-      pt={"5%"}
-      pb={isMobile ? "5%" : 0}
-    >
+    <Flex flexDirection={"column"} justifyContent={"center"} pt={"5%"} pb={0}>
       <Flex
         flexDirection={"column"}
         alignItems={"flex-end"}
-        width={{ base: "85%", sm: "50%" }}
+        width={{ base: "95%", sm: "50%" }}
         margin={"0 auto"}
         bg="rgba(0, 0, 0, 0.6)"
         borderRadius="25px"
-        p={6}
+        p={isMobile ? 4 : 6}
         boxShadow={`0px 0px 10px 1px ${white}`}
         zIndex={1}
-        height={isMobile ? "80vh" : "100%"}
+        height={"100%"}
       >
         <Flex
           flexDirection={{ base: "column", sm: "row" }}
-          alignItems="center"
+          alignItems={isMobile ? "flex-end" : "center"}
           gap={4}
           flex="1"
           height="100%"
@@ -72,9 +66,9 @@ export const BoxSection = () => {
           position={"relative"}
         >
           <Flex
-            position={isMobile ? "unset" : "absolute"}
-            top={isMobile ? "5%" : 0}
-            left={isMobile ? "0" : "-15%"}
+            position={"absolute"}
+            top={0}
+            left={isMobile ? "-35%" : "-15%"}
             w={{ base: "100%", sm: "35%" }}
             h={{
               base: `${CARD_HEIGHT * 2 + 30}px`,
@@ -89,7 +83,7 @@ export const BoxSection = () => {
           <Flex position={"absolute"} bottom={0} right={"-13.5%"} width={"20%"}>
             <Image src="/elements/star.png" />
           </Flex>
-          <Flex width={isMobile ? "100%" : "75%"}>
+          <Flex width={isMobile ? "55%" : "75%"}>
             <Flex
               flexDirection={"column"}
               ml={{ base: "15px", sm: "30px" }}
@@ -97,20 +91,19 @@ export const BoxSection = () => {
               height="100%"
               justifyContent={"space-between"}
             >
-              <Flex justifyContent="space-between" alignItems="center">
+              <Flex justifyContent="space-between">
                 <Heading
                   fontSize={{ base: "sm", sm: "md", xl: "2.5rem", xxl: "4rem" }}
                   variant="italic"
                 >
                   SPECIAL PACKS
                 </Heading>
-                {!isMobile && (
-                  <Image
-                    src={`/logos/jn-logo.png`}
-                    alt={"JN logo"}
-                    width="120px"
-                  />
-                )}
+
+                <Image
+                  src={`/logos/jn-logo.png`}
+                  alt={"JN logo"}
+                  width={isMobile ? "50px" : "120px"}
+                />
               </Flex>
 
               <Box mb={4}>
@@ -240,8 +233,8 @@ export const BoxSection = () => {
     <Flex
       flexDirection={"column"}
       justifyContent={"center"}
-      pt={"5%"}
-      pb={isMobile ? "5%" : 0}
+      pt={isMobile ? "25%" : "5%"}
+      pb={0}
     >
       <Flex
         flexDirection={"column"}
@@ -250,26 +243,26 @@ export const BoxSection = () => {
         margin={"0 auto"}
         bg="rgba(0, 0, 0, 0.6)"
         borderRadius="25px"
-        p={6}
+        p={isMobile ? 4 : 6}
         boxShadow={`0px 0px 10px 1px ${white}`}
         zIndex={1}
-        height={isMobile ? "80vh" : "100%"}
+        height={"100%"}
       >
         <Flex
           flexDirection={{ base: "column", sm: "row" }}
-          alignItems="center"
+          alignItems={isMobile ? "flex-end" : "center"}
           gap={4}
           flex="1"
           height="100%"
           width="100%"
-          justify={"flex-end"}
+          justify={isMobile ? "center" : "flex-end"}
           position={"relative"}
         >
           <Flex
-            position={isMobile ? "unset" : "absolute"}
-            bottom={isMobile ? "unset" : 0}
-            left={isMobile ? "0" : "-10%"}
-            w={{ base: "100%", sm: "40%" }}
+            position={"absolute"}
+            bottom={0}
+            left={isMobile ? "-20%" : "-10%"}
+            w={{ base: "70%", sm: "40%" }}
             justifyContent="center"
             flexDir="column"
           >
@@ -278,8 +271,8 @@ export const BoxSection = () => {
           <Flex
             position={"absolute"}
             bottom={isMobile ? "-5%" : "-10%"}
-            right={"-20.5%"}
-            width={isMobile ? "30%" : "20%"}
+            right={isMobile ? "-10%" : "-20.5%"}
+            width={isMobile ? "15%" : "20%"}
           >
             <motion.img
               src="/elements/coins-1.png"
@@ -297,8 +290,8 @@ export const BoxSection = () => {
           <Flex
             position={"absolute"}
             bottom={0}
-            right={isMobile ? "-20%" : "-5%"}
-            width={isMobile ? "30%" : "15%"}
+            right={isMobile ? "-5%" : "-5%"}
+            width={isMobile ? "20%" : "15%"}
           >
             <motion.img
               src="/elements/coins-4.png"
@@ -332,7 +325,7 @@ export const BoxSection = () => {
             />
           </Flex>
 
-          <Flex width={isMobile ? "100%" : "75%"}>
+          <Flex width={isMobile ? "55%" : "75%"}>
             <Flex
               flexDirection={"column"}
               ml={{ base: "15px", sm: "30px" }}
@@ -342,18 +335,17 @@ export const BoxSection = () => {
             >
               <Flex justifyContent="space-between" alignItems="center">
                 <Heading
-                  fontSize={{ base: "sm", sm: "md", xl: "2.5rem", xxl: "4rem" }}
+                  fontSize={{ base: "xs", sm: "md", xl: "2.5rem", xxl: "4rem" }}
                   variant="italic"
                 >
                   NEON JOKER
                 </Heading>
-                {!isMobile && (
-                  <Image
-                    src={`/logos/jn-logo.png`}
-                    alt={"JN logo"}
-                    width="120px"
-                  />
-                )}
+
+                <Image
+                  src={`/logos/jn-logo.png`}
+                  alt={"JN logo"}
+                  width={isMobile ? "50px" : "120px"}
+                />
               </Flex>
 
               <Box mb={4}>
@@ -518,7 +510,7 @@ export const BoxSection = () => {
   return (
     <Box
       w="100vw"
-      h="100vh"
+      h={{ base: "80vh", mb: "60vh", sm: "100vh" }}
       bgImage="url('/bg/bg-top.png')"
       bgSize="cover"
       bgPosition="center"
@@ -551,11 +543,11 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 top="32%"
-                right={isMobile ? "50%" : "30%"}
+                right={isMobile ? "60%" : "38%"}
                 width={"100%"}
               >
                 <motion.img
-                  width={isMobile ? "6%" : "3%"}
+                  width={isMobile ? "8%" : "4%"}
                   src="/elements/star.png"
                   alt="Rotating Star"
                   style={{
@@ -573,7 +565,7 @@ export const BoxSection = () => {
                 />
 
                 <motion.img
-                  width={isMobile ? "15%" : "12%"}
+                  width={isMobile ? "18%" : "14%"}
                   src="/elements/ring.png"
                   alt="Rotating Ring"
                   style={{
@@ -593,10 +585,10 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 top={isMobile ? "10%" : "40%"}
-                right={isMobile ? "5%" : "30%"}
+                right={isMobile ? "-8%" : "25%"}
               >
                 <Image
-                  width={"50%"}
+                  width={isMobile ? "50%" : "60%"}
                   src="/elements/sparkles-crop-1.png"
                 ></Image>
               </Box>
@@ -606,7 +598,12 @@ export const BoxSection = () => {
                 transition={{ duration: 1.5 }}
               >
                 <Text
-                  fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
+                  fontSize={{
+                    base: isMobile ? "2xs" : "m",
+                    md: "m",
+                    xl: "2rem",
+                    xxl: "3rem",
+                  }}
                   letterSpacing="widest"
                   color="white"
                   fontFamily="Orbitron"
@@ -621,10 +618,10 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: "3xl",
-                    md: "3.5rem",
-                    xl: "4rem",
-                    xxl: "7rem",
+                    base: isMobile ? "4xl" : "3.5rem",
+                    md: "5.3rem",
+                    xl: "7.4rem",
+                    xxl: "10rem",
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"
@@ -638,7 +635,33 @@ export const BoxSection = () => {
             </Flex>
 
             {/* Box preview */}
-            {specialBox}
+            {!isMobile ? (
+              specialBox
+            ) : (
+              <Flex
+                flexDirection={"column"}
+                justifyContent={"center"}
+                pt={"20%"}
+                pb={0}
+                margin={"0 auto"}
+                position={"relative"}
+              >
+                <Flex
+                  position={"absolute"}
+                  bottom={0}
+                  left={{ base: "-25%", mb: "-35%" }}
+                  w={{ base: "80%", mb: "100%" }}
+                  h={{
+                    base: `${CARD_HEIGHT * 1 + 30}px`,
+                  }}
+                  justifyContent="center"
+                  flexDir="column"
+                >
+                  {spineAnim}
+                </Flex>
+                <Image m={5} src="/elements/box-demo-no-bg.png" />
+              </Flex>
+            )}
           </SwiperSlide>
 
           <SwiperSlide>
@@ -653,10 +676,11 @@ export const BoxSection = () => {
               <Box
                 position="absolute"
                 right={isMobile ? "0%" : "30%"}
+                bottom={isMobile ? "50%" : "50%"}
                 width={"100%"}
               >
                 <motion.img
-                  width={isMobile ? "12%" : "8%"}
+                  width={isMobile ? "15%" : "8%"}
                   src="/elements/coins-1.png"
                   alt="Coin 1"
                   style={{
@@ -679,7 +703,12 @@ export const BoxSection = () => {
                 transition={{ duration: 1.5 }}
               >
                 <Text
-                  fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
+                  fontSize={{
+                    base: isMobile ? "2xs" : "m",
+                    md: "m",
+                    xl: "2rem",
+                    xxl: "3rem",
+                  }}
                   letterSpacing="widest"
                   color="white"
                   fontFamily="Orbitron"
@@ -694,10 +723,10 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: "3xl",
-                    md: "3.5rem",
-                    xl: "4rem",
-                    xxl: "7rem",
+                    base: isMobile ? "4xl" : "3.5rem",
+                    md: "5.3rem",
+                    xl: "7.4rem",
+                    xxl: "10rem",
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"
@@ -711,7 +740,19 @@ export const BoxSection = () => {
             </Flex>
 
             {/* Joker preview */}
-            {jokerCard}
+            {!isMobile ? (
+              jokerCard
+            ) : (
+              <Flex
+                flexDirection={"column"}
+                justifyContent={"center"}
+                pt={"20%"}
+                pb={0}
+                margin={"0 auto"}
+              >
+                <Image src="/elements/joker-demo-no-bg.png" />
+              </Flex>
+            )}
           </SwiperSlide>
 
           <SwiperSlide>
@@ -728,7 +769,12 @@ export const BoxSection = () => {
                 transition={{ duration: 1.5 }}
               >
                 <Text
-                  fontSize={{ base: "m", md: "m", xl: "2rem", xxl: "3rem" }}
+                  fontSize={{
+                    base: isMobile ? "2xs" : "m",
+                    md: "m",
+                    xl: "2rem",
+                    xxl: "3rem",
+                  }}
                   letterSpacing="widest"
                   color="white"
                   fontFamily="Orbitron"
@@ -743,10 +789,10 @@ export const BoxSection = () => {
               >
                 <Text
                   fontSize={{
-                    base: "3xl",
-                    md: "3.5rem",
-                    xl: "4rem",
-                    xxl: "7rem",
+                    base: isMobile ? "4xl" : "3.5rem",
+                    md: "5.3rem",
+                    xl: "7.4rem",
+                    xxl: "10rem",
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"

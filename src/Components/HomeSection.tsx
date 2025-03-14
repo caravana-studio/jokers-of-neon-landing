@@ -167,19 +167,29 @@ export const HomeSection = () => {
   const TopNavBar = isMobile ? <MobileNav /> : <DesktopNav />;
 
   const poweredBy = (
-    <Flex gap={4} justify="center" alignItems={"center"}>
-      <Text fontSize={[isMobile ? "xl" : "2xs", "md", "lg", "xl", "5xl"]}>
+    <Flex gap={4} justifyContent="center" alignItems={"center"}>
+      <Text
+        fontSize={{
+          base: isMobile ? "sm" : "2xs",
+          md: "md",
+          xl: "xl",
+          xxl: "2xl",
+        }}
+        textTransform="uppercase"
+        letterSpacing={{ base: "0.3rem", xl: "0.5rem", xxl: "0.8rem" }}
+        fontWeight="semibold"
+      >
         Powered by
       </Text>
       <Image
         src="/logos/starknet.png"
         alt="Starknet logo"
-        h={{ base: isMobile ? "30px" : "20px", xl: "50%" }}
+        h={{ base: isMobile ? "30px" : "40px", xl: "50%" }}
       />
       <Image
         src="/logos/dojo.png"
         alt="Dojo logo"
-        h={{ base: isMobile ? "30px" : "20px", xl: "50%" }}
+        h={{ base: isMobile ? "30px" : "40px", xl: "50%" }}
       />
     </Flex>
   );
@@ -188,7 +198,11 @@ export const HomeSection = () => {
     <Box
       w="100vw"
       h="100vh"
-      bgImage="url('/bg/bg-top.png')"
+      bgImage={
+        isMobile
+          ? "url('/bg/bg-top-merge-mobile.png')"
+          : "url('/bg/bg-top-merge.png')"
+      }
       bgSize="cover"
       bgPosition="center"
       bgColor={"black"}
@@ -203,8 +217,7 @@ export const HomeSection = () => {
         width="100%"
         justifyContent="space-between"
         alignContent={"center"}
-        // alignItems={"flex-end"}
-        gap={10}
+        gap={{ base: 0, mb: 10 }}
         h="90vh"
         position={"relative"}
       >
@@ -218,9 +231,15 @@ export const HomeSection = () => {
           pt={isMobile ? 10 : 0}
           mx={isMobile ? 8 : 0}
           zIndex={1}
+          width={isMobile ? "unset" : "50%"}
         >
           <Text
-            fontSize={[isMobile ? "sm" : "2xs", "md", "lg", "xl", "5xl"]}
+            fontSize={{
+              base: isMobile ? "sm" : "2xs",
+              md: "md",
+              xl: "xl",
+              xxl: "2xl",
+            }}
             letterSpacing="2px"
             maxW={{ base: isMobile ? "unset" : "60%", md: "60%", xl: "80%" }}
           >
@@ -229,10 +248,15 @@ export const HomeSection = () => {
           <Image
             src="/logos/logo-variant.png"
             alt="Jokers of Neon"
-            maxW={isMobile ? "80%" : "60%"}
+            maxW={{ base: isMobile ? "80%" : "60%", xl: "70%", xxl: "90%" }}
           />
           <Text
-            fontSize={[isMobile ? "sm" : "2xs", "md", "lg", "xl", "5xl"]}
+            fontSize={{
+              base: isMobile ? "sm" : "2xs",
+              md: "md",
+              xl: "xl",
+              xxl: "2xl",
+            }}
             maxW={{ base: isMobile ? "unset" : "60%", md: "60%", xl: "80%" }}
           >
             Jokers of Neon is a strategy card game that brings strategy and
@@ -243,15 +267,6 @@ export const HomeSection = () => {
         </Flex>
 
         {/* Right Content */}
-        <Flex justify="center">
-          <Image
-            src="/elements/spheres-crop.png"
-            alt="Neon Spheres"
-            maxW={isMobile ? "100vh" : "100%"}
-            zIndex={1}
-            transform={isMobile ? "rotate(90deg)" : "unset"}
-          />
-        </Flex>
 
         {!isMobile ? (
           <Flex
@@ -291,8 +306,8 @@ export const HomeSection = () => {
               <Button
                 variant={"solid"}
                 borderRadius="12px"
-                height={"50px"}
-                width={"60%"}
+                height={{ base: "40px", mb: "50px" }}
+                width={{ base: "50%", mb: "60%" }}
               >
                 <Text fontFamily="Orbitron" fontSize={[16, 18]}>
                   PLAY NOW

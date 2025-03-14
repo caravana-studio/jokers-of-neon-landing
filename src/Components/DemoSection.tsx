@@ -3,22 +3,29 @@ import { isMobile } from "react-device-detect";
 
 export const DemoSection = () => {
   const title = (
-    <Flex justifyContent={"center"} alignContent={"center"} pt={"5%"}>
+    <Flex
+      justifyContent={"center"}
+      alignContent={"center"}
+      pt={isMobile ? 0 : "5%"}
+    >
       <Text
+        fontFamily={"Orbitron"}
         color="white"
-        fontSize={{ base: "xl", md: "lg", xl: "2rem", xxl: "3rem" }}
+        fontSize={{ base: "1.2rem", md: "lg", xl: "2rem", xxl: "3rem" }}
+        fontWeight={"semibold"}
         mb={2}
+        pb={4}
         sx={{
           position: "relative",
           _before: {
             content: '""',
             position: "absolute",
             bottom: 0,
-            width: "95%",
-            height: "2px",
+            width: "100%",
+            height: "1px",
             backgroundColor: "white",
             boxShadow:
-              "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+              "0px 0px 20px rgba(255, 255, 255, 1), 0px 0px 20px rgba(255, 255, 255, 1), 0px 0px 10px rgba(255, 255, 255, 1)",
           },
         }}
       >
@@ -41,7 +48,7 @@ export const DemoSection = () => {
   );
 
   const mobileMockUp = (
-    <Flex position={"relative"}>
+    <Flex position={"relative"} width={isMobile ? "100%" : "40%"}>
       <Image src="/elements/mobile-home-mockup.png" zIndex={2} />
       <Box
         as="iframe"
@@ -49,8 +56,8 @@ export const DemoSection = () => {
         position="absolute"
         bottom="2%"
         left="3%"
-        width="90%"
-        height="100%"
+        width={isMobile ? "90%" : "74%"}
+        height="95%"
         border="none"
         zIndex={0}
         allow="autoplay; encrypted-media; loop"
@@ -84,7 +91,7 @@ export const DemoSection = () => {
 
       <Box
         w="100vw"
-        h="100vh"
+        h={{ base: "110vh", mb: "90vh", md: "110vh" }}
         bgImage="url('/bg/bg-bottom-3.png')"
         bgSize="cover"
         color="white"
@@ -107,18 +114,18 @@ export const DemoSection = () => {
                   _before: {
                     content: '""',
                     position: "absolute",
-                    bottom: 0,
-                    height: "100%",
-                    width: "2px",
+                    top: -2,
+                    height: "105%",
+                    width: "1px",
                     backgroundColor: "white",
                     boxShadow:
-                      "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
+                      "0px 0px 20px rgba(255, 255, 255, 1), 0px 0px 20px rgba(255, 255, 255, 1), 0px 6px 10px rgba(255, 255, 255, 1)",
                   },
                 }
               : {}
           }
         >
-          <Flex width={isMobile ? "90%" : "40%"} position="relative">
+          <Flex width={isMobile ? "70%" : "40%"} position="relative">
             <Image src="/elements/mockup.png" />
 
             <Image
@@ -126,7 +133,7 @@ export const DemoSection = () => {
               top="5"
               left="11.8%"
               width="77.2%"
-              height="80%"
+              height="70%"
               src="/elements/demo.png"
             />
 
@@ -155,7 +162,11 @@ export const DemoSection = () => {
             )}
           </Flex>
 
-          {isMobile && <Flex zIndex={1}>{mobileMockUp} </Flex>}
+          {isMobile && (
+            <Flex zIndex={1} width={"30%"} justifyContent={"center"}>
+              {mobileMockUp}{" "}
+            </Flex>
+          )}
         </Flex>
 
         {!isMobile && (
@@ -165,16 +176,40 @@ export const DemoSection = () => {
           >
             {title}
             {/* Desc */}
-            <Flex justifyContent={"center"} alignContent={"center"}>
+            <Flex
+              flexDir={"column"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              pt={isMobile ? "0" : "5%"}
+            >
               <Text
-                maxWidth={"30%"}
+                fontFamily={"Orbitron"}
+                maxWidth={"60%"}
                 textAlign={"center"}
-                fontSize={{ base: "l", xl: "1.5rem", xxl: "2rem" }}
+                fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
+                letterSpacing={"2px"}
+                pb={"2%"}
               >
                 Step into a realm where every decision shapes your destiny.
+              </Text>
+              <Text
+                fontFamily={"Orbitron"}
+                maxWidth={"40%"}
+                textAlign={"center"}
+                fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
+                letterSpacing={"2px"}
+              >
                 Unveil the secrets of victory in our enigmatic strategic
-                deck-building game. Will you master the art of strategy and
-                emerge triumphant?
+                deck-building game.
+              </Text>
+              <Text
+                fontFamily={"Orbitron"}
+                maxWidth={"60%"}
+                textAlign={"center"}
+                fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
+                letterSpacing={"2px"}
+              >
+                Will you master the art of strategy and emerge triumphant?
               </Text>
             </Flex>
 
@@ -202,7 +237,7 @@ export const DemoSection = () => {
             width="90%"
             backgroundRepeat="space"
             backgroundSize="52px auto"
-            bottom="0"
+            bottom="-2%"
             zIndex={1}
           />
         )}
@@ -212,7 +247,7 @@ export const DemoSection = () => {
         <Flex
           bg="linear-gradient(to bottom, black 50%, #010304 100%)"
           w="100vw"
-          h="50vh"
+          h="80vh"
           overflow="hidden"
           justifyContent={"center"}
         >
@@ -228,22 +263,40 @@ export const DemoSection = () => {
                 justifyContent={"center"}
                 alignContent={"center"}
                 flexDirection={"column"}
-                gap={5}
+                gap={{ base: 10, mb: 16 }}
               >
                 <Flex justifyContent={"center"} alignContent={"center"}>
-                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                  <Text
+                    maxWidth={"80%"}
+                    textAlign={"center"}
+                    fontSize={{ base: "xs", mb: "md" }}
+                    letterSpacing={"2px"}
+                    fontFamily={"Orbitron"}
+                  >
                     Step into a realm where every decision shapes your destiny.
                   </Text>
                 </Flex>
                 <Flex justifyContent={"center"} alignContent={"center"}>
-                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                  <Text
+                    maxWidth={"80%"}
+                    textAlign={"center"}
+                    fontSize={{ base: "xs", mb: "md" }}
+                    letterSpacing={"2px"}
+                    fontFamily={"Orbitron"}
+                  >
                     Unveil the secrets of victory in our enigmatic strategic
                     deck-building game.
                   </Text>
                 </Flex>
 
                 <Flex justifyContent={"center"} alignContent={"center"}>
-                  <Text maxWidth={"80%"} textAlign={"center"} fontSize={"xl"}>
+                  <Text
+                    maxWidth={"80%"}
+                    textAlign={"center"}
+                    fontSize={{ base: "xs", mb: "md" }}
+                    letterSpacing={"2px"}
+                    fontFamily={"Orbitron"}
+                  >
                     Will you master the art of strategy and emerge triumphant?
                   </Text>
                 </Flex>

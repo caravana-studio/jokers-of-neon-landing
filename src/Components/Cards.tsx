@@ -32,7 +32,7 @@ const Card: React.FC<{
       }}
     >
       <Box
-        width={isMobile ? "20vw" : "11.5vw"}
+        width={isMobile ? "25vw" : "11.5vw"}
         borderRadius="12px"
         position="relative"
         transform={`rotate(${rotate}deg)`}
@@ -52,7 +52,7 @@ const Card: React.FC<{
 
         {/* Card content */}
         <Image
-          p={3}
+          p={isMobile ? 2 : 3}
           src={imageSrc}
           alt="Card"
           width="100%"
