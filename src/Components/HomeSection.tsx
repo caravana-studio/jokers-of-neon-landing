@@ -33,7 +33,16 @@ export const HomeSection = () => {
   };
 
   const DesktopNav = () => (
-    <Flex justify="space-between" align="center" px={6} py={2}>
+    <Flex
+      justify="space-between"
+      align="center"
+      px={6}
+      py={2}
+      position={"absolute"}
+      top={0}
+      width={"100%"}
+      zIndex={1}
+    >
       <Image
         src="/logos/jn-logo.png"
         alt="Jokers of Neon Logo"
@@ -74,6 +83,12 @@ export const HomeSection = () => {
         wrap="wrap"
         padding="1rem"
         color="white"
+        position={"absolute"}
+        top={0}
+        width={"100%"}
+        zIndex={1}
+        px={6}
+        py={2}
       >
         <Image src="/logos/jn-logo.png" alt="Jokers of Neon Logo" h="40px" />
 
@@ -198,19 +213,39 @@ export const HomeSection = () => {
     <Box
       w="100vw"
       h="100vh"
-      bgImage={
-        isMobile
-          ? "url('/bg/bg-top-merge-mobile.png')"
-          : "url('/bg/bg-top-merge.png')"
-      }
       bgSize="cover"
       bgPosition="center"
       bgColor={"black"}
       color="white"
       overflow={"hidden"}
+      position={"relative"}
     >
       {/* Top Navigation */}
       {TopNavBar}
+
+      <Box
+        as="video"
+        autoPlay
+        loop
+        muted
+        playsInline
+        position="absolute"
+        top="0"
+        left="0"
+        w="100%"
+        h="100%"
+        objectFit="cover"
+        zIndex="0"
+      >
+        <source
+          src={
+            isMobile
+              ? "/bg/landing-bg-mobile.mp4"
+              : "/bg/landing-bg-desktop.mp4"
+          }
+          type="video/mp4"
+        />
+      </Box>
 
       <Flex
         flexDir={isMobile ? "column" : "row"}
@@ -220,6 +255,7 @@ export const HomeSection = () => {
         gap={{ base: 0, mb: 10 }}
         h="90vh"
         position={"relative"}
+        pt={isMobile ? "10%" : "unset"}
       >
         {/* Left Content */}
         <Flex
@@ -268,21 +304,7 @@ export const HomeSection = () => {
 
         {/* Right Content */}
 
-        {!isMobile ? (
-          <Flex
-            position="absolute"
-            justifyContent="center"
-            alignItems={"center"}
-            height="15%"
-            left="5%"
-            background={"url(grid.png)"}
-            width="90%"
-            backgroundRepeat="space"
-            backgroundSize="5% auto"
-            bottom="0"
-            zIndex={0}
-          />
-        ) : (
+        {isMobile && (
           <>
             <Flex
               position="absolute"
