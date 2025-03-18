@@ -469,29 +469,17 @@ export const BoxSection = () => {
     <Flex
       flexDirection={"column"}
       justifyContent={"center"}
-      pt={"5%"}
-      pb={isMobile ? "5%" : 0}
     >
       <Flex
         flexDirection={"column"}
         alignItems={"center"}
-        width={{ base: "85%", sm: "50%" }}
+        width={{ base: "100%", sm: "50%" }}
         margin={"0 auto"}
-        bg="rgba(0, 0, 0, 0.6)"
-        borderRadius="25px"
         p={6}
-        boxShadow={`0px 0px 10px 1px ${white}`}
         zIndex={1}
         height={"100%"}
       >
-        <Image
-          src={
-            isMobile
-              ? "/elements/leaderboard-mobile.png"
-              : "/elements/leaderboard.png"
-          }
-          borderRadius="25px"
-        />
+        <Image src={"/elements/competence.png"} borderRadius="25px" />
       </Flex>
 
       <Flex
