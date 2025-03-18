@@ -1,7 +1,8 @@
-import { Box, Text, Image, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import CosmicCards from "./Cards";
 import { isMobile } from "react-device-detect";
+import { Element } from "react-scroll";
+import CosmicCards from "./Cards";
 
 export const CardsSection = () => {
   const textElement = (
@@ -36,98 +37,120 @@ export const CardsSection = () => {
         maxW="100%"
         mx="auto"
       >
-        This game challenges you to accumulate points, enhance your deck, and
-        face progressively tougher rounds. Designed for both PC and mobile
-        platforms, Jokers of Neon ensures you can play anytime, anywhere with a
-        user-friendly interface. Even those new to crypto can easily dive in and
-        enjoy. The on-chain structure ensures transparency, security, and
-        fairness, making every move and transaction publicly verifiable.
+        Jokers of Neon is a strategic deck-building game where you craft
+        powerful poker hands, enhance your deck, and take on progressively
+        tougher challenges. <br />
+        <br />
+        Discover unique cards and strategies to outscore every round, play for
+        free with no barriers, and enjoy a seamless experience on both mobile
+        and desktop.
       </Text>
     </Box>
   );
 
   return (
-    <Box
-      bg="black"
-      color="white"
-      py={isMobile ? 0 : 10}
-      px={isMobile ? 0 : 6}
-      textAlign="center"
-      w="100vw"
-      h={{ base: "130vh", mb: "110vh", md: "120vh" }}
-      overflow={isMobile ? "hidden" : "unset"}
-    >
-      {isMobile && (
-        <Flex
-          width="100vw"
-          justifyContent="flex-start"
-          alignItems={"start"}
-          height="100px"
-          background={"url(grid.png)"}
-          backgroundRepeat="space"
-          backgroundSize="52px auto"
-          zIndex={1}
-        />
-      )}
-      <Flex w="100%" maxHeight={"20%"} justify="center" overflow={"hidden"}>
-        <motion.div
-          animate={{ x: ["80%", "-80%"] }}
-          transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
-          style={{ whiteSpace: "nowrap", display: "inline-block" }}
-        >
-          <Text
-            fontSize={{ base: "4xl", md: "8xl" }}
-            fontWeight="bold"
-            textTransform="uppercase"
-            letterSpacing="wide"
-            textShadow="0 0 10px rgba(255, 255, 255, 0.8)"
-            fontFamily="Orbitron"
-          >
-            Build Your Deck, Rule the Game
-          </Text>
-        </motion.div>
-      </Flex>
-
-      <Flex
-        flexDirection={isMobile ? "column" : "row"}
-        justify="space-evenly"
-        alignItems={"center"}
-        width={"100%"}
-        gap={isMobile ? 5 : 0}
-        mt={"2%"}
+    <Element name="about">
+      <Box
+        bg="black"
+        color="white"
+        py={isMobile ? 0 : 10}
+        px={isMobile ? 0 : 6}
+        textAlign="center"
+        w="100vw"
+        h={{ base: "130vh", mb: "110vh", md: "120vh" }}
+        overflow={isMobile ? "hidden" : "unset"}
       >
+        {isMobile && (
+          <Flex
+            width="100vw"
+            justifyContent="flex-start"
+            alignItems={"start"}
+            height="100px"
+            background={"url(grid.png)"}
+            backgroundRepeat="space"
+            backgroundSize="52px auto"
+            zIndex={1}
+          />
+        )}
+        <Flex w="100%" maxHeight={"20%"} justify="center" overflow={"hidden"}>
+          <motion.div
+            animate={{ x: ["80%", "-80%"] }}
+            transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
+            style={{ whiteSpace: "nowrap", display: "inline-block" }}
+          >
+            <Text
+              fontSize={{ base: "4xl", md: "8xl" }}
+              fontWeight="bold"
+              textTransform="uppercase"
+              letterSpacing="wide"
+              textShadow="0 0 10px rgba(255, 255, 255, 0.8)"
+              fontFamily="Orbitron"
+            >
+              Build Your Deck, Rule the Game
+            </Text>
+          </motion.div>
+        </Flex>
+
         <Flex
-          flexDirection={"row"}
-          gap={isMobile ? 20 : "8vw"}
+          flexDirection={isMobile ? "column" : "row"}
+          justify="space-evenly"
           alignItems={"center"}
-          mt={isMobile ? 5 : 0}
+          width={"100%"}
+          gap={isMobile ? 5 : 0}
+          mt={"2%"}
         >
           <Flex
-            flexDirection={isMobile ? "row" : "column"}
-            gap={isMobile ? 10 : "4vw"}
+            flexDirection={"row"}
+            gap={isMobile ? 20 : "8vw"}
+            alignItems={"center"}
+            mt={isMobile ? 5 : 0}
           >
-            <CosmicCards cardUrl="/elements/cards/card-1.png" rotate={-15} />
-            <Flex mt={isMobile ? 5 : 0}>
-              <CosmicCards cardUrl="/elements/cards/card-3.png" rotate={5} />
+            <Flex
+              flexDirection={isMobile ? "row" : "column"}
+              gap={isMobile ? 10 : "4vw"}
+            >
+              <CosmicCards cardUrl="/elements/cards/card-1.png" rotate={-15} />
+              <Flex mt={isMobile ? 5 : 0}>
+                <CosmicCards cardUrl="/elements/cards/card-3.png" rotate={5} />
+              </Flex>
             </Flex>
+            {!isMobile && (
+              <Flex>
+                <CosmicCards cardUrl="/elements/cards/card-2.png" rotate={10} />
+              </Flex>
+            )}
           </Flex>
-          {!isMobile && (
-            <Flex>
+
+          <Flex
+            width={isMobile ? "80%" : "30%"}
+            position="relative"
+            flexDirection="column"
+            gap={12}
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
+            {textElement}
+            {/* <Button
+            variant={"solid"}
+            borderRadius="12px"
+            height={"40px"}
+            width={"220px"}
+            mt={4}
+            // onClick={() => setFullScreenAlphaOpen(true)}
+          >
+            <Text fontFamily="Orbitron" fontSize={[16, 18]}>
+              PLAY GAME
+            </Text>
+          </Button> */}
+          </Flex>
+
+          {isMobile && (
+            <Flex mt={5}>
               <CosmicCards cardUrl="/elements/cards/card-2.png" rotate={10} />
             </Flex>
           )}
         </Flex>
-
-        <Flex width={isMobile ? "80%" : "30%"} position="relative">
-          {textElement}
-        </Flex>
-
-        {isMobile && (
-          <Flex mt={5}>
-            <CosmicCards cardUrl="/elements/cards/card-2.png" rotate={10} />
-          </Flex>
-        )}
-      </Flex>
-    </Box>
+      </Box>
+    </Element>
   );
 };

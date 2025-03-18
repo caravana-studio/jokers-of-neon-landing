@@ -1,7 +1,14 @@
-import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isMobile } from "react-device-detect";
+import { Element } from "react-scroll";
 
-export const DemoSection = () => {
+interface DemoSectionProps {
+  setFullScreenAlphaOpen: (value: boolean) => void;
+}
+
+export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
   const title = (
     <Flex
       justifyContent={"center"}
@@ -15,6 +22,8 @@ export const DemoSection = () => {
         fontWeight={"semibold"}
         mb={2}
         pb={4}
+        textTransform={"uppercase"}
+        textAlign={"center"}
         sx={{
           position: "relative",
           _before: {
@@ -29,22 +38,34 @@ export const DemoSection = () => {
           },
         }}
       >
-        DESKTOP & MOBILE VERSION
+        Play whenever and wherever you want
       </Text>
     </Flex>
   );
 
   const playBtn = (
-    <Button
-      variant={"solid"}
-      borderRadius="12px"
-      height={"50px"}
-      width={isMobile ? "50%" : "20%"}
+    <Link
+      href="https://discord.gg/4y296W6jaq"
+      target="_blank"
+      textDecoration="none"
     >
-      <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-        PLAY NOW
-      </Text>
-    </Button>
+      <Button
+        variant={"solid"}
+        borderRadius="12px"
+        height={"40px"}
+        width={"300px"}
+        mt={6}
+        sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+      >
+        JOIN DISCORD
+        <FontAwesomeIcon
+          cursor="pointer"
+          color="white"
+          fontSize={isMobile ? "20px" : "18px"}
+          icon={faDiscord}
+        />
+      </Button>
+    </Link>
   );
 
   const mobileMockUp = (
@@ -101,6 +122,7 @@ export const DemoSection = () => {
       >
         {isMobile && <Flex flexDirection={"column"}>{title}</Flex>}
 
+        <Element name="trailer"></Element>
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
@@ -190,7 +212,8 @@ export const DemoSection = () => {
                 letterSpacing={"2px"}
                 pb={"2%"}
               >
-                Step into a realm where every decision shapes your destiny.
+                Jokers of Neon is optimized for both mobile and desktop, so you
+                can play anytime, anywhere.
               </Text>
               <Text
                 fontFamily={"Orbitron"}
@@ -199,17 +222,8 @@ export const DemoSection = () => {
                 fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
                 letterSpacing={"2px"}
               >
-                Unveil the secrets of victory in our enigmatic strategic
-                deck-building game.
-              </Text>
-              <Text
-                fontFamily={"Orbitron"}
-                maxWidth={"60%"}
-                textAlign={"center"}
-                fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
-                letterSpacing={"2px"}
-              >
-                Will you master the art of strategy and emerge triumphant?
+                The game is currently in alpha. <br />Join our Discord to get early
+                access and be among the first to test it!
               </Text>
             </Flex>
 
@@ -273,8 +287,8 @@ export const DemoSection = () => {
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
-                    Step into a realm where every decision shapes your destiny.
-                  </Text>
+                Jokers of Neon is optimized for both mobile and desktop, so you
+                can play anytime, anywhere.                  </Text>
                 </Flex>
                 <Flex justifyContent={"center"} alignContent={"center"}>
                   <Text
@@ -284,22 +298,12 @@ export const DemoSection = () => {
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
-                    Unveil the secrets of victory in our enigmatic strategic
-                    deck-building game.
+                The game is currently in alpha. <br />Join our Discord to get early
+                access and be among the first to test it!
                   </Text>
                 </Flex>
 
-                <Flex justifyContent={"center"} alignContent={"center"}>
-                  <Text
-                    maxWidth={"80%"}
-                    textAlign={"center"}
-                    fontSize={{ base: "xs", mb: "md" }}
-                    letterSpacing={"2px"}
-                    fontFamily={"Orbitron"}
-                  >
-                    Will you master the art of strategy and emerge triumphant?
-                  </Text>
-                </Flex>
+                
               </Flex>
 
               {/* Btn */}
