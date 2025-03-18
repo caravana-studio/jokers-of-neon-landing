@@ -1,23 +1,28 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
+  Link as ChakraLink,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerOverlay,
   Flex,
+  IconButton,
   Image,
   Text,
-  Link,
-  VStack,
-  Button,
-  DrawerBody,
-  DrawerContent,
-  Drawer,
-  IconButton,
-  DrawerOverlay,
-  DrawerCloseButton,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
+import { Link } from "react-scroll";
 
-export const HomeSection = () => {
+interface HomeSectionProps {
+  setFullScreenAlphaOpen: (value: boolean) => void;
+}
+
+export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const lineStyle = {
@@ -48,27 +53,23 @@ export const HomeSection = () => {
         alt="Jokers of Neon Logo"
         h={{ base: "40px", md: "40px", xl: "80px" }}
       />
-      <Flex width={"50%"} justify="space-around" align="center">
-        <Link
-          href="#"
-          fontSize={{ base: "sm", md: "sm", xl: "0.8rem", xxl: "1.3rem" }}
-          textTransform="uppercase"
-        >
-          About Game
+      <Flex
+        width={"50%"}
+        justify="space-around"
+        align="center"
+        textTransform="uppercase"
+      >
+        <Link to="about" smooth={true} duration={500}>
+          About
         </Link>
-        <Link
-          href="#"
-          fontSize={{ base: "sm", md: "sm", xl: "0.8rem", xxl: "1.3rem" }}
-          textTransform="uppercase"
+        <ChakraLink
+          textDecoration="none"
+          onClick={() => setFullScreenAlphaOpen(true)}
         >
-          Play
-        </Link>
-        <Link
-          href="#"
-          fontSize={{ base: "sm", md: "sm", xl: "0.8rem", xxl: "1.3rem" }}
-          textTransform="uppercase"
-        >
-          Contact
+          Play game
+        </ChakraLink>
+        <Link to="trailer" smooth={true} duration={500}>
+          Trailer
         </Link>
       </Flex>
     </Flex>
@@ -92,14 +93,14 @@ export const HomeSection = () => {
       >
         <Image src="/logos/jn-logo.png" alt="Jokers of Neon Logo" h="40px" />
 
-        <IconButton
+        {/* <IconButton
           aria-label="Open menu"
           icon={<HamburgerIcon />}
           variant="unstyled"
           color="white"
           fontSize={"1.3rem"}
           onClick={onOpen}
-        />
+        /> */}
       </Flex>
 
       <Drawer placement="right" onClose={onClose} isOpen={isOpen} size="full">
@@ -152,8 +153,9 @@ export const HomeSection = () => {
                   letterSpacing="wider"
                   fontWeight="light"
                   fontFamily={"Orbitron"}
+                  onClick={() => setFullScreenAlphaOpen(true)}
                 >
-                  PLAY
+                  PLAY GAME
                 </Text>
               </Box>
 
@@ -299,7 +301,19 @@ export const HomeSection = () => {
             innovation together on the blockchain.
           </Text>
 
-          {!isMobile && poweredBy}
+          {!isMobile && (
+            <Button
+              variant={"solid"}
+              borderRadius="12px"
+              height={"40px"}
+              width={"220px"}
+              onClick={() => setFullScreenAlphaOpen(true)}
+            >
+              <Text fontFamily="Orbitron" fontSize={[16, 18]}>
+                PLAY GAME
+              </Text>
+            </Button>
+          )}
         </Flex>
 
         {/* Right Content */}
@@ -330,9 +344,10 @@ export const HomeSection = () => {
                 borderRadius="12px"
                 height={{ base: "40px", mb: "50px" }}
                 width={{ base: "50%", mb: "60%" }}
+                onClick={() => setFullScreenAlphaOpen(true)}
               >
                 <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-                  PLAY NOW
+                  PLAY GAME
                 </Text>
               </Button>
             </Flex>

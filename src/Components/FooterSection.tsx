@@ -1,7 +1,7 @@
-import { Box, Flex, Image, Text, Link, Tooltip } from "@chakra-ui/react";
-import { isMobile } from "react-device-detect";
+import { Flex, Image, Link, Text, Tooltip } from "@chakra-ui/react";
 import { faDiscord, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { isMobile } from "react-device-detect";
 import { VIOLET } from "../theme/colors.tsx";
 
 export const FooterSection = () => {
@@ -47,7 +47,7 @@ export const FooterSection = () => {
           fontFamily="Orbitron"
           fontStyle="italic"
         >
-          SINCE 2024
+          SINCE 2025
         </Text>
       )}
     </Flex>
@@ -55,44 +55,46 @@ export const FooterSection = () => {
 
   const logos = (
     <>
-      <Flex
-        border="1px solid white"
-        w={isMobile ? "60px" : "100%"}
-        h={isMobile ? "60px" : "100%"}
-        borderRadius="full"
-        p={isMobile ? "unset" : 3}
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Link href="https://x.com/JokersOfNeon" target="_blank">
-          <Tooltip label={"Follow us on X!"} placement="left">
+      <Tooltip label={"Follow us on X!"} placement="top">
+        <Flex
+          border="1px solid white"
+          w={isMobile ? "60px" : "100%"}
+          h={isMobile ? "60px" : "100%"}
+          borderRadius="full"
+          p={isMobile ? "unset" : 3}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Link href="https://x.com/JokersOfNeon" target="_blank">
             <FontAwesomeIcon
+              cursor="pointer"
               color="white"
               fontSize={isMobile ? "25px" : "35px"}
               icon={faXTwitter}
             />
-          </Tooltip>
-        </Link>
-      </Flex>
-      <Flex
-        border="1px solid white"
-        w={isMobile ? "60px" : "100%"}
-        h={isMobile ? "60px" : "100%"}
-        p={isMobile ? "unset" : 2}
-        borderRadius="full"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Link href="https://discord.gg/4y296W6jaq" target="_blank">
-          <Tooltip label={"Join our discord!"} placement="left">
+          </Link>
+        </Flex>
+      </Tooltip>
+      <Tooltip label={"Join our discord!"} placement="top">
+        <Flex
+          border="1px solid white"
+          w={isMobile ? "60px" : "100%"}
+          h={isMobile ? "60px" : "100%"}
+          p={isMobile ? "unset" : 2}
+          borderRadius="full"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Link href="https://discord.gg/4y296W6jaq" target="_blank">
             <FontAwesomeIcon
+              cursor="pointer"
               color="white"
               fontSize={isMobile ? "25px" : "35px"}
               icon={faDiscord}
             />
-          </Tooltip>
-        </Link>
-      </Flex>
+          </Link>
+        </Flex>
+      </Tooltip>
     </>
   );
 
@@ -181,7 +183,7 @@ export const FooterSection = () => {
               fontFamily="Orbitron"
               fontWeight={"semibold"}
             >
-              Since 2024
+              Since 2025
             </Text>
           </Flex>
 
