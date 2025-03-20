@@ -109,7 +109,7 @@ export const BoxSection = () => {
       <Flex
         flexDirection={"column"}
         alignItems={"center"}
-        width={{ base: "95%", sm: "80%", md: "70%", lg: "1200px" }}
+        width={{ base: "95%", sm: "70%", md: "65%", lg: "1100px" }}
         margin={"0 auto"}
         p={6}
         zIndex={1}
@@ -168,7 +168,7 @@ export const BoxSection = () => {
       <Flex
         flexDirection={"column"}
         alignItems={"center"}
-        width={{ base: "95%", sm: "80%", md: "70%", lg: "1200px" }}
+        width={{ base: "95%", sm: "70%", md: "65%", lg: "1100px" }}
         margin={"0 auto"}
         p={6}
         zIndex={1}
@@ -201,7 +201,7 @@ export const BoxSection = () => {
       <Flex
         flexDirection={"column"}
         alignItems={"center"}
-        width={{ base: "95%", sm: "80%", md: "70%", lg: "1200px" }}
+        width={{ base: "95%", sm: "70%", md: "65%", lg: "1100px" }}
         margin={"0 auto"}
         p={6}
         zIndex={1}

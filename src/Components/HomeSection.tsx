@@ -48,16 +48,28 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         align="center"
         textTransform="uppercase"
       >
-        <Link to="about" smooth={true} duration={500}>
+        <Link
+          to="about"
+          style={{ cursor: "pointer" }}
+          smooth={true}
+          duration={500}
+        >
           About
         </Link>
         <ChakraLink
-          textDecoration="none"
+          style={{
+            textDecoration: "none",
+          }}
           onClick={() => setFullScreenAlphaOpen(true)}
         >
           Play game
         </ChakraLink>
-        <Link to="trailer" smooth={true} duration={500}>
+        <Link
+          style={{ cursor: "pointer" }}
+          to="trailer"
+          smooth={true}
+          duration={500}
+        >
           Trailer
         </Link>
       </Flex>
@@ -296,7 +308,6 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           />
         ) : (
           <>
-
             <Flex
               position="absolute"
               justifyContent="center"
