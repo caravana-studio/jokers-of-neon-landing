@@ -1,17 +1,14 @@
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
-import { isMobile } from "react-device-detect";
-import theme from "../theme/theme";
-import SpineAnimation, { SpineAnimationRef } from "./SpineAnimation";
-import { useRef } from "react";
-import { CARD_HEIGHT } from "../constants/visualProps";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useRef } from "react";
+import { isMobile } from "react-device-detect";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-
-const { white, neonGreen } = theme.colors;
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { CARD_HEIGHT } from "../constants/visualProps";
+import SpineAnimation, { SpineAnimationRef } from "./SpineAnimation";
 
 const animationsData = {
   initialAnimation: "0.idle",
@@ -21,9 +18,6 @@ const animationsData = {
 };
 
 export const BoxSection = () => {
-  const details =
-    "25% chance of getting a special card\n15% chance of getting a modifier\n60% chance of getting a traditional card\nLoot box size 3";
-
   const spineAnimationRef = useRef<SpineAnimationRef>(null);
 
   const spineAnim = (
@@ -41,191 +35,126 @@ export const BoxSection = () => {
     />
   );
 
+  const coin1 = (
+    <Flex
+      position={"absolute"}
+      bottom={isMobile ? "0%" : "5%"}
+      right={isMobile ? "-10%" : "-19%"}
+      width={isMobile ? "15%" : "20%"}
+    >
+      <motion.img
+        src="/elements/coins-1.png"
+        alt="Coin 1"
+        initial={{ rotate: 0 }}
+        whileInView={{ rotate: [0, -15, 15, 0] }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+    </Flex>
+  );
+  const coin2 = (
+    <Flex
+      position={"absolute"}
+      bottom={isMobile ? "0%" : "5%"}
+      right={isMobile ? "-5%" : "-10%"}
+      width={isMobile ? "20%" : "22%"}
+      transform={"rotate(90deg)"}
+    >
+      <motion.img
+        src="/elements/coins-4.png"
+        alt="Coin 1"
+        initial={{ rotate: 0 }}
+        whileInView={{ rotate: [0, -15, 15, 0] }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+    </Flex>
+  );
+
+  const coin3 = (
+    <Flex
+      position={"absolute"}
+      bottom={"-2%"}
+      left={"-1%"}
+      width={"18%"}
+      zIndex={-1}
+    >
+      <motion.img
+        src="/elements/coins-4.png"
+        alt="Coin 1"
+        initial={{ rotate: 0 }}
+        whileInView={{ rotate: [0, -15, 15, 0] }}
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+    </Flex>
+  );
+
   const specialBox = (
-    <Flex flexDirection={"column"} justifyContent={"center"} pt={"5%"} pb={0}>
+    <Flex
+      flexDirection={"column"}
+      justifyContent={"center"}
+      mb={{ base: 6, sm: 2 }}
+      mt={{base: '-40px', sm: '-120px'}}
+    >
       <Flex
         flexDirection={"column"}
-        alignItems={"flex-end"}
-        width={{ base: "95%", sm: "50%" }}
+        alignItems={"center"}
+        width={{ base: "95%", sm: "80%", md: "70%", lg: "1200px" }}
         margin={"0 auto"}
-        bg="rgba(0, 0, 0, 0.6)"
-        borderRadius="25px"
-        p={isMobile ? 4 : 6}
-        boxShadow={`0px 0px 10px 1px ${white}`}
+        p={6}
         zIndex={1}
         height={"100%"}
       >
         <Flex
-          flexDirection={{ base: "column", sm: "row" }}
-          alignItems={isMobile ? "flex-end" : "center"}
-          gap={4}
-          flex="1"
-          height="100%"
+          flexDirection={{ base: "column", sm: "column" }}
+          alignItems={isMobile ? "flex-end" : "flex-end"}
           width="100%"
-          justify={"flex-end"}
+          justifyContent={"flex-end"}
           position={"relative"}
+          alignContent="flex-end"
         >
-          <Flex
-            position={"absolute"}
-            top={0}
-            left={isMobile ? "-35%" : "-15%"}
-            w={{ base: "100%", sm: "35%" }}
-            h={{
-              base: `${CARD_HEIGHT * 2 + 30}px`,
-              xl: `${CARD_HEIGHT * 2.5 + 30}px`,
-              xxl: `${CARD_HEIGHT * 3 + 30}px`,
-            }}
-            justifyContent="center"
-            flexDir="column"
-          >
-            {spineAnim}
-          </Flex>
-          <Flex position={"absolute"} bottom={0} right={"-13.5%"} width={"20%"}>
-            <Image src="/elements/star.png" />
-          </Flex>
-          <Flex width={isMobile ? "55%" : "75%"}>
+          {isMobile ? (
             <Flex
-              flexDirection={"column"}
-              ml={{ base: "15px", sm: "30px" }}
-              flex="1"
-              height="100%"
-              justifyContent={"space-between"}
+              position={"absolute"}
+              bottom={0}
+              left={{ base: "-25%", mb: "-35%" }}
+              w={{ base: "80%", mb: "100%" }}
+              h={{
+                base: `${CARD_HEIGHT * 1 + 30}px`,
+              }}
+              justifyContent="center"
+              flexDir="column"
             >
-              <Flex justifyContent="space-between">
-                <Heading
-                  fontSize={{ base: "sm", sm: "md", xl: "2.5rem", xxl: "4rem" }}
-                  variant="italic"
-                >
-                  SPECIAL PACKS
-                </Heading>
-
-                <Image
-                  src={`/logos/jn-logo.png`}
-                  alt={"JN logo"}
-                  width={isMobile ? "50px" : "120px"}
-                />
-              </Flex>
-
-              <Box mb={4}>
-                <Text
-                  color="white"
-                  fontSize={{ base: "md", sm: "lg", xl: "2rem", xxl: "3rem" }}
-                  mb={2}
-                  sx={{
-                    position: "relative",
-                    _before: {
-                      content: '""',
-                      position: "absolute",
-                      bottom: 0,
-                      width: "95%",
-                      height: "2px",
-                      backgroundColor: "white",
-                      boxShadow:
-                        "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
-                    },
-                  }}
-                >
-                  DESCRIPTION:
-                </Text>
-                <Text
-                  color={neonGreen}
-                  fontSize={{ base: "md", sm: "xl", xl: "1.5rem", xxl: "2rem" }}
-                >
-                  More chances of getting a special card.
-                </Text>
-              </Box>
-
-              {details && (
-                <Box mb={4}>
-                  <Text
-                    color="white"
-                    fontSize={{ base: "md", sm: "lg", xl: "2rem", xxl: "3rem" }}
-                    mb={2}
-                    sx={{
-                      position: "relative",
-                      _before: {
-                        content: '""',
-                        position: "absolute",
-                        bottom: 0,
-                        width: "95%",
-                        height: "2px",
-                        backgroundColor: "white",
-                        boxShadow:
-                          "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
-                      },
-                    }}
-                  >
-                    DETAILS:
-                  </Text>
-                  <Text
-                    color={neonGreen}
-                    fontSize={{
-                      base: "md",
-                      sm: "xl",
-                      xl: "1.5rem",
-                      xxl: "2rem",
-                    }}
-                  >
-                    {details?.split("\n").map((line, index) => (
-                      <span key={index}>
-                        {line}
-                        <br />
-                      </span>
-                    ))}
-                  </Text>
-                </Box>
-              )}
-              <Box flex={1} alignItems={"end"} display={"flex"} flexDir={"row"}>
-                <Flex flexDirection={"column"} gap={5}>
-                  <Flex gap={3}>
-                    <Flex gap={3}>
-                      <Heading
-                        fontSize={{
-                          base: "sm",
-                          sm: "lg",
-                          xl: "1.5rem",
-                          xxl: "2rem",
-                        }}
-                        variant="italic"
-                      >
-                        Price:
-                      </Heading>
-                      <Heading
-                        fontSize={{
-                          base: "sm",
-                          sm: "lg",
-                          xl: "1.5rem",
-                          xxl: "2rem",
-                        }}
-                        variant="italic"
-                        textDecoration={"none"}
-                      >
-                        750
-                        <span
-                          style={{ fontFamily: "Orbitron", marginLeft: "3px" }}
-                        >
-                          ¢
-                        </span>
-                      </Heading>
-                    </Flex>
-                  </Flex>
-                </Flex>
-              </Box>
+              {spineAnim}
             </Flex>
-          </Flex>
+          ) : (
+            <Flex
+              position={"absolute"}
+              bottom={0}
+              left={isMobile ? "-35%" : "-5%"}
+              w={{ base: "100%", sm: "50%" }}
+              h={{
+                base: `600px`,
+              }}
+              justifyContent="center"
+              flexDir="column"
+            >
+              {spineAnim}
+            </Flex>
+          )}
+          <Image w="100%" src={"/elements/specials.png"} borderRadius="25px" />
         </Flex>
       </Flex>
-
-      <Flex
-        width="60%"
-        gap={4}
-        m={1000}
-        mt={{ base: 4, sm: 8 }}
-        mb={4}
-        justifyContent={"space-between"}
-        margin={"0 auto"}
-        flexDirection={{ base: "column", sm: "row" }}
-      ></Flex>
     </Flex>
   );
 
@@ -233,235 +162,32 @@ export const BoxSection = () => {
     <Flex
       flexDirection={"column"}
       justifyContent={"center"}
-      pt={isMobile ? "25%" : "5%"}
-      pb={0}
+      mb={{ base: 6, sm: 2 }}
+      mt={{base: '-40px', sm: '-120px'}}
     >
       <Flex
         flexDirection={"column"}
-        alignItems={"flex-end"}
-        width={{ base: "85%", sm: "50%" }}
+        alignItems={"center"}
+        width={{ base: "95%", sm: "80%", md: "70%", lg: "1200px" }}
         margin={"0 auto"}
-        bg="rgba(0, 0, 0, 0.6)"
-        borderRadius="25px"
-        p={isMobile ? 4 : 6}
-        boxShadow={`0px 0px 10px 1px ${white}`}
+        p={6}
         zIndex={1}
         height={"100%"}
       >
         <Flex
-          flexDirection={{ base: "column", sm: "row" }}
-          alignItems={isMobile ? "flex-end" : "center"}
-          gap={4}
-          flex="1"
-          height="100%"
+          flexDirection={{ base: "column", sm: "column" }}
+          alignItems={isMobile ? "flex-end" : "flex-end"}
           width="100%"
-          justify={isMobile ? "center" : "flex-end"}
+          justifyContent={"flex-end"}
           position={"relative"}
+          alignContent="flex-end"
         >
-          <Flex
-            position={"absolute"}
-            bottom={0}
-            left={isMobile ? "-20%" : "-10%"}
-            w={{ base: "70%", sm: "40%" }}
-            justifyContent="center"
-            flexDir="column"
-          >
-            <Image src="/elements/neon-joker.png" />
-          </Flex>
-          <Flex
-            position={"absolute"}
-            bottom={isMobile ? "-5%" : "-10%"}
-            right={isMobile ? "-10%" : "-20.5%"}
-            width={isMobile ? "15%" : "20%"}
-          >
-            <motion.img
-              src="/elements/coins-1.png"
-              alt="Coin 1"
-              initial={{ rotate: 0 }}
-              whileInView={{ rotate: [0, -15, 15, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </Flex>
-
-          <Flex
-            position={"absolute"}
-            bottom={0}
-            right={isMobile ? "-5%" : "-5%"}
-            width={isMobile ? "20%" : "15%"}
-          >
-            <motion.img
-              src="/elements/coins-4.png"
-              alt="Coin 1"
-              initial={{ rotate: 0 }}
-              whileInView={{ rotate: [0, -15, 15, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </Flex>
-
-          <Flex
-            position={"absolute"}
-            bottom={"-20%"}
-            left={"-15%"}
-            width={"15%"}
-          >
-            <motion.img
-              src="/elements/coins-4.png"
-              alt="Coin 1"
-              initial={{ rotate: 0 }}
-              whileInView={{ rotate: [0, -15, 15, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </Flex>
-
-          <Flex width={isMobile ? "55%" : "75%"}>
-            <Flex
-              flexDirection={"column"}
-              ml={{ base: "15px", sm: "30px" }}
-              flex="1"
-              height="100%"
-              justifyContent={"space-between"}
-            >
-              <Flex justifyContent="space-between" alignItems="center">
-                <Heading
-                  fontSize={{ base: "xs", sm: "md", xl: "2.5rem", xxl: "4rem" }}
-                  variant="italic"
-                >
-                  NEON JOKER
-                </Heading>
-
-                <Image
-                  src={`/logos/jn-logo.png`}
-                  alt={"JN logo"}
-                  width={isMobile ? "50px" : "120px"}
-                />
-              </Flex>
-
-              <Box mb={4}>
-                <Text
-                  color="white"
-                  fontSize={{ base: "md", sm: "lg", xl: "2rem", xxl: "3rem" }}
-                  mb={2}
-                  sx={{
-                    position: "relative",
-                    _before: {
-                      content: '""',
-                      position: "absolute",
-                      bottom: 0,
-                      width: "95%",
-                      height: "2px",
-                      backgroundColor: "white",
-                      boxShadow:
-                        "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
-                    },
-                  }}
-                >
-                  CARD TYPE:
-                </Text>
-                <Text
-                  color={neonGreen}
-                  fontSize={{ base: "md", sm: "xl", xl: "1.5rem", xxl: "2rem" }}
-                >
-                  Special
-                </Text>
-              </Box>
-
-              <Box mb={4}>
-                <Text
-                  color="white"
-                  fontSize={{ base: "md", sm: "lg", xl: "2rem", xxl: "3rem" }}
-                  mb={2}
-                  sx={{
-                    position: "relative",
-                    _before: {
-                      content: '""',
-                      position: "absolute",
-                      bottom: 0,
-                      width: "95%",
-                      height: "2px",
-                      backgroundColor: "white",
-                      boxShadow:
-                        "0px 0px 12px rgba(255, 255, 255, 0.8), 0px 6px 20px rgba(255, 255, 255, 0.5)",
-                    },
-                  }}
-                >
-                  DESCRIPTION
-                </Text>
-                <Text
-                  color={neonGreen}
-                  fontSize={{
-                    base: "md",
-                    sm: "xl",
-                    xl: "1.5rem",
-                    xxl: "2rem",
-                  }}
-                >
-                  Score double points and multi
-                </Text>
-              </Box>
-
-              <Box flex={1} alignItems={"end"} display={"flex"} flexDir={"row"}>
-                <Flex flexDirection={"column"} gap={5}>
-                  <Flex gap={3}>
-                    <Flex gap={3}>
-                      <Heading
-                        fontSize={{
-                          base: "sm",
-                          sm: "lg",
-                          xl: "1.5rem",
-                          xxl: "2rem",
-                        }}
-                        variant="italic"
-                      >
-                        Price:
-                      </Heading>
-                      <Heading
-                        fontSize={{
-                          base: "sm",
-                          sm: "lg",
-                          xl: "1.5rem",
-                          xxl: "2rem",
-                        }}
-                        variant="italic"
-                        textDecoration={"none"}
-                      >
-                        600
-                        <span
-                          style={{ fontFamily: "Orbitron", marginLeft: "3px" }}
-                        >
-                          ¢
-                        </span>
-                      </Heading>
-                    </Flex>
-                  </Flex>
-                </Flex>
-              </Box>
-            </Flex>
-          </Flex>
+          {coin1}
+          {coin2}
+          {coin3}
+          <Image w="100%" src={"/elements/joker.png"} borderRadius="25px" />
         </Flex>
       </Flex>
-
-      <Flex
-        width="60%"
-        gap={4}
-        m={1000}
-        mt={{ base: 4, sm: 8 }}
-        mb={4}
-        justifyContent={"space-between"}
-        margin={"0 auto"}
-        flexDirection={{ base: "column", sm: "row" }}
-      ></Flex>
     </Flex>
   );
 
@@ -469,37 +195,28 @@ export const BoxSection = () => {
     <Flex
       flexDirection={"column"}
       justifyContent={"center"}
+      mb={{ base: 6, sm: 2 }}
+      mt={{base: '-40px', sm: '-120px'}}
     >
       <Flex
         flexDirection={"column"}
         alignItems={"center"}
-        width={{ base: "100%", sm: "50%" }}
+        width={{ base: "95%", sm: "80%", md: "70%", lg: "1200px" }}
         margin={"0 auto"}
         p={6}
         zIndex={1}
         height={"100%"}
       >
-        <Image src={"/elements/competence.png"} borderRadius="25px" />
+        <Image w="100%" src={"/elements/leaderboard.png"} borderRadius="25px" />
       </Flex>
-
-      <Flex
-        width="60%"
-        gap={4}
-        m={1000}
-        mt={{ base: 4, sm: 8 }}
-        mb={4}
-        justifyContent={"space-between"}
-        margin={"0 auto"}
-        flexDirection={{ base: "column", sm: "row" }}
-      ></Flex>
     </Flex>
   );
 
   return (
     <Box
       w="100vw"
-      h={{ base: "80vh", mb: "60vh", sm: "100vh" }}
-      bgImage="url('/bg/bg-top.png')"
+      h={{ base: "70vh", sm: "130vh" }}
+      bgImage="url('/bg/bg-top.jpg')"
       bgSize="cover"
       bgPosition="center"
       color="white"
@@ -516,7 +233,7 @@ export const BoxSection = () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={{ delay: 300000, disableOnInteraction: false }}
           loop={true}
         >
           <SwiperSlide>
@@ -533,6 +250,7 @@ export const BoxSection = () => {
                 top="32%"
                 right={isMobile ? "60%" : "38%"}
                 width={"100%"}
+                zIndex={-1}
               >
                 <motion.img
                   width={isMobile ? "8%" : "4%"}
@@ -553,7 +271,7 @@ export const BoxSection = () => {
                 />
 
                 <motion.img
-                  width={isMobile ? "18%" : "14%"}
+                  width={isMobile ? "15%" : "14%"}
                   src="/elements/ring.png"
                   alt="Rotating Ring"
                   style={{
@@ -623,33 +341,7 @@ export const BoxSection = () => {
             </Flex>
 
             {/* Box preview */}
-            {!isMobile ? (
-              specialBox
-            ) : (
-              <Flex
-                flexDirection={"column"}
-                justifyContent={"center"}
-                pt={"20%"}
-                pb={0}
-                margin={"0 auto"}
-                position={"relative"}
-              >
-                <Flex
-                  position={"absolute"}
-                  bottom={0}
-                  left={{ base: "-25%", mb: "-35%" }}
-                  w={{ base: "80%", mb: "100%" }}
-                  h={{
-                    base: `${CARD_HEIGHT * 1 + 30}px`,
-                  }}
-                  justifyContent="center"
-                  flexDir="column"
-                >
-                  {spineAnim}
-                </Flex>
-                <Image m={5} src="/elements/box-demo-no-bg.png" />
-              </Flex>
-            )}
+            {specialBox}
           </SwiperSlide>
 
           <SwiperSlide>
@@ -727,20 +419,7 @@ export const BoxSection = () => {
               </motion.div>
             </Flex>
 
-            {/* Joker preview */}
-            {!isMobile ? (
-              jokerCard
-            ) : (
-              <Flex
-                flexDirection={"column"}
-                justifyContent={"center"}
-                pt={"20%"}
-                pb={0}
-                margin={"0 auto"}
-              >
-                <Image src="/elements/joker-demo-no-bg.png" />
-              </Flex>
-            )}
+            {jokerCard}
           </SwiperSlide>
 
           <SwiperSlide>

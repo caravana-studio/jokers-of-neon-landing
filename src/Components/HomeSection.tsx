@@ -1,4 +1,3 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -9,11 +8,10 @@ import {
   DrawerContent,
   DrawerOverlay,
   Flex,
-  IconButton,
   Image,
   Text,
   useDisclosure,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-scroll";
@@ -199,11 +197,11 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
   return (
     <Box
       w="100vw"
-      h="100vh"
+      h="100svh"
       bgImage={
         isMobile
-          ? "url('/bg/bg-top-merge-mobile.png')"
-          : "url('/bg/bg-top-merge.png')"
+          ? "url('/bg/bg-top-merge-mobile.jpg')"
+          : "url('/bg/bg-top-merge.jpg')"
       }
       bgSize="cover"
       bgPosition="center"
@@ -220,7 +218,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         justifyContent="space-between"
         alignContent={"center"}
         gap={{ base: 0, mb: 10 }}
-        h="90vh"
+        h="80vh"
         position={"relative"}
       >
         {/* Left Content */}
@@ -250,7 +248,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           <Image
             src="/logos/logo-variant.png"
             alt="Jokers of Neon"
-            maxW={{ base: isMobile ? "80%" : "60%", xl: "70%", xxl: "90%" }}
+            maxW={{ base: "90%", sm: "80%", xl: "70%", xxl: "90%" }}
           />
           <Text
             fontSize={{
@@ -298,16 +296,6 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           />
         ) : (
           <>
-            <Flex
-              position="absolute"
-              justifyContent="center"
-              alignItems={"center"}
-              width="100%"
-              bottom="40"
-              zIndex={1}
-            >
-              {poweredBy}
-            </Flex>
 
             <Flex
               position="absolute"

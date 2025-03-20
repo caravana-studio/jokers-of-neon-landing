@@ -57,7 +57,7 @@ export const CardsSection = () => {
         px={isMobile ? 0 : 6}
         textAlign="center"
         w="100vw"
-        h={{ base: "130vh", mb: "110vh", md: "120vh" }}
+        h={{ base: "140vh", md: "120vh" }}
         overflow={isMobile ? "hidden" : "unset"}
       >
         {isMobile && (
