@@ -218,7 +218,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         justifyContent="space-between"
         alignContent={"center"}
         gap={{ base: 0, mb: 10 }}
-        h="80vh"
+        h="85svh"
         position={"relative"}
       >
         {/* Left Content */}

@@ -233,7 +233,7 @@ export const BoxSection = () => {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
-          autoplay={{ delay: 300000, disableOnInteraction: false }}
+          autoplay={{ delay: 5000, disableOnInteraction: true }}
           loop={true}
         >
           <SwiperSlide>
@@ -331,7 +331,7 @@ export const BoxSection = () => {
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"
-                  textShadow="0 0 15px rgba(255, 255, 255, 0.9)"
+                  textShadow={{base: "0 0 8px rgba(255, 255, 255, 0.4)", sm: "0 0 15px rgba(255, 255, 255, 0.9)"}}  
                   letterSpacing="widest"
                   fontFamily="Orbitron"
                 >
@@ -410,7 +410,7 @@ export const BoxSection = () => {
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"
-                  textShadow="0 0 15px rgba(255, 255, 255, 0.9)"
+                  textShadow={{base: "0 0 8px rgba(255, 255, 255, 0.4)", sm: "0 0 15px rgba(255, 255, 255, 0.9)"}}  
                   letterSpacing="widest"
                   fontFamily="Orbitron"
                 >
@@ -463,7 +463,7 @@ export const BoxSection = () => {
                   }}
                   fontWeight="bold"
                   textTransform="uppercase"
-                  textShadow="0 0 15px rgba(255, 255, 255, 0.9)"
+                  textShadow={{base: "0 0 8px rgba(255, 255, 255, 0.4)", sm: "0 0 15px rgba(255, 255, 255, 0.9)"}}  
                   letterSpacing="widest"
                   fontFamily="Orbitron"
                 >

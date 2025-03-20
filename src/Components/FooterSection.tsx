@@ -115,9 +115,9 @@ export const FooterSection = () => {
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
-          pt={isMobile ? "10%" : "5%"}
+          pt={isMobile ? "40%" : "5%"}
           width={isMobile ? "100%" : "20%"}
-          height={isMobile ? "120%" : "130%"}
+          height={isMobile ? "150%" : "130%"}
         >
           <Image
             width={"100%"}
