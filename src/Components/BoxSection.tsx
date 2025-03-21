@@ -59,8 +59,8 @@ export const BoxSection = () => {
     <Flex
       position={"absolute"}
       bottom={isMobile ? "0%" : "5%"}
-      right={isMobile ? "-5%" : "-10%"}
-      width={isMobile ? "20%" : "22%"}
+      right={isMobile ? "-5%" : "-8%"}
+      width={isMobile ? "20%" : "18%"}
       transform={"rotate(90deg)"}
     >
       <motion.img
@@ -80,9 +80,9 @@ export const BoxSection = () => {
   const coin3 = (
     <Flex
       position={"absolute"}
-      bottom={"-2%"}
-      left={"-1%"}
-      width={"18%"}
+      bottom={"-3%"}
+      left={0}
+      width={"16%"}
       zIndex={-1}
     >
       <motion.img
@@ -271,12 +271,13 @@ export const BoxSection = () => {
                 />
 
                 <motion.img
-                  width={isMobile ? "15%" : "14%"}
+                  width={isMobile ? "15%" : "8%"}
                   src="/elements/ring.png"
                   alt="Rotating Ring"
                   style={{
                     position: "absolute",
-                    left: isMobile ? "70%" : "64%",
+                    left: isMobile ? "70%" : "68%",
+                    top: isMobile? 0 : "32px"
                   }}
                   initial={{ rotate: 0 }}
                   whileInView={{ rotate: [0, 10, -10, 0] }}
@@ -360,13 +361,13 @@ export const BoxSection = () => {
                 width={"100%"}
               >
                 <motion.img
-                  width={isMobile ? "15%" : "8%"}
+                  width={isMobile ? "15%" : "110px"}
                   src="/elements/coins-1.png"
                   alt="Coin 1"
                   style={{
                     position: "absolute",
                     bottom: "0%",
-                    left: isMobile ? "70%" : "85%",
+                    left: isMobile ? "70%" : "90%",
                   }}
                   initial={{ rotate: 0 }}
                   whileInView={{ rotate: [0, -15, 15, 0] }}
