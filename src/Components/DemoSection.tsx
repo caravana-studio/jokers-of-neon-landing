@@ -70,10 +70,8 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
 
   const mobileMockUp = (
     <Flex position={"relative"} width={isMobile ? "100%" : "40%"}>
-      <Image src="/elements/mobile-home-mockup.png" zIndex={2} />
+      <Image src="/elements/mobile-home-mockup.png" zIndex={0} />
       <Box
-        as="iframe"
-        src="https://www.youtube.com/embed/iD-eBTScE-o?autoplay=1&mute=1&loop=1&playlist=iD-eBTScE-o"
         position="absolute"
         bottom="2%"
         left="3%"
@@ -81,8 +79,21 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
         height="95%"
         border="none"
         zIndex={0}
-        allow="autoplay; encrypted-media; loop"
-      />
+      >
+        <video
+          autoPlay
+          width="100%"
+          height="100%"
+          loop
+          muted
+          style={{ marginTop: isMobile ? "15px" : "20px", maxWidth: '235px' }}
+        >
+          <source
+            src="/elements/trailers/trailer-mobile.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </Box>
     </Flex>
   );
 
@@ -150,25 +161,33 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
           <Flex width={isMobile ? "70%" : "40%"} position="relative">
             <Image src="/elements/mockup.png" />
 
-            <Image
-              position="absolute"
-              top="5"
-              left="11.8%"
-              width="77.2%"
-              height="70%"
-              src="/elements/demo.png"
-            />
-
             <Box
-              as="iframe"
-              src="https://www.youtube.com/embed/EvQawPSkAfE?loop=1&playlist=EvQawPSkAfE&autoplay=1&mute=1"
               position="absolute"
               top={"2%"}
               left="11.5%"
               width="78%"
               height="87%"
               border="none"
-            />
+            >
+              <video
+                width="100%"
+                height="100%"
+                autoPlay
+                loop
+                muted
+                style={{
+                  paddingLeft: "3px",
+                  paddingRight: "6px",
+                  marginTop: isMobile ? "15px" :"30px",
+                  maxWidth: '770px'
+                }}
+              >
+                <source
+                  src="/elements/trailers/trailer-desktop.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </Box>
 
             {!isMobile && (
               <Flex
@@ -222,8 +241,9 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
                 fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
                 letterSpacing={"2px"}
               >
-                The game is currently in alpha. <br />Join our Discord to get early
-                access and be among the first to test it!
+                The game is currently in alpha. <br />
+                Join our Discord to get early access and be among the first to
+                test it!
               </Text>
             </Flex>
 
@@ -287,8 +307,9 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
-                Jokers of Neon is optimized for both mobile and desktop, so you
-                can play anytime, anywhere.                  </Text>
+                    Jokers of Neon is optimized for both mobile and desktop, so
+                    you can play anytime, anywhere.{" "}
+                  </Text>
                 </Flex>
                 <Flex justifyContent={"center"} alignContent={"center"}>
                   <Text
@@ -298,12 +319,11 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
-                The game is currently in alpha. <br />Join our Discord to get early
-                access and be among the first to test it!
+                    The game is currently in alpha. <br />
+                    Join our Discord to get early access and be among the first
+                    to test it!
                   </Text>
                 </Flex>
-
-                
               </Flex>
 
               {/* Btn */}
