@@ -1,4 +1,3 @@
-import { HamburgerIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -9,11 +8,10 @@ import {
   DrawerContent,
   DrawerOverlay,
   Flex,
-  IconButton,
   Image,
   Text,
   useDisclosure,
-  VStack,
+  VStack
 } from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-scroll";
@@ -59,16 +57,28 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         align="center"
         textTransform="uppercase"
       >
-        <Link to="about" smooth={true} duration={500}>
+        <Link
+          to="about"
+          style={{ cursor: "pointer" }}
+          smooth={true}
+          duration={500}
+        >
           About
         </Link>
         <ChakraLink
-          textDecoration="none"
+          style={{
+            textDecoration: "none",
+          }}
           onClick={() => setFullScreenAlphaOpen(true)}
         >
           Play game
         </ChakraLink>
-        <Link to="trailer" smooth={true} duration={500}>
+        <Link
+          style={{ cursor: "pointer" }}
+          to="trailer"
+          smooth={true}
+          duration={500}
+        >
           Trailer
         </Link>
       </Flex>
@@ -214,7 +224,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
   return (
     <Box
       w="100vw"
-      h="100vh"
+      h="100svh"
       bgSize="cover"
       bgPosition="center"
       bgColor={"black"}
@@ -255,7 +265,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         justifyContent="space-between"
         alignContent={"center"}
         gap={{ base: 0, mb: 10 }}
-        h="90vh"
+        h="85svh"
         position={"relative"}
         pt={isMobile ? "10%" : "unset"}
       >
@@ -286,7 +296,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           <Image
             src="/logos/logo-variant.png"
             alt="Jokers of Neon"
-            maxW={{ base: isMobile ? "80%" : "60%", xl: "70%", xxl: "90%" }}
+            maxW={{ base: "90%", sm: "80%", xl: "70%", xxl: "90%" }}
           />
           <Text
             fontSize={{
@@ -320,17 +330,6 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
 
         {isMobile && (
           <>
-            <Flex
-              position="absolute"
-              justifyContent="center"
-              alignItems={"center"}
-              width="100%"
-              bottom="40"
-              zIndex={1}
-            >
-              {poweredBy}
-            </Flex>
-
             <Flex
               position="absolute"
               justifyContent="center"

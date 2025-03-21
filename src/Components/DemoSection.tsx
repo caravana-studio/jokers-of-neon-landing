@@ -112,8 +112,8 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
 
       <Box
         w="100vw"
-        h={{ base: "110vh", mb: "90vh", md: "110vh" }}
-        bgImage="url('/bg/bg-bottom-3.png')"
+        h={{ base: "110vh", sm: "130vh" }}
+        bgImage="url('/bg/bg-bottom-3.jpg')"
         bgSize="cover"
         color="white"
         overflow={"hidden"}

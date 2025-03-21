@@ -57,7 +57,7 @@ export const CardsSection = () => {
         px={isMobile ? 0 : 6}
         textAlign="center"
         w="100vw"
-        h={{ base: "130vh", mb: "110vh", md: "120vh" }}
+        h={{ base: "125vh", md: "120vh" }}
         overflow={isMobile ? "hidden" : "unset"}
       >
         {isMobile && (
@@ -83,7 +83,7 @@ export const CardsSection = () => {
               fontWeight="bold"
               textTransform="uppercase"
               letterSpacing="wide"
-              textShadow="0 0 10px rgba(255, 255, 255, 0.8)"
+                  textShadow={{base: "0 0 8px rgba(255, 255, 255, 0.4)", sm: "0 0 15px rgba(255, 255, 255, 0.9)"}}  
               fontFamily="Orbitron"
             >
               Build Your Deck, Rule the Game
