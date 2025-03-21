@@ -265,7 +265,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         justifyContent="space-between"
         alignContent={"center"}
         gap={{ base: 0, mb: 10 }}
-        h="85svh"
+        h="95svh"
         position={"relative"}
         pt={isMobile ? "10%" : "unset"}
       >
@@ -301,14 +301,14 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           <Text
             fontSize={{
               base: isMobile ? "sm" : "2xs",
-              md: "md",
+              md: "lg",
               xl: "xl",
               xxl: "2xl",
             }}
             maxW={{ base: isMobile ? "unset" : "60%", md: "60%", xl: "80%" }}
           >
-            Jokers of Neon is a strategy card game that brings strategy and
-            innovation together on the blockchain.
+            Deck-building meets Poker in an exciting strategy card game. <br />
+            Play for free and see how far your skills can take you!
           </Text>
 
           {!isMobile && (
