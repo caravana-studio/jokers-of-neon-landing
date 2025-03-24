@@ -29,9 +29,9 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
       p={8}
       textAlign="center"
     >
-      <Heading size="lg">Jokers of Neon is currently in alpha</Heading>
+      <Heading size="lg">Jokers of Neon is in early access</Heading>
       <Text size="xl">
-        Join our Discord for exclusive access and be among the first to play!
+        Join our Discord to test the game before the official release!
       </Text>
       <Link
         href="https://discord.gg/4y296W6jaq"
@@ -42,7 +42,7 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
           variant={"solid"}
           borderRadius="12px"
           height={"40px"}
-          width={{base: "100%", sm: "300px"}}
+          width={{ base: "100%", sm: "300px" }}
           mt={6}
           sx={{ flexDirection: "row", display: "flex", gap: 3 }}
         >
