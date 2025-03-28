@@ -241,9 +241,8 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
                 fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
                 letterSpacing={"2px"}
               >
-                The game is currently in alpha. <br />
-                Join our Discord to get early access and be among the first to
-                test it!
+                The game is currently in early access <br />
+                Join our Discord to test the game before the official release!
               </Text>
             </Flex>
 
@@ -319,9 +318,9 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
-                    The game is currently in alpha. <br />
-                    Join our Discord to get early access and be among the first
-                    to test it!
+                    The game is currently in early access <br />
+                    Join our Discord to test the game before the official
+                    release!
                   </Text>
                 </Flex>
               </Flex>

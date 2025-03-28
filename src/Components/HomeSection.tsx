@@ -9,10 +9,12 @@ import {
   DrawerOverlay,
   Flex,
   Image,
+  Spinner,
   Text,
   useDisclosure,
   VStack
 } from "@chakra-ui/react";
+import { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-scroll";
 
@@ -22,6 +24,20 @@ interface HomeSectionProps {
 
 export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.log("Autoplay error:", error);
+        });
+      }
+    }
+  }, []);
 
   const lineStyle = {
     position: "relative",
@@ -66,16 +82,14 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           About
         </Link>
         <ChakraLink
-          style={{
-            textDecoration: "none",
-          }}
+          style={{ textDecoration: "none" }}
           onClick={() => setFullScreenAlphaOpen(true)}
         >
           Play game
         </ChakraLink>
         <Link
-          style={{ cursor: "pointer" }}
           to="trailer"
+          style={{ cursor: "pointer" }}
           smooth={true}
           duration={500}
         >
@@ -102,15 +116,6 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         py={2}
       >
         <Image src="/logos/jn-logo.png" alt="Jokers of Neon Logo" h="40px" />
-
-        {/* <IconButton
-          aria-label="Open menu"
-          icon={<HamburgerIcon />}
-          variant="unstyled"
-          color="white"
-          fontSize={"1.3rem"}
-          onClick={onOpen}
-        /> */}
       </Flex>
 
       <Drawer placement="right" onClose={onClose} isOpen={isOpen} size="full">
@@ -193,34 +198,6 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
 
   const TopNavBar = isMobile ? <MobileNav /> : <DesktopNav />;
 
-  const poweredBy = (
-    <Flex gap={4} justifyContent="center" alignItems={"center"}>
-      <Text
-        fontSize={{
-          base: isMobile ? "sm" : "2xs",
-          md: "md",
-          xl: "xl",
-          xxl: "2xl",
-        }}
-        textTransform="uppercase"
-        letterSpacing={{ base: "0.3rem", xl: "0.5rem", xxl: "0.8rem" }}
-        fontWeight="semibold"
-      >
-        Powered by
-      </Text>
-      <Image
-        src="/logos/starknet.png"
-        alt="Starknet logo"
-        h={{ base: isMobile ? "30px" : "40px", xl: "50%" }}
-      />
-      <Image
-        src="/logos/dojo.png"
-        alt="Dojo logo"
-        h={{ base: isMobile ? "30px" : "40px", xl: "50%" }}
-      />
-    </Flex>
-  );
-
   return (
     <Box
       w="100vw"
@@ -232,9 +209,31 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
       overflow={"hidden"}
       position={"relative"}
     >
+      {/* Loader */}
+      <Flex
+        position="fixed"
+        top={0}
+        left={0}
+        width="100vw"
+        height="100svh"
+        bg="black"
+        justifyContent="center"
+        alignItems="center"
+        zIndex={9999}
+        opacity={isVideoLoaded ? 0 : 1}
+        transition="opacity 0.5s ease"
+        pointerEvents={isVideoLoaded ? "none" : "auto"}
+      >
+        <Spinner mr={4} />
+        <Text fontSize="xl" fontFamily="Orbitron" color="white">
+          loading . . .
+        </Text>
+      </Flex>
+
       {/* Top Navigation */}
       {TopNavBar}
 
+      {/* Background video */}
       <Box
         as="video"
         autoPlay
@@ -248,6 +247,8 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         h="100%"
         objectFit="cover"
         zIndex="0"
+        ref={videoRef}
+        onCanPlayThrough={() => setIsVideoLoaded(true)}
       >
         <source
           src={
@@ -265,7 +266,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         justifyContent="space-between"
         alignContent={"center"}
         gap={{ base: 0, mb: 10 }}
-        h="85svh"
+        h="95svh"
         position={"relative"}
         pt={isMobile ? "10%" : "unset"}
       >
@@ -301,14 +302,14 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           <Text
             fontSize={{
               base: isMobile ? "sm" : "2xs",
-              md: "md",
+              md: "lg",
               xl: "xl",
               xxl: "2xl",
             }}
             maxW={{ base: isMobile ? "unset" : "60%", md: "60%", xl: "80%" }}
           >
-            Jokers of Neon is a strategy card game that brings strategy and
-            innovation together on the blockchain.
+            Deck-building meets Poker in an exciting strategy card game. <br />
+            Play for free and see how far your skills can take you!
           </Text>
 
           {!isMobile && (
@@ -327,30 +328,27 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         </Flex>
 
         {/* Right Content */}
-
         {isMobile && (
-          <>
-            <Flex
-              position="absolute"
-              justifyContent="center"
-              alignItems={"center"}
-              width="100%"
-              bottom="10"
-              zIndex={1}
+          <Flex
+            position="absolute"
+            justifyContent="center"
+            alignItems={"center"}
+            width="100%"
+            bottom="10"
+            zIndex={1}
+          >
+            <Button
+              variant={"solid"}
+              borderRadius="12px"
+              height={{ base: "40px", mb: "50px" }}
+              width={{ base: "50%", mb: "60%" }}
+              onClick={() => setFullScreenAlphaOpen(true)}
             >
-              <Button
-                variant={"solid"}
-                borderRadius="12px"
-                height={{ base: "40px", mb: "50px" }}
-                width={{ base: "50%", mb: "60%" }}
-                onClick={() => setFullScreenAlphaOpen(true)}
-              >
-                <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-                  PLAY GAME
-                </Text>
-              </Button>
-            </Flex>
-          </>
+              <Text fontFamily="Orbitron" fontSize={[16, 18]}>
+                PLAY GAME
+              </Text>
+            </Button>
+          </Flex>
         )}
       </Flex>
     </Box>
