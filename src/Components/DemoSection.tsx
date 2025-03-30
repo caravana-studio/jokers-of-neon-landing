@@ -82,11 +82,12 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
       >
         <video
           autoPlay
+          playsInline
           width="100%"
           height="100%"
           loop
           muted
-          style={{ marginTop: isMobile ? "15px" : "20px", maxWidth: '235px' }}
+          style={{ marginTop: isMobile ? "15px" : "20px", maxWidth: "235px" }}
         >
           <source
             src="/elements/trailers/trailer-mobile.mp4"
@@ -178,8 +179,8 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
                 style={{
                   paddingLeft: "3px",
                   paddingRight: "6px",
-                  marginTop: isMobile ? "15px" :"30px",
-                  maxWidth: '770px'
+                  marginTop: isMobile ? "15px" : "30px",
+                  maxWidth: "770px",
                 }}
               >
                 <source
