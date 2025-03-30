@@ -174,6 +174,7 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
                 width="100%"
                 height="100%"
                 autoPlay
+                playsInline
                 loop
                 muted
                 style={{
