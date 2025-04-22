@@ -65,7 +65,7 @@ export const FooterSection = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <Link href="https://x.com/JokersOfNeon" target="_blank">
+          <Link href="https://x.com/jokers_of_neon" target="_blank">
             <FontAwesomeIcon
               cursor="pointer"
               color="white"
