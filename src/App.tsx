@@ -8,6 +8,7 @@ import { FooterSection } from "./Components/FooterSection";
 import { FullScreenAlpha } from "./Components/FullScreenAlpha";
 import { HomeSection } from "./Components/HomeSection";
 import customTheme from "./theme/theme";
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const theme = extendTheme(customTheme);
@@ -26,6 +27,7 @@ function App() {
           <FullScreenAlpha onClose={() => setFullScreenAlphaOpen(false)} />
         )}
       </ChakraBaseProvider>
+      <Analytics />
     </>
   );
 }
