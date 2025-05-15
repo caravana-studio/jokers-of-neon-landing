@@ -31,30 +31,59 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
     >
       <Heading size="lg">Jokers of Neon is in early access</Heading>
       <Text size="xl">
-        Join our Discord to test the game before the official release!
-      </Text>
-      <Link
-        href="https://discord.gg/4y296W6jaq"
-        target="_blank"
-        textDecoration="none"
-      >
-        <Button
-          variant={"solid"}
-          borderRadius="12px"
-          height={"40px"}
-          width={{ base: "100%", sm: "300px" }}
-          mt={6}
-          sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+        We're hosting a special event with{" "}
+        <Link
+          href="https://www.gg.xyz/game/851964?skip=0&take=6"
+          target="_blank"
+          color="blueLight"
         >
-          JOIN DISCORD
-          <FontAwesomeIcon
-            cursor="pointer"
-            color="white"
-            fontSize={isMobile ? "20px" : "18px"}
-            icon={faDiscord}
-          />
-        </Button>
-      </Link>
+          gg.xyz
+        </Link>{" "}
+        <br />
+        Play the early access version now and get some rewards!
+      </Text>
+      <Flex gap={8}>
+        <Link
+          href="https://discord.gg/4y296W6jaq"
+          target="_blank"
+          textDecoration="none !important"
+        >
+          <Button
+            variant={"secondarySolid"}
+            borderRadius="12px"
+            height={"40px"}
+            width={{ base: "100%", sm: "300px" }}
+            mt={6}
+            sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+            textDecoration={"none"}
+          >
+            JOIN DISCORD
+            <FontAwesomeIcon
+              cursor="pointer"
+              color="white"
+              fontSize={isMobile ? "20px" : "18px"}
+              icon={faDiscord}
+            />
+          </Button>
+        </Link>
+        <Link
+          href="https://gg.jokersofneon.com/"
+          target="_blank"
+          textDecoration="none !important"
+        >
+          <Button
+            variant={"solid"}
+            borderRadius="12px"
+            height={"40px"}
+            width={{ base: "100%", sm: "300px" }}
+            mt={6}
+            sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+            textDecoration={"none"}
+          >
+            PLAY NOW
+          </Button>
+        </Link>
+      </Flex>
     </Flex>
   );
 };
