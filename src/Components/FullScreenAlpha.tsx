@@ -31,16 +31,7 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
     >
       <Heading size="lg">Jokers of Neon is in early access</Heading>
       <Text size="xl">
-        We're hosting a special event with{" "}
-        <Link
-          href="https://www.gg.xyz/game/851964?skip=0&take=6"
-          target="_blank"
-          color="blueLight"
-        >
-          gg.xyz
-        </Link>{" "}
-        <br />
-        Play the early access version now and get some rewards!
+        Test the game now and join our Discord to engage with the community.
       </Text>
       <Flex gap={8}>
         <Link
