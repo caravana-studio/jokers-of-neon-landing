@@ -13,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/test" element={<h1>Test</h1>} />
           <Route path="/play" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
