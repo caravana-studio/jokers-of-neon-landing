@@ -58,7 +58,7 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
           </Button>
         </Link>
         <Link
-          href="https://alpha.jokersofneon.com/"
+          href="https://play.jokersofneon.com/"
           target="_blank"
           textDecoration="none !important"
         >
