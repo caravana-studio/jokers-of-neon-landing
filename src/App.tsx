@@ -13,7 +13,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/play" element={<Navigate to="https://play.jokesofneon.com" replace />} />
         </Routes>
       </BrowserRouter>
       <Analytics />
