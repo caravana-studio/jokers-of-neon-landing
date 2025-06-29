@@ -1,34 +1,23 @@
 import { ChakraBaseProvider, extendTheme } from "@chakra-ui/react";
-import { useState } from "react";
+import { Analytics } from "@vercel/analytics/react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import { BoxSection } from "./Components/BoxSection";
-import { CardsSection } from "./Components/CardsSection";
-import { DemoSection } from "./Components/DemoSection";
-import { FooterSection } from "./Components/FooterSection";
-import { FullScreenAlpha } from "./Components/FullScreenAlpha";
-import { HomeSection } from "./Components/HomeSection";
+import { MainPage } from "./theme/MainPage";
 import customTheme from "./theme/theme";
-import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   const theme = extendTheme(customTheme);
 
-  const [fullScreenAlphaOpen, setFullScreenAlphaOpen] = useState(false);
-
   return (
-    <>
-      <ChakraBaseProvider theme={theme}>
-        <HomeSection setFullScreenAlphaOpen={setFullScreenAlphaOpen} />
-        <CardsSection />
-        <BoxSection />
-        <DemoSection setFullScreenAlphaOpen={setFullScreenAlphaOpen} />
-        <FooterSection />
-        {fullScreenAlphaOpen && (
-          <FullScreenAlpha onClose={() => setFullScreenAlphaOpen(false)} />
-        )}
-      </ChakraBaseProvider>
+    <ChakraBaseProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/play" element={<Navigate to="https://play.jokersofneon.com" replace />} />
+        </Routes>
+      </BrowserRouter>
       <Analytics />
-    </>
+    </ChakraBaseProvider>
   );
 }
 
