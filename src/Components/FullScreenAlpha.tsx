@@ -31,30 +31,50 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
     >
       <Heading size="lg">Jokers of Neon is in early access</Heading>
       <Text size="xl">
-        Join our Discord to test the game before the official release!
+        Test the game now and join our Discord to engage with the community.
       </Text>
-      <Link
-        href="https://discord.gg/4y296W6jaq"
-        target="_blank"
-        textDecoration="none"
-      >
-        <Button
-          variant={"solid"}
-          borderRadius="12px"
-          height={"40px"}
-          width={{ base: "100%", sm: "300px" }}
-          mt={6}
-          sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+      <Flex gap={8}>
+        <Link
+          href="https://discord.gg/4y296W6jaq"
+          target="_blank"
+          textDecoration="none !important"
         >
-          JOIN DISCORD
-          <FontAwesomeIcon
-            cursor="pointer"
-            color="white"
-            fontSize={isMobile ? "20px" : "18px"}
-            icon={faDiscord}
-          />
-        </Button>
-      </Link>
+          <Button
+            variant={"secondarySolid"}
+            borderRadius="12px"
+            height={"40px"}
+            width={{ base: "100%", sm: "300px" }}
+            mt={6}
+            sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+            textDecoration={"none"}
+          >
+            JOIN DISCORD
+            <FontAwesomeIcon
+              cursor="pointer"
+              color="white"
+              fontSize={isMobile ? "20px" : "18px"}
+              icon={faDiscord}
+            />
+          </Button>
+        </Link>
+        <Link
+          href="https://alpha.jokersofneon.com/"
+          target="_blank"
+          textDecoration="none !important"
+        >
+          <Button
+            variant={"solid"}
+            borderRadius="12px"
+            height={"40px"}
+            width={{ base: "100%", sm: "300px" }}
+            mt={6}
+            sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+            textDecoration={"none"}
+          >
+            PLAY NOW
+          </Button>
+        </Link>
+      </Flex>
     </Flex>
   );
 };
