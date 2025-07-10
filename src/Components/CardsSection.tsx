@@ -17,7 +17,7 @@ export const CardsSection = () => {
         width: "100%",
         height: "100%",
         background:
-          "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.8) 100%, rgba(0,0,0,0.1) 100%)",
+          "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(0,0,0,0.6) 100%, rgba(0,0,0,0.1) 100%)",
         pointerEvents: "none",
         mixBlendMode: "multiply",
       }}
@@ -37,13 +37,14 @@ export const CardsSection = () => {
         maxW="100%"
         mx="auto"
       >
-        Jokers of Neon is a strategic deck-building game where you craft
-        powerful poker hands, enhance your deck, and take on progressively
-        tougher challenges. <br />
+        Jokers of Neon is a strategy card game where you score points by playing poker hands and beat levels.
         <br />
-        Discover unique cards and strategies to outscore every round, play for
-        free with no barriers, and enjoy a seamless experience on both mobile
-        and desktop.
+        <br />
+        Collect new cards, unlock powerful combos, and build a powerful deck to climb through challenging
+        rounds. 
+        <br /> <br />
+        It's free to play and works smoothly on both
+        mobile and desktop.
       </Text>
     </Box>
   );
@@ -83,7 +84,10 @@ export const CardsSection = () => {
               fontWeight="bold"
               textTransform="uppercase"
               letterSpacing="wide"
-                  textShadow={{base: "0 0 8px rgba(255, 255, 255, 0.4)", sm: "0 0 15px rgba(255, 255, 255, 0.9)"}}  
+              textShadow={{
+                base: "0 0 8px rgba(255, 255, 255, 0.4)",
+                sm: "0 0 15px rgba(255, 255, 255, 0.9)",
+              }}
               fontFamily="Orbitron"
             >
               Build Your Deck, Rule the Game

@@ -281,6 +281,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           mx={isMobile ? 8 : 0}
           zIndex={1}
           width={isMobile ? "unset" : "50%"}
+          height={isMobile ? "70%" : "unset"}
         >
           <Text
             fontSize={{
@@ -292,7 +293,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
             letterSpacing="2px"
             maxW={{ base: isMobile ? "unset" : "60%", md: "60%", xl: "80%" }}
           >
-            INTRODUCING YOU THE ULTIMATE ON-CHAIN CARD GAME
+            BUILD YOUR DECK, RULE THE GAME
           </Text>
           <Image
             src="/logos/logo-variant.png"
@@ -308,8 +309,8 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
             }}
             maxW={{ base: isMobile ? "unset" : "60%", md: "60%", xl: "80%" }}
           >
-            Deck-building meets Poker in an exciting strategy card game. <br />
-            Play for free and see how far your skills can take you!
+            A strategy card game where collecting cards <br />
+            unlocks new ways to win.
           </Text>
 
           {!isMobile && (
@@ -321,7 +322,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
               onClick={() => setFullScreenAlphaOpen(true)}
             >
               <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-                PLAY GAME
+                PLAY
               </Text>
             </Button>
           )}
@@ -345,7 +346,7 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
               onClick={() => setFullScreenAlphaOpen(true)}
             >
               <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-                PLAY GAME
+                PLAY
               </Text>
             </Button>
           </Flex>
