@@ -3,6 +3,7 @@ import { faDiscord, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isMobile } from "react-device-detect";
 import { VIOLET } from "../theme/colors.tsx";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
 
 export const FooterSection = () => {
   const poweredBy = (
@@ -58,8 +59,8 @@ export const FooterSection = () => {
       <Tooltip label={"Follow us on X!"} placement="top">
         <Flex
           border="1px solid white"
-          w={isMobile ? "60px" : "100%"}
-          h={isMobile ? "60px" : "100%"}
+          w={"60px"}
+          h={"60px"}
           borderRadius="full"
           p={isMobile ? "unset" : 3}
           alignItems="center"
@@ -69,7 +70,7 @@ export const FooterSection = () => {
             <FontAwesomeIcon
               cursor="pointer"
               color="white"
-              fontSize={isMobile ? "25px" : "35px"}
+              fontSize={isMobile ? "25px" : "30px"}
               icon={faXTwitter}
             />
           </Link>
@@ -78,8 +79,8 @@ export const FooterSection = () => {
       <Tooltip label={"Join our discord!"} placement="top">
         <Flex
           border="1px solid white"
-          w={isMobile ? "60px" : "100%"}
-          h={isMobile ? "60px" : "100%"}
+          w={"60px"}
+          h={"60px"}
           p={isMobile ? "unset" : 2}
           borderRadius="full"
           alignItems="center"
@@ -89,8 +90,28 @@ export const FooterSection = () => {
             <FontAwesomeIcon
               cursor="pointer"
               color="white"
-              fontSize={isMobile ? "25px" : "35px"}
+              fontSize={isMobile ? "25px" : "30px"}
               icon={faDiscord}
+            />
+          </Link>
+        </Flex>
+      </Tooltip>
+            <Tooltip label={"Check out our docs"} placement="top">
+        <Flex
+          border="1px solid white"
+          w={"60px"}
+          h={"60px"}
+          borderRadius="full"
+          p={isMobile ? "unset" : 3}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Link href="https://docs.jokersofneon.com/" target="_blank">
+            <FontAwesomeIcon
+              cursor="pointer"
+              color="white"
+              fontSize={isMobile ? "25px" : "30px"}
+              icon={faBook}
             />
           </Link>
         </Flex>
@@ -141,7 +162,7 @@ export const FooterSection = () => {
                 textTransform="uppercase"
                 fontFamily="Orbitron"
               >
-                Strategize
+                Collect
               </Text>
 
               <Text
@@ -157,7 +178,7 @@ export const FooterSection = () => {
                 textTransform="uppercase"
                 fontFamily="Orbitron"
               >
-                Conquer.
+                Conquer
               </Text>
             </Flex>
           </Flex>
