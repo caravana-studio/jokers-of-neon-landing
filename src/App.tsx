@@ -4,6 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { MainPage } from "./theme/MainPage";
 import customTheme from "./theme/theme";
+import { PrivacyPolicy } from "./theme/PrivacyPolicy";
 
 function App() {
   const theme = extendTheme(customTheme);
@@ -13,6 +14,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </BrowserRouter>
       <Analytics />
