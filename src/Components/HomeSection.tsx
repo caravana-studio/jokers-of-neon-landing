@@ -12,9 +12,9 @@ import {
   Spinner,
   Text,
   useDisclosure,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { Link } from "react-scroll";
 
@@ -26,18 +26,6 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.log("Autoplay error:", error);
-        });
-      }
-    }
-  }, []);
 
   const lineStyle = {
     position: "relative",
@@ -248,7 +236,12 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         objectFit="cover"
         zIndex="0"
         ref={videoRef}
-        onCanPlayThrough={() => setIsVideoLoaded(true)}
+        onCanPlayThrough={() => {
+          setIsVideoLoaded(true);
+          videoRef.current?.play().catch(() => {
+            console.warn("Video autoplay was prevented by the browser.");
+          });
+        }}
       >
         <source
           src={
