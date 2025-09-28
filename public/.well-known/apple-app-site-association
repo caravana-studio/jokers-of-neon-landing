@@ -1,0 +1,19 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["YD6K99SL94.com.jokersofneon.play"],
+        "components": [
+          {
+            "/": "/*",
+            "comment": "Matches all URLs"
+          }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["YD6K99SL94.com.jokersofneon.play"]
+  }
+}
