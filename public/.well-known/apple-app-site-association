@@ -5,10 +5,8 @@
       {
         "appIDs": ["YD6K99SL94.com.jokersofneon.play"],
         "components": [
-          {
-            "/": "/*",
-            "comment": "Matches all URLs"
-          }
+          { "/": "/open", "comment": "exactly /open" },
+          { "/": "/open/*", "comment": "everything below /open" }
         ]
       }
     ]
