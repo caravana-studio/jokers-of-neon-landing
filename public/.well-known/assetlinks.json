@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.jokersofneon.play",
+    "sha256_cert_fingerprints": ["C8:B3:A9:07:34:CD:28:AC:EC:C6:C6:5B:A5:3A:50:57:36:5D:67:10:31:54:4D:B6:33:FD:E2:60:7C:54:EE:A0"]
+  }
+}]
