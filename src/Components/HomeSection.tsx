@@ -12,10 +12,10 @@ import {
   Spinner,
   Text,
   useDisclosure,
-  VStack
+  VStack,
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
-import { isMobile } from "react-device-detect";
+import { isIOS, isMobile } from "react-device-detect";
 import { Link } from "react-scroll";
 
 interface HomeSectionProps {
@@ -318,11 +318,11 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
               variant={"solid"}
               borderRadius="12px"
               height={"40px"}
-              width={"220px"}
+              width={"320px"}
               onClick={() => setFullScreenAlphaOpen(true)}
             >
-              <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-                PLAY
+              <Text fontFamily="Orbitron" fontSize={[16, 18]} >
+                PLAY GAME
               </Text>
             </Button>
           )}
@@ -331,24 +331,29 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         {/* Right Content */}
         {isMobile && (
           <Flex
-            position="absolute"
-            justifyContent="center"
+            flexDirection={"column"}
+            cursor="pointer"
+            justifyContent={"center"}
             alignItems={"center"}
-            width="100%"
-            bottom="10"
-            zIndex={1}
+            gap={2}
           >
-            <Button
-              variant={"solid"}
-              borderRadius="12px"
-              height={{ base: "40px", mb: "50px" }}
-              width={{ base: "50%", mb: "60%" }}
-              onClick={() => setFullScreenAlphaOpen(true)}
-            >
-              <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-                PLAY
-              </Text>
-            </Button>
+            {isIOS ? (
+              <ChakraLink
+                href="https://apps.apple.com/es/app/jokers-of-neon/id6749147020"
+                target="_blank"
+                textDecoration="none"
+              >
+                <Image src="/download/ios-black.svg" width="180px" />
+              </ChakraLink>
+            ) : (
+              <ChakraLink
+                href="https://play.google.com/store/apps/details?id=com.jokersofneon.play"
+                target="_blank"
+                textDecoration="none"
+              >
+                <Image src="/download/android.svg" width="220px" />
+              </ChakraLink>
+            )}
           </Flex>
         )}
       </Flex>
