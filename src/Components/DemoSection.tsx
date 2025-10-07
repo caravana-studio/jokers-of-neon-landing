@@ -1,6 +1,4 @@
 import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isMobile } from "react-device-detect";
 import { Element } from "react-scroll";
 
@@ -44,28 +42,48 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
   );
 
   const playBtn = (
-    <Link
-      href="https://discord.gg/4y296W6jaq"
-      target="_blank"
-      textDecoration="none"
-    >
-      <Button
-        variant={"solid"}
-        borderRadius="12px"
-        height={"40px"}
-        width={"300px"}
-        mt={6}
-        sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+    <Flex flexDir="column" justifyContent={"center"} alignItems={"center"}>
+      <Flex
+        cursor="pointer"
+        justifyContent={"center"}
+        alignItems={"center"}
+        gap={2}
       >
-        JOIN DISCORD
-        <FontAwesomeIcon
-          cursor="pointer"
-          color="white"
-          fontSize={isMobile ? "20px" : "18px"}
-          icon={faDiscord}
-        />
-      </Button>
-    </Link>
+        <Link
+          href="https://apps.apple.com/es/app/jokers-of-neon/id6749147020"
+          target="_blank"
+          textDecoration="none"
+        >
+          <Image
+            src="/download/ios-black.svg"
+            height={isMobile ? "40px" : "70px"}
+          />
+        </Link>
+        <Link
+          href="https://play.google.com/store/apps/details?id=com.jokersofneon.play"
+          target="_blank"
+          textDecoration="none"
+        >
+          <Image
+            src="/download/android.svg"
+            height={isMobile ? "60px" : "102px"}
+          />
+        </Link>
+      </Flex>
+      {!isMobile && (
+        <Button
+          variant={"solid"}
+          borderRadius="12px"
+          height={"40px"}
+          width={"350px"}
+          mt={10}
+          onClick={() => setFullScreenAlphaOpen(true)}
+          sx={{ flexDirection: "row", display: "flex", gap: 3 }}
+        >
+          PLAY ON DESKTOP
+        </Button>
+      )}
+    </Flex>
   );
 
   const mobileMockUp = (
