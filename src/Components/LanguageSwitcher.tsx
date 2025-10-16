@@ -36,8 +36,8 @@ const LanguageSwitcher = ({
       transform={isMobile ? "scale(0.7)" : ""}
       zIndex={999}
       position="absolute"
-      right={isMobile ? "15px" : "45px"}
-      top={isMobile ? "15px" : "40px"}
+      right={isMobile ? "5px" : "45px"}
+      top={isMobile ? "5px" : "40px"}
     >
       <Menu>
         <MenuButton as={Button} p={"0 !important"} width={"auto"}>
