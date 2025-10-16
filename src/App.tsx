@@ -7,6 +7,7 @@ import { MainPage } from "./theme/MainPage";
 import { PrivacyPolicy } from "./theme/PrivacyPolicy";
 import customTheme from "./theme/theme";
 import { TermsAndConditions } from "./theme/TermsAndConditions";
+import { StoresPage } from "./StoresPage";
 
 function App() {
   const theme = extendTheme(customTheme);
@@ -16,6 +17,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/play" element={<StoresPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/delete-account" element={<DeleteAccount />} />

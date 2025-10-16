@@ -4,12 +4,5 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "redirects": [
-    {
-      "source": "/play",
-      "destination": "https://play.jokersofneon.com",
-      "permanent": true
-    }
   ]
 }
