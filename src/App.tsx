@@ -6,6 +6,7 @@ import { DeleteAccount } from "./theme/DeleteAccount";
 import { MainPage } from "./theme/MainPage";
 import { PrivacyPolicy } from "./theme/PrivacyPolicy";
 import customTheme from "./theme/theme";
+import { TermsAndConditions } from "./theme/TermsAndConditions";
 
 function App() {
   const theme = extendTheme(customTheme);
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           <Route path="/delete-account" element={<DeleteAccount />} />
         </Routes>
       </BrowserRouter>
