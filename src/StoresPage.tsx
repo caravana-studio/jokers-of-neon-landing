@@ -5,7 +5,7 @@ import { ANDROID_URL, IOS_URL } from "./constants/app";
 
 export const StoresPage = () => {
   useEffect(() => {
-    window.open(isAndroid ? ANDROID_URL : IOS_URL, "_blank");
+    window.location.href = isAndroid ? ANDROID_URL : IOS_URL;
   }, []);
   return (
     <Flex
