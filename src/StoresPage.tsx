@@ -13,10 +13,12 @@ export const StoresPage = () => {
       bgSize="cover"
       bgPosition="center"
       color="white"
-      overflow={"hidden"}
       flexDir={"column"}
-      w="100%"
-      h="100vh"
+      height="100svh"
+      width="100vw"
+      position="fixed"
+      bottom={0}
+      overflow="hidden"
       justifyContent="center"
       alignItems="center"
       onClick={() => {
