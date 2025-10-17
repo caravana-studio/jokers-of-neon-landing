@@ -2,9 +2,11 @@
     "home": {
         "banners": [
             {
-                "id": "tournament-active",
+                "id": "oct-tournament",
                 "position": 1,
-                "type": "LEADERBOARD"
+                "type": "image",
+                "url": "https://jokersofneon.com/app/banners/oct-tournament.png",
+                "navigateTo": "/leaderboard"
             },
             {
                 "id": "daily-missions",
