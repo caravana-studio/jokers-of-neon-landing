@@ -2,6 +2,7 @@
   "startDate": "2025-10-17T00:00:00.000Z",
   "finishDate": "2025-11-03T00:00:00.000Z",
   "start-counting-at-game-id": 1204,
+  "stop-counting-at-game-id": 3806,
   "isActive": true,
   "prizes": [
     {
