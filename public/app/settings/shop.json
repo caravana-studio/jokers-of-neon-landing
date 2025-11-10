@@ -1,0 +1,26 @@
+{
+    "android": {
+        "season_pass": "season_pass",
+        "packs": []
+    },
+    "ios": {
+        "season_pass": "season_pass",
+        "packs": [
+            "pack_advanced",
+            "pack_epic",
+            "pack_legendary",
+            "pack_collector",
+            "pack_collector_xl"
+        ]
+    },
+    "web": {
+        "season_pass": "season_pass",
+        "packs": [
+            "pack_advanced",
+            "pack_epic",
+            "pack_legendary",
+            "pack_collector",
+            "pack_collector_xl"
+        ]
+    }
+}
