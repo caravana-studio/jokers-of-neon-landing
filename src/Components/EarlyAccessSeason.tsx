@@ -222,11 +222,24 @@ export const EarlyAccessSeason = ({
       width={"100%"}
       justifyContent="center"
       overflow="hidden"
+      position={fullScreen ? "relative" : undefined}
     >
       <Flex
         position="absolute"
         top={isMobile ? "20%" : 0}
-        w={isMobile ? "120%" : "60%"}
+        left={fullScreen ? "50%" : undefined}
+        transform={fullScreen ? "translateX(-50%)" : undefined}
+        w={
+          fullScreen
+            ? isMobile
+              ? "100%"
+              : "60%"
+            : isMobile
+            ? "120%"
+            : "60%"
+        }
+        maxW={fullScreen ? (isMobile ? "520px" : "900px") : undefined}
+        pointerEvents={fullScreen ? "none" : undefined}
       >
         <Image
           src="/shop/season-pass/coins-front.png"
@@ -234,6 +247,8 @@ export const EarlyAccessSeason = ({
           animation={`${coinPulse} 4s ease-in-out infinite`}
           transformOrigin="center"
           zIndex={2}
+          w={fullScreen ? "100%" : undefined}
+          h={fullScreen ? "auto" : undefined}
         />
         <Image
           src="/shop/season-pass/coins-back.png"
@@ -242,6 +257,8 @@ export const EarlyAccessSeason = ({
           position="absolute"
           animation={`${coinPulseBack} 4s ease-in-out infinite`}
           transformOrigin="center"
+          w={fullScreen ? "100%" : undefined}
+          h={fullScreen ? "auto" : undefined}
         />
       </Flex>
       <Flex
