@@ -1,6 +1,16 @@
 {
   "rewrites": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "early.jokersofneon.com"
+        }
+      ],
+      "destination": "/early/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
