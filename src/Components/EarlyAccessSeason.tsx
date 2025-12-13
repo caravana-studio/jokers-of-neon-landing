@@ -70,7 +70,7 @@ export const EarlyAccessSeason = () => {
       return;
     }
 
-    disconnect()
+    disconnect();
 
     try {
       await connect({ connector });
@@ -238,7 +238,7 @@ export const EarlyAccessSeason = () => {
           variant={"italic"}
           fontSize={isMobile ? 27 : 65}
           lineHeight={1}
-          textShadow={`0 0 7px ${VIOLET_LIGHT}`}
+          textShadow={`0 0 ${isMobile ? "3px" : "7px"} ${VIOLET_LIGHT}`}
         >
           SEASON 1
         </Heading>
