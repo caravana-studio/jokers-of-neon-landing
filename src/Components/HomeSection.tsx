@@ -19,10 +19,11 @@ import { isIOS, isMobile } from "react-device-detect";
 import { Link } from "react-scroll";
 
 interface HomeSectionProps {
+  openRegisterModal: () => void;
   setFullScreenAlphaOpen: (value: boolean) => void;
 }
 
-export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
+export const HomeSection = ({ setFullScreenAlphaOpen, openRegisterModal }: HomeSectionProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -314,17 +315,30 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
           </Text>
 
           {!isMobile && (
-            <Button
-              variant={"solid"}
-              borderRadius="12px"
-              height={"40px"}
-              width={"320px"}
-              onClick={() => setFullScreenAlphaOpen(true)}
-            >
-              <Text fontFamily="Orbitron" fontSize={[16, 18]} >
-                PLAY GAME
-              </Text>
-            </Button>
+            <Flex gap={10}>
+              <Button
+                variant={"secondarySolid"}
+                borderRadius="12px"
+                height={"40px"}
+                width={"220px"}
+                onClick={() => openRegisterModal()}
+              >
+                <Text fontFamily="Orbitron" fontSize={[16, 18]}>
+                  REGISTER
+                </Text>
+              </Button>
+              <Button
+                variant={"solid"}
+                borderRadius="12px"
+                height={"40px"}
+                width={"220px"}
+                onClick={() => setFullScreenAlphaOpen(true)}
+              >
+                <Text fontFamily="Orbitron" fontSize={[16, 18]}>
+                  PLAY GAME
+                </Text>
+              </Button>
+            </Flex>
           )}
         </Flex>
 

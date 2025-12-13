@@ -19,7 +19,10 @@ export const MainPage = () => {
 
   return (
     <>
-      <HomeSection setFullScreenAlphaOpen={setFullScreenAlphaOpen} />
+      <HomeSection
+        setFullScreenAlphaOpen={setFullScreenAlphaOpen}
+        openRegisterModal={() => setEarlyAccessModalOpen(true)}
+      />
       <Modal
         isOpen={earlyAccessModalOpen}
         onClose={() => setEarlyAccessModalOpen(false)}
