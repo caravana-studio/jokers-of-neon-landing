@@ -63,6 +63,7 @@ export const EarlyAccessSeason = () => {
 
   const attemptConnect = useCallback(async () => {
     setIsLoading(true);
+    console.log('connectors', connectors)
     const connector = connectors?.[0];
 
     if (!connector) {
