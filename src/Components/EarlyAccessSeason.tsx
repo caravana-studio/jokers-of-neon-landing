@@ -52,6 +52,12 @@ export const EarlyAccessSeason = () => {
     });
   }, []);
 
+  useEffect(() => {
+    connectors.forEach((connector) => {
+      connector.disconnect();
+    });
+  }, [connectors]);
+
   const clearRetry = () => {
     if (retryIntervalRef.current) {
       clearInterval(retryIntervalRef.current);
@@ -63,7 +69,7 @@ export const EarlyAccessSeason = () => {
 
   const attemptConnect = useCallback(async () => {
     setIsLoading(true);
-    console.log('connectors', connectors)
+    console.log("connectors", connectors);
     const connector = connectors?.[0];
 
     if (!connector) {
@@ -71,10 +77,8 @@ export const EarlyAccessSeason = () => {
       return;
     }
 
-    disconnect();
-
     try {
-      await connect({ connector });
+      connect({ connector });
       const ready = controller.isReady();
       if (ready) {
         clearRetry();
@@ -312,7 +316,11 @@ export const EarlyAccessSeason = () => {
         </Flex>
       </Flex>
       {username && hasRegistered && !registerError ? (
-        <Heading fontSize={isMobile ? 10 : 20} textAlign={"center"} color="blueLight">
+        <Heading
+          fontSize={isMobile ? 10 : 20}
+          textAlign={"center"}
+          color="blueLight"
+        >
           {"REGISTERED AS " + username}
         </Heading>
       ) : null}
