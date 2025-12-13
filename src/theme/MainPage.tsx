@@ -1,4 +1,9 @@
-import { Modal, ModalContent, ModalOverlay } from "@chakra-ui/react";
+import {
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { BoxSection } from "../Components/BoxSection";
 import { CardsSection } from "../Components/CardsSection";
@@ -22,6 +27,7 @@ export const MainPage = () => {
       >
         <ModalOverlay bg="rgba(0, 0, 0, 0.6)" />
         <ModalContent p={3} overflow="visible">
+        <ModalCloseButton m={4} />
           <EarlyAccessSeason />
         </ModalContent>
       </Modal>

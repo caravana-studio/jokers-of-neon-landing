@@ -186,7 +186,7 @@ export const EarlyAccessSeason = () => {
         <Flex
           w={isMobile ? "80%" : "50%"}
           flexDir={"column"}
-          gap={isMobile ? 4 : 8}
+          gap={isMobile ? 3 : 5}
         >
           <Flex flexDir={"column"} gap={2}>
             <Text
@@ -253,6 +253,7 @@ export const EarlyAccessSeason = () => {
           isLoading={isLoading}
           isDisabled={isLoading}
           loadingText="CONNECTING..."
+          mb={2}
         >
           REGISTER NOW
         </Button>
