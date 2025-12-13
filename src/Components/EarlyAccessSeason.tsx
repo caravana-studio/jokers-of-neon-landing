@@ -53,7 +53,7 @@ export const EarlyAccessSeason = () => {
   }, []);
 
   useEffect(() => {
-    connectors.forEach((connector) => {
+    connectors?.forEach((connector) => {
       connector.disconnect();
     });
   }, [connectors]);
