@@ -72,17 +72,20 @@ export const EarlyAccessSeason = () => {
   };
 
   const attemptConnect = useCallback(async () => {
+    console.log("attemptConnect");
     setIsLoading(true);
     const connector = connectors?.[0];
-
+    console.log("connector", connector);
     if (!connector) {
       setIsRetrying(true);
       return;
     }
 
     try {
+      console.log("connect");
       connect({ connector });
       const ready = controller.isReady();
+      console.log("ready", ready);
       if (ready) {
         clearRetry();
         fetchUsername();
