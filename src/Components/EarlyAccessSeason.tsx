@@ -58,6 +58,10 @@ export const EarlyAccessSeason = () => {
     });
   }, [connectors]);
 
+  useEffect(() => {
+    controller.disconnect();
+  }, []);
+
   const clearRetry = () => {
     if (retryIntervalRef.current) {
       clearInterval(retryIntervalRef.current);
