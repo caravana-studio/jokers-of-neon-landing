@@ -237,7 +237,7 @@ export const EarlyAccessSeason = () => {
         <Heading
           color="lightViolet"
           variant={"italic"}
-          fontSize={isMobile ? 27 : 65}
+          fontSize={isMobile ? 27 : 60}
           lineHeight={1}
           textShadow={`0 0 ${isMobile ? "3px" : "7px"} ${VIOLET_LIGHT}`}
         >
@@ -245,7 +245,7 @@ export const EarlyAccessSeason = () => {
         </Heading>
         <Text
           textTransform={"uppercase"}
-          fontSize={isMobile ? 13 : 24}
+          fontSize={isMobile ? 13 : 22}
           lineHeight={1.1}
           textAlign={"center"}
         >
@@ -256,16 +256,16 @@ export const EarlyAccessSeason = () => {
         w="100%"
         justifyContent="center"
         alignItems="center"
-        my={isMobile ? 4 : 10}
+        my={isMobile ? 4 : 7}
       >
         <Flex
           w={isMobile ? "80%" : "50%"}
           flexDir={"column"}
-          gap={isMobile ? 3 : 5}
+          gap={isMobile ? 3 : 4}
         >
           <Flex flexDir={"column"} gap={2}>
             <Text
-              fontSize={isMobile ? 15 : 27}
+              fontSize={isMobile ? 15 : 23}
               lineHeight={1.2}
               textAlign={"center"}
             >
@@ -283,7 +283,7 @@ export const EarlyAccessSeason = () => {
               starting December 19
             </Text>
             <Text
-              fontSize={isMobile ? 9 : 15}
+              fontSize={isMobile ? 9 : 14}
               lineHeight={1.2}
               textAlign={"center"}
               opacity={0.6}
@@ -292,7 +292,7 @@ export const EarlyAccessSeason = () => {
             </Text>
           </Flex>
           <Text
-            fontSize={isMobile ? 15 : 27}
+            fontSize={isMobile ? 15 : 23}
             lineHeight={1.2}
             textAlign={"center"}
           >
@@ -312,7 +312,7 @@ export const EarlyAccessSeason = () => {
         </Flex>
       </Flex>
       {username && hasRegistered && !registerError ? (
-        <Heading fontSize={isMobile ? 10 : 20} textAlign={"center"}>
+        <Heading fontSize={isMobile ? 10 : 20} textAlign={"center"} color="blueLight">
           {"REGISTERED AS " + username}
         </Heading>
       ) : null}
@@ -323,7 +323,7 @@ export const EarlyAccessSeason = () => {
           maxW="400px"
           fontFamily="Oxanium"
           fontSize={isMobile ? 13 : 18}
-          mt={isMobile ? 2 : 6}
+          mt={isMobile ? 2 : 4}
           h={isMobile ? "30px" : "50px"}
           onClick={username ? registerUser : attemptConnect}
           isLoading={isLoading}
