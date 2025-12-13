@@ -1,9 +1,10 @@
-import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Image, Text, useToast } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
-import { useConnect } from "@starknet-react/core";
+import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { VIOLET_LIGHT } from "../theme/colors";
+import { registerEarlyAccess } from "../utils/registerEarlyAccess";
 import { controller } from "./StarknetProvider";
 
 const coinPulse = keyframes`
@@ -33,8 +34,14 @@ export const EarlyAccessSeason = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);
   const { connect, connectors } = useConnect();
+  const { disconnect } = useDisconnect();
+  const { address } = useAccount();
+  const toast = useToast();
 
   const [username, setUsername] = useState<string | null>(null);
+  const [hasRegistered, setHasRegistered] = useState(false);
+  const [registerError, setRegisterError] = useState<string | null>(null);
+  const [autoRegisterAttempted, setAutoRegisterAttempted] = useState(false);
   const retryIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const fetchUsername = useCallback(() => {
@@ -84,6 +91,72 @@ export const EarlyAccessSeason = () => {
     fetchUsername();
   }, [fetchUsername]);
 
+  const registerUser = useCallback(async () => {
+    if (!username || !address) return;
+
+    setRegisterError(null);
+    setIsLoading(true);
+
+    try {
+      await registerEarlyAccess(username, address);
+      setHasRegistered(true);
+    } catch (error) {
+      console.error("Failed to register early access", error);
+      const status = (error as any)?.status;
+      const description =
+        status === 409
+          ? "Player already registered"
+          : error instanceof Error
+          ? error.message
+          : "Could not register. Please try again.";
+      setRegisterError(description);
+      toast({
+        title: "Registration failed",
+        description,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      setHasRegistered(false);
+      clearRetry();
+      setAutoRegisterAttempted(false);
+      setIsRetrying(false);
+      setUsername(null);
+      disconnect();
+      try {
+        await controller.disconnect();
+      } catch (disconnectError) {
+        console.error(
+          "Failed to disconnect controller after error",
+          disconnectError
+        );
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }, [address, toast, username]);
+
+  // Once we have username + address, call register endpoint once.
+  useEffect(() => {
+    if (
+      username &&
+      address &&
+      !hasRegistered &&
+      !registerError &&
+      !autoRegisterAttempted
+    ) {
+      setAutoRegisterAttempted(true);
+      registerUser();
+    }
+  }, [
+    address,
+    autoRegisterAttempted,
+    hasRegistered,
+    registerError,
+    registerUser,
+    username,
+  ]);
+
   // Poll for username once the controller is ready; clears loading/retry once obtained.
   useEffect(() => {
     if (username) return;
@@ -118,8 +191,6 @@ export const EarlyAccessSeason = () => {
     };
   }, [attemptConnect, isRetrying]);
 
-  // console.log("connectors", connectors[0]);
-  // console.log("username", username);
   return (
     <Flex
       flexDir={"column"}
@@ -162,7 +233,8 @@ export const EarlyAccessSeason = () => {
       >
         <Heading
           color="lightViolet"
-          fontSize={isMobile ? 30 : 70}
+          variant={"italic"}
+          fontSize={isMobile ? 27 : 65}
           lineHeight={1}
           textShadow={`0 0 7px ${VIOLET_LIGHT}`}
         >
@@ -236,11 +308,12 @@ export const EarlyAccessSeason = () => {
           </Text>
         </Flex>
       </Flex>
-      {username ? (
+      {username && hasRegistered && !registerError ? (
         <Heading fontSize={isMobile ? 10 : 20} textAlign={"center"}>
           {"REGISTERED AS " + username}
         </Heading>
-      ) : (
+      ) : null}
+      {(!username || !hasRegistered) && (
         <Button
           variant={"secondarySolid"}
           w="50%"
@@ -249,10 +322,10 @@ export const EarlyAccessSeason = () => {
           fontSize={isMobile ? 13 : 18}
           mt={isMobile ? 2 : 6}
           h={isMobile ? "30px" : "50px"}
-          onClick={attemptConnect}
+          onClick={username ? registerUser : attemptConnect}
           isLoading={isLoading}
           isDisabled={isLoading}
-          loadingText="CONNECTING..."
+          loadingText={username ? "REGISTERING..." : "CONNECTING..."}
           mb={2}
         >
           REGISTER NOW
