@@ -30,8 +30,6 @@ const coinPulseBack = keyframes`
 `;
 
 export const EarlyAccessSeason = () => {
-  useEffect(() => {}, []);
-
   const [isLoading, setIsLoading] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);
   const { connect, connectors } = useConnect();
@@ -130,12 +128,16 @@ export const EarlyAccessSeason = () => {
       background="url(/shop/season-pass/bg.jpg)"
       backgroundSize="cover"
       backgroundPosition="center"
-      height="100svh"
-      width="100vw"
+      height={isMobile ? "400px" : "500px"}
+      width={"100%"}
       justifyContent="center"
       overflow="hidden"
     >
-      <Flex position="absolute" top={0} w={isMobile ? "100%" : "50%"}>
+      <Flex
+        position="absolute"
+        top={isMobile ? "20%" : 0}
+        w={isMobile ? "120%" : "60%"}
+      >
         <Image
           src="/shop/season-pass/coins-front.png"
           position="absolute"
@@ -160,7 +162,7 @@ export const EarlyAccessSeason = () => {
       >
         <Heading
           color="lightViolet"
-          fontSize={isMobile ? 45 : 80}
+          fontSize={isMobile ? 30 : 70}
           lineHeight={1}
           textShadow={`0 0 7px ${VIOLET_LIGHT}`}
         >
@@ -168,7 +170,7 @@ export const EarlyAccessSeason = () => {
         </Heading>
         <Text
           textTransform={"uppercase"}
-          fontSize={isMobile ? 15 : 27}
+          fontSize={isMobile ? 13 : 24}
           lineHeight={1.1}
           textAlign={"center"}
         >
@@ -188,7 +190,7 @@ export const EarlyAccessSeason = () => {
         >
           <Flex flexDir={"column"} gap={2}>
             <Text
-              fontSize={isMobile ? 18 : 35}
+              fontSize={isMobile ? 15 : 27}
               lineHeight={1.2}
               textAlign={"center"}
             >
@@ -206,7 +208,7 @@ export const EarlyAccessSeason = () => {
               starting December 19
             </Text>
             <Text
-              fontSize={isMobile ? 12 : 20}
+              fontSize={isMobile ? 9 : 15}
               lineHeight={1.2}
               textAlign={"center"}
               opacity={0.6}
@@ -215,7 +217,7 @@ export const EarlyAccessSeason = () => {
             </Text>
           </Flex>
           <Text
-            fontSize={isMobile ? 18 : 35}
+            fontSize={isMobile ? 15 : 27}
             lineHeight={1.2}
             textAlign={"center"}
           >
@@ -235,7 +237,9 @@ export const EarlyAccessSeason = () => {
         </Flex>
       </Flex>
       {username ? (
-        <Heading>{"REGISTERED AS " + username}</Heading>
+        <Heading fontSize={isMobile ? 10 : 20} textAlign={"center"}>
+          {"REGISTERED AS " + username}
+        </Heading>
       ) : (
         <Button
           variant={"secondarySolid"}
