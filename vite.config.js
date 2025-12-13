@@ -5,4 +5,12 @@ import wasm from "vite-plugin-wasm";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), wasm()],
+  build: {
+    target: "esnext", // allow top-level await in bundled output
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      target: "esnext",
+    },
+  },
 })
