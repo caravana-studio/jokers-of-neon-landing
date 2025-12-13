@@ -9,9 +9,9 @@ import {
 
 import { ControllerConnector } from "@cartridge/connector";
 
-export const controller = new ControllerConnector({
+export const controller = new ControllerConnector(/* {
   preset: "jokers-of-neon"
-});
+} */);
 
 // Configure the JSON RPC provider
 const provider = jsonRpcProvider({
