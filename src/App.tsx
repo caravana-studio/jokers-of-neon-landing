@@ -2,7 +2,7 @@ import { ChakraBaseProvider, extendTheme } from "@chakra-ui/react";
 import { Analytics } from "@vercel/analytics/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import { EarlyAccessSeason } from "./Components/EarlyAccessSeason";
+import { EarlyAccessPage } from "./Components/EarlyAccessPage";
 import { StarknetProvider } from "./Components/StarknetProvider";
 import { StoresPage } from "./StoresPage";
 import { DeleteAccount } from "./theme/DeleteAccount";
@@ -20,7 +20,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/early" element={<EarlyAccessSeason />} />
+            <Route path="/early" element={<EarlyAccessPage />} />
             <Route path="/play" element={<StoresPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route

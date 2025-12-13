@@ -30,7 +30,13 @@ const coinPulseBack = keyframes`
   }
 `;
 
-export const EarlyAccessSeason = () => {
+interface EarlyAccessSeasonProps {
+  fullScreen?: boolean;
+}
+
+export const EarlyAccessSeason = ({
+  fullScreen = false,
+}: EarlyAccessSeasonProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);
   const { connect, connectors } = useConnect();
@@ -212,7 +218,7 @@ export const EarlyAccessSeason = () => {
       background="url(/shop/season-pass/bg.jpg)"
       backgroundSize="cover"
       backgroundPosition="center"
-      height={isMobile ? "400px" : "500px"}
+      height={fullScreen ? "100%" : isMobile ? "400px" : "500px"}
       width={"100%"}
       justifyContent="center"
       overflow="hidden"
