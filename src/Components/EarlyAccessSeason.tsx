@@ -70,6 +70,8 @@ export const EarlyAccessSeason = () => {
       return;
     }
 
+    disconnect()
+
     try {
       await connect({ connector });
       const ready = controller.isReady();
