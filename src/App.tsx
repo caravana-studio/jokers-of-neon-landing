@@ -13,13 +13,19 @@ import customTheme from "./theme/theme";
 
 function App() {
   const theme = extendTheme(customTheme);
+  const isEarlyHost =
+    typeof window !== "undefined" &&
+    window.location.hostname === "early.jokersofneon.com";
 
   return (
     <StarknetProvider>
       <ChakraBaseProvider theme={theme}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            <Route
+              path="/"
+              element={isEarlyHost ? <EarlyAccessPage /> : <MainPage />}
+            />
             <Route path="/early" element={<EarlyAccessPage />} />
             <Route path="/play" element={<StoresPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
