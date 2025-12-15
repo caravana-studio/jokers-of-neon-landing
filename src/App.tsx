@@ -14,8 +14,9 @@ import customTheme from "./theme/theme";
 function App() {
   const theme = extendTheme(customTheme);
   const isEarlyHost =
-    typeof window !== "undefined" &&
-    window.location.hostname === "early.jokersofneon.com";
+    import.meta.env.VITE_IS_EARLY_HOST === "true" ||
+    (typeof window !== "undefined" &&
+      window.location.hostname === "early.jokersofneon.com");
 
   return (
     <StarknetProvider>
