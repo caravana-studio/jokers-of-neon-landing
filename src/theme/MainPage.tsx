@@ -21,21 +21,7 @@ export const MainPage = () => {
     <>
       <HomeSection
         setFullScreenAlphaOpen={setFullScreenAlphaOpen}
-        openRegisterModal={() => setEarlyAccessModalOpen(true)}
       />
-      <Modal
-        isOpen={earlyAccessModalOpen}
-        onClose={() => setEarlyAccessModalOpen(false)}
-        size="4xl"
-        trapFocus={false}
-        autoFocus={false}
-      >
-        <ModalOverlay bg="rgba(0, 0, 0, 0.6)" />
-        <ModalContent p={3} overflow="visible">
-          <ModalCloseButton m={4} />
-          <EarlyAccessSeason />
-        </ModalContent>
-      </Modal>
       <CardsSection />
       <BoxSection />
       <DemoSection setFullScreenAlphaOpen={setFullScreenAlphaOpen} />

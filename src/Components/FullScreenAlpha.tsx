@@ -1,7 +1,4 @@
 import { Button, Flex, Heading, Link, Text } from "@chakra-ui/react";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { isMobile } from "react-device-detect";
 
 interface FullScreenAlphaProps {
   onClose: () => void;
@@ -30,12 +27,13 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
       textAlign="center"
     >
       <Heading size="lg">Jokers of Neon is in early access</Heading>
-      <Text size="xl">
-        Test the game now and join our Discord to engage with the community.
+      <Text size="xl" width="80%" textAlign={"center"}>
+        If you have registered for season 1, you can play it right now on Desktop. <br />{" "}
+        If not, you can test the game by playing the early access version.
       </Text>
       <Flex gap={8}>
         <Link
-          href="https://discord.gg/4y296W6jaq"
+          href="https://play.jokersofneon.com/"
           target="_blank"
           textDecoration="none !important"
         >
@@ -48,17 +46,17 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
             sx={{ flexDirection: "row", display: "flex", gap: 3 }}
             textDecoration={"none"}
           >
-            JOIN DISCORD
-            <FontAwesomeIcon
+            PLAY SEASON 1
+            {/*             <FontAwesomeIcon
               cursor="pointer"
               color="white"
               fontSize={isMobile ? "20px" : "18px"}
               icon={faDiscord}
-            />
+            /> */}
           </Button>
         </Link>
         <Link
-          href="https://play.jokersofneon.com/"
+          href="https://alpha.jokersofneon.com/"
           target="_blank"
           textDecoration="none !important"
         >
@@ -71,7 +69,7 @@ export const FullScreenAlpha = ({ onClose }: FullScreenAlphaProps) => {
             sx={{ flexDirection: "row", display: "flex", gap: 3 }}
             textDecoration={"none"}
           >
-            PLAY NOW
+            TEST THE GAME
           </Button>
         </Link>
       </Flex>

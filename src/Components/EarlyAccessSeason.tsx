@@ -1,11 +1,10 @@
-import { Button, Flex, Heading, Image, Text, useToast } from "@chakra-ui/react";
+import { Flex, Heading, Image, Text, useToast } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import { useAccount, useConnect, useDisconnect } from "@starknet-react/core";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { VIOLET_LIGHT } from "../theme/colors";
 import { registerEarlyAccess } from "../utils/registerEarlyAccess";
-import { Clock } from "./Clock";
 import { controller } from "./StarknetProvider";
 
 const coinPulse = keyframes`
@@ -337,38 +336,15 @@ export const EarlyAccessSeason = ({
           </Text>
         </Flex>
       </Flex>
-      <Clock
-        date={new Date("2025-12-22T00:00:00Z")}
-        iconSize={isMobile ? "10px" : "20px"}
+      <Heading
         fontSize={isMobile ? 10 : 20}
-      />
-      {username && hasRegistered && !registerError ? (
-        <Heading
-          fontSize={isMobile ? 10 : 20}
-          textAlign={"center"}
-          color="blueLight"
-        >
-          {"REGISTERED AS " + username}
-        </Heading>
-      ) : null}
-      {(!username || !hasRegistered) && (
-        <Button
-          variant={"secondarySolid"}
-          w="50%"
-          maxW="400px"
-          fontFamily="Oxanium"
-          fontSize={isMobile ? 13 : 18}
-          mt={isMobile ? 2 : 4}
-          h={isMobile ? "30px" : "50px"}
-          onClick={username ? registerUser : attemptConnect}
-          isLoading={isLoading}
-          isDisabled={isLoading}
-          loadingText={username ? "REGISTERING..." : "CONNECTING..."}
-          mb={2}
-        >
-          REGISTER NOW
-        </Button>
-      )}
+        textAlign={"center"}
+        color="blueLight"
+        mt={4}
+      >
+        THE REGISTRATION WINDOW <br />
+        IS NOW CLOSED
+      </Heading>
     </Flex>
   );
 };
