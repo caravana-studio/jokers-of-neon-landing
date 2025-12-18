@@ -7,7 +7,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
     <Heading as="h1" mb={6}>
       Jokers of Neon – Terms and Conditions
       <br />
-      Early Access Season 1
+      Early Access – Season 1
     </Heading>
 
     <Stack spacing={4}>
@@ -19,196 +19,259 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         <strong>Contact:</strong> gm@jokersofneon.com
       </Text>
 
+      {/* TL;DR */}
       <Heading as="h2" size="md">
         TL;DR (Summary)
       </Heading>
       <Text>
-        – Jokers of Neon is a skill-based strategy card game in Early Access.
+        – Jokers of Neon is a skill-based strategy card game offered in Early Access.
         <br />
         – You must be at least <strong>13 years old</strong> to play.
         <br />
-        – Season Passes and card packs are sold for <strong>USD via Stripe</strong>.
+        – Season Passes and card packs are sold in <strong>USD via Stripe</strong>.
         <br />
-        – All sales are final, except where required by law or in case of technical failure.
+        – All sales are final, except where required by law or due to verified technical failure.
         <br />
-        – Cards earned or purchased during the Season may be <strong>NFTs on Starknet</strong>.
+        – Cards earned or purchased may be <strong>NFTs on Starknet</strong>.
         <br />
-        – We do not operate a marketplace; any external trading is at your own risk.
+        – We do not operate a marketplace and are not responsible for external trading.
         <br />
-        – NFTs are collectibles, not investments.
+        – NFTs are collectibles, not investments, and have no guaranteed value.
         <br />
-        – We may rebalance cards, reset progress, or suspend accounts if needed.
+        – We may rebalance gameplay, reset progress, suspend accounts, or restrict assets.
         <br />
-        – The Game is provided “as is”, without warranties.
+        – The Game is provided “as is” and “as available”.
       </Text>
 
+      {/* 1 */}
       <Heading as="h2" size="md">
         1. Acceptance of Terms
       </Heading>
       <Text>
-        By accessing or playing <strong>Jokers of Neon</strong> (“the Game”), you
-        agree to these Terms and our{" "}
+        By accessing or using <strong>Jokers of Neon</strong> (“the Game”), you
+        agree to be bound by these Terms and our{" "}
         <Link href="https://jokersofneon.com/privacy-policy" isExternal color="blue.500">
           Privacy Policy
         </Link>
-        . If you do not agree, do not use the Game.
+        . If you do not agree, you must not access or use the Game.
       </Text>
 
+      {/* 2 */}
       <Heading as="h2" size="md">
         2. About the Game
       </Heading>
       <Text>
         Jokers of Neon is a digital strategy card game developed and operated by{" "}
-        <strong>Caravana Studio LLC</strong>. The Game is offered as an{" "}
-        <strong>Early Access – Season 1</strong> release and may evolve over time.
+        <strong>Caravana Studio LLC</strong> (“Caravana Studio”, “we”, “us”).
+        The Game is offered as <strong>Early Access – Season 1</strong> and is
+        under active development.
       </Text>
 
+      {/* 3 */}
       <Heading as="h2" size="md">
-        3. Accounts and Access
+        3. Eligibility and Accounts
       </Heading>
       <Text>
-        You may play as a guest or authenticate via{" "}
-        <strong>Cartridge Controller</strong>, which supports passkeys and
-        third-party logins. You are responsible for maintaining the security of
-        your account and credentials. You must be at least 13 years old to use
-        the Game.
+        You must be at least <strong>13 years old</strong> to play. You may access
+        the Game as a guest or authenticate via{" "}
+        <strong>Cartridge Controller</strong>, which is subject to its own terms
+        and privacy policies.
+        <br />
+        <br />
+        You are responsible for maintaining the confidentiality and security of
+        your account credentials and for all activity associated with your account.
       </Text>
 
+      {/* 4 */}
       <Heading as="h2" size="md">
         4. Early Access Nature
       </Heading>
       <Text>
-        The Game is provided in Early Access and may contain bugs, balance
-        issues, downtime, or temporary maintenance periods. Progress, rankings,
-        or content may be adjusted or reset as part of development.
+        The Game is provided in Early Access and may contain bugs, errors,
+        incomplete features, balance issues, or temporary outages. Game content,
+        progression, rankings, rewards, or mechanics may change, reset, or be
+        removed at any time during development.
       </Text>
 
+      {/* 5 */}
       <Heading as="h2" size="md">
         5. Purchases, Payments, and Refunds
       </Heading>
       <Text>
         Season Passes and card packs are sold in <strong>USD</strong> via{" "}
-        <strong>Stripe</strong>. We accept the payment methods supported by
-        Stripe. All purchases are <strong>one-time purchases</strong>.
+        <strong>Stripe</strong>. We accept the payment methods supported by Stripe.
+        All purchases are <strong>one-time purchases</strong>.
         <br />
         <br />
         <strong>All sales are final</strong>, except where required by applicable
-        law or in the case of a verified technical failure. Prices may exclude
-        applicable taxes, which may be calculated and collected by Stripe at
-        checkout.
+        law or in the event of a verified technical failure. Prices may exclude
+        applicable taxes, which may be calculated and collected by Stripe at checkout.
         <br />
         <br />
         Chargebacks, payment reversals, or fraudulent activity may result in
-        suspension of access, account freezing, and restrictions applied to
-        associated digital assets.
+        suspension or termination of access, account freezing, and restrictions
+        applied to associated digital assets.
       </Text>
 
+      {/* 6 */}
       <Heading as="h2" size="md">
         6. Digital Assets and NFTs
       </Heading>
       <Text>
-        As you progress through the Season or make purchases, you may obtain
+        As you progress through the Season or make purchases, you may receive
         digital collectibles represented as{" "}
-        <strong>non-fungible tokens (NFTs)</strong> minted on the{" "}
+        <strong>non-fungible tokens (NFTs)</strong> minted automatically on the{" "}
         <strong>Starknet mainnet</strong>.
         <br />
         <br />
-        NFTs are minted automatically on-chain once the associated action or
-        purchase is completed. Ownership of an NFT does <strong>not</strong>{" "}
-        grant ownership of the Game’s intellectual property.
+        NFTs are minted on-chain once the corresponding action or purchase is
+        completed. Ownership of an NFT does not confer ownership of any
+        intellectual property associated with the Game.
       </Text>
 
+      {/* 7 */}
       <Heading as="h2" size="md">
-        7. License and Use of NFTs
+        7. NFT License and No Investment Disclaimer
       </Heading>
       <Text>
-        NFT ownership grants a limited, non-exclusive, non-transferable license
-        to use and display the associated card within the Game and for personal,
-        non-commercial display purposes.
+        Ownership of an NFT grants a limited, non-exclusive, revocable,
+        non-transferable license to use and display the associated card within
+        the Game and for personal, non-commercial display purposes.
         <br />
         <br />
-        NFTs have <strong>no guaranteed utility</strong>, <strong>no monetary
-        value</strong>, and are <strong>not intended as an investment</strong>.
-        No expectation of profit is implied.
+        NFTs are <strong>collectibles</strong>, have <strong>no guaranteed
+        utility or value</strong>, and are <strong>not intended as investments</strong>.
+        No expectation of profit, appreciation, or financial return is implied.
       </Text>
 
+      {/* 8 */}
       <Heading as="h2" size="md">
         8. No Marketplace
       </Heading>
       <Text>
-        Caravana Studio does not operate or provide a marketplace for trading
-        NFTs. Any external transfer or trading of NFTs occurs independently and
-        at your own risk. We are not responsible for third-party platforms,
-        losses, scams, or disputes.
+        Caravana Studio does not operate, facilitate, or endorse any marketplace
+        for NFTs. Any external transfer or trading occurs independently and at
+        your own risk. We are not responsible for third-party platforms, losses,
+        scams, or disputes.
       </Text>
 
+      {/* 9 */}
       <Heading as="h2" size="md">
-        9. Game Balance and Changes
+        9. Game Balance and Modifications
       </Heading>
       <Text>
-        All cards remain playable across seasons. However, we reserve the right
-        to modify, rebalance, or adjust card effects, mechanics, or gameplay at
-        any time to maintain fairness and game integrity.
+        All cards remain playable across seasons. We reserve the right to modify,
+        rebalance, or adjust gameplay mechanics, card effects, rewards, or rules
+        at any time, even if such changes affect the perceived value or utility
+        of digital assets.
       </Text>
 
+      {/* 10 */}
       <Heading as="h2" size="md">
         10. User Conduct
       </Heading>
       <Text>
         You may not cheat, exploit bugs, automate gameplay, manipulate economic
-        systems, or disrupt the Game. Violations may result in account
-        suspension, progress resets, bans, or restrictions applied to NFTs,
-        including marking them as non-marketable.
+        systems, or disrupt servers. Violations may result in account suspension,
+        termination, progress resets, bans, or restrictions on digital assets,
+        including marking NFTs as non-marketable.
       </Text>
 
+      {/* 11 */}
       <Heading as="h2" size="md">
         11. Intellectual Property
       </Heading>
       <Text>
-        All Game content, including software, visuals, audio, names, logos, and
-        designs, is owned by <strong>Caravana Studio LLC</strong>. No rights are
-        granted except as expressly stated.
+        All content in the Game, including software, artwork, cards, designs,
+        names, and logos, is owned by <strong>Caravana Studio LLC</strong>. No
+        rights or licenses are granted except as expressly stated.
       </Text>
 
+      {/* 12 */}
       <Heading as="h2" size="md">
         12. Third-Party Services
       </Heading>
       <Text>
-        The Game may be accessed via web browsers or app distribution platforms.
-        Apple Inc. and Google LLC are not responsible for the Game, its content,
-        or its digital assets. Stripe, Cartridge, and analytics providers operate
-        under their own terms and policies.
+        The Game may integrate or rely on third-party services, including
+        Cartridge Controller, Stripe, analytics providers, and blockchain
+        infrastructure. Apple Inc. and Google LLC are not responsible for the
+        Game, its content, or its digital assets.
       </Text>
 
+      {/* 13 */}
       <Heading as="h2" size="md">
-        13. Termination and Enforcement
+        13. Export and Sanctions Compliance
+      </Heading>
+      <Text>
+        You may not access or use the Game if you are located in a jurisdiction
+        subject to U.S. sanctions or where use of the Game would violate
+        applicable laws or regulations.
+      </Text>
+
+      {/* 14 */}
+      <Heading as="h2" size="md">
+        14. Termination and Enforcement
       </Heading>
       <Text>
         We may suspend or terminate accounts, freeze access, reset progress, or
-        restrict digital assets in cases of fraud, abuse, chargebacks, or Terms
-        violations.
+        restrict digital assets in cases of fraud, abuse, chargebacks, or
+        violations of these Terms.
       </Text>
 
+      {/* 15 */}
       <Heading as="h2" size="md">
-        14. Disclaimers and Limitation of Liability
+        15. Disclaimers
       </Heading>
       <Text>
-        The Game is provided <strong>“as is”</strong> and{" "}
-        <strong>“as available.”</strong> To the maximum extent permitted by law,
-        Caravana Studio LLC shall not be liable for indirect, incidental, or
-        consequential damages.
+        THE GAME IS PROVIDED <strong>“AS IS”</strong> AND{" "}
+        <strong>“AS AVAILABLE”</strong>, WITHOUT WARRANTIES OF ANY KIND,
+        EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.
       </Text>
 
+      {/* 16 */}
       <Heading as="h2" size="md">
-        15. Governing Law
+        16. Limitation of Liability
+      </Heading>
+      <Text>
+        TO THE MAXIMUM EXTENT PERMITTED BY LAW, CARAVANA STUDIO LLC, ITS
+        AFFILIATES, AND TEAM MEMBERS SHALL NOT BE LIABLE FOR ANY INDIRECT,
+        INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES ARISING FROM YOUR
+        USE OF THE GAME.
+      </Text>
+
+      {/* 17 */}
+      <Heading as="h2" size="md">
+        17. Indemnification
+      </Heading>
+      <Text>
+        You agree to indemnify and hold harmless Caravana Studio LLC, its
+        affiliates, and team members from any claims, damages, liabilities, or
+        expenses arising from your use of the Game or violation of these Terms.
+      </Text>
+
+      {/* 18 */}
+      <Heading as="h2" size="md">
+        18. Updates to These Terms
+      </Heading>
+      <Text>
+        We may modify these Terms at any time. The Effective Date above reflects
+        the latest version. Continued use of the Game after changes constitutes
+        acceptance of the updated Terms.
+      </Text>
+
+      {/* 19 */}
+      <Heading as="h2" size="md">
+        19. Governing Law
       </Heading>
       <Text>
         These Terms are governed by the laws of the{" "}
-        <strong>State of Delaware, USA</strong>.
+        <strong>State of Delaware, USA</strong>, without regard to conflict of law principles.
       </Text>
 
+      {/* Language */}
       <Heading as="h2" size="md">
-        Language Versions
+        Language
       </Heading>
       <Text>
         The authoritative version of these Terms is in English. Translations are
@@ -245,36 +308,36 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         – Jokers of Neon es un juego de cartas estratégico basado en habilidad,
-        en Early Access.
+        ofrecido en Early Access.
         <br />
         – Debes tener al menos <strong>13 años</strong> para jugar.
         <br />
         – Los Season Passes y packs de cartas se venden en <strong>USD vía Stripe</strong>.
         <br />
         – Todas las ventas son finales, salvo que la ley aplicable disponga lo contrario
-        o exista un fallo técnico.
+        o exista un fallo técnico verificado.
         <br />
-        – Las cartas obtenidas durante la Temporada pueden ser <strong>NFTs en Starknet</strong>.
+        – Las cartas obtenidas o compradas pueden ser <strong>NFTs en Starknet</strong>.
         <br />
-        – No operamos un marketplace; cualquier intercambio externo es bajo tu propio riesgo.
+        – No operamos un marketplace ni somos responsables por intercambios externos.
         <br />
-        – Los NFTs son coleccionables, no inversiones.
+        – Los NFTs son coleccionables, no inversiones, y no tienen valor garantizado.
         <br />
-        – Podemos reequilibrar cartas, reiniciar progreso o suspender cuentas si es necesario.
+        – Podemos reequilibrar el juego, reiniciar progreso, suspender cuentas o restringir activos.
         <br />
-        – El juego se proporciona “tal cual”, sin garantías.
+        – El Juego se proporciona “tal cual” y “según disponibilidad”.
       </Text>
 
       <Heading as="h2" size="md">
         1. Aceptación de los Términos
       </Heading>
       <Text>
-        Al acceder o jugar <strong>Jokers of Neon</strong> (“el Juego”), aceptas
-        estos Términos y nuestra{" "}
+        Al acceder o utilizar <strong>Jokers of Neon</strong> (“el Juego”),
+        aceptas quedar vinculado por estos Términos y por nuestra{" "}
         <Link href="https://jokersofneon.com/privacy-policy" isExternal color="blue.500">
           Política de Privacidad
         </Link>
-        . Si no estás de acuerdo, no utilices el Juego.
+        . Si no estás de acuerdo, no debes acceder ni utilizar el Juego.
       </Text>
 
       <Heading as="h2" size="md">
@@ -282,105 +345,112 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         Jokers of Neon es un juego digital de cartas estratégicas desarrollado y
-        operado por <strong>Caravana Studio LLC</strong>. El Juego se ofrece como
-        <strong> Early Access – Temporada 1</strong> y puede evolucionar con el tiempo.
+        operado por <strong>Caravana Studio LLC</strong> (“Caravana Studio”,
+        “nosotros”). El Juego se ofrece como <strong>Early Access – Temporada 1</strong>
+        y se encuentra en desarrollo activo.
       </Text>
 
       <Heading as="h2" size="md">
-        3. Cuentas y Acceso
+        3. Elegibilidad y Cuentas
       </Heading>
       <Text>
-        Puedes jugar como invitado o autenticarte mediante{" "}
-        <strong>Cartridge Controller</strong>, que admite passkeys y logins de terceros.
-        Eres responsable de la seguridad de tu cuenta y credenciales. Debes tener
-        al menos 13 años para utilizar el Juego.
+        Debes tener al menos <strong>13 años</strong> para jugar. Puedes acceder
+        como invitado o autenticarte mediante <strong>Cartridge Controller</strong>,
+        el cual está sujeto a sus propios términos y políticas.
+        <br />
+        <br />
+        Eres responsable de mantener la confidencialidad y seguridad de tus
+        credenciales y de toda actividad realizada desde tu cuenta.
       </Text>
 
       <Heading as="h2" size="md">
         4. Naturaleza de Early Access
       </Heading>
       <Text>
-        El Juego se ofrece en Early Access y puede contener errores, problemas de
-        balance, interrupciones o períodos de mantenimiento. El progreso,
-        clasificaciones o contenido pueden ajustarse o reiniciarse durante el desarrollo.
+        El Juego se proporciona en Early Access y puede contener errores, fallos,
+        funcionalidades incompletas, problemas de balance o interrupciones
+        temporales. El contenido, progreso, rankings, recompensas o mecánicas
+        pueden cambiar, reiniciarse o eliminarse en cualquier momento.
       </Text>
 
       <Heading as="h2" size="md">
         5. Compras, Pagos y Reembolsos
       </Heading>
       <Text>
-        Los Season Passes y packs de cartas se venden en <strong>USD</strong> a través
-        de <strong>Stripe</strong>. Aceptamos los métodos de pago soportados por Stripe.
-        Todas las compras son <strong>compras únicas</strong>.
+        Los Season Passes y packs de cartas se venden en <strong>USD</strong> a
+        través de <strong>Stripe</strong>. Aceptamos los métodos de pago
+        soportados por Stripe. Todas las compras son <strong>compras únicas</strong>.
         <br />
         <br />
         <strong>Todas las ventas son finales</strong>, salvo que la ley aplicable
-        disponga lo contrario o en caso de un fallo técnico verificado. Los precios
-        pueden no incluir impuestos aplicables, los cuales podrán ser calculados y
-        cobrados por Stripe al finalizar la compra.
+        disponga lo contrario o en caso de un fallo técnico verificado. Los
+        precios pueden no incluir impuestos aplicables, los cuales podrán ser
+        calculados y cobrados por Stripe al finalizar la compra.
         <br />
         <br />
-        Los contracargos, reversiones de pago o actividades fraudulentas pueden
-        resultar en la suspensión de acceso, congelación de la cuenta y restricciones
-        sobre los activos digitales asociados.
+        Los contracargos, reversiones de pago o actividad fraudulenta pueden
+        resultar en suspensión o terminación del acceso, congelación de la
+        cuenta y restricciones sobre los activos digitales asociados.
       </Text>
 
       <Heading as="h2" size="md">
         6. Activos Digitales y NFTs
       </Heading>
       <Text>
-        A medida que progresas en la Temporada o realizas compras, puedes obtener
+        Al progresar durante la Temporada o realizar compras, puedes recibir
         coleccionables digitales representados como{" "}
-        <strong>tokens no fungibles (NFTs)</strong> acuñados en la{" "}
-        <strong>mainnet de Starknet</strong>.
+        <strong>tokens no fungibles (NFTs)</strong> acuñados automáticamente en
+        la <strong>mainnet de Starknet</strong>.
         <br />
         <br />
-        Los NFTs se acuñan automáticamente on-chain una vez completada la acción
-        o compra correspondiente. La propiedad de un NFT no otorga derechos de
-        propiedad intelectual sobre el Juego.
+        La propiedad de un NFT no otorga derechos de propiedad intelectual sobre
+        el Juego.
       </Text>
 
       <Heading as="h2" size="md">
-        7. Licencia y Uso de NFTs
+        7. Licencia de NFTs y Exención de Inversión
       </Heading>
       <Text>
-        La propiedad de un NFT otorga una licencia limitada, no exclusiva y no
-        transferible para usar y mostrar la carta asociada dentro del Juego y
-        para uso personal no comercial.
+        La propiedad de un NFT otorga una licencia limitada, no exclusiva,
+        revocable y no transferible para usar y mostrar la carta asociada dentro
+        del Juego y para exhibición personal no comercial.
         <br />
         <br />
-        Los NFTs <strong>no tienen valor monetario garantizado</strong>,{" "}
-        <strong>no están destinados como inversión</strong> y no implican
-        expectativa de beneficio.
+        Los NFTs son <strong>coleccionables</strong>, no tienen{" "}
+        <strong>valor ni utilidad garantizados</strong> y{" "}
+        <strong>no están destinados como inversión</strong>. No existe
+        expectativa de beneficio económico.
       </Text>
 
       <Heading as="h2" size="md">
-        8. Sin Marketplace
+        8. Ausencia de Marketplace
       </Heading>
       <Text>
-        Caravana Studio no opera ni proporciona un marketplace para el intercambio
-        de NFTs. Cualquier transferencia o intercambio externo ocurre de forma
-        independiente y bajo tu propio riesgo. No somos responsables por
-        plataformas de terceros, pérdidas, estafas o disputas.
+        Caravana Studio no opera ni facilita ningún marketplace de NFTs. Cualquier
+        transferencia o intercambio externo ocurre de forma independiente y
+        bajo tu propio riesgo. No somos responsables por plataformas de terceros,
+        pérdidas, estafas o disputas.
       </Text>
 
       <Heading as="h2" size="md">
-        9. Balance y Cambios del Juego
+        9. Balance y Modificaciones del Juego
       </Heading>
       <Text>
-        Todas las cartas siguen siendo jugables entre temporadas. Sin embargo,
-        nos reservamos el derecho de modificar o reequilibrar efectos, mecánicas
-        o gameplay en cualquier momento para mantener la integridad del Juego.
+        Todas las cartas siguen siendo jugables entre temporadas. Nos reservamos
+        el derecho de modificar o reequilibrar mecánicas, efectos o reglas en
+        cualquier momento, incluso si dichos cambios afectan la utilidad o
+        valor percibido de los activos digitales.
       </Text>
 
       <Heading as="h2" size="md">
         10. Conducta del Usuario
       </Heading>
       <Text>
-        No está permitido hacer trampas, explotar errores, automatizar el
-        gameplay ni manipular sistemas económicos. Las infracciones pueden
-        resultar en suspensión de cuenta, reinicio de progreso, baneos o
-        restricciones sobre NFTs, incluyendo marcarlos como no comercializables.
+        No está permitido hacer trampas, explotar errores, automatizar gameplay,
+        manipular sistemas económicos o interrumpir servidores. Las infracciones
+        pueden resultar en suspensión, terminación, reinicio de progreso,
+        baneos o restricciones sobre NFTs, incluyendo marcarlos como no
+        comercializables.
       </Text>
 
       <Heading as="h2" size="md">
@@ -388,22 +458,31 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         Todo el contenido del Juego es propiedad de{" "}
-        <strong>Caravana Studio LLC</strong>. No se otorgan derechos salvo los
-        expresamente indicados.
+        <strong>Caravana Studio LLC</strong>. No se conceden derechos o licencias
+        salvo los expresamente indicados.
       </Text>
 
       <Heading as="h2" size="md">
         12. Servicios de Terceros
       </Heading>
       <Text>
-        El Juego puede accederse mediante navegadores web o plataformas de
-        distribución de apps. Apple Inc. y Google LLC no son responsables del
-        Juego, su contenido ni sus activos digitales. Stripe, Cartridge y los
-        proveedores de analítica operan bajo sus propios términos.
+        El Juego puede integrar o depender de servicios de terceros, incluyendo
+        Cartridge Controller, Stripe, proveedores de analítica e infraestructura
+        blockchain. Apple Inc. y Google LLC no son responsables del Juego, su
+        contenido ni sus activos digitales.
       </Text>
 
       <Heading as="h2" size="md">
-        13. Terminación y Medidas
+        13. Cumplimiento de Exportaciones y Sanciones
+      </Heading>
+      <Text>
+        No puedes acceder ni utilizar el Juego si te encuentras en una
+        jurisdicción sujeta a sanciones de EE. UU. o donde su uso viole leyes
+        aplicables.
+      </Text>
+
+      <Heading as="h2" size="md">
+        14. Terminación y Medidas
       </Heading>
       <Text>
         Podemos suspender o terminar cuentas, congelar accesos, reiniciar
@@ -412,17 +491,44 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Text>
 
       <Heading as="h2" size="md">
-        14. Exenciones y Limitación de Responsabilidad
+        15. Exenciones de Responsabilidad
       </Heading>
       <Text>
-        El Juego se proporciona <strong>“tal cual”</strong> y{" "}
-        <strong>“según disponibilidad”</strong>. En la máxima medida permitida
-        por la ley, Caravana Studio LLC no será responsable por daños indirectos
-        o consecuenciales.
+        EL JUEGO SE PROPORCIONA <strong>“TAL CUAL”</strong> Y{" "}
+        <strong>“SEGÚN DISPONIBILIDAD”</strong>, SIN GARANTÍAS DE NINGÚN TIPO,
+        EXPRESAS O IMPLÍCITAS.
       </Text>
 
       <Heading as="h2" size="md">
-        15. Ley Aplicable
+        16. Limitación de Responsabilidad
+      </Heading>
+      <Text>
+        EN LA MÁXIMA MEDIDA PERMITIDA POR LA LEY, CARAVANA STUDIO LLC, SUS
+        AFILIADOS Y MIEMBROS DEL EQUIPO NO SERÁN RESPONSABLES POR DAÑOS
+        INDIRECTOS, INCIDENTALES O CONSECUENTES.
+      </Text>
+
+      <Heading as="h2" size="md">
+        17. Indemnización
+      </Heading>
+      <Text>
+        Aceptas indemnizar y mantener indemne a Caravana Studio LLC, sus
+        afiliados y miembros del equipo frente a reclamaciones, daños o
+        responsabilidades derivadas de tu uso del Juego o incumplimiento de
+        estos Términos.
+      </Text>
+
+      <Heading as="h2" size="md">
+        18. Actualizaciones de los Términos
+      </Heading>
+      <Text>
+        Podemos modificar estos Términos en cualquier momento. El uso continuado
+        del Juego tras los cambios implica la aceptación de la versión
+        actualizada.
+      </Text>
+
+      <Heading as="h2" size="md">
+        19. Ley Aplicable
       </Heading>
       <Text>
         Estos Términos se rigen por las leyes del{" "}
@@ -433,8 +539,8 @@ const SPANISH_TERMS_AND_CONDITIONS = (
         Idioma
       </Heading>
       <Text>
-        La versión autoritativa de estos Términos es la versión en inglés.
-        Las traducciones se proporcionan solo por conveniencia.
+        La versión autoritativa de estos Términos es la versión en inglés. Las
+        traducciones se proporcionan solo por conveniencia.
       </Text>
 
       <Text fontStyle="italic" mt={6}>
@@ -467,35 +573,37 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         – Jokers of Neon é um jogo de cartas estratégico baseado em habilidade,
-        em Early Access.
+        oferecido em Early Access.
         <br />
         – É necessário ter pelo menos <strong>13 anos</strong> para jogar.
         <br />
         – Season Passes e pacotes de cartas são vendidos em <strong>USD via Stripe</strong>.
         <br />
-        – Todas as vendas são finais, salvo exigência legal ou falha técnica.
+        – Todas as vendas são finais, salvo quando exigido por lei ou em caso de
+        falha técnica verificada.
         <br />
-        – As cartas obtidas durante a Temporada podem ser <strong>NFTs na Starknet</strong>.
+        – As cartas obtidas ou compradas podem ser <strong>NFTs na Starknet</strong>.
         <br />
-        – Não operamos um marketplace; qualquer troca externa ocorre por sua conta e risco.
+        – Não operamos um marketplace nem somos responsáveis por trocas externas.
         <br />
-        – NFTs são colecionáveis, não investimentos.
+        – NFTs são colecionáveis, não investimentos, e não possuem valor garantido.
         <br />
-        – Podemos rebalancear cartas, redefinir progresso ou suspender contas.
+        – Podemos rebalancear o jogo, redefinir progresso, suspender contas ou
+        restringir ativos.
         <br />
-        – O jogo é fornecido “como está”, sem garantias.
+        – O Jogo é fornecido “como está” e “conforme disponibilidade”.
       </Text>
 
       <Heading as="h2" size="md">
         1. Aceitação dos Termos
       </Heading>
       <Text>
-        Ao acessar ou jogar <strong>Jokers of Neon</strong> (“o Jogo”), você
-        concorda com estes Termos e com nossa{" "}
+        Ao acessar ou utilizar <strong>Jokers of Neon</strong> (“o Jogo”),
+        você concorda em ficar vinculado a estes Termos e à nossa{" "}
         <Link href="https://jokersofneon.com/privacy-policy" isExternal color="blue.500">
           Política de Privacidade
         </Link>
-        . Caso não concorde, não utilize o Jogo.
+        . Caso não concorde, você não deve acessar nem utilizar o Jogo.
       </Text>
 
       <Heading as="h2" size="md">
@@ -503,104 +611,114 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         Jokers of Neon é um jogo digital de cartas estratégicas desenvolvido e
-        operado pela <strong>Caravana Studio LLC</strong>. O Jogo é oferecido como
-        <strong> Early Access – Temporada 1</strong> e pode evoluir ao longo do tempo.
+        operado pela <strong>Caravana Studio LLC</strong> (“Caravana Studio”,
+        “nós”). O Jogo é oferecido como <strong>Early Access – Temporada 1</strong>
+        e está em desenvolvimento ativo.
       </Text>
 
       <Heading as="h2" size="md">
-        3. Contas e Acesso
+        3. Elegibilidade e Contas
       </Heading>
       <Text>
-        Você pode jogar como convidado ou autenticar-se por meio do{" "}
-        <strong>Cartridge Controller</strong>, que suporta passkeys e logins de
-        terceiros. Você é responsável pela segurança da sua conta e credenciais.
-        É necessário ter pelo menos 13 anos para usar o Jogo.
+        Você deve ter pelo menos <strong>13 anos</strong> para jogar. É possível
+        acessar o Jogo como convidado ou autenticar-se por meio do{" "}
+        <strong>Cartridge Controller</strong>, que está sujeito aos seus próprios
+        termos e políticas.
+        <br />
+        <br />
+        Você é responsável por manter a confidencialidade e a segurança de suas
+        credenciais e por toda atividade realizada em sua conta.
       </Text>
 
       <Heading as="h2" size="md">
         4. Natureza do Early Access
       </Heading>
       <Text>
-        O Jogo é oferecido em Early Access e pode conter erros, problemas de
-        balanceamento, interrupções ou períodos de manutenção. Progresso,
-        rankings ou conteúdo podem ser ajustados ou redefinidos.
+        O Jogo é fornecido em Early Access e pode conter bugs, erros,
+        funcionalidades incompletas, problemas de balanceamento ou interrupções
+        temporárias. Conteúdo, progresso, rankings, recompensas ou mecânicas
+        podem ser alterados, redefinidos ou removidos a qualquer momento.
       </Text>
 
       <Heading as="h2" size="md">
         5. Compras, Pagamentos e Reembolsos
       </Heading>
       <Text>
-        Season Passes e pacotes de cartas são vendidos em <strong>USD</strong> via{" "}
-        <strong>Stripe</strong>. Aceitamos os métodos de pagamento suportados
-        pelo Stripe. Todas as compras são <strong>compras únicas</strong>.
+        Season Passes e pacotes de cartas são vendidos em <strong>USD</strong>{" "}
+        por meio do <strong>Stripe</strong>. Aceitamos os métodos de pagamento
+        suportados pelo Stripe. Todas as compras são{" "}
+        <strong>compras únicas</strong>.
         <br />
         <br />
         <strong>Todas as vendas são finais</strong>, salvo quando exigido por lei
         ou em caso de falha técnica verificada. Os preços podem não incluir
         impostos aplicáveis, que poderão ser calculados e cobrados pelo Stripe
-        no checkout.
+        no momento do checkout.
         <br />
         <br />
-        Estornos, chargebacks ou atividades fraudulentas podem resultar em
-        suspensão de acesso, congelamento da conta e restrições aos ativos digitais.
+        Estornos, chargebacks ou atividades fraudulentas podem resultar na
+        suspensão ou encerramento do acesso, congelamento da conta e restrições
+        aplicadas aos ativos digitais associados.
       </Text>
 
       <Heading as="h2" size="md">
         6. Ativos Digitais e NFTs
       </Heading>
       <Text>
-        Ao progredir na Temporada ou realizar compras, você pode obter
+        Ao progredir durante a Temporada ou realizar compras, você pode receber
         colecionáveis digitais representados como{" "}
-        <strong>tokens não fungíveis (NFTs)</strong> cunhados na{" "}
+        <strong>tokens não fungíveis (NFTs)</strong> cunhados automaticamente na{" "}
         <strong>mainnet da Starknet</strong>.
         <br />
         <br />
-        Os NFTs são cunhados automaticamente on-chain após a conclusão da ação
-        ou compra correspondente. A posse de um NFT não concede direitos de
-        propriedade intelectual sobre o Jogo.
+        A posse de um NFT não concede quaisquer direitos de propriedade
+        intelectual sobre o Jogo.
       </Text>
 
       <Heading as="h2" size="md">
-        7. Licença e Uso de NFTs
+        7. Licença de NFTs e Isenção de Investimento
       </Heading>
       <Text>
-        A posse de um NFT concede uma licença limitada, não exclusiva e não
-        transferível para usar e exibir a carta associada dentro do Jogo e para
-        exibição pessoal não comercial.
+        A posse de um NFT concede uma licença limitada, não exclusiva,
+        revogável e não transferível para utilizar e exibir a carta associada
+        dentro do Jogo e para exibição pessoal não comercial.
         <br />
         <br />
-        Os NFTs <strong>não possuem valor monetário garantido</strong>,{" "}
-        <strong>não são destinados como investimento</strong> e não implicam
-        expectativa de lucro.
+        NFTs são <strong>colecionáveis</strong>, não possuem{" "}
+        <strong>valor ou utilidade garantidos</strong> e{" "}
+        <strong>não são destinados como investimento</strong>. Não há
+        expectativa de lucro, valorização ou retorno financeiro.
       </Text>
 
       <Heading as="h2" size="md">
         8. Ausência de Marketplace
       </Heading>
       <Text>
-        A Caravana Studio não opera nem fornece um marketplace para negociação
-        de NFTs. Qualquer transferência ou troca externa ocorre de forma
+        A Caravana Studio não opera, facilita ou endossa qualquer marketplace de
+        NFTs. Qualquer transferência ou negociação externa ocorre de forma
         independente e por sua conta e risco. Não nos responsabilizamos por
         plataformas de terceiros, perdas, golpes ou disputas.
       </Text>
 
       <Heading as="h2" size="md">
-        9. Balanceamento e Alterações do Jogo
+        9. Balanceamento e Modificações do Jogo
       </Heading>
       <Text>
-        Todas as cartas permanecem jogáveis entre temporadas. No entanto,
-        reservamo-nos o direito de modificar ou rebalancear efeitos, mecânicas
-        ou gameplay a qualquer momento para manter a integridade do Jogo.
+        Todas as cartas permanecem jogáveis entre temporadas. Reservamo-nos o
+        direito de modificar, rebalancear ou ajustar mecânicas, efeitos,
+        recompensas ou regras a qualquer momento, mesmo que tais alterações
+        afetem a utilidade ou o valor percebido dos ativos digitais.
       </Text>
 
       <Heading as="h2" size="md">
         10. Conduta do Usuário
       </Heading>
       <Text>
-        Não é permitido trapacear, explorar bugs, automatizar gameplay ou
-        manipular sistemas econômicos. Violações podem resultar em suspensão de
-        conta, redefinição de progresso, banimento ou restrições sobre NFTs,
-        incluindo marcá-los como não comercializáveis.
+        Não é permitido trapacear, explorar bugs, automatizar o gameplay,
+        manipular sistemas econômicos ou interromper servidores. Violações podem
+        resultar em suspensão, encerramento da conta, redefinição de progresso,
+        banimento ou restrições sobre NFTs, incluindo marcá-los como não
+        comercializáveis.
       </Text>
 
       <Heading as="h2" size="md">
@@ -608,45 +726,80 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         Todo o conteúdo do Jogo é de propriedade da{" "}
-        <strong>Caravana Studio LLC</strong>. Nenhum direito é concedido além
-        dos expressamente indicados.
+        <strong>Caravana Studio LLC</strong>. Nenhum direito ou licença é concedido
+        exceto conforme expressamente indicado nestes Termos.
       </Text>
 
       <Heading as="h2" size="md">
         12. Serviços de Terceiros
       </Heading>
       <Text>
-        O Jogo pode ser acessado via navegadores web ou plataformas de apps.
-        Apple Inc. e Google LLC não são responsáveis pelo Jogo, seu conteúdo ou
-        ativos digitais. Stripe, Cartridge e provedores de analytics operam sob
-        seus próprios termos.
+        O Jogo pode integrar ou depender de serviços de terceiros, incluindo
+        Cartridge Controller, Stripe, provedores de analytics e infraestrutura
+        blockchain. Apple Inc. e Google LLC não são responsáveis pelo Jogo, seu
+        conteúdo ou seus ativos digitais.
       </Text>
 
       <Heading as="h2" size="md">
-        13. Rescisão e Medidas
+        13. Conformidade com Exportações e Sanções
+      </Heading>
+      <Text>
+        Você não pode acessar ou utilizar o Jogo se estiver localizado em uma
+        jurisdição sujeita a sanções dos Estados Unidos ou onde o uso do Jogo
+        viole leis ou regulamentos aplicáveis.
+      </Text>
+
+      <Heading as="h2" size="md">
+        14. Rescisão e Medidas
       </Heading>
       <Text>
         Podemos suspender ou encerrar contas, congelar acessos, redefinir
         progresso ou restringir ativos digitais em casos de fraude, abuso,
-        chargebacks ou violação destes Termos.
+        chargebacks ou violações destes Termos.
       </Text>
 
       <Heading as="h2" size="md">
-        14. Isenções e Limitação de Responsabilidade
+        15. Isenções de Responsabilidade
       </Heading>
       <Text>
-        O Jogo é fornecido <strong>“como está”</strong> e{" "}
-        <strong>“conforme disponibilidade”</strong>. Na máxima extensão permitida
-        por lei, a Caravana Studio LLC não será responsável por danos indiretos
-        ou consequenciais.
+        O JOGO É FORNECIDO <strong>“COMO ESTÁ”</strong> E{" "}
+        <strong>“CONFORME DISPONIBILIDADE”</strong>, SEM GARANTIAS DE QUALQUER
+        TIPO, EXPRESSAS OU IMPLÍCITAS.
       </Text>
 
       <Heading as="h2" size="md">
-        15. Lei Aplicável
+        16. Limitação de Responsabilidade
+      </Heading>
+      <Text>
+        NA MÁXIMA EXTENSÃO PERMITIDA POR LEI, A CARAVANA STUDIO LLC, SEUS
+        AFILIADOS E MEMBROS DA EQUIPE NÃO SERÃO RESPONSÁVEIS POR DANOS
+        INDIRETOS, INCIDENTAIS OU CONSEQUENCIAIS.
+      </Text>
+
+      <Heading as="h2" size="md">
+        17. Indenização
+      </Heading>
+      <Text>
+        Você concorda em indenizar e isentar a Caravana Studio LLC, seus
+        afiliados e membros da equipe de quaisquer reclamações, danos,
+        responsabilidades ou despesas decorrentes do uso do Jogo ou da violação
+        destes Termos.
+      </Text>
+
+      <Heading as="h2" size="md">
+        18. Atualizações destes Termos
+      </Heading>
+      <Text>
+        Podemos modificar estes Termos a qualquer momento. O uso continuado do
+        Jogo após quaisquer alterações constitui aceitação da versão atualizada.
+      </Text>
+
+      <Heading as="h2" size="md">
+        19. Lei Aplicável
       </Heading>
       <Text>
         Estes Termos são regidos pelas leis do{" "}
-        <strong>Estado de Delaware, EUA</strong>.
+        <strong>Estado de Delaware, EUA</strong>, sem consideração a conflitos de leis.
       </Text>
 
       <Heading as="h2" size="md">
