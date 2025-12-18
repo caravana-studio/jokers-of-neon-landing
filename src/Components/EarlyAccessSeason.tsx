@@ -5,6 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { VIOLET_LIGHT } from "../theme/colors";
 import { registerEarlyAccess } from "../utils/registerEarlyAccess";
+import { Clock } from "./Clock";
 import { controller } from "./StarknetProvider";
 
 const coinPulse = keyframes`
@@ -229,15 +230,7 @@ export const EarlyAccessSeason = ({
         top={isMobile ? "20%" : 0}
         left={fullScreen ? "50%" : undefined}
         transform={fullScreen ? "translateX(-50%)" : undefined}
-        w={
-          fullScreen
-            ? isMobile
-              ? "100%"
-              : "60%"
-            : isMobile
-            ? "120%"
-            : "60%"
-        }
+        w={fullScreen ? (isMobile ? "100%" : "60%") : isMobile ? "120%" : "60%"}
         maxW={fullScreen ? (isMobile ? "520px" : "900px") : undefined}
         pointerEvents={fullScreen ? "none" : undefined}
       >
@@ -344,6 +337,11 @@ export const EarlyAccessSeason = ({
           </Text>
         </Flex>
       </Flex>
+      <Clock
+        date={new Date("2025-12-22T00:00:00Z")}
+        iconSize={isMobile ? "10px" : "20px"}
+        fontSize={isMobile ? 10 : 20}
+      />
       {username && hasRegistered && !registerError ? (
         <Heading
           fontSize={isMobile ? 10 : 20}
