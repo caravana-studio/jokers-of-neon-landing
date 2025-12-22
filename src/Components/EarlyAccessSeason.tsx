@@ -338,7 +338,7 @@ export const EarlyAccessSeason = ({
         </Flex>
       </Flex>
       <Clock
-        date={new Date("2025-12-22T00:00:00Z")}
+        date={new Date("2025-12-23T00:00:00Z")}
         iconSize={isMobile ? "10px" : "20px"}
         fontSize={isMobile ? 10 : 20}
       />
