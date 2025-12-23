@@ -13,11 +13,6 @@ import customTheme from "./theme/theme";
 
 function App() {
   const theme = extendTheme(customTheme);
-  const isEarlyHost =
-    import.meta.env.VITE_IS_EARLY_HOST === "true" ||
-    (typeof window !== "undefined" &&
-      window.location.hostname === "early.jokersofneon.com");
-
   return (
     <StarknetProvider>
       <ChakraBaseProvider theme={theme}>
@@ -25,7 +20,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={isEarlyHost ? <EarlyAccessPage /> : <MainPage />}
+              element={<MainPage />}
             />
             <Route path="/early" element={<EarlyAccessPage />} />
             <Route path="/play" element={<StoresPage />} />
