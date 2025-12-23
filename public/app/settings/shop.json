@@ -14,8 +14,6 @@
   "web": {
     "season_pass": "season_pass",
     "packs": [
-      { "shopId": "pack_collector_xl", "packId": 6 },
-      { "shopId": "pack_collector", "packId": 5 },
       { "shopId": "pack_legendary", "packId": 4 },
       { "shopId": "pack_epic", "packId": 3 },
       { "shopId": "pack_advanced", "packId": 2 }
