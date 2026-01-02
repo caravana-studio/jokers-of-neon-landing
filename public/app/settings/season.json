@@ -1,4 +1,9 @@
 {
       "number": 1,
-      "finishDate": "2026-02-26T23:59:59.999Z"
+      "finishDate": "2026-02-26T23:59:59.999Z",
+      "xp-event": {
+            "multiplier": 2,
+            "startDate": "2026-01-01T00:00:00.000Z",
+            "finishDate": "2026-01-03T23:59:59.999Z"
+      }
 }
