@@ -236,7 +236,7 @@ const NeonLineChart = ({
     <Box position="relative" h="100%" w="100%">
       <svg
         viewBox={`0 0 ${chartWidth} ${chartHeight}`}
-        preserveAspectRatio="none"
+        preserveAspectRatio="xMidYMid meet"
         style={{ width: "100%", height: "100%", cursor: "crosshair" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -603,7 +603,8 @@ export const StatsPage = () => {
 
   return (
     <Box
-      h="100vh"
+      minH="100vh"
+      h={{ base: "auto", md: "100vh" }}
       bgColor="black"
       bgImage="url('/bg/bg-top.png')"
       bgSize="cover"
@@ -611,35 +612,9 @@ export const StatsPage = () => {
       bgRepeat="no-repeat"
       color="white"
       position="relative"
-      overflow="hidden"
+      overflowX="hidden"
+      overflowY={{ base: "auto", md: "hidden" }}
     >
-      {/* Scanline effect overlay */}
-      <Box
-        position="fixed"
-        top={0}
-        left={0}
-        right={0}
-        bottom={0}
-        pointerEvents="none"
-        zIndex={100}
-        opacity={0.03}
-        background="repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(32, 198, 237, 0.1) 2px, rgba(32, 198, 237, 0.1) 4px)"
-      />
-
-      {/* Animated scanline */}
-      <Box
-        position="fixed"
-        top={0}
-        left={0}
-        right={0}
-        height="4px"
-        background={`linear-gradient(180deg, transparent, ${colors.neonCyan}40, transparent)`}
-        animation={`${scanline} 8s linear infinite`}
-        pointerEvents="none"
-        zIndex={101}
-        opacity={0.5}
-      />
-
       {/* Decorative borders */}
       <Image
         src="/borders/top.png"
@@ -664,7 +639,7 @@ export const StatsPage = () => {
         mx="auto"
         px={{ base: 4, md: 6 }}
         py={{ base: 16, md: 20 }}
-        h="100%"
+        h={{ base: "auto", md: "100%" }}
         flexDir="column"
       >
         {/* Header */}
@@ -773,7 +748,7 @@ export const StatsPage = () => {
           overflow="hidden"
           flex="1"
           flexDir="column"
-          minH={0}
+          minH={{ base: "320px", md: 0 }}
           _before={{
             content: '""',
             position: "absolute",
@@ -787,15 +762,15 @@ export const StatsPage = () => {
           {/* Chart Header */}
           <Flex
             justify="space-between"
-            align={{ base: "start", md: "center" }}
+            align={{ base: "stretch", md: "center" }}
             mb={3}
             flexDir={{ base: "column", md: "row" }}
-            gap={2}
+            gap={{ base: 3, md: 2 }}
             flexShrink={0}
           >
-            <Flex align="center" gap={3} flexWrap="wrap">
+            <Flex w="100%" flexDir="column" gap={{ base: 3, md: 2 }}>
               {/* Metric Selector */}
-              <ButtonGroup size="sm" isAttached variant="outline">
+              <ButtonGroup size={{ base: "xs", md: "sm" }} isAttached variant="outline" w={{ base: "100%", md: "auto" }}>
                 {(Object.keys(metricConfig) as MetricType[]).map((metric) => (
                   <Button
                     key={metric}
@@ -804,58 +779,65 @@ export const StatsPage = () => {
                     borderColor={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.300"}
                     color={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.700"}
                     fontFamily="Orbitron"
-                    fontSize="xs"
-                    px={4}
+                    fontSize={{ base: "9px !important", md: "12px !important" }}
+                    px={{ base: 2, md: 4 }}
+                    flex="1"
+                    minW={0}
                     _hover={{
                       bg: `${metricConfig[metric].color}10`,
                       borderColor: metricConfig[metric].color,
                     }}
                   >
-                  {metricConfig[metric].label}
-                </Button>
-              ))}
-            </ButtonGroup>
+                    {metricConfig[metric].label}
+                  </Button>
+                ))}
+              </ButtonGroup>
 
-              {/* Granularity Selector */}
-              <Flex align="center" gap={2}>
-                <Text fontSize="2xs" color="whiteAlpha.600" fontFamily="Oxanium" letterSpacing="wider">
-                  GRANULARITY
-                </Text>
-                <Select
-                  size="sm"
-                  value={granularity}
-                  onChange={(e) => setGranularity(e.target.value as Granularity)}
-                  bg="transparent"
-                  borderColor="whiteAlpha.300"
-                  color="whiteAlpha.800"
-                  fontFamily="Orbitron"
-                  fontSize="xs"
-                  w="120px"
-                  _hover={{ borderColor: currentMetricConfig.color }}
-                  _focus={{ borderColor: currentMetricConfig.color, boxShadow: `0 0 0 1px ${currentMetricConfig.color}` }}
-                >
-                  <option value="day">DAY</option>
-                  <option value="week">WEEK</option>
-                  <option value="month">MONTH</option>
-                </Select>
+              <Flex
+                w="100%"
+                align="center"
+                justify={{ base: "space-between", md: "flex-start" }}
+                gap={{ base: 3, md: 6 }}
+                flexWrap="wrap"
+              >
+                {/* Granularity Selector */}
+                <Flex align="center" gap={2}>
+                  <Text fontSize="2xs" color="whiteAlpha.600" fontFamily="Oxanium" letterSpacing="wider">
+                    GRANULARITY
+                  </Text>
+                  <Select
+                    size={{ base: "xs", md: "sm" }}
+                    value={granularity}
+                    onChange={(e) => setGranularity(e.target.value as Granularity)}
+                    bg="transparent"
+                    borderColor="whiteAlpha.300"
+                    color="whiteAlpha.800"
+                    fontFamily="Orbitron"
+                    fontSize={{ base: "2xs", md: "xs" }}
+                    w={{ base: "100px", md: "120px" }}
+                    _hover={{ borderColor: currentMetricConfig.color }}
+                    _focus={{ borderColor: currentMetricConfig.color, boxShadow: `0 0 0 1px ${currentMetricConfig.color}` }}
+                  >
+                    <option value="day">DAY</option>
+                    <option value="week">WEEK</option>
+                    <option value="month">MONTH</option>
+                  </Select>
+                </Flex>
+
+                <Box textAlign={{ base: "left", md: "right" }} ml={{ md: "auto" }}>
+                  <Text fontSize="xs" color="whiteAlpha.500" fontFamily="Oxanium">
+                    {avgLabel}
+                  </Text>
+                  <Text fontSize="lg" color={currentMetricConfig.color} fontFamily="Orbitron" fontWeight="bold">
+                    {avg.toLocaleString()}
+                  </Text>
+                </Box>
               </Flex>
-            </Flex>
-
-            {/* Stats Summary */}
-            <Flex gap={6}>
-              <Box textAlign="right">
-                <Text fontSize="xs" color="whiteAlpha.500" fontFamily="Oxanium">
-                  {avgLabel}
-                </Text>
-                <Text fontSize="lg" color={currentMetricConfig.color} fontFamily="Orbitron" fontWeight="bold">
-                  {avg.toLocaleString()}
-                </Text>
-              </Box>
             </Flex>
           </Flex>
 
           {/* Chart */}
-          <Box flex="1" minH={0}>
+          <Box flex="1" minH={{ base: "220px", md: 0 }}>
             <NeonLineChart
               data={chartData}
               color={currentMetricConfig.color}
