@@ -15,6 +15,15 @@ import {
 import { keyframes } from "@emotion/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  BACKGROUND_BLUE,
+  BLUE,
+  BLUE_LIGHT,
+  DIAMONDS,
+  GREY_LINE,
+  GREEN_LIGHT,
+  VIOLET_LIGHT,
+} from "./theme/colors";
 
 // API Configuration
 const API_BASE_URL = "https://mainnet-jokers-of-neon-api.onrender.com";
@@ -81,14 +90,14 @@ const glowPulse = keyframes`
 
 // Color palette
 const colors = {
-  neonCyan: "#20C6ED",
-  neonViolet: "#A144B2",
-  neonBlue: "#066b9b",
-  neonPink: "#FF2E97",
-  neonGreen: "#00FF88",
-  darkBg: "#0a0a0f",
-  cardBg: "rgba(10, 10, 20, 0.8)",
-  gridLine: "rgba(32, 198, 237, 0.1)",
+  neonCyan: BLUE_LIGHT,
+  neonViolet: VIOLET_LIGHT,
+  neonBlue: BLUE,
+  neonPink: DIAMONDS,
+  neonGreen: GREEN_LIGHT,
+  darkBg: BACKGROUND_BLUE,
+  cardBg: "rgba(0, 0, 0, 0.3)",
+  gridLine: "rgba(153, 153, 153, 0.18)",
 };
 
 const metricConfig: Record<MetricType, { label: string; color: string; icon: string }> = {
@@ -351,10 +360,10 @@ const NeonLineChart = ({
             borderColor: `${color} transparent transparent transparent`,
           }}
         >
-          <Text fontFamily="Orbitron" fontSize="sm" color={color} fontWeight="bold">
+          <Text fontFamily="Orbitron" fontSize="md" color={color} fontWeight="bold">
             {tooltip.value.toLocaleString()}
           </Text>
-          <Text fontFamily="Oxanium" fontSize="xs" color="whiteAlpha.700">
+          <Text fontFamily="Oxanium" fontSize="sm" color="whiteAlpha.700">
             {formatPeriodLabel(tooltip.period)}
           </Text>
         </Box>
@@ -388,14 +397,12 @@ const NeonLineChart = ({
 const StatCard = ({
   title,
   value,
-  icon,
   color,
   delay,
   isLoading,
 }: {
   title: string;
   value: number;
-  icon: string;
   color: string;
   delay: number;
   isLoading: boolean;
@@ -473,13 +480,10 @@ const StatCard = ({
         opacity={0.5}
       />
 
-      <VStack spacing={1} align="center">
-        <Text fontSize="2xl" animation={`${glowPulse} 2s ease-in-out infinite`} color={color}>
-          {icon}
-        </Text>
+      <VStack spacing={2} align="center">
         <Text
           fontFamily="Orbitron"
-          fontSize="2xs"
+          fontSize="sm"
           color="whiteAlpha.700"
           textTransform="uppercase"
           letterSpacing="wider"
@@ -487,7 +491,7 @@ const StatCard = ({
           {title}
         </Text>
         {isLoading ? (
-          <Skeleton height="36px" width="100px" startColor={`${color}20`} endColor={`${color}40`} />
+          <Skeleton height="40px" width="120px" startColor={`${color}20`} endColor={`${color}40`} />
         ) : (
           <Text
             fontFamily="Orbitron"
@@ -510,7 +514,7 @@ export const StatsPage = () => {
   const [globalStats, setGlobalStats] = useState<GlobalStats | null>(null);
   const [chartData, setChartData] = useState<TimeSeriesData[]>([]);
   const [selectedMetric, setSelectedMetric] = useState<MetricType>("transactions");
-  const [granularity, setGranularity] = useState<Granularity>("week");
+  const [granularity, setGranularity] = useState<Granularity>("day");
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
   const [isLoadingChart, setIsLoadingChart] = useState(true);
 
@@ -586,14 +590,25 @@ export const StatsPage = () => {
   }, [fetchChartData]);
 
   const currentMetricConfig = metricConfig[selectedMetric];
-  const total = useMemo(() => chartData.reduce((acc, d) => acc + d.value, 0), [chartData]);
-  const avg = useMemo(() => (chartData.length ? Math.round(total / chartData.length) : 0), [chartData, total]);
+  const avg = useMemo(() => {
+    if (!chartData.length) return 0;
+    const total = chartData.reduce((acc, d) => acc + d.value, 0);
+    return Math.round(total / chartData.length);
+  }, [chartData]);
+  const avgLabel = useMemo(() => {
+    if (granularity === "day") return "DAILY AVG";
+    if (granularity === "month") return "MONTHLY AVG";
+    return "WEEKLY AVG";
+  }, [granularity]);
 
   return (
     <Box
       h="100vh"
-      bg={colors.darkBg}
-      bgImage="radial-gradient(ellipse at top, rgba(6, 107, 155, 0.15) 0%, transparent 50%), radial-gradient(ellipse at bottom right, rgba(161, 68, 178, 0.1) 0%, transparent 50%)"
+      bgColor="black"
+      bgImage="url('/bg/bg-top.png')"
+      bgSize="cover"
+      bgPosition="top center"
+      bgRepeat="no-repeat"
       color="white"
       position="relative"
       overflow="hidden"
@@ -721,7 +736,6 @@ export const StatsPage = () => {
             <StatCard
               title="Total Transactions"
               value={globalStats?.total_transactions || 0}
-              icon="💎"
               color={colors.neonCyan}
               delay={0}
               isLoading={isLoadingGlobal}
@@ -731,7 +745,6 @@ export const StatsPage = () => {
             <StatCard
               title="Total Games"
               value={globalStats?.total_games || 0}
-              icon="🃏"
               color={colors.neonViolet}
               delay={0.15}
               isLoading={isLoadingGlobal}
@@ -741,7 +754,6 @@ export const StatsPage = () => {
             <StatCard
               title="Unique Players"
               value={globalStats?.total_unique_players || 0}
-              icon="👥"
               color={colors.neonPink}
               delay={0.3}
               isLoading={isLoadingGlobal}
@@ -799,10 +811,10 @@ export const StatsPage = () => {
                       borderColor: metricConfig[metric].color,
                     }}
                   >
-                    {metricConfig[metric].icon} {metricConfig[metric].label}
-                  </Button>
-                ))}
-              </ButtonGroup>
+                  {metricConfig[metric].label}
+                </Button>
+              ))}
+            </ButtonGroup>
 
               {/* Granularity Selector */}
               <Flex align="center" gap={2}>
@@ -833,15 +845,7 @@ export const StatsPage = () => {
             <Flex gap={6}>
               <Box textAlign="right">
                 <Text fontSize="xs" color="whiteAlpha.500" fontFamily="Oxanium">
-                  PERIOD TOTAL
-                </Text>
-                <Text fontSize="lg" color={currentMetricConfig.color} fontFamily="Orbitron" fontWeight="bold">
-                  {total.toLocaleString()}
-                </Text>
-              </Box>
-              <Box textAlign="right">
-                <Text fontSize="xs" color="whiteAlpha.500" fontFamily="Oxanium">
-                  WEEKLY AVG
+                  {avgLabel}
                 </Text>
                 <Text fontSize="lg" color={currentMetricConfig.color} fontFamily="Orbitron" fontWeight="bold">
                   {avg.toLocaleString()}
