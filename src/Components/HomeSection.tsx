@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { isIOS, isMobile } from "react-device-detect";
+import { Link as RouterLink } from "react-router-dom";
 import { Link } from "react-scroll";
 
 interface HomeSectionProps {
@@ -95,6 +96,9 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         >
           Trailer
         </Link>
+        <RouterLink to="/stats" style={{ cursor: "pointer" }}>
+          Stats
+        </RouterLink>
       </Flex>
     </Flex>
   );
@@ -184,6 +188,20 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
                 >
                   CONTACT
                 </Text>
+              </Box>
+
+              <Box sx={lineStyle}>
+                <RouterLink to="/stats" style={{ textDecoration: "none" }}>
+                  <Text
+                    textAlign="center"
+                    fontSize="xl"
+                    letterSpacing="wider"
+                    fontWeight="light"
+                    fontFamily={"Orbitron"}
+                  >
+                    STATS
+                  </Text>
+                </RouterLink>
               </Box>
             </VStack>
 

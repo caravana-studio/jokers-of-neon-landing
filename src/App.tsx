@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { EarlyAccessPage } from "./Components/EarlyAccessPage";
 import { StarknetProvider } from "./Components/StarknetProvider";
+import { StatsPage } from "./StatsPage";
 import { StoresPage } from "./StoresPage";
 import { DeleteAccount } from "./theme/DeleteAccount";
 import { MainPage } from "./theme/MainPage";
@@ -30,6 +31,7 @@ function App() {
               element={<TermsAndConditions />}
             />
             <Route path="/delete-account" element={<DeleteAccount />} />
+            <Route path="/stats" element={<StatsPage />} />
           </Routes>
         </BrowserRouter>
         <Analytics />
