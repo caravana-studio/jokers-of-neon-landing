@@ -135,9 +135,9 @@ const NeonLineChart = ({
 
   const maxValue = Math.max(...data.map((d) => d.value), 1);
   const chartHeight = 280;
-  const chartWidth = 100;
-  const paddingX = 2;
-  const paddingY = 5;
+  const chartWidth = 840;
+  const paddingX = 16;
+  const paddingY = 6;
 
   // Calculate nice max for Y-axis scale
   const roundToNice = (value: number): number => {
@@ -238,14 +238,11 @@ const NeonLineChart = ({
               fill="transparent"
               style={{ cursor: "crosshair" }}
               onMouseEnter={(e) => {
-                const svg = e.currentTarget.closest("svg");
+                const svg = e.currentTarget.ownerSVGElement;
                 if (svg) {
                   const svgRect = svg.getBoundingClientRect();
-                  const viewBoxWidth = 100;
-                  const viewBoxHeight = 280;
-                  // Map SVG viewBox coordinates to screen coordinates
-                  const xPos = svgRect.left + (p.x / viewBoxWidth) * svgRect.width;
-                  const yPos = svgRect.top + (p.y / viewBoxHeight) * svgRect.height;
+                  const xPos = (p.x / chartWidth) * svgRect.width;
+                  const yPos = (p.y / chartHeight) * svgRect.height;
                   setTooltip({
                     x: xPos,
                     y: yPos,
@@ -262,7 +259,7 @@ const NeonLineChart = ({
             <circle
               cx={p.x}
               cy={p.y}
-              r="1.2"
+              r="2.4"
               fill={color}
               filter="url(#chart-glow)"
               style={{ pointerEvents: "none" }}
@@ -274,7 +271,7 @@ const NeonLineChart = ({
       {/* Tooltip */}
       {tooltip && (
         <Box
-          position="fixed"
+          position="absolute"
           left={`${tooltip.x}px`}
           top={`${tooltip.y}px`}
           transform={`translate(${tooltip.isFirst ? "0" : tooltip.isLast ? "-100%" : "-50%"}, -100%) translateY(-8px)`}
@@ -318,6 +315,7 @@ const NeonLineChart = ({
         justifyContent="space-between"
         py={3}
         pl={2}
+        pointerEvents="none"
       >
         {yLabels.reverse().map((val, i) => (
           <Text key={i} fontSize="xs" color="whiteAlpha.500" fontFamily="Oxanium">
