@@ -236,7 +236,7 @@ const NeonLineChart = ({
     <Box position="relative" h="100%" w="100%">
       <svg
         viewBox={`0 0 ${chartWidth} ${chartHeight}`}
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="none"
         style={{ width: "100%", height: "100%", cursor: "crosshair" }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
