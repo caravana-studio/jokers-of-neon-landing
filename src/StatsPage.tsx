@@ -7,6 +7,7 @@ import {
   GridItem,
   Image,
   Skeleton,
+  Select,
   Spinner,
   Text,
   VStack,
@@ -32,6 +33,7 @@ interface TimeSeriesData {
 }
 
 type MetricType = "transactions" | "games" | "players";
+type Granularity = "day" | "week" | "month";
 
 // Animations
 const pulseGlow = keyframes`
@@ -109,12 +111,22 @@ const NeonLineChart = ({
   data,
   color,
   isLoading,
+  granularity,
 }: {
   data: TimeSeriesData[];
   color: string;
   isLoading: boolean;
+  granularity: Granularity;
 }) => {
-  const [tooltip, setTooltip] = useState<{ x: number; y: number; value: number; period: string; isFirst: boolean; isLast: boolean } | null>(null);
+  const [tooltip, setTooltip] = useState<{
+    x: number;
+    y: number;
+    value: number;
+    period: string;
+    isFirst: boolean;
+    isLast: boolean;
+    index: number;
+  } | null>(null);
   if (isLoading) {
     return (
       <Box h="100%" display="flex" alignItems="center" justifyContent="center">
@@ -166,12 +178,59 @@ const NeonLineChart = ({
   // Y-axis labels with round numbers
   const yLabels = [0, niceMax / 2, niceMax];
 
+  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    if (points.length === 0) return;
+    const svg = e.currentTarget;
+    const rect = svg.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    const relativeX = ((e.clientX - rect.left) / rect.width) * chartWidth;
+    const clampedX = Math.max(paddingX, Math.min(chartWidth - paddingX, relativeX));
+
+    let closestIndex = 0;
+    let minDistance = Math.abs(points[0].x - clampedX);
+    for (let i = 1; i < points.length; i += 1) {
+      const distance = Math.abs(points[i].x - clampedX);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = i;
+      }
+    }
+
+    const point = points[closestIndex];
+    setTooltip({
+      x: (point.x / chartWidth) * rect.width,
+      y: (point.y / chartHeight) * rect.height,
+      value: point.value,
+      period: point.period,
+      isFirst: closestIndex === 0,
+      isLast: closestIndex === points.length - 1,
+      index: closestIndex,
+    });
+  };
+
+  const handleMouseLeave = () => setTooltip(null);
+
+  const formatPeriodLabel = (period: string) => {
+    if (granularity !== "month") return period;
+    const match = period.match(/^(\d{4})-(\d{2})/);
+    if (!match) return period;
+    const year = Number(match[1]);
+    const monthIndex = Number(match[2]) - 1;
+    if (Number.isNaN(year) || Number.isNaN(monthIndex) || monthIndex < 0 || monthIndex > 11) {
+      return period;
+    }
+    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    return `${monthNames[monthIndex]} ${year}`;
+  };
+
   return (
     <Box position="relative" h="100%" w="100%">
       <svg
         viewBox={`0 0 ${chartWidth} ${chartHeight}`}
         preserveAspectRatio="none"
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%", cursor: "crosshair" }}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
       >
         <defs>
           <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -227,6 +286,20 @@ const NeonLineChart = ({
           strokeLinejoin="round"
         />
 
+        {/* Hover line */}
+        {tooltip && (
+          <line
+            x1={points[tooltip.index].x}
+            x2={points[tooltip.index].x}
+            y1={paddingY}
+            y2={chartHeight - paddingY}
+            stroke={color}
+            strokeOpacity="0.35"
+            strokeWidth="0.35"
+            strokeDasharray="1 1.5"
+          />
+        )}
+
         {/* Data points with hover areas */}
         {points.map((p, i) => (
           <g key={i}>
@@ -236,24 +309,7 @@ const NeonLineChart = ({
               cy={p.y}
               r="5"
               fill="transparent"
-              style={{ cursor: "crosshair" }}
-              onMouseEnter={(e) => {
-                const svg = e.currentTarget.ownerSVGElement;
-                if (svg) {
-                  const svgRect = svg.getBoundingClientRect();
-                  const xPos = (p.x / chartWidth) * svgRect.width;
-                  const yPos = (p.y / chartHeight) * svgRect.height;
-                  setTooltip({
-                    x: xPos,
-                    y: yPos,
-                    value: p.value,
-                    period: p.period,
-                    isFirst: i === 0,
-                    isLast: i === points.length - 1,
-                  });
-                }
-              }}
-              onMouseLeave={() => setTooltip(null)}
+              pointerEvents="none"
             />
             {/* Visible point */}
             <circle
@@ -299,7 +355,7 @@ const NeonLineChart = ({
             {tooltip.value.toLocaleString()}
           </Text>
           <Text fontFamily="Oxanium" fontSize="xs" color="whiteAlpha.700">
-            {tooltip.period}
+            {formatPeriodLabel(tooltip.period)}
           </Text>
         </Box>
       )}
@@ -454,6 +510,7 @@ export const StatsPage = () => {
   const [globalStats, setGlobalStats] = useState<GlobalStats | null>(null);
   const [chartData, setChartData] = useState<TimeSeriesData[]>([]);
   const [selectedMetric, setSelectedMetric] = useState<MetricType>("transactions");
+  const [granularity, setGranularity] = useState<Granularity>("week");
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
   const [isLoadingChart, setIsLoadingChart] = useState(true);
 
@@ -487,7 +544,7 @@ export const StatsPage = () => {
   const fetchChartData = useCallback(async () => {
     setIsLoadingChart(true);
     try {
-      const params = `granularity=week&start_date=${dateRange.startDate}&end_date=${dateRange.endDate}`;
+      const params = `granularity=${granularity}&start_date=${dateRange.startDate}&end_date=${dateRange.endDate}`;
 
       const endpointMap: Record<MetricType, string> = {
         transactions: `/api/stats/transactions?${params}`,
@@ -522,7 +579,7 @@ export const StatsPage = () => {
     } finally {
       setIsLoadingChart(false);
     }
-  }, [selectedMetric, dateRange]);
+  }, [selectedMetric, dateRange, granularity]);
 
   useEffect(() => {
     fetchChartData();
@@ -724,27 +781,53 @@ export const StatsPage = () => {
             gap={2}
             flexShrink={0}
           >
-            {/* Metric Selector */}
-            <ButtonGroup size="sm" isAttached variant="outline">
-              {(Object.keys(metricConfig) as MetricType[]).map((metric) => (
-                <Button
-                  key={metric}
-                  onClick={() => setSelectedMetric(metric)}
-                  bg={selectedMetric === metric ? `${metricConfig[metric].color}20` : "transparent"}
-                  borderColor={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.300"}
-                  color={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.700"}
+            <Flex align="center" gap={3} flexWrap="wrap">
+              {/* Metric Selector */}
+              <ButtonGroup size="sm" isAttached variant="outline">
+                {(Object.keys(metricConfig) as MetricType[]).map((metric) => (
+                  <Button
+                    key={metric}
+                    onClick={() => setSelectedMetric(metric)}
+                    bg={selectedMetric === metric ? `${metricConfig[metric].color}20` : "transparent"}
+                    borderColor={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.300"}
+                    color={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.700"}
+                    fontFamily="Orbitron"
+                    fontSize="xs"
+                    px={4}
+                    _hover={{
+                      bg: `${metricConfig[metric].color}10`,
+                      borderColor: metricConfig[metric].color,
+                    }}
+                  >
+                    {metricConfig[metric].icon} {metricConfig[metric].label}
+                  </Button>
+                ))}
+              </ButtonGroup>
+
+              {/* Granularity Selector */}
+              <Flex align="center" gap={2}>
+                <Text fontSize="2xs" color="whiteAlpha.600" fontFamily="Oxanium" letterSpacing="wider">
+                  GRANULARITY
+                </Text>
+                <Select
+                  size="sm"
+                  value={granularity}
+                  onChange={(e) => setGranularity(e.target.value as Granularity)}
+                  bg="transparent"
+                  borderColor="whiteAlpha.300"
+                  color="whiteAlpha.800"
                   fontFamily="Orbitron"
                   fontSize="xs"
-                  px={4}
-                  _hover={{
-                    bg: `${metricConfig[metric].color}10`,
-                    borderColor: metricConfig[metric].color,
-                  }}
+                  w="120px"
+                  _hover={{ borderColor: currentMetricConfig.color }}
+                  _focus={{ borderColor: currentMetricConfig.color, boxShadow: `0 0 0 1px ${currentMetricConfig.color}` }}
                 >
-                  {metricConfig[metric].icon} {metricConfig[metric].label}
-                </Button>
-              ))}
-            </ButtonGroup>
+                  <option value="day">DAY</option>
+                  <option value="week">WEEK</option>
+                  <option value="month">MONTH</option>
+                </Select>
+              </Flex>
+            </Flex>
 
             {/* Stats Summary */}
             <Flex gap={6}>
@@ -773,6 +856,7 @@ export const StatsPage = () => {
               data={chartData}
               color={currentMetricConfig.color}
               isLoading={isLoadingChart}
+              granularity={granularity}
             />
           </Box>
         </Flex>
