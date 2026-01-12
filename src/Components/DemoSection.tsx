@@ -2,11 +2,9 @@ import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
 import { Element } from "react-scroll";
 
-interface DemoSectionProps {
-  setFullScreenAlphaOpen: (value: boolean) => void;
-}
+interface DemoSectionProps {}
 
-export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
+export const DemoSection = ({}: DemoSectionProps) => {
   const title = (
     <Flex
       justifyContent={"center"}
@@ -77,7 +75,13 @@ export const DemoSection = ({ setFullScreenAlphaOpen }: DemoSectionProps) => {
           height={"40px"}
           width={"350px"}
           mt={10}
-          onClick={() => setFullScreenAlphaOpen(true)}
+          onClick={() =>
+            window.open(
+              "https://play.jokersofneon.com",
+              "_blank",
+              "noopener,noreferrer"
+            )
+          }
           sx={{ flexDirection: "row", display: "flex", gap: 3 }}
         >
           PLAY ON DESKTOP

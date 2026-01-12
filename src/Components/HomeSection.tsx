@@ -19,11 +19,9 @@ import { isIOS, isMobile } from "react-device-detect";
 import { Link as RouterLink } from "react-router-dom";
 import { Link } from "react-scroll";
 
-interface HomeSectionProps {
-  setFullScreenAlphaOpen: (value: boolean) => void;
-}
+interface HomeSectionProps {}
 
-export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
+export const HomeSection = ({}: HomeSectionProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -84,7 +82,8 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
         </Link>
         <ChakraLink
           style={{ textDecoration: "none" }}
-          onClick={() => setFullScreenAlphaOpen(true)}
+          href="https://play.jokersofneon.com/"
+          target="_blank"
         >
           Play game
         </ChakraLink>
@@ -172,7 +171,13 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
                   letterSpacing="wider"
                   fontWeight="light"
                   fontFamily={"Orbitron"}
-                  onClick={() => setFullScreenAlphaOpen(true)}
+                  onClick={() =>
+                    window.open(
+                      "https://play.jokersofneon.com",
+                      "_blank",
+                      "noopener,noreferrer"
+                    )
+                  }
                 >
                   PLAY GAME
                 </Text>
@@ -338,7 +343,13 @@ export const HomeSection = ({ setFullScreenAlphaOpen }: HomeSectionProps) => {
                 borderRadius="12px"
                 height={"40px"}
                 width={"220px"}
-                onClick={() => setFullScreenAlphaOpen(true)}
+                onClick={() =>
+                  window.open(
+                    "https://play.jokersofneon.com",
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
               >
                 <Text fontFamily="Orbitron" fontSize={[16, 18]}>
                   PLAY GAME
