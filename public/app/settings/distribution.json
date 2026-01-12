@@ -12,10 +12,10 @@
         "type": "DAILY_MISSIONS"
       },
       {
-        "id": "s1-early-access",
+        "id": "s1-live",
         "position": 3,
         "type": "image",
-        "url": "https://jokersofneon.com/app/banners/season1-early-banner.png"
+        "url": "https://jokersofneon.com/app/banners/season1-live.png"
       }
     ]
   }
