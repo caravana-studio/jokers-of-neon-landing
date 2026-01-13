@@ -7,12 +7,12 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
     <Heading as="h1" mb={6}>
       Jokers of Neon – Terms and Conditions
       <br />
-      Early Access – Season 1
+      Season 1
     </Heading>
 
     <Stack spacing={4}>
       <Text>
-        <strong>Effective Date:</strong> December 19, 2025
+        <strong>Effective Date:</strong> January 12, 2026
         <br />
         <strong>Entity:</strong> Caravana Studio LLC (Delaware, USA)
         <br />
@@ -24,11 +24,11 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         TL;DR (Summary)
       </Heading>
       <Text>
-        – Jokers of Neon is a skill-based strategy card game offered in Early Access.
+        – Jokers of Neon is a skill-based strategy card game in <strong>Season 1</strong>.
         <br />
         – You must be at least <strong>13 years old</strong> to play.
         <br />
-        – Season Passes and card packs are sold in <strong>USD via Stripe</strong>.
+        – Season Passes and card packs are sold in <strong>USD via Stripe on desktop</strong>, and via <strong>Apple Pay on iOS</strong> or <strong>Google Pay on Android</strong> (currency may vary).
         <br />
         – All sales are final, except where required by law or due to verified technical failure.
         <br />
@@ -63,7 +63,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
       <Text>
         Jokers of Neon is a digital strategy card game developed and operated by{" "}
         <strong>Caravana Studio LLC</strong> (“Caravana Studio”, “we”, “us”).
-        The Game is offered as <strong>Early Access – Season 1</strong> and is
+        The Game is offered as <strong>Season 1</strong> and is
         under active development.
       </Text>
 
@@ -84,13 +84,13 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
 
       {/* 4 */}
       <Heading as="h2" size="md">
-        4. Early Access Nature
+        4. Live Service and Season Updates
       </Heading>
       <Text>
-        The Game is provided in Early Access and may contain bugs, errors,
-        incomplete features, balance issues, or temporary outages. Game content,
+        The Game is a live service and may contain bugs, errors, incomplete
+        features, balance issues, or temporary outages. Game content,
         progression, rankings, rewards, or mechanics may change, reset, or be
-        removed at any time during development.
+        removed at any time, including during Season 1 or between seasons.
       </Text>
 
       {/* 5 */}
@@ -98,14 +98,21 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         5. Purchases, Payments, and Refunds
       </Heading>
       <Text>
-        Season Passes and card packs are sold in <strong>USD</strong> via{" "}
-        <strong>Stripe</strong>. We accept the payment methods supported by Stripe.
-        All purchases are <strong>one-time purchases</strong>.
+        Season Passes and card packs are sold in <strong>USD via Stripe on desktop</strong>.
+        On iOS, purchases are made using <strong>Apple Pay</strong>; on Android,
+        purchases are made using <strong>Google Pay</strong>. Currency may vary
+        by region and platform. We accept the payment methods supported by Stripe
+        for desktop purchases. All purchases are <strong>one-time purchases</strong>.
+        <br />
+        <br />
+        By using Apple Pay or Google Pay, you agree to the applicable Apple and
+        Google terms and policies and are responsible for complying with them.
         <br />
         <br />
         <strong>All sales are final</strong>, except where required by applicable
         law or in the event of a verified technical failure. Prices may exclude
-        applicable taxes, which may be calculated and collected by Stripe at checkout.
+        applicable taxes, which may be calculated and collected by Stripe, Apple,
+        or Google at checkout.
         <br />
         <br />
         Chargebacks, payment reversals, or fraudulent activity may result in
@@ -193,9 +200,9 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         The Game may integrate or rely on third-party services, including
-        Cartridge Controller, Stripe, analytics providers, and blockchain
-        infrastructure. Apple Inc. and Google LLC are not responsible for the
-        Game, its content, or its digital assets.
+        Cartridge Controller, Stripe, Apple Pay, Google Pay, analytics providers,
+        and blockchain infrastructure. Apple Inc. and Google LLC are not
+        responsible for the Game, its content, or its digital assets.
       </Text>
 
       {/* 13 */}
@@ -279,7 +286,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
       </Text>
 
       <Text fontStyle="italic" mt={6}>
-        © 2025 Caravana Studio LLC. All rights reserved.
+        © 2026 Caravana Studio LLC. All rights reserved.
       </Text>
     </Stack>
   </>
@@ -291,12 +298,12 @@ const SPANISH_TERMS_AND_CONDITIONS = (
     <Heading as="h1" mb={6}>
       Jokers of Neon – Términos y Condiciones
       <br />
-      Early Access – Temporada 1
+      Temporada 1
     </Heading>
 
     <Stack spacing={4}>
       <Text>
-        <strong>Fecha de vigencia:</strong> 19 de diciembre de 2025
+        <strong>Fecha de vigencia:</strong> 12 de enero de 2026
         <br />
         <strong>Entidad:</strong> Caravana Studio LLC (Delaware, EE. UU.)
         <br />
@@ -307,12 +314,13 @@ const SPANISH_TERMS_AND_CONDITIONS = (
         TL;DR (Resumen)
       </Heading>
       <Text>
-        – Jokers of Neon es un juego de cartas estratégico basado en habilidad,
-        ofrecido en Early Access.
+        – Jokers of Neon es un juego de cartas estratégico basado en habilidad
+        en la <strong>Temporada 1</strong>.
         <br />
         – Debes tener al menos <strong>13 años</strong> para jugar.
         <br />
-        – Los Season Passes y packs de cartas se venden en <strong>USD vía Stripe</strong>.
+        – Los Season Passes y packs de cartas se venden en <strong>USD vía Stripe en escritorio</strong>
+        y con <strong>Apple Pay en iOS</strong> o <strong>Google Pay en Android</strong> (la moneda puede variar).
         <br />
         – Todas las ventas son finales, salvo que la ley aplicable disponga lo contrario
         o exista un fallo técnico verificado.
@@ -346,7 +354,7 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       <Text>
         Jokers of Neon es un juego digital de cartas estratégicas desarrollado y
         operado por <strong>Caravana Studio LLC</strong> (“Caravana Studio”,
-        “nosotros”). El Juego se ofrece como <strong>Early Access – Temporada 1</strong>
+        “nosotros”). El Juego se ofrece como <strong>Temporada 1</strong>
         y se encuentra en desarrollo activo.
       </Text>
 
@@ -364,28 +372,35 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Text>
 
       <Heading as="h2" size="md">
-        4. Naturaleza de Early Access
+        4. Servicio en vivo y actualizaciones de temporada
       </Heading>
       <Text>
-        El Juego se proporciona en Early Access y puede contener errores, fallos,
+        El Juego es un servicio en vivo y puede contener errores, fallos,
         funcionalidades incompletas, problemas de balance o interrupciones
         temporales. El contenido, progreso, rankings, recompensas o mecánicas
-        pueden cambiar, reiniciarse o eliminarse en cualquier momento.
+        pueden cambiar, reiniciarse o eliminarse en cualquier momento, incluso
+        durante la Temporada 1 o entre temporadas.
       </Text>
 
       <Heading as="h2" size="md">
         5. Compras, Pagos y Reembolsos
       </Heading>
       <Text>
-        Los Season Passes y packs de cartas se venden en <strong>USD</strong> a
-        través de <strong>Stripe</strong>. Aceptamos los métodos de pago
-        soportados por Stripe. Todas las compras son <strong>compras únicas</strong>.
+        Los Season Passes y packs de cartas se venden en <strong>USD vía Stripe en escritorio</strong>.
+        En iOS, las compras se realizan con <strong>Apple Pay</strong>; en Android,
+        con <strong>Google Pay</strong>. La moneda puede variar según la región y
+        la plataforma. Aceptamos los métodos de pago soportados por Stripe para
+        compras en escritorio. Todas las compras son <strong>compras únicas</strong>.
+        <br />
+        <br />
+        Al usar Apple Pay o Google Pay, aceptas los términos y políticas aplicables
+        de Apple y Google y eres responsable de cumplirlos.
         <br />
         <br />
         <strong>Todas las ventas son finales</strong>, salvo que la ley aplicable
         disponga lo contrario o en caso de un fallo técnico verificado. Los
         precios pueden no incluir impuestos aplicables, los cuales podrán ser
-        calculados y cobrados por Stripe al finalizar la compra.
+        calculados y cobrados por Stripe, Apple o Google al finalizar la compra.
         <br />
         <br />
         Los contracargos, reversiones de pago o actividad fraudulenta pueden
@@ -467,9 +482,9 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         El Juego puede integrar o depender de servicios de terceros, incluyendo
-        Cartridge Controller, Stripe, proveedores de analítica e infraestructura
-        blockchain. Apple Inc. y Google LLC no son responsables del Juego, su
-        contenido ni sus activos digitales.
+        Cartridge Controller, Stripe, Apple Pay, Google Pay, proveedores de
+        analítica e infraestructura blockchain. Apple Inc. y Google LLC no son
+        responsables del Juego, su contenido ni sus activos digitales.
       </Text>
 
       <Heading as="h2" size="md">
@@ -544,7 +559,7 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Text>
 
       <Text fontStyle="italic" mt={6}>
-        © 2025 Caravana Studio LLC. Todos los derechos reservados.
+        © 2026 Caravana Studio LLC. Todos los derechos reservados.
       </Text>
     </Stack>
   </>
@@ -556,12 +571,12 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
     <Heading as="h1" mb={6}>
       Jokers of Neon – Termos e Condições
       <br />
-      Early Access – Temporada 1
+      Temporada 1
     </Heading>
 
     <Stack spacing={4}>
       <Text>
-        <strong>Data de vigência:</strong> 19 de dezembro de 2025
+        <strong>Data de vigência:</strong> 12 de janeiro de 2026
         <br />
         <strong>Entidade:</strong> Caravana Studio LLC (Delaware, EUA)
         <br />
@@ -572,12 +587,13 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
         TL;DR (Resumo)
       </Heading>
       <Text>
-        – Jokers of Neon é um jogo de cartas estratégico baseado em habilidade,
-        oferecido em Early Access.
+        – Jokers of Neon é um jogo de cartas estratégico baseado em habilidade
+        na <strong>Temporada 1</strong>.
         <br />
         – É necessário ter pelo menos <strong>13 anos</strong> para jogar.
         <br />
-        – Season Passes e pacotes de cartas são vendidos em <strong>USD via Stripe</strong>.
+        – Season Passes e pacotes de cartas são vendidos em <strong>USD via Stripe no desktop</strong>
+        e com <strong>Apple Pay no iOS</strong> ou <strong>Google Pay no Android</strong> (a moeda pode variar).
         <br />
         – Todas as vendas são finais, salvo quando exigido por lei ou em caso de
         falha técnica verificada.
@@ -612,7 +628,7 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       <Text>
         Jokers of Neon é um jogo digital de cartas estratégicas desenvolvido e
         operado pela <strong>Caravana Studio LLC</strong> (“Caravana Studio”,
-        “nós”). O Jogo é oferecido como <strong>Early Access – Temporada 1</strong>
+        “nós”). O Jogo é oferecido como <strong>Temporada 1</strong>
         e está em desenvolvimento ativo.
       </Text>
 
@@ -631,29 +647,35 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       </Text>
 
       <Heading as="h2" size="md">
-        4. Natureza do Early Access
+        4. Serviço ao vivo e atualizações de temporada
       </Heading>
       <Text>
-        O Jogo é fornecido em Early Access e pode conter bugs, erros,
+        O Jogo é um serviço ao vivo e pode conter bugs, erros,
         funcionalidades incompletas, problemas de balanceamento ou interrupções
         temporárias. Conteúdo, progresso, rankings, recompensas ou mecânicas
-        podem ser alterados, redefinidos ou removidos a qualquer momento.
+        podem ser alterados, redefinidos ou removidos a qualquer momento,
+        inclusive durante a Temporada 1 ou entre temporadas.
       </Text>
 
       <Heading as="h2" size="md">
         5. Compras, Pagamentos e Reembolsos
       </Heading>
       <Text>
-        Season Passes e pacotes de cartas são vendidos em <strong>USD</strong>{" "}
-        por meio do <strong>Stripe</strong>. Aceitamos os métodos de pagamento
-        suportados pelo Stripe. Todas as compras são{" "}
-        <strong>compras únicas</strong>.
+        Season Passes e pacotes de cartas são vendidos em <strong>USD via Stripe no desktop</strong>.
+        No iOS, as compras são feitas com <strong>Apple Pay</strong>; no Android,
+        com <strong>Google Pay</strong>. A moeda pode variar por região e plataforma.
+        Aceitamos os métodos de pagamento suportados pelo Stripe para compras no
+        desktop. Todas as compras são <strong>compras únicas</strong>.
+        <br />
+        <br />
+        Ao usar Apple Pay ou Google Pay, você concorda com os termos e políticas
+        aplicáveis da Apple e do Google e é responsável por cumpri-los.
         <br />
         <br />
         <strong>Todas as vendas são finais</strong>, salvo quando exigido por lei
         ou em caso de falha técnica verificada. Os preços podem não incluir
-        impostos aplicáveis, que poderão ser calculados e cobrados pelo Stripe
-        no momento do checkout.
+        impostos aplicáveis, que poderão ser calculados e cobrados pelo Stripe,
+        Apple ou Google no checkout.
         <br />
         <br />
         Estornos, chargebacks ou atividades fraudulentas podem resultar na
@@ -735,9 +757,9 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         O Jogo pode integrar ou depender de serviços de terceiros, incluindo
-        Cartridge Controller, Stripe, provedores de analytics e infraestrutura
-        blockchain. Apple Inc. e Google LLC não são responsáveis pelo Jogo, seu
-        conteúdo ou seus ativos digitais.
+        Cartridge Controller, Stripe, Apple Pay, Google Pay, provedores de
+        analytics e infraestrutura blockchain. Apple Inc. e Google LLC não são
+        responsáveis pelo Jogo, seu conteúdo ou seus ativos digitais.
       </Text>
 
       <Heading as="h2" size="md">
@@ -811,7 +833,7 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       </Text>
 
       <Text fontStyle="italic" mt={6}>
-        © 2025 Caravana Studio LLC. Todos os direitos reservados.
+        © 2026 Caravana Studio LLC. Todos os direitos reservados.
       </Text>
     </Stack>
   </>
