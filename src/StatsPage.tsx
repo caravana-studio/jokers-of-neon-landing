@@ -15,6 +15,7 @@ import {
 import { keyframes } from "@emotion/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { Contract, RpcProvider, type Abi } from "starknet";
 import {
   BACKGROUND_BLUE,
   BLUE,
@@ -24,6 +25,21 @@ import {
   GREEN_LIGHT,
   VIOLET_LIGHT,
 } from "./theme/colors";
+
+// Starknet NFT Contract Configuration
+const NFT_CONTRACT_ADDRESS = "0x04dDbBAb7Aa237C1b73c931B6F836dEd6036f5E12D4898FccdCDe81D494f7956";
+const STARKNET_RPC_URL = "https://api.cartridge.gg/x/starknet/mainnet";
+
+// Minimal ABI for get_total_supply function
+const NFT_ABI: Abi = [
+  {
+    name: "get_total_supply",
+    type: "function",
+    inputs: [],
+    outputs: [{ name: "total_supply", type: "core::integer::u256" }],
+    state_mutability: "view",
+  },
+];
 
 // API Configuration
 const API_BASE_URL = "https://mainnet-jokers-of-neon-api.onrender.com";
@@ -517,6 +533,8 @@ export const StatsPage = () => {
   const [granularity, setGranularity] = useState<Granularity>("day");
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
   const [isLoadingChart, setIsLoadingChart] = useState(true);
+  const [mintedCards, setMintedCards] = useState<number>(0);
+  const [isLoadingMinted, setIsLoadingMinted] = useState(true);
 
   // Date range: December 2025 to today (dynamic)
   const dateRange = useMemo(() => {
@@ -542,6 +560,30 @@ export const StatsPage = () => {
       }
     };
     fetchGlobalStats();
+  }, []);
+
+  // Fetch minted cards from Starknet contract
+  useEffect(() => {
+    const fetchMintedCards = async () => {
+      setIsLoadingMinted(true);
+      try {
+        const provider = new RpcProvider({ nodeUrl: STARKNET_RPC_URL });
+        const contract = new Contract({
+          abi: NFT_ABI,
+          address: NFT_CONTRACT_ADDRESS,
+          providerOrAccount: provider,
+        });
+        const result = await contract.get_total_supply();
+        // Result is { total_supply: bigint }
+        const totalSupply = Number(result.total_supply);
+        setMintedCards(totalSupply);
+      } catch (error) {
+        console.error("Failed to fetch minted cards:", error);
+      } finally {
+        setIsLoadingMinted(false);
+      }
+    };
+    fetchMintedCards();
   }, []);
 
   // Fetch chart data based on selected metric
@@ -702,7 +744,7 @@ export const StatsPage = () => {
 
         {/* Global Stats Cards */}
         <Grid
-          templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
+          templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }}
           gap={{ base: 3, md: 4 }}
           mb={{ base: 4, md: 6 }}
           flexShrink={0}
@@ -732,6 +774,15 @@ export const StatsPage = () => {
               color={colors.neonPink}
               delay={0.3}
               isLoading={isLoadingGlobal}
+            />
+          </GridItem>
+          <GridItem>
+            <StatCard
+              title="Minted Cards"
+              value={mintedCards}
+              color={colors.neonGreen}
+              delay={0.45}
+              isLoading={isLoadingMinted}
             />
           </GridItem>
         </Grid>
