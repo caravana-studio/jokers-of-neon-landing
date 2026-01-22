@@ -6,8 +6,8 @@ import {
   Grid,
   GridItem,
   Image,
-  Skeleton,
   Select,
+  Skeleton,
   Spinner,
   Text,
   VStack,
@@ -59,6 +59,7 @@ interface TimeSeriesData {
 
 type MetricType = "transactions" | "games" | "players";
 type Granularity = "day" | "week" | "month";
+type TimeRange = "1W" | "1M" | "1Y" | "all";
 
 // Animations
 const pulseGlow = keyframes`
@@ -530,19 +531,46 @@ export const StatsPage = () => {
   const [globalStats, setGlobalStats] = useState<GlobalStats | null>(null);
   const [chartData, setChartData] = useState<TimeSeriesData[]>([]);
   const [selectedMetric, setSelectedMetric] = useState<MetricType>("transactions");
+  const [timeRange, setTimeRange] = useState<TimeRange>("all");
   const [granularity, setGranularity] = useState<Granularity>("day");
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
   const [isLoadingChart, setIsLoadingChart] = useState(true);
   const [mintedCards, setMintedCards] = useState<number>(0);
   const [isLoadingMinted, setIsLoadingMinted] = useState(true);
 
-  // Date range: December 2025 to today (dynamic)
+  // Calculate date range based on selected time range
   const dateRange = useMemo(() => {
     const today = new Date();
     const endDate = today.toISOString().split("T")[0];
-    const startDate = "2025-12-01";
+    let startDate: string;
+
+    switch (timeRange) {
+      case "1W": {
+        const weekAgo = new Date(today);
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        startDate = weekAgo.toISOString().split("T")[0];
+        break;
+      }
+      case "1M": {
+        const monthAgo = new Date(today);
+        monthAgo.setMonth(monthAgo.getMonth() - 1);
+        startDate = monthAgo.toISOString().split("T")[0];
+        break;
+      }
+      case "1Y": {
+        const yearAgo = new Date(today);
+        yearAgo.setFullYear(yearAgo.getFullYear() - 1);
+        startDate = yearAgo.toISOString().split("T")[0];
+        break;
+      }
+      case "all":
+      default:
+        startDate = "2025-12-01";
+        break;
+    }
+
     return { startDate, endDate };
-  }, []);
+  }, [timeRange]);
 
   // Fetch global stats
   useEffect(() => {
@@ -639,8 +667,8 @@ export const StatsPage = () => {
   }, [chartData]);
   const avgLabel = useMemo(() => {
     if (granularity === "day") return "DAILY AVG";
-    if (granularity === "month") return "MONTHLY AVG";
-    return "WEEKLY AVG";
+    if (granularity === "week") return "WEEKLY AVG";
+    return "MONTHLY AVG";
   }, [granularity]);
 
   return (
@@ -851,11 +879,31 @@ export const StatsPage = () => {
                 gap={{ base: 3, md: 6 }}
                 flexWrap="wrap"
               >
+                {/* Time Range Selector */}
+                <ButtonGroup size={{ base: "xs", md: "sm" }} isAttached variant="outline">
+                  {(["1W", "1M", "1Y", "all"] as TimeRange[]).map((range) => (
+                    <Button
+                      key={range}
+                      onClick={() => setTimeRange(range)}
+                      bg={timeRange === range ? `${currentMetricConfig.color}20` : "transparent"}
+                      borderColor={timeRange === range ? currentMetricConfig.color : "whiteAlpha.300"}
+                      color={timeRange === range ? currentMetricConfig.color : "whiteAlpha.700"}
+                      fontFamily="Orbitron"
+                      fontSize={{ base: "9px !important", md: "12px !important" }}
+                      px={{ base: 2, md: 3 }}
+                      minW={0}
+                      _hover={{
+                        bg: `${currentMetricConfig.color}10`,
+                        borderColor: currentMetricConfig.color,
+                      }}
+                    >
+                      {range === "all" ? "ALL" : range}
+                    </Button>
+                  ))}
+                </ButtonGroup>
+
                 {/* Granularity Selector */}
                 <Flex align="center" gap={2}>
-                  <Text fontSize="2xs" color="whiteAlpha.600" fontFamily="Oxanium" letterSpacing="wider">
-                    GRANULARITY
-                  </Text>
                   <Select
                     size={{ base: "xs", md: "sm" }}
                     value={granularity}
@@ -865,13 +913,13 @@ export const StatsPage = () => {
                     color="whiteAlpha.800"
                     fontFamily="Orbitron"
                     fontSize={{ base: "2xs", md: "xs" }}
-                    w={{ base: "100px", md: "120px" }}
+                    w={{ base: "90px", md: "110px" }}
                     _hover={{ borderColor: currentMetricConfig.color }}
                     _focus={{ borderColor: currentMetricConfig.color, boxShadow: `0 0 0 1px ${currentMetricConfig.color}` }}
                   >
-                    <option value="day">DAY</option>
-                    <option value="week">WEEK</option>
-                    <option value="month">MONTH</option>
+                    <option value="day">DAILY</option>
+                    <option value="week">WEEKLY</option>
+                    <option value="month">MONTHLY</option>
                   </Select>
                 </Flex>
 
