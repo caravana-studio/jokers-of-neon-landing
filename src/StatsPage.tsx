@@ -58,8 +58,8 @@ interface TimeSeriesData {
 }
 
 type MetricType = "transactions" | "games" | "players";
-type Granularity = "day" | "week" | "month";
-type TimeRange = "1W" | "1M" | "1Y" | "all";
+type Granularity = "hour" | "day" | "week" | "month";
+type TimeRange = "1D" | "1W" | "1M" | "1Y" | "all";
 
 // Animations
 const pulseGlow = keyframes`
@@ -237,16 +237,32 @@ const NeonLineChart = ({
   const handleMouseLeave = () => setTooltip(null);
 
   const formatPeriodLabel = (period: string) => {
-    if (granularity !== "month") return period;
-    const match = period.match(/^(\d{4})-(\d{2})/);
-    if (!match) return period;
-    const year = Number(match[1]);
-    const monthIndex = Number(match[2]) - 1;
-    if (Number.isNaN(year) || Number.isNaN(monthIndex) || monthIndex < 0 || monthIndex > 11) {
+    // Handle hourly format: "2025-01-22T14:00:00"
+    if (granularity === "hour") {
+      const match = period.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+      if (match) {
+        const [, year, month, day, hour] = match;
+        const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        const monthIndex = Number(month) - 1;
+        return `${monthNames[monthIndex]} ${day}, ${year} ${hour}:00`;
+      }
       return period;
     }
-    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    return `${monthNames[monthIndex]} ${year}`;
+
+    // Handle month format
+    if (granularity === "month") {
+      const match = period.match(/^(\d{4})-(\d{2})/);
+      if (!match) return period;
+      const year = Number(match[1]);
+      const monthIndex = Number(match[2]) - 1;
+      if (Number.isNaN(year) || Number.isNaN(monthIndex) || monthIndex < 0 || monthIndex > 11) {
+        return period;
+      }
+      const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      return `${monthNames[monthIndex]} ${year}`;
+    }
+
+    return period;
   };
 
   return (
@@ -541,10 +557,17 @@ export const StatsPage = () => {
   // Calculate date range based on selected time range
   const dateRange = useMemo(() => {
     const today = new Date();
-    const endDate = today.toISOString().split("T")[0];
+    let endDate = today.toISOString().split("T")[0];
     let startDate: string;
 
     switch (timeRange) {
+      case "1D": {
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        startDate = yesterday.toISOString().split("T")[0];
+        // endDate = startDate;
+        break;
+      }
       case "1W": {
         const weekAgo = new Date(today);
         weekAgo.setDate(weekAgo.getDate() - 7);
@@ -666,6 +689,7 @@ export const StatsPage = () => {
     return Math.round(total / chartData.length);
   }, [chartData]);
   const avgLabel = useMemo(() => {
+    if (granularity === "hour") return "HOURLY AVG";
     if (granularity === "day") return "DAILY AVG";
     if (granularity === "week") return "WEEKLY AVG";
     return "MONTHLY AVG";
@@ -881,7 +905,7 @@ export const StatsPage = () => {
               >
                 {/* Time Range Selector */}
                 <ButtonGroup size={{ base: "xs", md: "sm" }} isAttached variant="outline">
-                  {(["1W", "1M", "1Y", "all"] as TimeRange[]).map((range) => (
+                  {(["1D", "1W", "1M", "1Y", "all"] as TimeRange[]).map((range) => (
                     <Button
                       key={range}
                       onClick={() => setTimeRange(range)}
@@ -917,6 +941,7 @@ export const StatsPage = () => {
                     _hover={{ borderColor: currentMetricConfig.color }}
                     _focus={{ borderColor: currentMetricConfig.color, boxShadow: `0 0 0 1px ${currentMetricConfig.color}` }}
                   >
+                    <option value="hour">HOURLY</option>
                     <option value="day">DAILY</option>
                     <option value="week">WEEKLY</option>
                     <option value="month">MONTHLY</option>
