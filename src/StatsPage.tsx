@@ -6,8 +6,8 @@ import {
   Grid,
   GridItem,
   Image,
-  Skeleton,
   Select,
+  Skeleton,
   Spinner,
   Text,
   VStack,
@@ -15,6 +15,7 @@ import {
 import { keyframes } from "@emotion/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { Contract, RpcProvider, type Abi } from "starknet";
 import {
   BACKGROUND_BLUE,
   BLUE,
@@ -24,6 +25,21 @@ import {
   GREEN_LIGHT,
   VIOLET_LIGHT,
 } from "./theme/colors";
+
+// Starknet NFT Contract Configuration
+const NFT_CONTRACT_ADDRESS = "0x04dDbBAb7Aa237C1b73c931B6F836dEd6036f5E12D4898FccdCDe81D494f7956";
+const STARKNET_RPC_URL = "https://api.cartridge.gg/x/starknet/mainnet";
+
+// Minimal ABI for get_total_supply function
+const NFT_ABI: Abi = [
+  {
+    name: "get_total_supply",
+    type: "function",
+    inputs: [],
+    outputs: [{ name: "total_supply", type: "core::integer::u256" }],
+    state_mutability: "view",
+  },
+];
 
 // API Configuration
 const API_BASE_URL = "https://mainnet-jokers-of-neon-api.onrender.com";
@@ -42,7 +58,8 @@ interface TimeSeriesData {
 }
 
 type MetricType = "transactions" | "games" | "players";
-type Granularity = "day" | "week" | "month";
+type Granularity = "hour" | "day" | "week" | "month";
+type TimeRange = "1D" | "1W" | "1M" | "1Y" | "all";
 
 // Animations
 const pulseGlow = keyframes`
@@ -220,16 +237,32 @@ const NeonLineChart = ({
   const handleMouseLeave = () => setTooltip(null);
 
   const formatPeriodLabel = (period: string) => {
-    if (granularity !== "month") return period;
-    const match = period.match(/^(\d{4})-(\d{2})/);
-    if (!match) return period;
-    const year = Number(match[1]);
-    const monthIndex = Number(match[2]) - 1;
-    if (Number.isNaN(year) || Number.isNaN(monthIndex) || monthIndex < 0 || monthIndex > 11) {
+    // Handle hourly format: "2025-01-22T14:00:00"
+    if (granularity === "hour") {
+      const match = period.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+      if (match) {
+        const [, year, month, day, hour] = match;
+        const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        const monthIndex = Number(month) - 1;
+        return `${monthNames[monthIndex]} ${day}, ${year} ${hour}:00`;
+      }
       return period;
     }
-    const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    return `${monthNames[monthIndex]} ${year}`;
+
+    // Handle month format
+    if (granularity === "month") {
+      const match = period.match(/^(\d{4})-(\d{2})/);
+      if (!match) return period;
+      const year = Number(match[1]);
+      const monthIndex = Number(match[2]) - 1;
+      if (Number.isNaN(year) || Number.isNaN(monthIndex) || monthIndex < 0 || monthIndex > 11) {
+        return period;
+      }
+      const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+      return `${monthNames[monthIndex]} ${year}`;
+    }
+
+    return period;
   };
 
   return (
@@ -514,17 +547,53 @@ export const StatsPage = () => {
   const [globalStats, setGlobalStats] = useState<GlobalStats | null>(null);
   const [chartData, setChartData] = useState<TimeSeriesData[]>([]);
   const [selectedMetric, setSelectedMetric] = useState<MetricType>("transactions");
+  const [timeRange, setTimeRange] = useState<TimeRange>("all");
   const [granularity, setGranularity] = useState<Granularity>("day");
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
   const [isLoadingChart, setIsLoadingChart] = useState(true);
+  const [mintedCards, setMintedCards] = useState<number>(0);
+  const [isLoadingMinted, setIsLoadingMinted] = useState(true);
 
-  // Date range: December 2025 to today (dynamic)
+  // Calculate date range based on selected time range
   const dateRange = useMemo(() => {
     const today = new Date();
-    const endDate = today.toISOString().split("T")[0];
-    const startDate = "2025-12-01";
+    let endDate = today.toISOString().split("T")[0];
+    let startDate: string;
+
+    switch (timeRange) {
+      case "1D": {
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        startDate = yesterday.toISOString().split("T")[0];
+        // endDate = startDate;
+        break;
+      }
+      case "1W": {
+        const weekAgo = new Date(today);
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        startDate = weekAgo.toISOString().split("T")[0];
+        break;
+      }
+      case "1M": {
+        const monthAgo = new Date(today);
+        monthAgo.setMonth(monthAgo.getMonth() - 1);
+        startDate = monthAgo.toISOString().split("T")[0];
+        break;
+      }
+      case "1Y": {
+        const yearAgo = new Date(today);
+        yearAgo.setFullYear(yearAgo.getFullYear() - 1);
+        startDate = yearAgo.toISOString().split("T")[0];
+        break;
+      }
+      case "all":
+      default:
+        startDate = "2025-12-01";
+        break;
+    }
+
     return { startDate, endDate };
-  }, []);
+  }, [timeRange]);
 
   // Fetch global stats
   useEffect(() => {
@@ -542,6 +611,30 @@ export const StatsPage = () => {
       }
     };
     fetchGlobalStats();
+  }, []);
+
+  // Fetch minted cards from Starknet contract
+  useEffect(() => {
+    const fetchMintedCards = async () => {
+      setIsLoadingMinted(true);
+      try {
+        const provider = new RpcProvider({ nodeUrl: STARKNET_RPC_URL });
+        const contract = new Contract({
+          abi: NFT_ABI,
+          address: NFT_CONTRACT_ADDRESS,
+          providerOrAccount: provider,
+        });
+        const result = await contract.get_total_supply();
+        // Result is { total_supply: bigint }
+        const totalSupply = Number(result.total_supply);
+        setMintedCards(totalSupply);
+      } catch (error) {
+        console.error("Failed to fetch minted cards:", error);
+      } finally {
+        setIsLoadingMinted(false);
+      }
+    };
+    fetchMintedCards();
   }, []);
 
   // Fetch chart data based on selected metric
@@ -596,9 +689,10 @@ export const StatsPage = () => {
     return Math.round(total / chartData.length);
   }, [chartData]);
   const avgLabel = useMemo(() => {
+    if (granularity === "hour") return "HOURLY AVG";
     if (granularity === "day") return "DAILY AVG";
-    if (granularity === "month") return "MONTHLY AVG";
-    return "WEEKLY AVG";
+    if (granularity === "week") return "WEEKLY AVG";
+    return "MONTHLY AVG";
   }, [granularity]);
 
   return (
@@ -702,7 +796,7 @@ export const StatsPage = () => {
 
         {/* Global Stats Cards */}
         <Grid
-          templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }}
+          templateColumns={{ base: "1fr", md: "repeat(4, 1fr)" }}
           gap={{ base: 3, md: 4 }}
           mb={{ base: 4, md: 6 }}
           flexShrink={0}
@@ -732,6 +826,15 @@ export const StatsPage = () => {
               color={colors.neonPink}
               delay={0.3}
               isLoading={isLoadingGlobal}
+            />
+          </GridItem>
+          <GridItem>
+            <StatCard
+              title="Minted Cards"
+              value={mintedCards}
+              color={colors.neonGreen}
+              delay={0.45}
+              isLoading={isLoadingMinted}
             />
           </GridItem>
         </Grid>
@@ -800,11 +903,31 @@ export const StatsPage = () => {
                 gap={{ base: 3, md: 6 }}
                 flexWrap="wrap"
               >
+                {/* Time Range Selector */}
+                <ButtonGroup size={{ base: "xs", md: "sm" }} isAttached variant="outline">
+                  {(["1D", "1W", "1M", "1Y", "all"] as TimeRange[]).map((range) => (
+                    <Button
+                      key={range}
+                      onClick={() => setTimeRange(range)}
+                      bg={timeRange === range ? `${currentMetricConfig.color}20` : "transparent"}
+                      borderColor={timeRange === range ? currentMetricConfig.color : "whiteAlpha.300"}
+                      color={timeRange === range ? currentMetricConfig.color : "whiteAlpha.700"}
+                      fontFamily="Orbitron"
+                      fontSize={{ base: "9px !important", md: "12px !important" }}
+                      px={{ base: 2, md: 3 }}
+                      minW={0}
+                      _hover={{
+                        bg: `${currentMetricConfig.color}10`,
+                        borderColor: currentMetricConfig.color,
+                      }}
+                    >
+                      {range === "all" ? "ALL" : range}
+                    </Button>
+                  ))}
+                </ButtonGroup>
+
                 {/* Granularity Selector */}
                 <Flex align="center" gap={2}>
-                  <Text fontSize="2xs" color="whiteAlpha.600" fontFamily="Oxanium" letterSpacing="wider">
-                    GRANULARITY
-                  </Text>
                   <Select
                     size={{ base: "xs", md: "sm" }}
                     value={granularity}
@@ -814,13 +937,14 @@ export const StatsPage = () => {
                     color="whiteAlpha.800"
                     fontFamily="Orbitron"
                     fontSize={{ base: "2xs", md: "xs" }}
-                    w={{ base: "100px", md: "120px" }}
+                    w={{ base: "90px", md: "110px" }}
                     _hover={{ borderColor: currentMetricConfig.color }}
                     _focus={{ borderColor: currentMetricConfig.color, boxShadow: `0 0 0 1px ${currentMetricConfig.color}` }}
                   >
-                    <option value="day">DAY</option>
-                    <option value="week">WEEK</option>
-                    <option value="month">MONTH</option>
+                    <option value="hour">HOURLY</option>
+                    <option value="day">DAILY</option>
+                    <option value="week">WEEKLY</option>
+                    <option value="month">MONTHLY</option>
                   </Select>
                 </Flex>
 
