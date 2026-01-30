@@ -2,9 +2,11 @@
   "home": {
     "banners": [
       {
-        "id": "leaderboard",
+        "id": "collector",
         "position": 1,
-        "type": "LEADERBOARD"
+        "type": "image",
+        "navigateTo": "/shop",
+        "url": "https://jokersofneon.com/app/banners/collector-banner.png"
       },
       {
         "id": "daily-missions",
@@ -12,10 +14,9 @@
         "type": "DAILY_MISSIONS"
       },
       {
-        "id": "s1-live",
+        "id": "leaderboard",
         "position": 3,
-        "type": "image",
-        "url": "https://jokersofneon.com/app/banners/season1-live.png"
+        "type": "LEADERBOARD"
       }
     ]
   }
