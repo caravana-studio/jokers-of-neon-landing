@@ -2,11 +2,9 @@
   "home": {
     "banners": [
       {
-        "id": "collector",
+        "id": "leaderboard",
         "position": 1,
-        "type": "image",
-        "navigateTo": "/shop",
-        "url": "https://jokersofneon.com/app/banners/collector-banner-2.png"
+        "type": "LEADERBOARD"
       },
       {
         "id": "daily-missions",
@@ -14,9 +12,10 @@
         "type": "DAILY_MISSIONS"
       },
       {
-        "id": "leaderboard",
+        "id": "s1-tournament",
         "position": 3,
-        "type": "LEADERBOARD"
+        "type": "image",
+        "url": "https://jokersofneon.com/app/banners/s1-tournament.png"
       }
     ]
   }
