@@ -13,7 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Contract, RpcProvider, type Abi } from "starknet";
 import {
@@ -144,6 +144,8 @@ const NeonLineChart = ({
   isLoading: boolean;
   granularity: Granularity;
 }) => {
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
   const [tooltip, setTooltip] = useState<{
     x: number;
     y: number;
@@ -153,6 +155,52 @@ const NeonLineChart = ({
     isLast: boolean;
     index: number;
   } | null>(null);
+
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg || typeof ResizeObserver === "undefined") return;
+
+    let frameId = 0;
+    const updateSize = () => {
+      const rect = svg.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        setSvgSize((prev) => {
+          if (prev.width === rect.width && prev.height === rect.height) {
+            return prev;
+          }
+          return { width: rect.width, height: rect.height };
+        });
+      }
+    };
+
+    updateSize();
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(updateSize);
+    });
+    observer.observe(svg);
+    return () => {
+      cancelAnimationFrame(frameId);
+      observer.disconnect();
+    };
+  }, [data.length, isLoading]);
+
+  const maxValue = Math.max(...data.map((d) => d.value), 1);
+  const chartHeight = 280;
+  const chartWidth = 840;
+  const paddingX = 16;
+  const paddingY = 6;
+
+  const pointScaleX = useMemo(() => {
+    if (svgSize.width === 0 || svgSize.height === 0) return 1;
+    const scaleX = svgSize.width / chartWidth;
+    const scaleY = svgSize.height / chartHeight;
+    if (!Number.isFinite(scaleX) || !Number.isFinite(scaleY) || scaleX === 0 || scaleY === 0) {
+      return 1;
+    }
+    return scaleY / scaleX;
+  }, [svgSize.height, svgSize.width]);
+
   if (isLoading) {
     return (
       <Box h="100%" display="flex" alignItems="center" justifyContent="center">
@@ -170,12 +218,6 @@ const NeonLineChart = ({
       </Box>
     );
   }
-
-  const maxValue = Math.max(...data.map((d) => d.value), 1);
-  const chartHeight = 280;
-  const chartWidth = 840;
-  const paddingX = 16;
-  const paddingY = 6;
 
   // Calculate nice max for Y-axis scale
   const roundToNice = (value: number): number => {
@@ -268,6 +310,7 @@ const NeonLineChart = ({
   return (
     <Box position="relative" h="100%" w="100%">
       <svg
+        ref={svgRef}
         viewBox={`0 0 ${chartWidth} ${chartHeight}`}
         preserveAspectRatio="none"
         style={{ width: "100%", height: "100%", cursor: "crosshair" }}
@@ -343,27 +386,45 @@ const NeonLineChart = ({
         )}
 
         {/* Data points with hover areas */}
-        {points.map((p, i) => (
-          <g key={i}>
-            {/* Invisible larger hit area */}
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r="5"
-              fill="transparent"
-              pointerEvents="none"
-            />
-            {/* Visible point */}
-            <circle
-              cx={p.x}
-              cy={p.y}
-              r="2.4"
-              fill={color}
-              filter="url(#chart-glow)"
-              style={{ pointerEvents: "none" }}
-            />
-          </g>
-        ))}
+        {points.map((p, i) => {
+          const pointTransform =
+            pointScaleX === 1
+              ? undefined
+              : `translate(${p.x} ${p.y}) scale(${pointScaleX} 1) translate(${-p.x} ${-p.y})`;
+
+          return (
+            <g key={i}>
+              {/* Invisible larger hit area */}
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r="5"
+                fill="transparent"
+                pointerEvents="none"
+                transform={pointTransform}
+              />
+              {/* Soft circular halo without blur distortion */}
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r="4.1"
+                fill={color}
+                fillOpacity="0.16"
+                pointerEvents="none"
+                transform={pointTransform}
+              />
+              {/* Core point */}
+              <circle
+                cx={p.x}
+                cy={p.y}
+                r="2.4"
+                fill={color}
+                pointerEvents="none"
+                transform={pointTransform}
+              />
+            </g>
+          );
+        })}
       </svg>
 
       {/* Tooltip */}
