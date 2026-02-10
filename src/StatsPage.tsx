@@ -13,7 +13,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Contract, RpcProvider, type Abi } from "starknet";
 import {
@@ -144,6 +144,8 @@ const NeonLineChart = ({
   isLoading: boolean;
   granularity: Granularity;
 }) => {
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
   const [tooltip, setTooltip] = useState<{
     x: number;
     y: number;
@@ -153,6 +155,23 @@ const NeonLineChart = ({
     isLast: boolean;
     index: number;
   } | null>(null);
+
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg || typeof ResizeObserver === "undefined") return;
+
+    const updateSize = () => {
+      const rect = svg.getBoundingClientRect();
+      if (rect.width > 0 && rect.height > 0) {
+        setSvgSize({ width: rect.width, height: rect.height });
+      }
+    };
+
+    updateSize();
+    const observer = new ResizeObserver(updateSize);
+    observer.observe(svg);
+    return () => observer.disconnect();
+  }, []);
   if (isLoading) {
     return (
       <Box h="100%" display="flex" alignItems="center" justifyContent="center">
@@ -176,6 +195,16 @@ const NeonLineChart = ({
   const chartWidth = 840;
   const paddingX = 16;
   const paddingY = 6;
+
+  const pointScaleX = useMemo(() => {
+    if (svgSize.width === 0 || svgSize.height === 0) return 1;
+    const scaleX = svgSize.width / chartWidth;
+    const scaleY = svgSize.height / chartHeight;
+    if (!Number.isFinite(scaleX) || !Number.isFinite(scaleY) || scaleX === 0 || scaleY === 0) {
+      return 1;
+    }
+    return scaleY / scaleX;
+  }, [svgSize.height, svgSize.width]);
 
   // Calculate nice max for Y-axis scale
   const roundToNice = (value: number): number => {
@@ -268,6 +297,7 @@ const NeonLineChart = ({
   return (
     <Box position="relative" h="100%" w="100%">
       <svg
+        ref={svgRef}
         viewBox={`0 0 ${chartWidth} ${chartHeight}`}
         preserveAspectRatio="none"
         style={{ width: "100%", height: "100%", cursor: "crosshair" }}
@@ -352,6 +382,11 @@ const NeonLineChart = ({
               r="5"
               fill="transparent"
               pointerEvents="none"
+              transform={
+                pointScaleX === 1
+                  ? undefined
+                  : `translate(${p.x} ${p.y}) scale(${pointScaleX} 1) translate(${-p.x} ${-p.y})`
+              }
             />
             {/* Visible point */}
             <circle
@@ -361,6 +396,11 @@ const NeonLineChart = ({
               fill={color}
               filter="url(#chart-glow)"
               style={{ pointerEvents: "none" }}
+              transform={
+                pointScaleX === 1
+                  ? undefined
+                  : `translate(${p.x} ${p.y}) scale(${pointScaleX} 1) translate(${-p.x} ${-p.y})`
+              }
             />
           </g>
         ))}
