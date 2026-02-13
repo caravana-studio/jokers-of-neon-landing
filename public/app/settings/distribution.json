@@ -2,9 +2,9 @@
   "home": {
     "banners": [
       {
-        "id": "leaderboard",
+        "id": "TOURNAMENT",
         "position": 1,
-        "type": "LEADERBOARD"
+        "type": "TOURNAMENT"
       },
       {
         "id": "daily-missions",
