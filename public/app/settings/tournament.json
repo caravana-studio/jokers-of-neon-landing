@@ -9,57 +9,45 @@
       "packs": {
         "base": 0,
         "advanced": 0,
-        "epic": 2,
-        "legendary": 5,
-        "collector": 0,
-        "collectorXL": 0
+        "epic": 0,
+        "legendary": 2,
+        "collector": 1,
+        "collectorXL": 1
       },
-      "seasonPass": true
+      "seasonPass": false
     },
     {
       "position": "2",
       "packs": {
         "base": 0,
         "advanced": 0,
-        "epic": 1,
-        "legendary": 4,
+        "epic": 0,
+        "legendary": 2,
         "collector": 0,
-        "collectorXL": 0
+        "collectorXL": 1
       },
-      "seasonPass": true
+      "seasonPass": false
     },
     {
       "position": "3",
       "packs": {
         "base": 0,
         "advanced": 0,
-        "epic": 1,
-        "legendary": 3,
+        "epic": 0,
+        "legendary": 1,
         "collector": 0,
-        "collectorXL": 0
-      },
-      "seasonPass": true
-    },
-    {
-      "position": "4",
-      "packs": {
-        "base": 0,
-        "advanced": 0,
-        "epic": 1,
-        "legendary": 2,
-        "collector": 0,
-        "collectorXL": 0
+        "collectorXL": 1
       },
       "seasonPass": false
     },
     {
-      "position": "5",
+      "position": "4-5",
       "packs": {
         "base": 0,
-        "advanced": 1,
+        "advanced": 0,
         "epic": 0,
-        "legendary": 2,
-        "collector": 0,
+        "legendary": 1,
+        "collector": 1,
         "collectorXL": 0
       },
       "seasonPass": false
@@ -69,7 +57,19 @@
       "packs": {
         "base": 0,
         "advanced": 0,
-        "epic": 1,
+        "epic": 0,
+        "legendary": 2,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "11-15",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 0,
         "legendary": 1,
         "collector": 0,
         "collectorXL": 0
@@ -77,11 +77,11 @@
       "seasonPass": false
     },
     {
-      "position": "11-25",
+      "position": "16-25",
       "packs": {
         "base": 0,
-        "advanced": 1,
-        "epic": 2,
+        "advanced": 0,
+        "epic": 1,
         "legendary": 0,
         "collector": 0,
         "collectorXL": 0
@@ -90,18 +90,6 @@
     },
     {
       "position": "26-50",
-      "packs": {
-        "base": 0,
-        "advanced": 1,
-        "epic": 1,
-        "legendary": 0,
-        "collector": 0,
-        "collectorXL": 0
-      },
-      "seasonPass": false
-    },
-    {
-      "position": "51-100",
       "packs": {
         "base": 0,
         "advanced": 1,
