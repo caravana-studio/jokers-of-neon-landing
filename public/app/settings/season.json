@@ -1,9 +1,195 @@
 {
-      "number": 1,
-      "finishDate": "2026-02-26T23:59:59.999Z",
-      "xp-event": {
-            "multiplier": 2,
-            "startDate": "2026-01-23T00:00:00.000Z",
-            "finishDate": "2026-01-25T23:59:59.999Z"
-      }
+  "number": 1,
+  "finishDate": "2026-02-26T23:59:59.999Z",
+  "xp-event": {
+    "multiplier": 2,
+    "startDate": "2026-01-23T00:00:00.000Z",
+    "finishDate": "2026-01-25T23:59:59.999Z"
+  },
+  "daily-prizes": [
+    {
+      "position": "1",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 1,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "2",
+      "packs": {
+        "base": 0,
+        "advanced": 1,
+        "epic": 0,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "3",
+      "packs": {
+        "base": 1,
+        "advanced": 0,
+        "epic": 0,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    }
+  ],
+  "weekly-prizes": [
+    {
+      "position": "1",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 1,
+        "legendary": 1,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "2",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 2,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "3",
+      "packs": {
+        "base": 0,
+        "advanced": 1,
+        "epic": 1,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "4-5",
+      "packs": {
+        "base": 0,
+        "advanced": 2,
+        "epic": 0,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    }
+  ],
+  "season-prizes": [
+    {
+      "position": "1",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 2,
+        "legendary": 3,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "2",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 2,
+        "legendary": 2,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "3",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 2,
+        "legendary": 1,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "4-5",
+      "packs": {
+        "base": 0,
+        "advanced": 1,
+        "epic": 1,
+        "legendary": 1,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "6-10",
+      "packs": {
+        "base": 0,
+        "advanced": 1,
+        "epic": 2,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "11-15",
+      "packs": {
+        "base": 0,
+        "advanced": 1,
+        "epic": 1,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "16-25",
+      "packs": {
+        "base": 0,
+        "advanced": 2,
+        "epic": 0,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "26-50",
+      "packs": {
+        "base": 0,
+        "advanced": 1,
+        "epic": 0,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    }
+  ]
 }
