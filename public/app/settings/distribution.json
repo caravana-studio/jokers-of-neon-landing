@@ -2,21 +2,21 @@
   "home": {
     "banners": [
       {
-        "id": "collector",
-        "position": 1,
-        "type": "image",
-        "navigateTo": "/shop",
-        "url": "https://jokersofneon.com/app/banners/collector-banner-2.png"
-      },
-      {
         "id": "TOURNAMENT",
-        "position": 2,
+        "position": 1,
         "type": "TOURNAMENT"
       },
       {
         "id": "daily-missions",
-        "position": 3,
+        "position": 2,
         "type": "DAILY_MISSIONS"
+      },
+      {
+        "id": "collector",
+        "position": 3,
+        "type": "image",
+        "navigateTo": "/shop",
+        "url": "https://jokersofneon.com/app/banners/collector-banner-2.png"
       }
     ]
   }
