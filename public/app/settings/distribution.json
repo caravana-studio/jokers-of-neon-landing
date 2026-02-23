@@ -2,21 +2,14 @@
   "home": {
     "banners": [
       {
-        "id": "TOURNAMENT",
+        "id": "LEADERBOARD",
         "position": 1,
-        "type": "TOURNAMENT"
+        "type": "LEADERBOARD"
       },
       {
         "id": "daily-missions",
         "position": 2,
         "type": "DAILY_MISSIONS"
-      },
-      {
-        "id": "tournament-banner",
-        "position": 3,
-        "type": "image",
-        "navigateTo": "/tournament",
-        "url": "https://jokersofneon.com/app/banners/s1-tournament-live-banner.png"
       }
     ]
   }
