@@ -2,6 +2,7 @@
     "version": "3.4.0",
     "slot": {
         "prod": "jokers-core-season1",
+        "prods2": "testing-jokers-game",
         "dev": "testing-jokers-game",
         "test": "testing-jokers-game"
     },
