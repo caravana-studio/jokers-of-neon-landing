@@ -10,6 +10,12 @@
         "id": "daily-missions",
         "position": 2,
         "type": "DAILY_MISSIONS"
+      },
+      {
+        "id": "s2",
+        "position": 3,
+        "type": "image",
+        "image": "https://jokersofneon.com/app/banners/banner-s2.png"
       }
     ]
   }
