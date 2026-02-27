@@ -42,8 +42,11 @@ const NFT_ABI: Abi = [
 ];
 
 // API Configuration
-const API_BASE_URL = "https://mainnet-jokers-of-neon-api.onrender.com";
-const API_KEY = "a97b9de72eeed8935c4521692396b6bd363ef8d9e440e0a95790493d3116b05d";
+const API_BASE_URL =
+  import.meta.env.VITE_GAME_API_URL ||
+  import.meta.env.VITE_API_URL ||
+  "https://jokers-of-neon-api-zf1x.onrender.com";
+const API_KEY = import.meta.env.VITE_GAME_API_KEY || "";
 
 // Types
 interface GlobalStats {
