@@ -12,7 +12,7 @@
     ]
   },
   "web": {
-    "season_pass": "season_pass_s2",
+    "season_pass": "season_pass",
     "packs": [
       { "shopId": "pack_legendary_s2", "packId": 24 },
       { "shopId": "pack_epic_s2", "packId": 23 },
