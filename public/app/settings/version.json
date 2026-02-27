@@ -6,5 +6,5 @@
         "dev": "testing-jokers-game",
         "test": "testing-jokers-game"
     },
-    "maintenance": true
+    "maintenance": false
 }
