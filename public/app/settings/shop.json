@@ -1,22 +1,22 @@
 {
   "android": {
-    "season_pass": "season_pass",
+    "season_pass": "season_pass_s2",
     "packs": []
   },
   "ios": {
-    "season_pass": "season_pass",
+    "season_pass": "season_pass_s2",
     "packs": [
-      { "shopId": "pack_legendary", "packId": 4 },
-      { "shopId": "pack_epic", "packId": 3 },
-      { "shopId": "pack_advanced", "packId": 2 }
+      { "shopId": "pack_legendary_s2", "packId": 24 },
+      { "shopId": "pack_epic_s2", "packId": 23 },
+      { "shopId": "pack_advanced_s2", "packId": 22 }
     ]
   },
   "web": {
-    "season_pass": "season_pass",
+    "season_pass": "season_pass_s2",
     "packs": [
-      { "shopId": "pack_legendary", "packId": 4 },
-      { "shopId": "pack_epic", "packId": 3 },
-      { "shopId": "pack_advanced", "packId": 2 }
+      { "shopId": "pack_legendary_s2", "packId": 24 },
+      { "shopId": "pack_epic_s2", "packId": 23 },
+      { "shopId": "pack_advanced_s2", "packId": 22 }
     ]
   }
 }

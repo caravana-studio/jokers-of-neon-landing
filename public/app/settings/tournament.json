@@ -1,7 +1,7 @@
 {
-  "startDate": "2026-02-13T00:00:00.000Z",
-  "finishDate": "2026-02-23T00:00:00.000Z",
-  "start-counting-at-game-id": 599,
+  "startDate": "2026-03-27T00:00:00.000Z",
+  "finishDate": "2026-04-05T23:59:59.999Z",
+  "start-counting-at-game-id": 5027,
   "isActive": false,
   "prizes": [
     {
