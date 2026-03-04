@@ -191,5 +191,79 @@
       },
       "seasonPass": false
     }
+  ],
+  "xp-season-prizes": [
+    {
+      "position": "1",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 1,
+        "legendary": 2,
+        "collector": 0,
+        "collectorXL": 1
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "2",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 1,
+        "legendary": 2,
+        "collector": 1,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "3",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 1,
+        "legendary": 3,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "4-5",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 1,
+        "legendary": 2,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "6-10",
+      "packs": {
+        "base": 0,
+        "advanced": 0,
+        "epic": 1,
+        "legendary": 1,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    },
+    {
+      "position": "11-15",
+      "packs": {
+        "base": 0,
+        "advanced": 1,
+        "epic": 1,
+        "legendary": 0,
+        "collector": 0,
+        "collectorXL": 0
+      },
+      "seasonPass": false
+    }
   ]
 }
