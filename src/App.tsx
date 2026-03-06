@@ -8,6 +8,7 @@ import { StatsPage } from "./StatsPage";
 import { StoresPage } from "./StoresPage";
 import { DeleteAccount } from "./theme/DeleteAccount";
 import { MainPage } from "./theme/MainPage";
+import { PresskitPage } from "./theme/PresskitPage";
 import { PrivacyPolicy } from "./theme/PrivacyPolicy";
 import { TermsAndConditions } from "./theme/TermsAndConditions";
 import customTheme from "./theme/theme";
@@ -25,6 +26,7 @@ function App() {
             />
             <Route path="/early" element={<EarlyAccessPage />} />
             <Route path="/play" element={<StoresPage />} />
+            <Route path="/presskit" element={<PresskitPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route
               path="/terms-and-conditions"
