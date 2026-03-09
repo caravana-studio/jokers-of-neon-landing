@@ -8,16 +8,22 @@ import {
   HStack,
   Image,
   Link,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   SimpleGrid,
   Text,
   Tooltip,
   VStack,
 } from "@chakra-ui/react";
-import { ChevronUpIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, ChevronUpIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { faInstagram, faTiktok, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faBook, faGlobe, faStore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import { CircleFlagLanguage } from "react-circle-flags";
+import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import { ANDROID_URL, IOS_URL } from "../constants/app";
 import { VIOLET_LIGHT } from "./colors";
 
@@ -27,12 +33,7 @@ const MEDIA_KIT_URL =
 
 type SectionAnchor = {
   id: string;
-  label: string;
-};
-
-type FeatureItem = {
-  title: string;
-  description: ReactNode;
+  labelKey: string;
 };
 
 type FactSheetItem = {
@@ -42,158 +43,54 @@ type FactSheetItem = {
 
 type OfficialLinkItem = {
   icon: unknown;
-  label: string;
+  labelKey: string;
   value: string;
   disabled?: boolean;
   tooltip?: string;
 };
 
 const sectionAnchors: SectionAnchor[] = [
-  { id: "pitch", label: "The Pitch" },
-  { id: "stands-out", label: "Why It Stands Out" },
-  { id: "core-loop", label: "Core Game Loop" },
-  { id: "special-cards", label: "Special Cards" },
-  { id: "seasonal-meta", label: "Seasonal Meta & Ownership" },
-  { id: "web3-matters", label: "Why It Matters for Web3" },
-  { id: "creator-videos", label: "Creator Videos" },
-  { id: "fact-sheet", label: "Fact Sheet" },
-  { id: "about-studio", label: "About the Studio" },
-  { id: "media-assets", label: "Media Assets" },
-  { id: "official-links", label: "Official Links" },
+  { id: "pitch", labelKey: "index.pitch" },
+  { id: "stands-out", labelKey: "index.standsOut" },
+  { id: "core-loop", labelKey: "index.coreLoop" },
+  { id: "special-cards", labelKey: "index.specialCards" },
+  { id: "seasonal-meta", labelKey: "index.seasonalMeta" },
+  { id: "web3-matters", labelKey: "index.web3" },
+  { id: "creator-videos", labelKey: "index.creatorVideos" },
+  { id: "fact-sheet", labelKey: "index.factSheet" },
+  { id: "about-studio", labelKey: "index.aboutStudio" },
+  { id: "media-assets", labelKey: "index.mediaAssets" },
+  { id: "official-links", labelKey: "index.officialLinks" },
 ];
 
-const VioletKeyword = ({ children }: { children: ReactNode }) => (
+const VioletKeyword = ({ children }: { children?: ReactNode }) => (
   <Box as="span" fontWeight="bold" color={VIOLET_LIGHT} fontSize="inherit" lineHeight="inherit">
     {children}
   </Box>
 );
 
-const BlueKeyword = ({ children }: { children: ReactNode }) => (
+const BlueKeyword = ({ children }: { children?: ReactNode }) => (
   <Box as="span" fontWeight="bold" color="blueLight" fontSize="inherit" lineHeight="inherit">
     {children}
   </Box>
 );
 
-const standoutItems: FeatureItem[] = [
-  {
-    title: "Poker-based scoring",
-    description: (
-      <>
-        Build hands, optimize probabilities, and score big through{" "}
-        <VioletKeyword>poker combinations</VioletKeyword> instead of traditional combat.
-      </>
-    ),
-  },
-  {
-    title: "Run-defining synergies",
-    description: (
-      <>
-        Special Cards can completely reshape how a run plays, enabling{" "}
-        <VioletKeyword>deep combos</VioletKeyword> and surprising strategies.
-      </>
-    ),
-  },
-  {
-    title: "Seasonal meta",
-    description: (
-      <>
-        Each season introduces <VioletKeyword>new cards</VioletKeyword>, new strategies, and new{" "}
-        <VioletKeyword>progression goals</VioletKeyword>.
-      </>
-    ),
-  },
-  {
-    title: "Competitive leaderboards",
-    description: (
-      <>
-        Players compete across daily, weekly, and seasonal rankings for rewards and status.
-      </>
-    ),
-  },
-  {
-    title: "Fully on-chain",
-    description: (
-      <>
-        Game logic and assets live on Starknet, bringing <VioletKeyword>transparency</VioletKeyword> and
-        permanence to progression and ownership.
-      </>
-    ),
-  },
-  {
-    title: "Tradable cards",
-    description: (
-      <>
-        Seasonal Special Cards are <VioletKeyword>NFTs</VioletKeyword> that players can use in-game and{" "}
-        <VioletKeyword>trade in a marketplace</VioletKeyword>.
-      </>
-    ),
-  },
-];
-
-const gameLoopSteps: FeatureItem[] = [
-  {
-    title: "Start with a basic deck",
-    description: (
-      <>
-        Every run begins with a <VioletKeyword>standard poker deck</VioletKeyword> and a fresh opportunity
-        to build something powerful.
-      </>
-    ),
-  },
-  {
-    title: "Play hands and beat rounds",
-    description: (
-      <>
-        Score points by creating <VioletKeyword>poker hands</VioletKeyword> and reaching the target score
-        before running out of plays.
-      </>
-    ),
-  },
-  {
-    title: "Visit shops and improve your build",
-    description: (
-      <>
-        Between rounds, buy <VioletKeyword>Special Cards</VioletKeyword> and items that strengthen your deck
-        and open new strategic paths.
-      </>
-    ),
-  },
-  {
-    title: "Build synergies and push deeper",
-    description: (
-      <>
-        The heart of the game is combining <VioletKeyword>effects</VioletKeyword> and scaling your score run
-        after run, while adapting your build to tougher boss rounds called <VioletKeyword>rage rounds</VioletKeyword>.
-      </>
-    ),
-  },
-];
-
-const factSheetItems: FactSheetItem[] = [
-  { label: "Game Title", value: "Jokers of Neon" },
-  { label: "Developer", value: "Caravana Studio" },
-  { label: "Genre", value: "Roguelike Deck-Builder Card Game" },
-  { label: "Platform", value: "iOS, Android and Desktop" },
-  { label: "Blockchain", value: "Starknet" },
-  { label: "Status", value: "Live" },
-  { label: "Business Model", value: "Free to Play" },
-  { label: "Mode", value: "Single-player runs with competitive leaderboard progression" },
-  { label: "Ownership Layer", value: "Seasonal Special Cards as NFTs" },
-];
+const standoutItemIndexes = [0, 1, 2, 3, 4, 5];
+const gameLoopStepIndexes = [0, 1, 2, 3];
 
 const officialLinks: OfficialLinkItem[] = [
-  { label: "Website", value: "https://jokersofneon.com", icon: faGlobe },
+  { labelKey: "officialLinks.labels.website", value: "https://jokersofneon.com", icon: faGlobe },
   {
-    label: "Marketplace",
+    labelKey: "officialLinks.labels.marketplace",
     value: "https://jokersofneon.com/marketplace",
     icon: faStore,
     disabled: true,
-    tooltip: "Marketplace (coming soon)",
+    tooltip: "officialLinks.marketplaceComingSoon",
   },
-  { label: "Docs", value: "https://docs.jokersofneon.com/", icon: faBook },
-  { label: "X", value: "https://x.com/jokers_of_neon", icon: faXTwitter },
-  { label: "TikTok", value: "https://www.tiktok.com/@jokersofneon", icon: faTiktok },
-  { label: "Instagram", value: "https://www.instagram.com/jokersofneon.gg", icon: faInstagram },
+  { labelKey: "officialLinks.labels.docs", value: "https://docs.jokersofneon.com/", icon: faBook },
+  { labelKey: "officialLinks.labels.x", value: "https://x.com/jokers_of_neon", icon: faXTwitter },
+  { labelKey: "officialLinks.labels.tiktok", value: "https://www.tiktok.com/@jokersofneon", icon: faTiktok },
+  { labelKey: "officialLinks.labels.instagram", value: "https://www.instagram.com/jokersofneon.gg", icon: faInstagram },
 ];
 
 const creatorVideos = [
@@ -202,6 +99,12 @@ const creatorVideos = [
   { id: "fX49g90ROVE", autoplay: false },
   { id: "AVfktRwRq1w", autoplay: false },
 ];
+
+const languageOptions = [
+  { code: "en", flagCode: "en-us" },
+  { code: "es", flagCode: "es" },
+  { code: "pt", flagCode: "pt" },
+] as const;
 
 const scrollToId = (id: string) => {
   const target = document.getElementById(id);
@@ -226,23 +129,15 @@ const updateMetaTag = (
   return { element, previousContent, created: !existing };
 };
 
-const usePresskitSeo = () => {
+const usePresskitSeo = (title: string, description: string, ogDescription: string) => {
   useEffect(() => {
     const previousTitle = document.title;
-    document.title = "Jokers of Neon Press Kit";
+    document.title = title;
 
     const updates = [
-      updateMetaTag(
-        "name",
-        "description",
-        "Official Jokers of Neon press kit: game overview, key differentiators, gameplay loop, media assets, and official links."
-      ),
-      updateMetaTag("property", "og:title", "Jokers of Neon Press Kit"),
-      updateMetaTag(
-        "property",
-        "og:description",
-        "A fully on-chain roguelike deck-builder with poker scoring, seasonal progression, and tradable ownership."
-      ),
+      updateMetaTag("name", "description", description),
+      updateMetaTag("property", "og:title", title),
+      updateMetaTag("property", "og:description", ogDescription),
       updateMetaTag("property", "og:type", "website"),
       updateMetaTag("property", "og:url", "https://jokersofneon.com/presskit"),
     ];
@@ -264,7 +159,7 @@ const usePresskitSeo = () => {
         element.setAttribute("content", previousContent);
       });
     };
-  }, []);
+  }, [description, ogDescription, title]);
 };
 
 const sectionTitleStyles = {
@@ -310,186 +205,206 @@ const PresskitSection = ({
   </VStack>
 );
 
-const PresskitHero = () => (
-  <Flex as="section" direction={{ base: "column", lg: "row" }} gap={8} align="center">
-    <VStack align="stretch" spacing={6} flex="1 1 auto" justify="center" minH={{ base: "auto", lg: "170px" }}>
-      <Text maxW="720px" fontSize={{ base: "md", md: "lg" }} lineHeight={1.75} color="whiteAlpha.900">
-        A fully on-chain roguelike deck-builder that blends{" "}
-        <VioletKeyword>poker hands</VioletKeyword>, powerful card synergies, competitive seasonal progression, and{" "}
-        <VioletKeyword>true digital ownership</VioletKeyword>.
-      </Text>
-    </VStack>
-
-    <VStack
-      align="stretch"
-      spacing={4}
-      width={{ base: "100%", lg: "430px" }}
-      ml={{ base: 0, lg: "auto" }}
-      px={{ base: 2, lg: 1 }}
-    >
-      <HStack spacing={3} flexWrap="nowrap" justify={{ base: "center", lg: "flex-end" }}>
-        <Link href={IOS_URL} isExternal _hover={{ textDecoration: "none" }}>
-          <Image
-            src="/download/ios-black.svg"
-            alt="Download on the App Store"
-            width={{ base: "150px", md: "180px" }}
-          />
-        </Link>
-
-        <Link href={ANDROID_URL} isExternal _hover={{ textDecoration: "none" }}>
-          <Image
-            src="/download/android.svg"
-            alt="Get it on Google Play"
-            width={{ base: "180px", md: "220px" }}
-          />
-        </Link>
-      </HStack>
-
-      <Button
-        as="a"
-        href={PLAY_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        variant="outlinePrimaryGlow"
-        rightIcon={<ExternalLinkIcon />}
-        width="calc(100% - 20px)"
-        ml={2}
-        mr={3}
-      >
-        Play on Desktop
-      </Button>
-    </VStack>
-  </Flex>
-);
-
-const TeaserPitchBlock = ({ autoplay }: { autoplay: boolean }) => (
-  <Grid templateColumns={{ base: "1fr", lg: "1.05fr 0.95fr" }} gap={6} alignItems="center">
-    <VStack align="stretch" spacing={4}>
-      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        Jokers of Neon is a fully on-chain roguelike card game built on Starknet, combining{" "}
-        <BlueKeyword>poker mechanics</BlueKeyword>, <BlueKeyword>deck-building strategy</BlueKeyword>, and a{" "}
-        <BlueKeyword>seasonal TCG meta</BlueKeyword> with real asset ownership.
-      </Text>
-      <Box {...cardStyles}>
-        <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.7} fontWeight="medium">
-          Think <BlueKeyword>Balatro meets Slay the Spire</BlueKeyword>, with seasonal competition and
-          tradable card ownership built in from day one.
+const PresskitHero = () => {
+  const { t } = useTranslation("presskit");
+  return (
+    <Flex as="section" direction={{ base: "column", lg: "row" }} gap={8} align="center">
+      <VStack align="stretch" spacing={6} flex="1 1 auto" justify="center" minH={{ base: "auto", lg: "170px" }}>
+        <Text maxW="720px" fontSize={{ base: "md", md: "lg" }} lineHeight={1.75} color="whiteAlpha.900">
+          <Trans i18nKey="hero.lead" t={t} components={{ violet: <VioletKeyword /> }} />
         </Text>
-      </Box>
-    </VStack>
-    <Box
-      borderRadius="xl"
-      border="1px solid"
-      borderColor="whiteAlpha.300"
-      overflow="hidden"
-      bg="black"
-      minH={{ base: "240px", md: "320px" }}
-    >
-      <Box
-        as="iframe"
-        width="100%"
-        height="100%"
-        minH={{ base: "240px", md: "320px" }}
-        src={`https://www.youtube.com/embed/Pv-m60LBw8w?rel=0&playsinline=1&mute=1${autoplay ? "&autoplay=1&loop=1&playlist=Pv-m60LBw8w" : ""}`}
-        title="Jokers of Neon - Teaser"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
-    </Box>
-  </Grid>
-);
+      </VStack>
 
-const CoreLoopBlock = ({ autoplay }: { autoplay: boolean }) => (
-  <VStack align="stretch" spacing={{ base: 4, md: 6 }}>
-    <Box
-      borderRadius="xl"
-      border="1px solid"
-      borderColor="whiteAlpha.300"
-      overflow="hidden"
-      bg="black"
-      minH={{ base: "240px", md: "420px" }}
-    >
-      <Box
-        as="iframe"
-        width="100%"
-        height="100%"
-        minH={{ base: "240px", md: "420px" }}
-        src={`https://www.youtube.com/embed/yCac6cfDm3k?si=99qqW4eLetzZbs75&rel=0&playsinline=1&mute=1${autoplay ? "&autoplay=1&loop=1&playlist=yCac6cfDm3k" : ""}`}
-        title="Jokers of Neon - Core Game Loop"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-      />
-    </Box>
+      <VStack
+        align="stretch"
+        spacing={4}
+        width={{ base: "100%", lg: "430px" }}
+        ml={{ base: 0, lg: "auto" }}
+        px={{ base: 2, lg: 1 }}
+      >
+        <HStack spacing={3} flexWrap="nowrap" justify={{ base: "center", lg: "flex-end" }}>
+          <Link href={IOS_URL} isExternal _hover={{ textDecoration: "none" }}>
+            <Image
+              src="/download/ios-black.svg"
+              alt="Download on the App Store"
+              width={{ base: "150px", md: "180px" }}
+            />
+          </Link>
 
-    <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} spacing={{ base: 3, md: 4 }}>
-      {gameLoopSteps.map((step, index) => (
-        <Box key={step.title} {...cardStyles} py={0} minH={{ base: "172px", md: "190px" }}>
-          <Flex align="stretch" height="100%">
-            <Flex
-              width={{ base: "78px", md: "90px" }}
-              align="center"
-              justify="center"
-              borderRight="1px solid"
-              borderColor="whiteAlpha.300"
-              flexShrink={0}
-              pr={{ base: 2, md: 3 }}
-            >
-              <Text fontFamily="Orbitron" fontSize={{ base: "3xl", md: "5xl" }} color={VIOLET_LIGHT} lineHeight={1}>
-                {String(index + 1).padStart(2, "0")}
-              </Text>
-            </Flex>
-            <VStack align="stretch" justify="center" spacing={3} px={5} py={4} flex="1">
-              <Text
-                fontSize={{ base: "lg", md: "xl" }}
-                lineHeight={1.3}
-                fontWeight="semibold"
-              >
-                {step.title}
-              </Text>
-              <Text fontSize={{ base: "md", md: "md" }} lineHeight={1.7} color="whiteAlpha.900">
-                {step.description}
-              </Text>
-            </VStack>
-          </Flex>
+          <Link href={ANDROID_URL} isExternal _hover={{ textDecoration: "none" }}>
+            <Image
+              src="/download/android.svg"
+              alt="Get it on Google Play"
+              width={{ base: "180px", md: "220px" }}
+            />
+          </Link>
+        </HStack>
+
+        <Button
+          as="a"
+          href={PLAY_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          variant="outlinePrimaryGlow"
+          rightIcon={<ExternalLinkIcon />}
+          width="calc(100% - 20px)"
+          ml={2}
+          mr={3}
+        >
+          {t("hero.playDesktop")}
+        </Button>
+      </VStack>
+    </Flex>
+  );
+};
+
+const TeaserPitchBlock = ({ autoplay }: { autoplay: boolean }) => {
+  const { t } = useTranslation("presskit");
+  return (
+    <Grid templateColumns={{ base: "1fr", lg: "1.05fr 0.95fr" }} gap={6} alignItems="center">
+      <VStack align="stretch" spacing={4}>
+        <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+          <Trans i18nKey="pitch.body" t={t} components={{ blue: <BlueKeyword /> }} />
+        </Text>
+        <Box {...cardStyles}>
+          <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.7} fontWeight="medium">
+            <Trans i18nKey="pitch.quote" t={t} components={{ blue: <BlueKeyword /> }} />
+          </Text>
         </Box>
-      ))}
-    </SimpleGrid>
-  </VStack>
-);
+      </VStack>
+      <Box
+        borderRadius="xl"
+        border="1px solid"
+        borderColor="whiteAlpha.300"
+        overflow="hidden"
+        bg="black"
+        minH={{ base: "240px", md: "320px" }}
+      >
+        <Box
+          as="iframe"
+          width="100%"
+          height="100%"
+          minH={{ base: "240px", md: "320px" }}
+          src={`https://www.youtube.com/embed/Pv-m60LBw8w?rel=0&playsinline=1&mute=1${autoplay ? "&autoplay=1&loop=1&playlist=Pv-m60LBw8w" : ""}`}
+          title={t("misc.teaserVideoTitle")}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      </Box>
+    </Grid>
+  );
+};
 
-const SpecialCardsBlock = () => (
-  <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={6} alignItems="center">
-    <VStack align="stretch" spacing={4}>
-      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        Special Cards are the <BlueKeyword>strategic core of Jokers of Neon</BlueKeyword>.
-      </Text>
-      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        These cards apply <BlueKeyword>powerful effects</BlueKeyword> that influence your entire run and
-        often determine the type of build you want to pursue.
-      </Text>
-      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        Some reward specific poker hands. Others change how your deck scales, how your score grows, or how
-        efficiently you can play.
-      </Text>
-      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        The fun comes from stacking these effects, discovering <BlueKeyword>synergies</BlueKeyword>, and
-        finding overpowered combinations.
-      </Text>
+const CoreLoopBlock = ({ autoplay }: { autoplay: boolean }) => {
+  const { t } = useTranslation("presskit");
+  return (
+    <VStack align="stretch" spacing={{ base: 4, md: 6 }}>
+      <Box
+        borderRadius="xl"
+        border="1px solid"
+        borderColor="whiteAlpha.300"
+        overflow="hidden"
+        bg="black"
+        minH={{ base: "240px", md: "420px" }}
+      >
+        <Box
+          as="iframe"
+          width="100%"
+          height="100%"
+          minH={{ base: "240px", md: "420px" }}
+          src={`https://www.youtube.com/embed/yCac6cfDm3k?si=99qqW4eLetzZbs75&rel=0&playsinline=1&mute=1${autoplay ? "&autoplay=1&loop=1&playlist=yCac6cfDm3k" : ""}`}
+          title={t("misc.coreLoopVideoTitle")}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      </Box>
+
+      <SimpleGrid columns={{ base: 1, md: 2, xl: 4 }} spacing={{ base: 3, md: 4 }}>
+        {gameLoopStepIndexes.map((index) => (
+          <Box key={index} {...cardStyles} py={0} minH={{ base: "172px", md: "190px" }}>
+            <Flex align="stretch" height="100%">
+              <Flex
+                width={{ base: "78px", md: "90px" }}
+                align="center"
+                justify="center"
+                borderRight="1px solid"
+                borderColor="whiteAlpha.300"
+                flexShrink={0}
+                pr={{ base: 2, md: 3 }}
+              >
+                <Text fontFamily="Orbitron" fontSize={{ base: "3xl", md: "5xl" }} color={VIOLET_LIGHT} lineHeight={1}>
+                  {String(index + 1).padStart(2, "0")}
+                </Text>
+              </Flex>
+              <VStack align="stretch" justify="center" spacing={3} px={5} py={4} flex="1">
+                <Text fontSize={{ base: "lg", md: "xl" }} lineHeight={1.3} fontWeight="semibold">
+                  {t(`coreLoop.steps.${index}.title`)}
+                </Text>
+                <Text fontSize={{ base: "md", md: "md" }} lineHeight={1.7} color="whiteAlpha.900">
+                  <Trans
+                    i18nKey={`coreLoop.steps.${index}.description`}
+                    t={t}
+                    components={{ violet: <VioletKeyword /> }}
+                  />
+                </Text>
+              </VStack>
+            </Flex>
+          </Box>
+        ))}
+      </SimpleGrid>
     </VStack>
+  );
+};
 
-    <Image
-      src="/press/specials.png"
-      alt="Jokers of Neon special cards"
-      width={{ base: "95%", lg: "90%" }}
-      mx="auto"
-      height="auto"
-      objectFit="contain"
-      display="block"
-    />
-  </Grid>
-);
+const SpecialCardsBlock = () => {
+  const { t } = useTranslation("presskit");
+  return (
+    <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={6} alignItems="center">
+      <VStack align="stretch" spacing={4}>
+        <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+          <Trans i18nKey="specialCards.p1" t={t} components={{ blue: <BlueKeyword /> }} />
+        </Text>
+        <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+          <Trans i18nKey="specialCards.p2" t={t} components={{ blue: <BlueKeyword /> }} />
+        </Text>
+        <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+          {t("specialCards.p3")}
+        </Text>
+        <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+          <Trans i18nKey="specialCards.p4" t={t} components={{ blue: <BlueKeyword /> }} />
+        </Text>
+      </VStack>
+
+      <Image
+        src="/press/specials.png"
+        alt="Jokers of Neon special cards"
+        width={{ base: "95%", lg: "90%" }}
+        mx="auto"
+        height="auto"
+        objectFit="contain"
+        display="block"
+      />
+    </Grid>
+  );
+};
 
 const FactSheetTable = () => {
+  const { t } = useTranslation("presskit");
+  const factSheetItems: FactSheetItem[] = useMemo(
+    () => [
+      { label: t("factSheet.fields.gameTitle"), value: t("factSheet.values.gameTitle") },
+      { label: t("factSheet.fields.developer"), value: t("factSheet.values.developer") },
+      { label: t("factSheet.fields.genre"), value: t("factSheet.values.genre") },
+      { label: t("factSheet.fields.platform"), value: t("factSheet.values.platform") },
+      { label: t("factSheet.fields.blockchain"), value: t("factSheet.values.blockchain") },
+      { label: t("factSheet.fields.status"), value: t("factSheet.values.status") },
+      { label: t("factSheet.fields.businessModel"), value: t("factSheet.values.businessModel") },
+      { label: t("factSheet.fields.mode"), value: t("factSheet.values.mode") },
+      { label: t("factSheet.fields.ownershipLayer"), value: t("factSheet.values.ownershipLayer") },
+    ],
+    [t]
+  );
+
   const splitIndex = Math.ceil(factSheetItems.length / 2);
   const leftItems = factSheetItems.slice(0, splitIndex);
   const rightItems = factSheetItems.slice(splitIndex);
@@ -554,103 +469,114 @@ const FactSheetTable = () => {
   );
 };
 
-const AboutStudioBlock = () => (
-  <Grid templateColumns={{ base: "1fr", lg: "1.1fr 0.9fr" }} gap={8} alignItems="center">
-    <VStack align="stretch" spacing={4}>
-      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        Caravana Studio is an <BlueKeyword>independent game studio</BlueKeyword> building competitive,
-        replayable, and ownership-driven games.
-      </Text>
-      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        The team combines game design, frontend development, and blockchain
-        infrastructure to create experiences that connect traditional gameplay depth with Web3-native systems.
-      </Text>
-    </VStack>
-    <Flex align="center" justify="center" minH="220px">
-      <Image
-        src="/press/caravana-logo.png"
-        alt="Caravana Studio logo"
-        maxW={{ base: "220px", md: "320px" }}
-      />
-    </Flex>
-  </Grid>
-);
+const AboutStudioBlock = () => {
+  const { t } = useTranslation("presskit");
+  return (
+    <Grid templateColumns={{ base: "1fr", lg: "1.1fr 0.9fr" }} gap={8} alignItems="center">
+      <VStack align="stretch" spacing={4}>
+        <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+          <Trans i18nKey="aboutStudio.p1" t={t} components={{ blue: <BlueKeyword /> }} />
+        </Text>
+        <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+          {t("aboutStudio.p2")}
+        </Text>
+      </VStack>
+      <Flex align="center" justify="center" minH="220px">
+        <Image src="/press/caravana-logo.png" alt="Caravana Studio logo" maxW={{ base: "220px", md: "320px" }} />
+      </Flex>
+    </Grid>
+  );
+};
 
-const TocCard = () => (
-  <Box display={{ base: "none", xl: "block" }} position="sticky" top="24px">
-    <VStack align="stretch" spacing={3} {...cardStyles}>
-      <Text fontFamily="Orbitron" textTransform="uppercase" letterSpacing="0.08em" fontSize="sm" color="whiteAlpha.800">
-        Press Kit Index
-      </Text>
-      {sectionAnchors.map((item) => (
-        <Link
-          key={item.id}
-          href={`#${item.id}`}
-          color="whiteAlpha.900"
-          _hover={{ color: "blueLight", textDecoration: "none" }}
-          onClick={(event) => {
-            event.preventDefault();
-            scrollToId(item.id);
-          }}
+const TocCard = () => {
+  const { t } = useTranslation("presskit");
+  return (
+    <Box display={{ base: "none", xl: "block" }} position="sticky" top="24px">
+      <VStack align="stretch" spacing={3} {...cardStyles}>
+        <Text
+          fontFamily="Orbitron"
+          textTransform="uppercase"
+          letterSpacing="0.08em"
           fontSize="sm"
-          lineHeight={1.4}
+          color="whiteAlpha.800"
         >
-          {item.label}
-        </Link>
-      ))}
+          {t("index.title")}
+        </Text>
+        {sectionAnchors.map((item) => (
+          <Link
+            key={item.id}
+            href={`#${item.id}`}
+            color="whiteAlpha.900"
+            _hover={{ color: "blueLight", textDecoration: "none" }}
+            onClick={(event) => {
+              event.preventDefault();
+              scrollToId(item.id);
+            }}
+            fontSize="sm"
+            lineHeight={1.4}
+          >
+            {t(item.labelKey)}
+          </Link>
+        ))}
+      </VStack>
+    </Box>
+  );
+};
+
+const MediaAssetsBlock = () => {
+  const { t } = useTranslation("presskit");
+  return (
+    <VStack align="stretch" spacing={5}>
+      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+        <Trans i18nKey="mediaAssets.intro" t={t} components={{ violet: <VioletKeyword /> }} />
+      </Text>
+      <Button
+        as="a"
+        href={MEDIA_KIT_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        width={{ base: "100%", sm: "fit-content" }}
+        variant="outlinePrimaryGlow"
+        rightIcon={<ExternalLinkIcon />}
+      >
+        {t("mediaAssets.cta")}
+      </Button>
     </VStack>
-  </Box>
-);
+  );
+};
 
-const MediaAssetsBlock = () => (
-  <VStack align="stretch" spacing={5}>
-    <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-      Need visuals, logos, screenshots, or gameplay assets? Download the <VioletKeyword>official media
-      kit</VioletKeyword> below.
-    </Text>
-    <Button
-      as="a"
-      href={MEDIA_KIT_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      width={{ base: "100%", sm: "fit-content" }}
-      variant="outlinePrimaryGlow"
-      rightIcon={<ExternalLinkIcon />}
-    >
-      Open Media Kit
-    </Button>
-  </VStack>
-);
-
-const CreatorVideosBlock = () => (
-  <VStack align="stretch" spacing={5}>
-    <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-      Creator-style short videos showing how Jokers of Neon is presented in social-first gaming content.
-    </Text>
-    <SimpleGrid columns={{ base: 2, lg: 4 }} spacing={{ base: 3, md: 5 }}>
-      {creatorVideos.map((video, index) => (
-        <Box
-          key={`${video.id}-${index}`}
-          borderRadius="xl"
-          border="1px solid"
-          borderColor="whiteAlpha.300"
-          overflow="hidden"
-          bg="black"
-        >
+const CreatorVideosBlock = () => {
+  const { t } = useTranslation("presskit");
+  return (
+    <VStack align="stretch" spacing={5}>
+      <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+        {t("creatorVideos.intro")}
+      </Text>
+      <SimpleGrid columns={{ base: 2, lg: 4 }} spacing={{ base: 3, md: 5 }}>
+        {creatorVideos.map((video, index) => (
           <Box
-            as="iframe"
-            width="100%"
-            aspectRatio="9 / 16"
-            src={`https://www.youtube.com/embed/${video.id}?rel=0&playsinline=1${video.autoplay ? `&mute=1&autoplay=1&loop=1&playlist=${video.id}` : ""}`}
-            title={`Jokers of Neon creator short ${index + 1}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-        </Box>
-      ))}
-    </SimpleGrid>
-  </VStack>
-);
+            key={`${video.id}-${index}`}
+            borderRadius="xl"
+            border="1px solid"
+            borderColor="whiteAlpha.300"
+            overflow="hidden"
+            bg="black"
+          >
+            <Box
+              as="iframe"
+              width="100%"
+              aspectRatio="9 / 16"
+              src={`https://www.youtube.com/embed/${video.id}?rel=0&playsinline=1${video.autoplay ? `&mute=1&autoplay=1&loop=1&playlist=${video.id}` : ""}`}
+              title={t("misc.creatorShortTitle", { index: index + 1 })}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </Box>
+        ))}
+      </SimpleGrid>
+    </VStack>
+  );
+};
 
 const FixedCardsBackgroundBand = () => (
   <Box
@@ -678,13 +604,26 @@ const FixedCardsBackgroundBand = () => (
 );
 
 export const PresskitPage = () => {
-  usePresskitSeo();
+  const { t, i18n } = useTranslation("presskit");
+  usePresskitSeo(t("seo.title"), t("seo.description"), t("seo.ogDescription"));
+
+  const currentLanguage = (i18n.resolvedLanguage ?? "en").slice(0, 2);
+  const currentLanguageOption =
+    languageOptions.find((language) => language.code === currentLanguage) ?? languageOptions[0];
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [heroScrollProgress, setHeroScrollProgress] = useState(0);
   const [autoplayTeaser, setAutoplayTeaser] = useState(false);
   const [autoplayCoreLoop, setAutoplayCoreLoop] = useState(false);
   const teaserRef = useRef<HTMLDivElement | null>(null);
   const coreLoopRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const storedLanguage = window.localStorage.getItem("presskit_language");
+    if (!storedLanguage) return;
+    if (storedLanguage !== currentLanguage && languageOptions.some((item) => item.code === storedLanguage)) {
+      void i18n.changeLanguage(storedLanguage);
+    }
+  }, [currentLanguage, i18n]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -719,6 +658,12 @@ export const PresskitPage = () => {
     return () => observer.disconnect();
   }, []);
 
+  const handleLanguageChange = (languageCode: string) => {
+    if (languageCode === currentLanguage) return;
+    void i18n.changeLanguage(languageCode);
+    window.localStorage.setItem("presskit_language", languageCode);
+  };
+
   return (
     <Box
       minH="100vh"
@@ -728,6 +673,72 @@ export const PresskitPage = () => {
       py={0}
       px={0}
     >
+      <Box
+        position="fixed"
+        top={{ base: 3, md: 4 }}
+        right={{ base: 3, md: 4 }}
+        zIndex={20}
+      >
+        <Menu placement="bottom-end" autoSelect={false}>
+          <MenuButton
+            as={Button}
+            size="sm"
+            variant="ghost"
+            bg="blackAlpha.600"
+            border="1px solid"
+            borderColor="whiteAlpha.400"
+            borderRadius="full"
+            px={1.5}
+            minW="unset"
+            _hover={{ bg: "blackAlpha.700" }}
+            _active={{ bg: "blackAlpha.700" }}
+            backdropFilter="blur(6px)"
+          >
+            <HStack spacing={1}>
+              <Box width="22px" height="22px" borderRadius="full" overflow="hidden">
+                <CircleFlagLanguage
+                  languageCode={currentLanguageOption.flagCode}
+                  width="22"
+                  height="22"
+                  style={{ width: "22px", height: "22px", display: "block", objectFit: "cover" }}
+                />
+              </Box>
+              <ChevronDownIcon boxSize={4} color="whiteAlpha.800" />
+            </HStack>
+          </MenuButton>
+          <MenuList
+            bg="blackAlpha.900"
+            borderColor="whiteAlpha.300"
+            minW="170px"
+            py={1}
+          >
+            {languageOptions.map((language) => (
+              <MenuItem
+                key={language.code}
+                onClick={() => handleLanguageChange(language.code)}
+                bg="transparent"
+                color="white"
+                _hover={{ bg: "whiteAlpha.200" }}
+                _focus={{ bg: "whiteAlpha.200" }}
+                isDisabled={language.code === currentLanguage}
+              >
+                <HStack spacing={3}>
+                  <Box width="18px" height="18px" borderRadius="full" overflow="hidden" flexShrink={0}>
+                    <CircleFlagLanguage
+                      languageCode={language.flagCode}
+                      width="18"
+                      height="18"
+                      style={{ width: "18px", height: "18px", display: "block", objectFit: "cover" }}
+                    />
+                  </Box>
+                  <Text>{t(`language.${language.code}`)}</Text>
+                </HStack>
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+      </Box>
+
       <Box
         id="hero"
         as="section"
@@ -774,16 +785,16 @@ export const PresskitPage = () => {
             <VStack align="stretch" spacing={{ base: 12, md: 16 }}>
               <PresskitHero />
 
-              <PresskitSection id="pitch" title="The Pitch">
+              <PresskitSection id="pitch" title={t("pitch.title")}>
                 <Box ref={teaserRef}>
                   <TeaserPitchBlock autoplay={autoplayTeaser} />
                 </Box>
               </PresskitSection>
 
-              <PresskitSection id="stands-out" title="Why It Stands Out" titleColor={VIOLET_LIGHT}>
+              <PresskitSection id="stands-out" title={t("standsOut.title")} titleColor={VIOLET_LIGHT}>
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 3, md: 4 }}>
-                  {standoutItems.map((item, index) => (
-                    <Box key={item.title} {...cardStyles} py={0} minH={{ base: "176px", md: "200px" }}>
+                  {standoutItemIndexes.map((index) => (
+                    <Box key={index} {...cardStyles} py={0} minH={{ base: "176px", md: "200px" }}>
                       <Flex align="stretch" height="100%">
                         <Flex
                           width={{ base: "90px", md: "126px" }}
@@ -805,10 +816,14 @@ export const PresskitPage = () => {
                         </Flex>
                         <VStack align="stretch" justify="center" spacing={3} px={{ base: 4, md: 6 }} py={{ base: 4, md: 5 }} flex="1">
                           <Text fontSize={{ base: "lg", md: "xl" }} lineHeight={1.3} fontWeight="semibold">
-                            {item.title}
+                            {t(`standsOut.items.${index}.title`)}
                           </Text>
                           <Text fontSize={{ base: "md", md: "md" }} color="whiteAlpha.900" lineHeight={1.75}>
-                            {item.description}
+                            <Trans
+                              i18nKey={`standsOut.items.${index}.description`}
+                              t={t}
+                              components={{ violet: <VioletKeyword /> }}
+                            />
                           </Text>
                         </VStack>
                       </Flex>
@@ -819,34 +834,29 @@ export const PresskitPage = () => {
 
               <FixedCardsBackgroundBand />
 
-              <PresskitSection id="core-loop" title="Core Game Loop" titleColor={VIOLET_LIGHT}>
+              <PresskitSection id="core-loop" title={t("coreLoop.title")} titleColor={VIOLET_LIGHT}>
                 <Box ref={coreLoopRef}>
                   <CoreLoopBlock autoplay={autoplayCoreLoop} />
                 </Box>
               </PresskitSection>
 
-              <PresskitSection id="special-cards" title="Special Cards">
+              <PresskitSection id="special-cards" title={t("specialCards.title")}>
                 <SpecialCardsBlock />
               </PresskitSection>
 
-              <PresskitSection id="seasonal-meta" title="Seasonal Meta & Ownership" titleColor={VIOLET_LIGHT}>
+              <PresskitSection id="seasonal-meta" title={t("seasonalMeta.title")} titleColor={VIOLET_LIGHT}>
                 <VStack align="stretch" spacing={4}>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    Beyond its <VioletKeyword>roguelike gameplay</VioletKeyword>, Jokers of Neon features a{" "}
-                    <VioletKeyword>season-based meta layer</VioletKeyword>.
+                    <Trans i18nKey="seasonalMeta.p1" t={t} components={{ violet: <VioletKeyword /> }} />
                   </Text>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    Each season introduces a new set of <VioletKeyword>Special Cards</VioletKeyword> that players can
-                    earn through <VioletKeyword>progression and packs</VioletKeyword>. These cards shape the strategy
-                    space of the season and create new build possibilities.
+                    <Trans i18nKey="seasonalMeta.p2" t={t} components={{ violet: <VioletKeyword /> }} />
                   </Text>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    <VioletKeyword>Special Cards are NFTs</VioletKeyword>. Once a player owns a card, they can use it
-                    in-game and also trade or list it on the <VioletKeyword>marketplace</VioletKeyword>.
+                    <Trans i18nKey="seasonalMeta.p3" t={t} components={{ violet: <VioletKeyword /> }} />
                   </Text>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    Players can get started without needing to understand crypto upfront, while{" "}
-                    <VioletKeyword>ownership</VioletKeyword> becomes a meaningful layer for those who want it.
+                    <Trans i18nKey="seasonalMeta.p4" t={t} components={{ violet: <VioletKeyword /> }} />
                   </Text>
                 </VStack>
                 <Image
@@ -859,45 +869,45 @@ export const PresskitPage = () => {
                 />
               </PresskitSection>
 
-              <PresskitSection id="web3-matters" title="Why It Matters for Web3">
+              <PresskitSection id="web3-matters" title={t("web3.title")}>
                 <VStack align="stretch" spacing={4}>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    Jokers of Neon is fully on-chain, with <BlueKeyword>verifiable game logic</BlueKeyword>,{" "}
-                    <BlueKeyword>transparent scarcity</BlueKeyword>, and assets that exist beyond the client
-                    itself.
+                    <Trans i18nKey="web3.p1" t={t} components={{ blue: <BlueKeyword /> }} />
                   </Text>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    Rather than using blockchain as a cosmetic add-on, the game treats ownership, permanence,
-                    and open economies as part of its core design.
+                    {t("web3.p2")}
                   </Text>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    The result is a game that aims to stay accessible to traditional players while remaining
-                    genuinely native to Web3 infrastructure.
+                    {t("web3.p3")}
                   </Text>
                 </VStack>
               </PresskitSection>
 
-              <PresskitSection id="creator-videos" title="Creator Video Examples" titleColor={VIOLET_LIGHT}>
+              <PresskitSection id="creator-videos" title={t("creatorVideos.title")} titleColor={VIOLET_LIGHT}>
                 <CreatorVideosBlock />
               </PresskitSection>
 
-              <PresskitSection id="fact-sheet" title="Fact Sheet" titleColor={VIOLET_LIGHT}>
+              <PresskitSection id="fact-sheet" title={t("factSheet.title")} titleColor={VIOLET_LIGHT}>
                 <FactSheetTable />
               </PresskitSection>
 
-              <PresskitSection id="about-studio" title="About Caravana Studio">
+              <PresskitSection id="about-studio" title={t("aboutStudio.title")}>
                 <AboutStudioBlock />
               </PresskitSection>
 
-              <PresskitSection id="media-assets" title="Media Assets" titleColor={VIOLET_LIGHT}>
+              <PresskitSection id="media-assets" title={t("mediaAssets.title")} titleColor={VIOLET_LIGHT}>
                 <MediaAssetsBlock />
               </PresskitSection>
 
-              <PresskitSection id="official-links" title="Official Links">
+              <PresskitSection id="official-links" title={t("officialLinks.title")}>
                 <Grid templateColumns={{ base: "1fr", lg: "1fr 340px" }} gap={8} alignItems="center">
                   <Flex justify={{ base: "center", lg: "flex-start" }} align="center" gap={5} flexWrap="wrap" py={2}>
                     {officialLinks.map((item) => (
-                      <Tooltip key={item.label} label={item.tooltip ?? item.label} placement="top">
+                      <Tooltip
+                        key={item.labelKey}
+                        label={item.tooltip ? t(item.tooltip) : item.labelKey}
+                        placement="top"
+                      >
                         <Flex
                           as={item.disabled ? "div" : Link}
                           {...(item.disabled ? {} : { href: item.value, isExternal: true })}
@@ -924,7 +934,7 @@ export const PresskitPage = () => {
 
                   <Box {...cardStyles}>
                     <Text fontFamily="Orbitron" textTransform="uppercase" letterSpacing="0.06em" fontSize="xs" color="whiteAlpha.700">
-                      Press Contact
+                      {t("officialLinks.pressContact")}
                     </Text>
                     <Text mt={2} fontSize={{ base: "md", md: "lg" }}>gm@jokersofneon.com</Text>
                   </Box>
@@ -944,7 +954,7 @@ export const PresskitPage = () => {
               >
                 <VStack spacing={5}>
                   <Text fontFamily="Orbitron" textTransform="uppercase" letterSpacing="0.05em" fontSize={{ base: "xl", md: "2xl" }}>
-                    Want to see Jokers of Neon in action?
+                    {t("footerCta.title")}
                   </Text>
                   <HStack spacing={3} flexWrap="wrap" justify="center">
                     <Link href={IOS_URL} isExternal _hover={{ textDecoration: "none" }}>
@@ -963,7 +973,7 @@ export const PresskitPage = () => {
                     rightIcon={<ExternalLinkIcon />}
                     width={{ base: "100%", sm: "fit-content" }}
                   >
-                    Play on Desktop
+                    {t("footerCta.playDesktop")}
                   </Button>
                 </VStack>
               </Box>
@@ -978,12 +988,13 @@ export const PresskitPage = () => {
           position="fixed"
           right={{ base: 4, md: 6 }}
           bottom={{ base: 4, md: 6 }}
+          zIndex={30}
           size="sm"
           variant="outlineSecondaryGlow"
-          onClick={() => scrollToId("hero")}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           leftIcon={<ChevronUpIcon />}
         >
-          Back to top
+          {t("misc.backToTop")}
         </Button>
       )}
     </Box>
