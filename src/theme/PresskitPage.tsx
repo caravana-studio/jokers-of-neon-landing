@@ -76,7 +76,7 @@ const standoutItems: FeatureItem[] = [
     title: "Poker-based scoring",
     description: (
       <>
-        Build hands, optimize <VioletKeyword>probabilities</VioletKeyword>, and score big through{" "}
+        Build hands, optimize probabilities, and score big through{" "}
         <VioletKeyword>poker combinations</VioletKeyword> instead of traditional combat.
       </>
     ),
@@ -85,7 +85,7 @@ const standoutItems: FeatureItem[] = [
     title: "Run-defining synergies",
     description: (
       <>
-        <VioletKeyword>Special Cards</VioletKeyword> can completely reshape how a run plays, enabling{" "}
+        Special Cards can completely reshape how a run plays, enabling{" "}
         <VioletKeyword>deep combos</VioletKeyword> and surprising strategies.
       </>
     ),
@@ -103,8 +103,7 @@ const standoutItems: FeatureItem[] = [
     title: "Competitive leaderboards",
     description: (
       <>
-        Players compete across <VioletKeyword>daily</VioletKeyword>,{" "}
-        <VioletKeyword>weekly</VioletKeyword>, and seasonal rankings for rewards and status.
+        Players compete across daily, weekly, and seasonal rankings for rewards and status.
       </>
     ),
   },
@@ -112,7 +111,7 @@ const standoutItems: FeatureItem[] = [
     title: "Fully on-chain",
     description: (
       <>
-        Game logic and assets live on <VioletKeyword>Starknet</VioletKeyword>, bringing transparency and
+        Game logic and assets live on Starknet, bringing <VioletKeyword>transparency</VioletKeyword> and
         permanence to progression and ownership.
       </>
     ),
@@ -121,8 +120,8 @@ const standoutItems: FeatureItem[] = [
     title: "Tradable cards",
     description: (
       <>
-        Seasonal <VioletKeyword>Special Cards</VioletKeyword> are NFTs that players can use in-game and
-        trade in a marketplace.
+        Seasonal Special Cards are <VioletKeyword>NFTs</VioletKeyword> that players can use in-game and{" "}
+        <VioletKeyword>trade in a marketplace</VioletKeyword>.
       </>
     ),
   },
@@ -161,8 +160,7 @@ const gameLoopSteps: FeatureItem[] = [
     description: (
       <>
         The heart of the game is combining <VioletKeyword>effects</VioletKeyword> and scaling your score run
-        after run, while adapting your build to tougher <VioletKeyword>boss rounds</VioletKeyword> and{" "}
-        <VioletKeyword>rage rounds</VioletKeyword>.
+        after run, while adapting your build to tougher boss rounds called <VioletKeyword>rage rounds</VioletKeyword>.
       </>
     ),
   },
@@ -352,8 +350,9 @@ const TeaserPitchBlock = ({ autoplay }: { autoplay: boolean }) => (
   <Grid templateColumns={{ base: "1fr", lg: "1.05fr 0.95fr" }} gap={6} alignItems="center">
     <VStack align="stretch" spacing={4}>
       <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        Jokers of Neon is a fully on-chain roguelike card game built on Starknet, combining poker mechanics, deck-building strategy, and a
-        seasonal TCG meta with <BlueKeyword>real asset ownership</BlueKeyword>.
+        Jokers of Neon is a fully on-chain roguelike card game built on Starknet, combining{" "}
+        <BlueKeyword>poker mechanics</BlueKeyword>, <BlueKeyword>deck-building strategy</BlueKeyword>, and a{" "}
+        <BlueKeyword>seasonal TCG meta</BlueKeyword> with real asset ownership.
       </Text>
       <Box {...cardStyles}>
         <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.7} fontWeight="medium">
@@ -446,15 +445,15 @@ const SpecialCardsBlock = () => (
   <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={6} alignItems="center">
     <VStack align="stretch" spacing={4}>
       <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        <BlueKeyword>Special Cards</BlueKeyword> are the strategic core of Jokers of Neon.
+        Special Cards are the <BlueKeyword>strategic core of Jokers of Neon</BlueKeyword>.
       </Text>
       <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
         These cards apply <BlueKeyword>powerful effects</BlueKeyword> that influence your entire run and
         often determine the type of build you want to pursue.
       </Text>
       <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        Some reward <BlueKeyword>specific poker hands</BlueKeyword>. Others change how your deck scales, how
-        your score grows, or how efficiently you can play.
+        Some reward specific poker hands. Others change how your deck scales, how your score grows, or how
+        efficiently you can play.
       </Text>
       <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
         The fun comes from stacking these effects, discovering <BlueKeyword>synergies</BlueKeyword>, and
@@ -544,10 +543,10 @@ const AboutStudioBlock = () => (
     <VStack align="stretch" spacing={4}>
       <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
         Caravana Studio is an <BlueKeyword>independent game studio</BlueKeyword> building competitive,
-        replayable, and ownership-driven games on Starknet.
+        replayable, and ownership-driven games.
       </Text>
       <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-        The team combines <BlueKeyword>game design</BlueKeyword>, frontend development, and blockchain
+        The team combines game design, frontend development, and blockchain
         infrastructure to create experiences that connect traditional gameplay depth with Web3-native systems.
       </Text>
     </VStack>
@@ -635,6 +634,7 @@ const FixedCardsBackgroundBand = () => (
 export const PresskitPage = () => {
   usePresskitSeo();
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const [heroScrollProgress, setHeroScrollProgress] = useState(0);
   const [autoplayTeaser, setAutoplayTeaser] = useState(false);
   const [autoplayCoreLoop, setAutoplayCoreLoop] = useState(false);
   const teaserRef = useRef<HTMLDivElement | null>(null);
@@ -643,6 +643,8 @@ export const PresskitPage = () => {
   useEffect(() => {
     const onScroll = () => {
       setShowBackToTop(window.scrollY > 900);
+      const progress = Math.min(window.scrollY / 360, 1);
+      setHeroScrollProgress(progress);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -675,7 +677,7 @@ export const PresskitPage = () => {
     <Box
       minH="100vh"
       color="white"
-      bg="radial-gradient(120% 120% at 0% 0%, rgba(6,107,155,0.34) 0%, rgba(3,6,16,1) 48%, rgba(0,0,0,1) 100%)"
+      bg="black"
       position="relative"
       py={0}
       px={0}
@@ -695,14 +697,23 @@ export const PresskitPage = () => {
           width="100%"
           height={{ base: "auto", md: "360px", lg: "460px" }}
           objectFit={{ base: "cover", md: "cover" }}
+          filter={`blur(${(heroScrollProgress * 6).toFixed(2)}px) brightness(${(1 - heroScrollProgress * 0.35).toFixed(2)})`}
+          transition="filter 120ms linear"
+          willChange="filter"
           display="block"
+        />
+        <Box
+          position="absolute"
+          inset={0}
+          bg={`rgba(0, 0, 0, ${(heroScrollProgress * 0.35).toFixed(2)})`}
+          pointerEvents="none"
         />
       </Box>
 
       <Box
         position="relative"
         zIndex={1}
-        mt={0}
+        mt="-2px"
         pt={{ base: 10, md: 16 }}
         pb={{ base: 10, md: 14 }}
         bg="radial-gradient(120% 120% at 0% 0%, rgba(6,107,155,0.5) 0%, rgba(3,6,16,0.98) 45%, rgba(0,0,0,0.98) 100%)"
@@ -805,17 +816,17 @@ export const PresskitPage = () => {
               <PresskitSection id="web3-matters" title="Why It Matters for Web3">
                 <VStack align="stretch" spacing={4}>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    Jokers of Neon is <BlueKeyword>fully on-chain</BlueKeyword>, with verifiable game logic,
-                    transparent scarcity, and assets that exist beyond the client itself.
+                    Jokers of Neon is fully on-chain, with <BlueKeyword>verifiable game logic</BlueKeyword>,{" "}
+                    <BlueKeyword>transparent scarcity</BlueKeyword>, and assets that exist beyond the client
+                    itself.
                   </Text>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
-                    Rather than using blockchain as a cosmetic add-on, the game treats{" "}
-                    <BlueKeyword>ownership</BlueKeyword>, permanence, and open economies as part of its core
-                    design.
+                    Rather than using blockchain as a cosmetic add-on, the game treats ownership, permanence,
+                    and open economies as part of its core design.
                   </Text>
                   <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
                     The result is a game that aims to stay accessible to traditional players while remaining
-                    genuinely native to <BlueKeyword>Web3 infrastructure</BlueKeyword>.
+                    genuinely native to Web3 infrastructure.
                   </Text>
                 </VStack>
               </PresskitSection>

@@ -95,6 +95,9 @@ export const HomeSection = ({}: HomeSectionProps) => {
         >
           Trailer
         </Link>
+        <RouterLink to="/presskit" style={{ cursor: "pointer" }}>
+          Press Kit
+        </RouterLink>
         <RouterLink to="/stats" style={{ cursor: "pointer" }}>
           Stats
         </RouterLink>
@@ -193,6 +196,20 @@ export const HomeSection = ({}: HomeSectionProps) => {
                 >
                   CONTACT
                 </Text>
+              </Box>
+
+              <Box sx={lineStyle}>
+                <RouterLink to="/presskit" style={{ textDecoration: "none" }}>
+                  <Text
+                    textAlign="center"
+                    fontSize="xl"
+                    letterSpacing="wider"
+                    fontWeight="light"
+                    fontFamily={"Orbitron"}
+                  >
+                    PRESS KIT
+                  </Text>
+                </RouterLink>
               </Box>
 
               <Box sx={lineStyle}>
