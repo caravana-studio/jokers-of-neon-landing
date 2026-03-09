@@ -44,6 +44,8 @@ type OfficialLinkItem = {
   icon: unknown;
   label: string;
   value: string;
+  disabled?: boolean;
+  tooltip?: string;
 };
 
 const sectionAnchors: SectionAnchor[] = [
@@ -53,6 +55,7 @@ const sectionAnchors: SectionAnchor[] = [
   { id: "special-cards", label: "Special Cards" },
   { id: "seasonal-meta", label: "Seasonal Meta & Ownership" },
   { id: "web3-matters", label: "Why It Matters for Web3" },
+  { id: "creator-videos", label: "Creator Videos" },
   { id: "fact-sheet", label: "Fact Sheet" },
   { id: "about-studio", label: "About the Studio" },
   { id: "media-assets", label: "Media Assets" },
@@ -180,11 +183,24 @@ const factSheetItems: FactSheetItem[] = [
 
 const officialLinks: OfficialLinkItem[] = [
   { label: "Website", value: "https://jokersofneon.com", icon: faGlobe },
-  { label: "Marketplace", value: "https://jokersofneon.com/marketplace", icon: faStore },
+  {
+    label: "Marketplace",
+    value: "https://jokersofneon.com/marketplace",
+    icon: faStore,
+    disabled: true,
+    tooltip: "Marketplace (coming soon)",
+  },
   { label: "Docs", value: "https://docs.jokersofneon.com/", icon: faBook },
   { label: "X", value: "https://x.com/jokers_of_neon", icon: faXTwitter },
   { label: "TikTok", value: "https://www.tiktok.com/@jokersofneon", icon: faTiktok },
   { label: "Instagram", value: "https://www.instagram.com/jokersofneon.gg", icon: faInstagram },
+];
+
+const creatorVideos = [
+  { id: "XpYMMWwnqAo", autoplay: true },
+  { id: "QLYLb1K904c", autoplay: false },
+  { id: "fX49g90ROVE", autoplay: false },
+  { id: "AVfktRwRq1w", autoplay: false },
 ];
 
 const scrollToId = (id: string) => {
@@ -606,6 +622,36 @@ const MediaAssetsBlock = () => (
   </VStack>
 );
 
+const CreatorVideosBlock = () => (
+  <VStack align="stretch" spacing={5}>
+    <Text fontSize={{ base: "md", md: "lg" }} lineHeight={1.8}>
+      Creator-style short videos showing how Jokers of Neon is presented in social-first gaming content.
+    </Text>
+    <SimpleGrid columns={{ base: 2, lg: 4 }} spacing={{ base: 3, md: 5 }}>
+      {creatorVideos.map((video, index) => (
+        <Box
+          key={`${video.id}-${index}`}
+          borderRadius="xl"
+          border="1px solid"
+          borderColor="whiteAlpha.300"
+          overflow="hidden"
+          bg="black"
+        >
+          <Box
+            as="iframe"
+            width="100%"
+            aspectRatio="9 / 16"
+            src={`https://www.youtube.com/embed/${video.id}?rel=0&playsinline=1${video.autoplay ? `&mute=1&autoplay=1&loop=1&playlist=${video.id}` : ""}`}
+            title={`Jokers of Neon creator short ${index + 1}`}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </Box>
+      ))}
+    </SimpleGrid>
+  </VStack>
+);
+
 const FixedCardsBackgroundBand = () => (
   <Box
     width="100vw"
@@ -831,6 +877,10 @@ export const PresskitPage = () => {
                 </VStack>
               </PresskitSection>
 
+              <PresskitSection id="creator-videos" title="Creator Video Examples" titleColor={VIOLET_LIGHT}>
+                <CreatorVideosBlock />
+              </PresskitSection>
+
               <PresskitSection id="fact-sheet" title="Fact Sheet" titleColor={VIOLET_LIGHT}>
                 <FactSheetTable />
               </PresskitSection>
@@ -847,24 +897,26 @@ export const PresskitPage = () => {
                 <Grid templateColumns={{ base: "1fr", lg: "1fr 340px" }} gap={8} alignItems="center">
                   <Flex justify={{ base: "center", lg: "flex-start" }} align="center" gap={5} flexWrap="wrap" py={2}>
                     {officialLinks.map((item) => (
-                      <Tooltip key={item.label} label={item.label} placement="top">
+                      <Tooltip key={item.label} label={item.tooltip ?? item.label} placement="top">
                         <Flex
-                          as={Link}
-                          href={item.value}
-                          isExternal
+                          as={item.disabled ? "div" : Link}
+                          {...(item.disabled ? {} : { href: item.value, isExternal: true })}
                           border="1px solid white"
                           w="60px"
                           h="60px"
                           borderRadius="full"
                           alignItems="center"
                           justifyContent="center"
-                          _hover={{ borderColor: "blueLight", textDecoration: "none" }}
+                          opacity={item.disabled ? 0.45 : 1}
+                          cursor={item.disabled ? "not-allowed" : "pointer"}
+                          _hover={
+                            item.disabled
+                              ? { borderColor: "white" }
+                              : { borderColor: "blueLight", textDecoration: "none" }
+                          }
+                          aria-disabled={item.disabled ? true : undefined}
                         >
-                          <FontAwesomeIcon
-                            icon={item.icon as never}
-                            color="white"
-                            fontSize="26px"
-                          />
+                          <FontAwesomeIcon icon={item.icon as never} color="white" fontSize="26px" />
                         </Flex>
                       </Tooltip>
                     ))}
