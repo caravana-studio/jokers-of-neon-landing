@@ -42,10 +42,10 @@ type FactSheetItem = {
 
 type OfficialLinkItem = {
   icon: unknown;
-  label: string;
+  labelKey: "website" | "marketplace" | "docs" | "x" | "tiktok" | "instagram";
   value: string;
   disabled?: boolean;
-  tooltip?: string;
+  tooltipKey?: "marketplaceComingSoon";
 };
 
 const sectionAnchors: SectionAnchor[] = [
@@ -182,19 +182,49 @@ const factSheetItems: FactSheetItem[] = [
 ];
 
 const officialLinks: OfficialLinkItem[] = [
-  { label: "Website", value: "https://jokersofneon.com", icon: faGlobe },
+  { labelKey: "website", value: "https://jokersofneon.com", icon: faGlobe },
   {
-    label: "Marketplace",
+    labelKey: "marketplace",
     value: "https://jokersofneon.com/marketplace",
     icon: faStore,
     disabled: true,
-    tooltip: "Marketplace (coming soon)",
+    tooltipKey: "marketplaceComingSoon",
   },
-  { label: "Docs", value: "https://docs.jokersofneon.com/", icon: faBook },
-  { label: "X", value: "https://x.com/jokers_of_neon", icon: faXTwitter },
-  { label: "TikTok", value: "https://www.tiktok.com/@jokersofneon", icon: faTiktok },
-  { label: "Instagram", value: "https://www.instagram.com/jokersofneon.gg", icon: faInstagram },
+  { labelKey: "docs", value: "https://docs.jokersofneon.com/", icon: faBook },
+  { labelKey: "x", value: "https://x.com/jokers_of_neon", icon: faXTwitter },
+  { labelKey: "tiktok", value: "https://www.tiktok.com/@jokersofneon", icon: faTiktok },
+  { labelKey: "instagram", value: "https://www.instagram.com/jokersofneon.gg", icon: faInstagram },
 ];
+
+const officialLinkTooltips = {
+  en: {
+    website: "Website",
+    marketplace: "Marketplace",
+    docs: "Docs",
+    x: "X",
+    tiktok: "TikTok",
+    instagram: "Instagram",
+    marketplaceComingSoon: "Marketplace (coming soon)",
+  },
+  es: {
+    website: "Sitio Web",
+    marketplace: "Marketplace",
+    docs: "Docs",
+    x: "X",
+    tiktok: "TikTok",
+    instagram: "Instagram",
+    marketplaceComingSoon: "Marketplace (próximamente)",
+  },
+  pt: {
+    website: "Website",
+    marketplace: "Marketplace",
+    docs: "Docs",
+    x: "X",
+    tiktok: "TikTok",
+    instagram: "Instagram",
+    marketplaceComingSoon: "Marketplace (em breve)",
+  },
+} as const;
 
 const creatorVideos = [
   { id: "XpYMMWwnqAo", autoplay: true },
@@ -697,6 +727,15 @@ export const PresskitPage = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const getUiLanguage = (): keyof typeof officialLinkTooltips => {
+    const stored = window.localStorage.getItem("presskit_language");
+    if (stored === "es" || stored === "pt" || stored === "en") return stored;
+    const browser = navigator.language.slice(0, 2).toLowerCase();
+    if (browser === "es" || browser === "pt") return browser;
+    return "en";
+  };
+  const uiLanguage = getUiLanguage();
+
   useEffect(() => {
     const target = teaserRef.current;
     if (!target) return;
@@ -897,7 +936,15 @@ export const PresskitPage = () => {
                 <Grid templateColumns={{ base: "1fr", lg: "1fr 340px" }} gap={8} alignItems="center">
                   <Flex justify={{ base: "center", lg: "flex-start" }} align="center" gap={5} flexWrap="wrap" py={2}>
                     {officialLinks.map((item) => (
-                      <Tooltip key={item.label} label={item.tooltip ?? item.label} placement="top">
+                      <Tooltip
+                        key={item.labelKey}
+                        label={
+                          item.tooltipKey
+                            ? officialLinkTooltips[uiLanguage][item.tooltipKey]
+                            : officialLinkTooltips[uiLanguage][item.labelKey]
+                        }
+                        placement="top"
+                      >
                         <Flex
                           as={item.disabled ? "div" : Link}
                           {...(item.disabled ? {} : { href: item.value, isExternal: true })}
