@@ -16,12 +16,14 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { isIOS, isMobile } from "react-device-detect";
+import { Trans, useTranslation } from "react-i18next";
 import { Link as RouterLink } from "react-router-dom";
 import { Link } from "react-scroll";
 
 interface HomeSectionProps {}
 
 export const HomeSection = ({}: HomeSectionProps) => {
+  const { t } = useTranslation("landing");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -55,7 +57,8 @@ export const HomeSection = ({}: HomeSectionProps) => {
       justify="space-between"
       align="center"
       px={6}
-      py={2}
+      pt={{ base: 3, md: 4 }}
+      pb={2}
       position={"absolute"}
       top={0}
       width={"100%"}
@@ -71,6 +74,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
         justify="space-around"
         align="center"
         textTransform="uppercase"
+        mr={{ md: 16, lg: 20, xl: 24 }}
       >
         <Link
           to="about"
@@ -78,14 +82,14 @@ export const HomeSection = ({}: HomeSectionProps) => {
           smooth={true}
           duration={500}
         >
-          About
+          {t("home.nav.about")}
         </Link>
         <ChakraLink
           style={{ textDecoration: "none" }}
           href="https://play.jokersofneon.com/"
           target="_blank"
         >
-          Play game
+          {t("home.nav.playGame")}
         </ChakraLink>
         <Link
           to="trailer"
@@ -93,13 +97,13 @@ export const HomeSection = ({}: HomeSectionProps) => {
           smooth={true}
           duration={500}
         >
-          Trailer
+          {t("home.nav.trailer")}
         </Link>
         <RouterLink to="/presskit" style={{ cursor: "pointer" }}>
-          Press Kit
+          {t("home.nav.pressKit")}
         </RouterLink>
         <RouterLink to="/stats" style={{ cursor: "pointer" }}>
-          Stats
+          {t("home.nav.stats")}
         </RouterLink>
       </Flex>
     </Flex>
@@ -119,7 +123,8 @@ export const HomeSection = ({}: HomeSectionProps) => {
         width={"100%"}
         zIndex={1}
         px={6}
-        py={2}
+        pt={{ base: 3, md: 4 }}
+        pb={2}
       >
         <Image src="/logos/jn-logo.png" alt="Jokers of Neon Logo" h="40px" />
       </Flex>
@@ -163,7 +168,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                   fontWeight="light"
                   fontFamily={"Orbitron"}
                 >
-                  ABOUT GAME
+                  {t("home.drawer.aboutGame")}
                 </Text>
               </Box>
 
@@ -182,7 +187,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                     )
                   }
                 >
-                  PLAY GAME
+                  {t("home.drawer.playGame")}
                 </Text>
               </Box>
 
@@ -194,7 +199,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                   fontWeight="light"
                   fontFamily={"Orbitron"}
                 >
-                  CONTACT
+                  {t("home.drawer.contact")}
                 </Text>
               </Box>
 
@@ -207,7 +212,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                     fontWeight="light"
                     fontFamily={"Orbitron"}
                   >
-                    PRESS KIT
+                    {t("home.drawer.pressKit")}
                   </Text>
                 </RouterLink>
               </Box>
@@ -221,7 +226,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                     fontWeight="light"
                     fontFamily={"Orbitron"}
                   >
-                    STATS
+                    {t("home.drawer.stats")}
                   </Text>
                 </RouterLink>
               </Box>
@@ -266,7 +271,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
       >
         <Spinner mr={4} />
         <Text fontSize="xl" fontFamily="Orbitron" color="white">
-          loading . . .
+          {t("home.loader")}
         </Text>
       </Flex>
 
@@ -333,7 +338,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
             letterSpacing="2px"
             maxW={{ base: isMobile ? "unset" : "60%", md: "60%", xl: "80%" }}
           >
-            BUILD YOUR DECK, RULE THE GAME
+            {t("home.heroTagline")}
           </Text>
           <Image
             src="/logos/logo-variant.png"
@@ -349,8 +354,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
             }}
             maxW={{ base: isMobile ? "unset" : "60%", md: "60%", xl: "80%" }}
           >
-            A strategy card game where collecting cards <br />
-            unlocks new ways to win.
+            <Trans i18nKey="home.subtitle" t={t} components={{ lineBreak: <br /> }} />
           </Text>
 
           {!isMobile && (
@@ -369,7 +373,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                 }
               >
                 <Text fontFamily="Orbitron" fontSize={[16, 18]}>
-                  PLAY GAME
+                  {t("home.playGame")}
                 </Text>
               </Button>
             </Flex>

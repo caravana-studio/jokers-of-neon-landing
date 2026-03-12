@@ -8,22 +8,18 @@ import {
   HStack,
   Image,
   Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   SimpleGrid,
   Text,
   Tooltip,
   VStack,
 } from "@chakra-ui/react";
-import { ChevronDownIcon, ChevronUpIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { ChevronUpIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { faInstagram, faTiktok, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faBook, faGlobe, faStore } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CircleFlagLanguage } from "react-circle-flags";
 import { type ReactNode, useEffect, useMemo, useRef, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
+import { I18nLanguageSwitcher } from "../Components/I18nLanguageSwitcher";
 import { ANDROID_URL, IOS_URL } from "../constants/app";
 import { VIOLET_LIGHT } from "./colors";
 
@@ -99,12 +95,6 @@ const creatorVideos = [
   { id: "fX49g90ROVE", autoplay: false },
   { id: "AVfktRwRq1w", autoplay: false },
 ];
-
-const languageOptions = [
-  { code: "en", flagCode: "en-us" },
-  { code: "es", flagCode: "es" },
-  { code: "pt", flagCode: "pt" },
-] as const;
 
 const scrollToId = (id: string) => {
   const target = document.getElementById(id);
@@ -604,26 +594,15 @@ const FixedCardsBackgroundBand = () => (
 );
 
 export const PresskitPage = () => {
-  const { t, i18n } = useTranslation("presskit");
+  const { t } = useTranslation("presskit");
   usePresskitSeo(t("seo.title"), t("seo.description"), t("seo.ogDescription"));
 
-  const currentLanguage = (i18n.resolvedLanguage ?? "en").slice(0, 2);
-  const currentLanguageOption =
-    languageOptions.find((language) => language.code === currentLanguage) ?? languageOptions[0];
   const [showBackToTop, setShowBackToTop] = useState(false);
   const [heroScrollProgress, setHeroScrollProgress] = useState(0);
   const [autoplayTeaser, setAutoplayTeaser] = useState(false);
   const [autoplayCoreLoop, setAutoplayCoreLoop] = useState(false);
   const teaserRef = useRef<HTMLDivElement | null>(null);
   const coreLoopRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const storedLanguage = window.localStorage.getItem("presskit_language");
-    if (!storedLanguage) return;
-    if (storedLanguage !== currentLanguage && languageOptions.some((item) => item.code === storedLanguage)) {
-      void i18n.changeLanguage(storedLanguage);
-    }
-  }, [currentLanguage, i18n]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -658,12 +637,6 @@ export const PresskitPage = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleLanguageChange = (languageCode: string) => {
-    if (languageCode === currentLanguage) return;
-    void i18n.changeLanguage(languageCode);
-    window.localStorage.setItem("presskit_language", languageCode);
-  };
-
   return (
     <Box
       minH="100vh"
@@ -679,64 +652,7 @@ export const PresskitPage = () => {
         right={{ base: 3, md: 4 }}
         zIndex={20}
       >
-        <Menu placement="bottom-end" autoSelect={false}>
-          <MenuButton
-            as={Button}
-            size="sm"
-            variant="ghost"
-            bg="blackAlpha.600"
-            border="1px solid"
-            borderColor="whiteAlpha.400"
-            borderRadius="full"
-            px={1.5}
-            minW="unset"
-            _hover={{ bg: "blackAlpha.700" }}
-            _active={{ bg: "blackAlpha.700" }}
-            backdropFilter="blur(6px)"
-          >
-            <HStack spacing={1}>
-              <Box width="22px" height="22px" borderRadius="full" overflow="hidden">
-                <CircleFlagLanguage
-                  languageCode={currentLanguageOption.flagCode}
-                  width="22"
-                  height="22"
-                  style={{ width: "22px", height: "22px", display: "block", objectFit: "cover" }}
-                />
-              </Box>
-              <ChevronDownIcon boxSize={4} color="whiteAlpha.800" />
-            </HStack>
-          </MenuButton>
-          <MenuList
-            bg="blackAlpha.900"
-            borderColor="whiteAlpha.300"
-            minW="170px"
-            py={1}
-          >
-            {languageOptions.map((language) => (
-              <MenuItem
-                key={language.code}
-                onClick={() => handleLanguageChange(language.code)}
-                bg="transparent"
-                color="white"
-                _hover={{ bg: "whiteAlpha.200" }}
-                _focus={{ bg: "whiteAlpha.200" }}
-                isDisabled={language.code === currentLanguage}
-              >
-                <HStack spacing={3}>
-                  <Box width="18px" height="18px" borderRadius="full" overflow="hidden" flexShrink={0}>
-                    <CircleFlagLanguage
-                      languageCode={language.flagCode}
-                      width="18"
-                      height="18"
-                      style={{ width: "18px", height: "18px", display: "block", objectFit: "cover" }}
-                    />
-                  </Box>
-                  <Text>{t(`language.${language.code}`)}</Text>
-                </HStack>
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
+        <I18nLanguageSwitcher namespace="presskit" />
       </Box>
 
       <Box

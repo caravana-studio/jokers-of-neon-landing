@@ -1,10 +1,12 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 import { Element } from "react-scroll";
 import CosmicCards from "./Cards";
 
 export const CardsSection = () => {
+  const { t } = useTranslation("landing");
   const textElement = (
     <Box
       position="relative"
@@ -37,14 +39,13 @@ export const CardsSection = () => {
         maxW="100%"
         mx="auto"
       >
-        Jokers of Neon is a strategy card game where you score points by playing poker hands and beat levels.
+        {t("cards.description.p1")}
         <br />
         <br />
-        Collect new cards, unlock powerful combos, and build a powerful deck to climb through challenging
-        rounds. 
-        <br /> <br />
-        It's free to play and works smoothly on both
-        mobile and desktop.
+        {t("cards.description.p2")}
+        <br />
+        <br />
+        {t("cards.description.p3")}
       </Text>
     </Box>
   );
@@ -90,7 +91,7 @@ export const CardsSection = () => {
               }}
               fontFamily="Orbitron"
             >
-              Build Your Deck, Rule the Game
+              {t("cards.marquee")}
             </Text>
           </motion.div>
         </Flex>

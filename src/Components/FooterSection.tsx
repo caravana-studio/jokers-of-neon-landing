@@ -2,10 +2,12 @@ import { Flex, Image, Link, Text, Tooltip } from "@chakra-ui/react";
 import { faDiscord, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 import { VIOLET } from "../theme/colors.tsx";
 import { faBook } from "@fortawesome/free-solid-svg-icons";
 
 export const FooterSection = () => {
+  const { t } = useTranslation("landing");
   const poweredBy = (
     <Flex
       gap={10}
@@ -25,7 +27,7 @@ export const FooterSection = () => {
           fontFamily="Orbitron"
           fontWeight={"semibold"}
         >
-          Powered by
+          {t("footer.poweredBy")}
         </Text>
       </Flex>
 
@@ -48,7 +50,7 @@ export const FooterSection = () => {
           fontFamily="Orbitron"
           fontStyle="italic"
         >
-          SINCE 2025
+          {t("footer.since")}
         </Text>
       )}
     </Flex>
@@ -56,7 +58,7 @@ export const FooterSection = () => {
 
   const logos = (
     <>
-      <Tooltip label={"Follow us on X!"} placement="top">
+      <Tooltip label={t("footer.tooltipX")} placement="top">
         <Flex
           border="1px solid white"
           w={"60px"}
@@ -76,7 +78,7 @@ export const FooterSection = () => {
           </Link>
         </Flex>
       </Tooltip>
-      <Tooltip label={"Join our discord!"} placement="top">
+      <Tooltip label={t("footer.tooltipDiscord")} placement="top">
         <Flex
           border="1px solid white"
           w={"60px"}
@@ -96,7 +98,7 @@ export const FooterSection = () => {
           </Link>
         </Flex>
       </Tooltip>
-            <Tooltip label={"Check out our docs"} placement="top">
+      <Tooltip label={t("footer.tooltipDocs")} placement="top">
         <Flex
           border="1px solid white"
           w={"60px"}
@@ -162,7 +164,7 @@ export const FooterSection = () => {
                 textTransform="uppercase"
                 fontFamily="Orbitron"
               >
-                Collect
+                {t("footer.collect")}
               </Text>
 
               <Text
@@ -170,7 +172,7 @@ export const FooterSection = () => {
                 textTransform="uppercase"
                 fontFamily="Orbitron"
               >
-                Compete
+                {t("footer.compete")}
               </Text>
 
               <Text
@@ -178,7 +180,7 @@ export const FooterSection = () => {
                 textTransform="uppercase"
                 fontFamily="Orbitron"
               >
-                Conquer
+                {t("footer.conquer")}
               </Text>
             </Flex>
           </Flex>
@@ -204,7 +206,7 @@ export const FooterSection = () => {
               fontFamily="Orbitron"
               fontWeight={"semibold"}
             >
-              Since 2025
+              {t("footer.since")}
             </Text>
           </Flex>
 
