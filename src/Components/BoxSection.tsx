@@ -3,6 +3,7 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRef } from "react";
 import { isMobile } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
@@ -18,6 +19,7 @@ const animationsData = {
 };
 
 export const BoxSection = () => {
+  const { t } = useTranslation("landing");
   const spineAnimationRef = useRef<SpineAnimationRef>(null);
 
   const spineAnim = (
@@ -315,7 +317,7 @@ export const BoxSection = () => {
                   color="white"
                   fontFamily="Orbitron"
                 >
-                  STEP INTO
+                  {t("box.stepInto")}
                 </Text>
               </motion.div>
 
@@ -336,7 +338,7 @@ export const BoxSection = () => {
                   letterSpacing="widest"
                   fontFamily="Orbitron"
                 >
-                  STRATEGY
+                  {t("box.strategy")}
                 </Text>
               </motion.div>
             </Flex>
@@ -394,7 +396,7 @@ export const BoxSection = () => {
                   color="white"
                   fontFamily="Orbitron"
                 >
-                  STEP INTO
+                  {t("box.stepInto")}
                 </Text>
               </motion.div>
 
@@ -415,7 +417,7 @@ export const BoxSection = () => {
                   letterSpacing="widest"
                   fontFamily="Orbitron"
                 >
-                  BOOSTING
+                  {t("box.boosting")}
                 </Text>
               </motion.div>
             </Flex>
@@ -447,7 +449,7 @@ export const BoxSection = () => {
                   color="white"
                   fontFamily="Orbitron"
                 >
-                  STEP INTO
+                  {t("box.stepInto")}
                 </Text>
               </motion.div>
 
@@ -468,7 +470,7 @@ export const BoxSection = () => {
                   letterSpacing="widest"
                   fontFamily="Orbitron"
                 >
-                  COMPETENCE
+                  {t("box.competence")}
                 </Text>
               </motion.div>
             </Flex>

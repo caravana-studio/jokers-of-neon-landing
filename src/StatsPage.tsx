@@ -14,8 +14,10 @@ import {
 } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Contract, RpcProvider, type Abi } from "starknet";
+import { I18nLanguageSwitcher } from "./Components/I18nLanguageSwitcher";
 import {
   BACKGROUND_BLUE,
   BLUE,
@@ -120,11 +122,12 @@ const colors = {
   gridLine: "rgba(153, 153, 153, 0.18)",
 };
 
-const metricConfig: Record<MetricType, { label: string; color: string; icon: string }> = {
-  transactions: { label: "TRANSACTIONS", color: colors.neonCyan, icon: "💎" },
-  games: { label: "GAMES", color: colors.neonViolet, icon: "🃏" },
-  players: { label: "PLAYERS", color: colors.neonPink, icon: "👥" },
+const metricConfigBase: Record<MetricType, { labelKey: string; color: string; icon: string }> = {
+  transactions: { labelKey: "stats.metrics.transactions", color: colors.neonCyan, icon: "💎" },
+  games: { labelKey: "stats.metrics.games", color: colors.neonViolet, icon: "🃏" },
+  players: { labelKey: "stats.metrics.players", color: colors.neonPink, icon: "👥" },
 };
+const defaultMonthsShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
 // API fetch helper
 const fetchApi = async (endpoint: string) => {
@@ -141,11 +144,17 @@ const NeonLineChart = ({
   color,
   isLoading,
   granularity,
+  noDataLabel,
+  monthNames,
+  formatNumber,
 }: {
   data: TimeSeriesData[];
   color: string;
   isLoading: boolean;
   granularity: Granularity;
+  noDataLabel: string;
+  monthNames: string[];
+  formatNumber: (value: number) => string;
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [svgSize, setSvgSize] = useState({ width: 0, height: 0 });
@@ -216,7 +225,7 @@ const NeonLineChart = ({
     return (
       <Box h="100%" display="flex" alignItems="center" justifyContent="center">
         <Text color="whiteAlpha.500" fontFamily="Oxanium">
-          No data available
+          {noDataLabel}
         </Text>
       </Box>
     );
@@ -287,7 +296,6 @@ const NeonLineChart = ({
       const match = period.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
       if (match) {
         const [, year, month, day, hour] = match;
-        const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
         const monthIndex = Number(month) - 1;
         return `${monthNames[monthIndex]} ${day}, ${year} ${hour}:00`;
       }
@@ -303,8 +311,16 @@ const NeonLineChart = ({
       if (Number.isNaN(year) || Number.isNaN(monthIndex) || monthIndex < 0 || monthIndex > 11) {
         return period;
       }
-      const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
       return `${monthNames[monthIndex]} ${year}`;
+    }
+
+    const dayMatch = period.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (dayMatch) {
+      const [, year, month, day] = dayMatch;
+      const monthIndex = Number(month) - 1;
+      if (!Number.isNaN(monthIndex) && monthIndex >= 0 && monthIndex < 12) {
+        return `${monthNames[monthIndex]} ${day}, ${year}`;
+      }
     }
 
     return period;
@@ -458,7 +474,7 @@ const NeonLineChart = ({
           }}
         >
           <Text fontFamily="Orbitron" fontSize="md" color={color} fontWeight="bold">
-            {tooltip.value.toLocaleString()}
+            {formatNumber(tooltip.value)}
           </Text>
           <Text fontFamily="Oxanium" fontSize="sm" color="whiteAlpha.700">
             {formatPeriodLabel(tooltip.period)}
@@ -481,7 +497,7 @@ const NeonLineChart = ({
       >
         {yLabels.reverse().map((val, i) => (
           <Text key={i} fontSize="xs" color="whiteAlpha.500" fontFamily="Oxanium">
-            {val.toLocaleString()}
+            {formatNumber(val)}
           </Text>
         ))}
       </Box>
@@ -497,12 +513,14 @@ const StatCard = ({
   color,
   delay,
   isLoading,
+  formatNumber,
 }: {
   title: string;
   value: number;
   color: string;
   delay: number;
   isLoading: boolean;
+  formatNumber: (value: number) => string;
 }) => {
   const [displayValue, setDisplayValue] = useState(0);
 
@@ -598,7 +616,7 @@ const StatCard = ({
             animation={`${numberFlicker} 4s infinite`}
             textShadow={`0 0 20px ${color}, 0 0 40px ${color}80`}
           >
-            {displayValue.toLocaleString()}
+            {formatNumber(displayValue)}
           </Text>
         )}
       </VStack>
@@ -608,6 +626,7 @@ const StatCard = ({
 
 // Main Stats Page Component
 export const StatsPage = () => {
+  const { t, i18n } = useTranslation("landing");
   const [globalStats, setGlobalStats] = useState<GlobalStats | null>(null);
   const [chartData, setChartData] = useState<TimeSeriesData[]>([]);
   const [selectedMetric, setSelectedMetric] = useState<MetricType>("transactions");
@@ -617,6 +636,37 @@ export const StatsPage = () => {
   const [isLoadingChart, setIsLoadingChart] = useState(true);
   const [mintedCards, setMintedCards] = useState<number>(0);
   const [isLoadingMinted, setIsLoadingMinted] = useState(true);
+  const locale = useMemo(() => {
+    const languageCode = (i18n.resolvedLanguage ?? "en").slice(0, 2);
+    if (languageCode === "es") return "es-ES";
+    if (languageCode === "pt") return "pt-BR";
+    return "en-US";
+  }, [i18n.resolvedLanguage]);
+  const formatNumber = useCallback((value: number) => value.toLocaleString(locale), [locale]);
+  const monthNames = useMemo(() => {
+    const translatedMonths = t("stats.monthsShort", { returnObjects: true }) as unknown;
+    if (!Array.isArray(translatedMonths)) return defaultMonthsShort;
+    if (translatedMonths.length !== 12) return defaultMonthsShort;
+    return translatedMonths.map((month) => String(month).toUpperCase());
+  }, [t]);
+  const metricConfig = useMemo(
+    () =>
+      ({
+        transactions: {
+          ...metricConfigBase.transactions,
+          label: t(metricConfigBase.transactions.labelKey),
+        },
+        games: {
+          ...metricConfigBase.games,
+          label: t(metricConfigBase.games.labelKey),
+        },
+        players: {
+          ...metricConfigBase.players,
+          label: t(metricConfigBase.players.labelKey),
+        },
+      }) as Record<MetricType, { labelKey: string; label: string; color: string; icon: string }>,
+    [t]
+  );
 
   // Calculate date range based on selected time range
   const dateRange = useMemo(() => {
@@ -753,11 +803,11 @@ export const StatsPage = () => {
     return Math.round(total / chartData.length);
   }, [chartData]);
   const avgLabel = useMemo(() => {
-    if (granularity === "hour") return "HOURLY AVG";
-    if (granularity === "day") return "DAILY AVG";
-    if (granularity === "week") return "WEEKLY AVG";
-    return "MONTHLY AVG";
-  }, [granularity]);
+    if (granularity === "hour") return t("stats.chart.avg.hour");
+    if (granularity === "day") return t("stats.chart.avg.day");
+    if (granularity === "week") return t("stats.chart.avg.week");
+    return t("stats.chart.avg.month");
+  }, [granularity, t]);
 
   return (
     <Box
@@ -773,6 +823,15 @@ export const StatsPage = () => {
       overflowX="hidden"
       overflowY={{ base: "auto", md: "hidden" }}
     >
+      <Box
+        position="fixed"
+        top={{ base: 3, md: 4 }}
+        right={{ base: 3, md: 4 }}
+        zIndex={20}
+      >
+        <I18nLanguageSwitcher namespace="landing" />
+      </Box>
+
       {/* Decorative borders */}
       <Image
         src="/borders/top.png"
@@ -829,7 +888,7 @@ export const StatsPage = () => {
                 bgGradient={`linear(to-r, ${colors.neonCyan}, ${colors.neonViolet})`}
                 bgClip="text"
               >
-                LIVE STATS
+                {t("stats.header.title")}
               </Text>
               <Text
                 fontFamily="Oxanium"
@@ -837,7 +896,7 @@ export const StatsPage = () => {
                 color="whiteAlpha.600"
                 letterSpacing="widest"
               >
-                REAL-TIME ANALYTICS
+                {t("stats.header.subtitle")}
               </Text>
             </Box>
           </Flex>
@@ -853,7 +912,7 @@ export const StatsPage = () => {
               animation={`${pulseGlow} 2s ease-in-out infinite`}
             />
             <Text fontFamily="Oxanium" fontSize="xs" color="whiteAlpha.600">
-              MAINNET
+              {t("stats.header.network")}
             </Text>
           </Flex>
         </Flex>
@@ -867,38 +926,42 @@ export const StatsPage = () => {
         >
           <GridItem>
             <StatCard
-              title="Total Transactions"
+              title={t("stats.cards.totalTransactions")}
               value={globalStats?.total_transactions || 0}
               color={colors.neonCyan}
               delay={0}
               isLoading={isLoadingGlobal}
+              formatNumber={formatNumber}
             />
           </GridItem>
           <GridItem>
             <StatCard
-              title="Total Games"
+              title={t("stats.cards.totalGames")}
               value={globalStats?.total_games || 0}
               color={colors.neonViolet}
               delay={0.15}
               isLoading={isLoadingGlobal}
+              formatNumber={formatNumber}
             />
           </GridItem>
           <GridItem>
             <StatCard
-              title="Unique Players"
+              title={t("stats.cards.uniquePlayers")}
               value={globalStats?.total_unique_players || 0}
               color={colors.neonPink}
               delay={0.3}
               isLoading={isLoadingGlobal}
+              formatNumber={formatNumber}
             />
           </GridItem>
           <GridItem>
             <StatCard
-              title="Minted Cards"
+              title={t("stats.cards.mintedCards")}
               value={mintedCards}
               color={colors.neonGreen}
               delay={0.45}
               isLoading={isLoadingMinted}
+              formatNumber={formatNumber}
             />
           </GridItem>
         </Grid>
@@ -938,7 +1001,7 @@ export const StatsPage = () => {
             <Flex w="100%" flexDir="column" gap={{ base: 3, md: 2 }}>
               {/* Metric Selector */}
               <ButtonGroup size={{ base: "xs", md: "sm" }} isAttached variant="outline" w={{ base: "100%", md: "auto" }}>
-                {(Object.keys(metricConfig) as MetricType[]).map((metric) => (
+                {(Object.keys(metricConfigBase) as MetricType[]).map((metric) => (
                   <Button
                     key={metric}
                     onClick={() => setSelectedMetric(metric)}
@@ -954,7 +1017,7 @@ export const StatsPage = () => {
                       bg: `${metricConfig[metric].color}10`,
                       borderColor: metricConfig[metric].color,
                     }}
-                  >
+                    >
                     {metricConfig[metric].label}
                   </Button>
                 ))}
@@ -985,7 +1048,7 @@ export const StatsPage = () => {
                         borderColor: currentMetricConfig.color,
                       }}
                     >
-                      {range === "all" ? "ALL" : range}
+                      {range === "all" ? t("stats.chart.all") : range}
                     </Button>
                   ))}
                 </ButtonGroup>
@@ -1005,10 +1068,10 @@ export const StatsPage = () => {
                     _hover={{ borderColor: currentMetricConfig.color }}
                     _focus={{ borderColor: currentMetricConfig.color, boxShadow: `0 0 0 1px ${currentMetricConfig.color}` }}
                   >
-                    <option value="hour">HOURLY</option>
-                    <option value="day">DAILY</option>
-                    <option value="week">WEEKLY</option>
-                    <option value="month">MONTHLY</option>
+                    <option value="hour">{t("stats.chart.granularity.hour")}</option>
+                    <option value="day">{t("stats.chart.granularity.day")}</option>
+                    <option value="week">{t("stats.chart.granularity.week")}</option>
+                    <option value="month">{t("stats.chart.granularity.month")}</option>
                   </Select>
                 </Flex>
 
@@ -1017,7 +1080,7 @@ export const StatsPage = () => {
                     {avgLabel}
                   </Text>
                   <Text fontSize="lg" color={currentMetricConfig.color} fontFamily="Orbitron" fontWeight="bold">
-                    {avg.toLocaleString()}
+                    {formatNumber(avg)}
                   </Text>
                 </Box>
               </Flex>
@@ -1031,6 +1094,9 @@ export const StatsPage = () => {
               color={currentMetricConfig.color}
               isLoading={isLoadingChart}
               granularity={granularity}
+              noDataLabel={t("stats.chart.noData")}
+              monthNames={monthNames}
+              formatNumber={formatNumber}
             />
           </Box>
         </Flex>

@@ -1,10 +1,12 @@
 import { Box, Button, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { isMobile } from "react-device-detect";
+import { Trans, useTranslation } from "react-i18next";
 import { Element } from "react-scroll";
 
 interface DemoSectionProps {}
 
 export const DemoSection = ({}: DemoSectionProps) => {
+  const { t } = useTranslation("landing");
   const title = (
     <Flex
       justifyContent={"center"}
@@ -34,7 +36,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
           },
         }}
       >
-        Play whenever and wherever you want
+        {t("demo.title")}
       </Text>
     </Flex>
   );
@@ -84,7 +86,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
           }
           sx={{ flexDirection: "row", display: "flex", gap: 3 }}
         >
-          PLAY ON DESKTOP
+          {t("demo.playDesktop")}
         </Button>
       )}
     </Flex>
@@ -255,8 +257,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
                 letterSpacing={"2px"}
                 pb={"2%"}
               >
-                Jokers of Neon is optimized for both mobile and desktop, so you
-                can play anytime, anywhere.
+                {t("demo.description.p1")}
               </Text>
               <Text
                 fontFamily={"Orbitron"}
@@ -265,8 +266,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
                 fontSize={{ base: "sm", xl: "md", xxl: "2xl" }}
                 letterSpacing={"2px"}
               >
-                The game is currently in early access <br />
-                Join our Discord to test the game before the official release!
+                <Trans i18nKey="demo.description.p2" t={t} components={{ lineBreak: <br /> }} />
               </Text>
             </Flex>
 
@@ -330,8 +330,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
-                    Jokers of Neon is optimized for both mobile and desktop, so
-                    you can play anytime, anywhere.{" "}
+                    {t("demo.description.p1")}
                   </Text>
                 </Flex>
                 <Flex justifyContent={"center"} alignContent={"center"}>
@@ -342,9 +341,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
                     letterSpacing={"2px"}
                     fontFamily={"Orbitron"}
                   >
-                    The game is currently in early access <br />
-                    Join our Discord to test the game before the official
-                    release!
+                    <Trans i18nKey="demo.description.p2" t={t} components={{ lineBreak: <br /> }} />
                   </Text>
                 </Flex>
               </Flex>

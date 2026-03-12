@@ -1,0 +1,290 @@
+export const landingResources = {
+  en: {
+    landing: {
+      language: {
+        en: "English",
+        es: "Español",
+        pt: "Português",
+      },
+      home: {
+        nav: {
+          about: "About",
+          playGame: "Play game",
+          trailer: "Trailer",
+          pressKit: "Press Kit",
+          stats: "Stats",
+        },
+        drawer: {
+          aboutGame: "About game",
+          playGame: "Play game",
+          contact: "Contact",
+          pressKit: "Press Kit",
+          stats: "Stats",
+        },
+        loader: "loading . . .",
+        heroTagline: "Build your deck, rule the game",
+        subtitle: "A strategy card game where collecting cards <lineBreak/> unlocks new ways to win.",
+        playGame: "Play game",
+      },
+      cards: {
+        marquee: "Build your deck, rule the game",
+        description: {
+          p1: "Jokers of Neon is a strategy card game where you score points by playing poker hands and beat levels.",
+          p2: "Collect new cards, unlock powerful combos, and build a powerful deck to climb through challenging rounds.",
+          p3: "It's free to play and works smoothly on both mobile and desktop.",
+        },
+      },
+      box: {
+        stepInto: "Step into",
+        strategy: "Strategy",
+        boosting: "Boosting",
+        competence: "Competence",
+      },
+      demo: {
+        title: "Play whenever and wherever you want",
+        playDesktop: "Play on desktop",
+        description: {
+          p1: "Jokers of Neon is optimized for both mobile and desktop, so you can play anytime, anywhere.",
+          p2: "The game is already live <lineBreak/> Download the app now or play it on desktop.",
+        },
+      },
+      footer: {
+        poweredBy: "Powered by",
+        since: "Since 2025",
+        tooltipX: "Follow us on X!",
+        tooltipDiscord: "Join our Discord!",
+        tooltipDocs: "Check out our docs",
+        collect: "Collect",
+        compete: "Compete",
+        conquer: "Conquer",
+      },
+      stats: {
+        header: {
+          title: "LIVE STATS",
+          subtitle: "REAL-TIME ANALYTICS",
+          network: "MAINNET",
+        },
+        cards: {
+          totalTransactions: "Total Transactions",
+          totalGames: "Total Games",
+          uniquePlayers: "Unique Players",
+          mintedCards: "Minted Cards",
+        },
+        metrics: {
+          transactions: "TRANSACTIONS",
+          games: "GAMES",
+          players: "PLAYERS",
+        },
+        chart: {
+          noData: "No data available",
+          all: "ALL",
+          granularity: {
+            hour: "HOURLY",
+            day: "DAILY",
+            week: "WEEKLY",
+            month: "MONTHLY",
+          },
+          avg: {
+            hour: "HOURLY AVG",
+            day: "DAILY AVG",
+            week: "WEEKLY AVG",
+            month: "MONTHLY AVG",
+          },
+        },
+        monthsShort: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
+      },
+    },
+  },
+  es: {
+    landing: {
+      language: {
+        en: "English",
+        es: "Español",
+        pt: "Português",
+      },
+      home: {
+        nav: {
+          about: "Acerca de",
+          playGame: "Jugar",
+          trailer: "Tráiler",
+          pressKit: "Press Kit",
+          stats: "Estadísticas",
+        },
+        drawer: {
+          aboutGame: "Acerca del juego",
+          playGame: "Jugar",
+          contact: "Contacto",
+          pressKit: "Press Kit",
+          stats: "Estadísticas",
+        },
+        loader: "cargando . . .",
+        heroTagline: "Arma tu mazo, domina el juego",
+        subtitle: "Un juego de cartas estratégico donde coleccionar cartas <lineBreak/> desbloquea nuevas formas de ganar.",
+        playGame: "Jugar",
+      },
+      cards: {
+        marquee: "Arma tu mazo, domina el juego",
+        description: {
+          p1: "Jokers of Neon es un juego de cartas estratégico en el que sumas puntos al jugar manos de póker y superar niveles.",
+          p2: "Colecciona cartas nuevas, desbloquea combos poderosos y crea un mazo fuerte para avanzar en rondas desafiantes.",
+          p3: "Es gratis y funciona muy bien tanto en móvil como en desktop.",
+        },
+      },
+      box: {
+        stepInto: "Entra en",
+        strategy: "Estrategia",
+        boosting: "Potenciación",
+        competence: "Competencia",
+      },
+      demo: {
+        title: "Juega cuando y donde quieras",
+        playDesktop: "Jugar en desktop",
+        description: {
+          p1: "Jokers of Neon está optimizado para móvil y desktop, para que puedas jugar cuando quieras y donde quieras.",
+          p2: "El juego ya está disponible <lineBreak/> Descarga la app ahora o juégalo en desktop.",
+        },
+      },
+      footer: {
+        poweredBy: "Impulsado por",
+        since: "Desde 2025",
+        tooltipX: "¡Síguenos en X!",
+        tooltipDiscord: "¡Únete a nuestro Discord!",
+        tooltipDocs: "Mira nuestra documentación",
+        collect: "Colecciona",
+        compete: "Compite",
+        conquer: "Conquista",
+      },
+      stats: {
+        header: {
+          title: "ESTADÍSTICAS EN VIVO",
+          subtitle: "ANALÍTICAS EN TIEMPO REAL",
+          network: "MAINNET",
+        },
+        cards: {
+          totalTransactions: "Transacciones Totales",
+          totalGames: "Partidas Totales",
+          uniquePlayers: "Jugadores Únicos",
+          mintedCards: "Cartas Minteadas",
+        },
+        metrics: {
+          transactions: "TRANSACCIONES",
+          games: "PARTIDAS",
+          players: "JUGADORES",
+        },
+        chart: {
+          noData: "No hay datos disponibles",
+          all: "TODO",
+          granularity: {
+            hour: "HORARIO",
+            day: "DIARIO",
+            week: "SEMANAL",
+            month: "MENSUAL",
+          },
+          avg: {
+            hour: "PROM. HORARIO",
+            day: "PROM. DIARIO",
+            week: "PROM. SEMANAL",
+            month: "PROM. MENSUAL",
+          },
+        },
+        monthsShort: ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"],
+      },
+    },
+  },
+  pt: {
+    landing: {
+      language: {
+        en: "English",
+        es: "Español",
+        pt: "Português",
+      },
+      home: {
+        nav: {
+          about: "Sobre",
+          playGame: "Jogar",
+          trailer: "Trailer",
+          pressKit: "Press Kit",
+          stats: "Estatísticas",
+        },
+        drawer: {
+          aboutGame: "Sobre o jogo",
+          playGame: "Jogar",
+          contact: "Contato",
+          pressKit: "Press Kit",
+          stats: "Estatísticas",
+        },
+        loader: "carregando . . .",
+        heroTagline: "Monte seu baralho, domine o jogo",
+        subtitle: "Um jogo de cartas estratégico onde colecionar cartas <lineBreak/> desbloqueia novas formas de vencer.",
+        playGame: "Jogar",
+      },
+      cards: {
+        marquee: "Monte seu baralho, domine o jogo",
+        description: {
+          p1: "Jokers of Neon é um jogo de cartas estratégico em que você marca pontos jogando mãos de pôquer e vencendo níveis.",
+          p2: "Colecione novas cartas, desbloqueie combos poderosos e monte um baralho forte para avançar por rodadas desafiadoras.",
+          p3: "É grátis para jogar e funciona muito bem no mobile e no desktop.",
+        },
+      },
+      box: {
+        stepInto: "Entre em",
+        strategy: "Estratégia",
+        boosting: "Impulso",
+        competence: "Competência",
+      },
+      demo: {
+        title: "Jogue quando e onde quiser",
+        playDesktop: "Jogar no desktop",
+        description: {
+          p1: "Jokers of Neon é otimizado para mobile e desktop, para que você possa jogar a qualquer hora e em qualquer lugar.",
+          p2: "O jogo já está no ar <lineBreak/> Baixe o app agora ou jogue no desktop.",
+        },
+      },
+      footer: {
+        poweredBy: "Impulsionado por",
+        since: "Desde 2025",
+        tooltipX: "Siga-nos no X!",
+        tooltipDiscord: "Entre no nosso Discord!",
+        tooltipDocs: "Confira nossa documentação",
+        collect: "Colecione",
+        compete: "Compita",
+        conquer: "Conquiste",
+      },
+      stats: {
+        header: {
+          title: "ESTATÍSTICAS AO VIVO",
+          subtitle: "ANÁLISES EM TEMPO REAL",
+          network: "MAINNET",
+        },
+        cards: {
+          totalTransactions: "Transações Totais",
+          totalGames: "Partidas Totais",
+          uniquePlayers: "Jogadores Únicos",
+          mintedCards: "Cartas Mintadas",
+        },
+        metrics: {
+          transactions: "TRANSAÇÕES",
+          games: "PARTIDAS",
+          players: "JOGADORES",
+        },
+        chart: {
+          noData: "Sem dados disponíveis",
+          all: "TUDO",
+          granularity: {
+            hour: "HORÁRIO",
+            day: "DIÁRIO",
+            week: "SEMANAL",
+            month: "MENSAL",
+          },
+          avg: {
+            hour: "MÉDIA HORÁRIA",
+            day: "MÉDIA DIÁRIA",
+            week: "MÉDIA SEMANAL",
+            month: "MÉDIA MENSAL",
+          },
+        },
+        monthsShort: ["JAN", "FEV", "MAR", "ABR", "MAI", "JUN", "JUL", "AGO", "SET", "OUT", "NOV", "DEZ"],
+      },
+    },
+  },
+} as const;
