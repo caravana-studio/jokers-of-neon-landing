@@ -103,7 +103,7 @@
     },
     {
       "address": "0x13ca3f6efe76a1dbac028820244cd8292e607d44ecb1ba1ed0862ad7eadd7e7",
-      "class_hash": "0x2ff06021a4bb39a9755156691227f1c8d2db2cc14e19d88eed75c921db39c8d",
+      "class_hash": "0x3da06e46d48c7ec664ff5fb05f616cf4d542b7b76d99523d392a6d4788de84f",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-game_views",
       "selector": "0x76d5d3b88a6df58809f5adc13d97b6f04db21a0ddf1f68119a24d588ff3e77b",
@@ -182,7 +182,7 @@
     },
     {
       "address": "0x194d53f0906cd3a780e2384adbcb3f9885847d2e09b1edc02019d7413d6d2e1",
-      "class_hash": "0x59f48c66567480f3617619fbc18e8ff46b920cf9594efd592062f1b4a5dc1a6",
+      "class_hash": "0xd8f5f4d115e1b35502a55172ce89858ffcec3cede1da599d5dc3ce4fba7e40",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-map_system",
       "selector": "0x71f0e07009ce93b04a0eacd60f84a5157e9c87953b46a14467df64cee04e4bf",
@@ -215,7 +215,7 @@
     },
     {
       "address": "0x2d0d1cd89bad6313c824d27a3d5f62bfc5d2c2682a9f3ade8bc13bd85867442",
-      "class_hash": "0x49bbd09620dece0fa087b61c396ecb91931c0d39968adebf3a55db5ba589925",
+      "class_hash": "0x7244d0c1bcce0776b62a7ef2aac42466cd9b15df5d5a12243fa557f4fb11a58",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-pack_system",
       "selector": "0x36e99b2a908b50c341dd172c2cd143e86305a51c218291f755dcfbff41d0041",
@@ -9009,6 +9009,28 @@
           "outputs": [
             {
               "type": "jokers_of_neon_lib::models::external::profile::PlayerStats"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_current_season_id",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u32"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_free_pack_id",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::integer::u32"
             }
           ],
           "state_mutability": "view"
