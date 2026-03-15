@@ -78,10 +78,8 @@ const officialLinks: OfficialLinkItem[] = [
   { labelKey: "officialLinks.labels.website", value: "https://jokersofneon.com", icon: faGlobe },
   {
     labelKey: "officialLinks.labels.marketplace",
-    value: "https://jokersofneon.com/marketplace",
+    value: "https://marketplace.jokersofneon.com",
     icon: faStore,
-    disabled: true,
-    tooltip: "officialLinks.marketplaceComingSoon",
   },
   { labelKey: "officialLinks.labels.docs", value: "https://docs.jokersofneon.com/", icon: faBook },
   { labelKey: "officialLinks.labels.x", value: "https://x.com/jokers_of_neon", icon: faXTwitter },

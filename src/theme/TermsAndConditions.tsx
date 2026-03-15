@@ -2,6 +2,8 @@ import { Box, Heading, Link, Stack, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import LanguageSwitcher, { Languages } from "../Components/LanguageSwitcher";
 
+const MARKETPLACE_TERMS_URL = "https://marketplace.jokersofneon.com/terms";
+
 const ENGLISH_TERMS_AND_CONDITIONS = (
   <>
     <Heading as="h1" mb={6}>
@@ -12,7 +14,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
 
     <Stack spacing={4}>
       <Text>
-        <strong>Effective Date:</strong> January 12, 2026
+        <strong>Effective Date:</strong> March 13, 2026
         <br />
         <strong>Entity:</strong> Caravana Studio LLC (Delaware, USA)
         <br />
@@ -26,7 +28,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
       <Text>
         – Jokers of Neon is a skill-based strategy card game in <strong>Season 1</strong>.
         <br />
-        – You must be at least <strong>13 years old</strong> to play.
+        – You must be at least <strong>13 years old</strong> to play and <strong>18 years old</strong> to use the official Marketplace.
         <br />
         – Season Passes and card packs are sold in <strong>USD via Stripe on desktop</strong>, and via <strong>Apple Pay on iOS</strong> or <strong>Google Pay on Android</strong> (currency may vary).
         <br />
@@ -34,7 +36,11 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         <br />
         – Cards earned or purchased may be <strong>NFTs on Starknet</strong>.
         <br />
-        – We do not operate a marketplace and are not responsible for external trading.
+        – The official Jokers of Neon Marketplace is governed by separate{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Marketplace Terms of Use
+        </Link>
+        ; we are not responsible for third-party trading platforms.
         <br />
         – NFTs are collectibles, not investments, and have no guaranteed value.
         <br />
@@ -52,6 +58,11 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         agree to be bound by these Terms and our{" "}
         <Link href="https://jokersofneon.com/privacy-policy" isExternal color="blue.500">
           Privacy Policy
+        </Link>
+        . If you use the official Jokers of Neon Marketplace, you must also
+        accept the separate{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Marketplace Terms of Use
         </Link>
         . If you do not agree, you must not access or use the Game.
       </Text>
@@ -80,6 +91,15 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         <br />
         You are responsible for maintaining the confidentiality and security of
         your account credentials and for all activity associated with your account.
+        <br />
+        <br />
+        Use of the official Jokers of Neon Marketplace, if available, requires
+        that you be at least <strong>18 years old</strong> and accept the
+        separate{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Marketplace Terms of Use
+        </Link>
+        .
       </Text>
 
       {/* 4 */}
@@ -153,13 +173,19 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
 
       {/* 8 */}
       <Heading as="h2" size="md">
-        8. No Marketplace
+        8. Official Marketplace and Third-Party Marketplaces
       </Heading>
       <Text>
-        Caravana Studio does not operate, facilitate, or endorse any marketplace
-        for NFTs. Any external transfer or trading occurs independently and at
-        your own risk. We are not responsible for third-party platforms, losses,
-        scams, or disputes.
+        Caravana Studio may operate the official Jokers of Neon Marketplace,
+        which is governed by separate{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Marketplace Terms of Use
+        </Link>
+        . Except for the official Marketplace, Caravana Studio does not
+        operate, facilitate, or endorse third-party marketplaces for NFTs. Any
+        transfer or trading on third-party platforms occurs independently and
+        at your own risk. We are not responsible for third-party platforms,
+        losses, scams, or disputes.
       </Text>
 
       {/* 9 */}
@@ -303,7 +329,7 @@ const SPANISH_TERMS_AND_CONDITIONS = (
 
     <Stack spacing={4}>
       <Text>
-        <strong>Fecha de vigencia:</strong> 12 de enero de 2026
+        <strong>Fecha de vigencia:</strong> 13 de marzo de 2026
         <br />
         <strong>Entidad:</strong> Caravana Studio LLC (Delaware, EE. UU.)
         <br />
@@ -317,7 +343,7 @@ const SPANISH_TERMS_AND_CONDITIONS = (
         – Jokers of Neon es un juego de cartas estratégico basado en habilidad
         en la <strong>Temporada 1</strong>.
         <br />
-        – Debes tener al menos <strong>13 años</strong> para jugar.
+        – Debes tener al menos <strong>13 años</strong> para jugar y <strong>18 años</strong> para usar el Marketplace oficial.
         <br />
         – Los Season Passes y packs de cartas se venden en <strong>USD vía Stripe en escritorio</strong>
         y con <strong>Apple Pay en iOS</strong> o <strong>Google Pay en Android</strong> (la moneda puede variar).
@@ -327,7 +353,11 @@ const SPANISH_TERMS_AND_CONDITIONS = (
         <br />
         – Las cartas obtenidas o compradas pueden ser <strong>NFTs en Starknet</strong>.
         <br />
-        – No operamos un marketplace ni somos responsables por intercambios externos.
+        – El Marketplace oficial de Jokers of Neon se rige por los{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Términos de Uso del Marketplace
+        </Link>
+        ; no somos responsables por marketplaces de terceros.
         <br />
         – Los NFTs son coleccionables, no inversiones, y no tienen valor garantizado.
         <br />
@@ -344,6 +374,11 @@ const SPANISH_TERMS_AND_CONDITIONS = (
         aceptas quedar vinculado por estos Términos y por nuestra{" "}
         <Link href="https://jokersofneon.com/privacy-policy" isExternal color="blue.500">
           Política de Privacidad
+        </Link>
+        . Si utilizas el Marketplace oficial de Jokers of Neon, también debes
+        aceptar los{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Términos de Uso del Marketplace
         </Link>
         . Si no estás de acuerdo, no debes acceder ni utilizar el Juego.
       </Text>
@@ -369,6 +404,14 @@ const SPANISH_TERMS_AND_CONDITIONS = (
         <br />
         Eres responsable de mantener la confidencialidad y seguridad de tus
         credenciales y de toda actividad realizada desde tu cuenta.
+        <br />
+        <br />
+        El uso del Marketplace oficial de Jokers of Neon, si está disponible,
+        requiere que tengas al menos <strong>18 años</strong> y que aceptes los{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Términos de Uso del Marketplace
+        </Link>
+        .
       </Text>
 
       <Heading as="h2" size="md">
@@ -438,13 +481,19 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Text>
 
       <Heading as="h2" size="md">
-        8. Ausencia de Marketplace
+        8. Marketplace Oficial y Marketplaces de Terceros
       </Heading>
       <Text>
-        Caravana Studio no opera ni facilita ningún marketplace de NFTs. Cualquier
-        transferencia o intercambio externo ocurre de forma independiente y
-        bajo tu propio riesgo. No somos responsables por plataformas de terceros,
-        pérdidas, estafas o disputas.
+        Caravana Studio puede operar el Marketplace oficial de Jokers of Neon,
+        sujeto a los{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Términos de Uso del Marketplace
+        </Link>
+        . Salvo por ese Marketplace oficial, Caravana Studio no opera, facilita
+        ni endosa marketplaces de terceros para NFTs. Cualquier transferencia o
+        intercambio en plataformas de terceros ocurre de forma independiente y
+        bajo tu propio riesgo. No somos responsables por plataformas de
+        terceros, pérdidas, estafas o disputas.
       </Text>
 
       <Heading as="h2" size="md">
@@ -576,7 +625,7 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
 
     <Stack spacing={4}>
       <Text>
-        <strong>Data de vigência:</strong> 12 de janeiro de 2026
+        <strong>Data de vigência:</strong> 13 de março de 2026
         <br />
         <strong>Entidade:</strong> Caravana Studio LLC (Delaware, EUA)
         <br />
@@ -590,7 +639,7 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
         – Jokers of Neon é um jogo de cartas estratégico baseado em habilidade
         na <strong>Temporada 1</strong>.
         <br />
-        – É necessário ter pelo menos <strong>13 anos</strong> para jogar.
+        – É necessário ter pelo menos <strong>13 anos</strong> para jogar e <strong>18 anos</strong> para usar o Marketplace oficial.
         <br />
         – Season Passes e pacotes de cartas são vendidos em <strong>USD via Stripe no desktop</strong>
         e com <strong>Apple Pay no iOS</strong> ou <strong>Google Pay no Android</strong> (a moeda pode variar).
@@ -600,7 +649,11 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
         <br />
         – As cartas obtidas ou compradas podem ser <strong>NFTs na Starknet</strong>.
         <br />
-        – Não operamos um marketplace nem somos responsáveis por trocas externas.
+        – O Marketplace oficial de Jokers of Neon é regido por{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Termos de Uso do Marketplace separados
+        </Link>
+        ; não somos responsáveis por marketplaces de terceiros.
         <br />
         – NFTs são colecionáveis, não investimentos, e não possuem valor garantido.
         <br />
@@ -618,6 +671,11 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
         você concorda em ficar vinculado a estes Termos e à nossa{" "}
         <Link href="https://jokersofneon.com/privacy-policy" isExternal color="blue.500">
           Política de Privacidade
+        </Link>
+        . Se você usar o Marketplace oficial de Jokers of Neon, também deverá
+        aceitar separadamente os{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Termos de Uso do Marketplace
         </Link>
         . Caso não concorde, você não deve acessar nem utilizar o Jogo.
       </Text>
@@ -644,6 +702,15 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
         <br />
         Você é responsável por manter a confidencialidade e a segurança de suas
         credenciais e por toda atividade realizada em sua conta.
+        <br />
+        <br />
+        O uso do Marketplace oficial de Jokers of Neon, se disponível, exige
+        que você tenha pelo menos <strong>18 anos</strong> e aceite
+        separadamente os{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Termos de Uso do Marketplace
+        </Link>
+        .
       </Text>
 
       <Heading as="h2" size="md">
@@ -713,11 +780,17 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       </Text>
 
       <Heading as="h2" size="md">
-        8. Ausência de Marketplace
+        8. Marketplace Oficial e Marketplaces de Terceiros
       </Heading>
       <Text>
-        A Caravana Studio não opera, facilita ou endossa qualquer marketplace de
-        NFTs. Qualquer transferência ou negociação externa ocorre de forma
+        A Caravana Studio pode operar o Marketplace oficial de Jokers of Neon,
+        sujeito aos{" "}
+        <Link href={MARKETPLACE_TERMS_URL} isExternal color="blue.500">
+          Termos de Uso do Marketplace
+        </Link>
+        . Exceto por esse Marketplace oficial, a Caravana Studio não opera,
+        facilita nem endossa marketplaces de terceiros para NFTs. Qualquer
+        transferência ou negociação em plataformas de terceiros ocorre de forma
         independente e por sua conta e risco. Não nos responsabilizamos por
         plataformas de terceiros, perdas, golpes ou disputas.
       </Text>

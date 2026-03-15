@@ -175,7 +175,6 @@ export const presskitResources = {
       officialLinks: {
         title: "Official Links",
         pressContact: "Press Contact",
-        marketplaceComingSoon: "Marketplace (coming soon)",
         labels: {
           website: "Website",
           marketplace: "Marketplace",
@@ -373,7 +372,6 @@ export const presskitResources = {
       officialLinks: {
         title: "Enlaces Oficiales",
         pressContact: "Contacto de Prensa",
-        marketplaceComingSoon: "Marketplace (próximamente)",
         labels: {
           website: "Sitio Web",
           marketplace: "Marketplace",
@@ -571,7 +569,6 @@ export const presskitResources = {
       officialLinks: {
         title: "Links Oficiais",
         pressContact: "Contato de Imprensa",
-        marketplaceComingSoon: "Marketplace (em breve)",
         labels: {
           website: "Website",
           marketplace: "Marketplace",
