@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { MainPageIsland } from "../islands/MainPageIsland";
+---
+
+<BaseLayout
+  title="Jokers of Neon - The first poker roguelike on-chain"
+  description="Free-to-play poker roguelike deck-builder running fully on-chain on Starknet. Build your deck, compete on leaderboards, and own your cards. Available on web, iOS, and Android."
+>
+  <MainPageIsland client:load />
+</BaseLayout>

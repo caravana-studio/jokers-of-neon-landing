@@ -15,7 +15,7 @@ import {
 import { keyframes } from "@emotion/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+
 import { Contract, RpcProvider, type Abi } from "starknet";
 import { I18nLanguageSwitcher } from "./Components/I18nLanguageSwitcher";
 import {
@@ -869,7 +869,7 @@ export const StatsPage = () => {
           flexShrink={0}
         >
           <Flex align="center" gap={3}>
-            <Link to="/">
+            <a href="/">
               <Image
                 src="/logos/jn-logo.png"
                 alt="Jokers of Neon Logo"
@@ -878,7 +878,7 @@ export const StatsPage = () => {
                 _hover={{ filter: "brightness(1.2)" }}
                 transition="filter 0.2s"
               />
-            </Link>
+            </a>
             <Box>
               <Text
                 fontFamily="Orbitron"

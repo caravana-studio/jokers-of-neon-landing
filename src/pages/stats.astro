@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { StatsPageIsland } from "../islands/StatsPageIsland";
+---
+
+<BaseLayout
+  title="Game Stats - Jokers of Neon"
+  description="Live on-chain statistics for Jokers of Neon. View total games, transactions, unique players, and leaderboard data."
+>
+  <StatsPageIsland client:load />
+</BaseLayout>

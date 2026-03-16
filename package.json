@@ -4,12 +4,18 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "dev:old": "vite",
+    "build:old": "tsc && vite build"
   },
   "dependencies": {
+    "@astrojs/react": "^5.0.0",
+    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/ts-plugin": "^1.10.7",
+    "@astrojs/vercel": "^10.0.1",
     "@cartridge/connector": "^0.11.3",
     "@cartridge/controller": "^0.11.3",
     "@chakra-ui/anatomy": "^2.1.1",
@@ -20,8 +26,11 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@starknet-react/chains": "^5.0.3",
+    "@types/lodash": "^4.17.24",
     "@vercel/analytics": "^1.5.0",
+    "astro": "^6.0.5",
     "i18next": "^25.8.16",
+    "lodash": "^4.17.23",
     "react": "^18.2.0",
     "react-circle-flags": "^0.0.23",
     "react-device-detect": "^2.2.3",

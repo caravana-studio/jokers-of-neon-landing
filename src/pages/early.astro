@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { EarlyAccessIsland } from "../islands/EarlyAccessIsland";
+---
+
+<BaseLayout
+  title="Early Access - Jokers of Neon Season Registration"
+  description="Register for early access to the next Jokers of Neon season. Connect your Starknet wallet and secure your spot."
+>
+  <EarlyAccessIsland client:only="react" />
+</BaseLayout>

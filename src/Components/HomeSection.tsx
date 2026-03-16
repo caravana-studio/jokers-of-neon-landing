@@ -17,7 +17,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { isIOS, isMobile } from "react-device-detect";
 import { Trans, useTranslation } from "react-i18next";
-import { Link as RouterLink } from "react-router-dom";
+
 import { Link } from "react-scroll";
 
 interface HomeSectionProps {}
@@ -99,12 +99,12 @@ export const HomeSection = ({}: HomeSectionProps) => {
         >
           {t("home.nav.trailer")}
         </Link>
-        <RouterLink to="/presskit" style={{ cursor: "pointer" }}>
+        <a href="/presskit" style={{ cursor: "pointer" }}>
           {t("home.nav.pressKit")}
-        </RouterLink>
-        <RouterLink to="/stats" style={{ cursor: "pointer" }}>
+        </a>
+        <a href="/stats" style={{ cursor: "pointer" }}>
           {t("home.nav.stats")}
-        </RouterLink>
+        </a>
       </Flex>
     </Flex>
   );
@@ -204,7 +204,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
               </Box>
 
               <Box sx={lineStyle}>
-                <RouterLink to="/presskit" style={{ textDecoration: "none" }}>
+                <a href="/presskit" style={{ textDecoration: "none" }}>
                   <Text
                     textAlign="center"
                     fontSize="xl"
@@ -214,11 +214,11 @@ export const HomeSection = ({}: HomeSectionProps) => {
                   >
                     {t("home.drawer.pressKit")}
                   </Text>
-                </RouterLink>
+                </a>
               </Box>
 
               <Box sx={lineStyle}>
-                <RouterLink to="/stats" style={{ textDecoration: "none" }}>
+                <a href="/stats" style={{ textDecoration: "none" }}>
                   <Text
                     textAlign="center"
                     fontSize="xl"
@@ -228,7 +228,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                   >
                     {t("home.drawer.stats")}
                   </Text>
-                </RouterLink>
+                </a>
               </Box>
             </VStack>
 

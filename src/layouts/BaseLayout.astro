@@ -1,0 +1,96 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage = "http://nicolasdulio.com/tweet.jpg",
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site).href} />
+    <meta property="og:site_name" content="Jokers of Neon" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.startsWith('http') ? ogImage : new URL(ogImage, Astro.site).href} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @font-face {
+    src: url("/fonts/Orbitron.ttf");
+    font-family: "Orbitron";
+  }
+  @font-face {
+    src: url("/fonts/Oxanium.ttf");
+    font-family: "Oxanium";
+  }
+  @font-face {
+    src: url("/fonts/Sonara.otf");
+    font-family: "Sonara";
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Oxanium";
+  }
+
+  .headline {
+    font-family: "Orbitron";
+  }
+
+  .italic {
+    font-family: "Sonara";
+  }
+
+  img {
+    user-select: none;
+    pointer-events: none;
+  }
+
+  body {
+    background-color: black;
+    color: white;
+    overflow-x: hidden !important;
+  }
+
+  .chakra-modal__content-container {
+    overflow: visible !important;
+  }
+</style>
