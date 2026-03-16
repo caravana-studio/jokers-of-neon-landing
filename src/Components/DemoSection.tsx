@@ -57,6 +57,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
           <Image
             src="/download/ios-black.svg"
             height={isMobile ? "40px" : "70px"}
+            alt="Download on the App Store"
           />
         </Link>
         <Link
@@ -67,6 +68,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
           <Image
             src="/download/android.svg"
             height={isMobile ? "60px" : "102px"}
+            alt="Get it on Google Play"
           />
         </Link>
       </Flex>
@@ -94,7 +96,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
 
   const mobileMockUp = (
     <Flex position={"relative"} width={isMobile ? "100%" : "40%"}>
-      <Image src="/elements/mobile-home-mockup.png" zIndex={0} />
+      <Image src="/elements/mobile-home-mockup.png" zIndex={0} alt="Jokers of Neon mobile gameplay" />
       <Box
         position="absolute"
         bottom="2%"
@@ -184,7 +186,7 @@ export const DemoSection = ({}: DemoSectionProps) => {
           }
         >
           <Flex width={isMobile ? "70%" : "40%"} position="relative">
-            <Image src="/elements/mockup.png" />
+            <Image src="/elements/mockup.png" alt="Jokers of Neon on desktop and mobile" />
 
             <Box
               position="absolute"

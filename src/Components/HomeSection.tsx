@@ -233,7 +233,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
             </VStack>
 
             <Box textAlign="center" mb={10}>
-              <Image src="/logos/logo-variant.svg" />
+              <Image src="/logos/logo-variant.svg" alt="Jokers of Neon logo" />
             </Box>
           </DrawerBody>
         </DrawerContent>
@@ -357,6 +357,24 @@ export const HomeSection = ({}: HomeSectionProps) => {
             <Trans i18nKey="home.subtitle" t={t} components={{ lineBreak: <br /> }} />
           </Text>
 
+          <Flex
+            gap={{ base: 4, md: 8 }}
+            opacity={0.7}
+            fontSize={{
+              base: isMobile ? "xs" : "2xs",
+              md: "sm",
+              xl: "md",
+            }}
+            fontFamily="Orbitron"
+            letterSpacing="1px"
+          >
+            <Text>4,500+ games</Text>
+            <Text>|</Text>
+            <Text>800+ players</Text>
+            <Text>|</Text>
+            <Text>100K+ transactions</Text>
+          </Flex>
+
           {!isMobile && (
             <Flex gap={10}>
               <Button
@@ -395,7 +413,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                 target="_blank"
                 textDecoration="none"
               >
-                <Image src="/download/ios-black.svg" width="180px" />
+                <Image src="/download/ios-black.svg" width="180px" alt="Download on the App Store" />
               </ChakraLink>
             ) : (
               <ChakraLink
@@ -403,7 +421,7 @@ export const HomeSection = ({}: HomeSectionProps) => {
                 target="_blank"
                 textDecoration="none"
               >
-                <Image src="/download/android.svg" width="220px" />
+                <Image src="/download/android.svg" width="220px" alt="Get it on Google Play" />
               </ChakraLink>
             )}
           </Flex>

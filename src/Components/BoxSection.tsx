@@ -154,7 +154,7 @@ export const BoxSection = () => {
               {spineAnim}
             </Flex>
           )}
-          <Image w="100%" src={"/elements/specials.png"} borderRadius="25px" />
+          <Image w="100%" src={"/elements/specials.png"} borderRadius="25px" alt="Special cards collection" />
         </Flex>
       </Flex>
     </Flex>
@@ -187,7 +187,7 @@ export const BoxSection = () => {
           {coin1}
           {coin2}
           {coin3}
-          <Image w="100%" src={"/elements/joker.png"} borderRadius="25px" />
+          <Image w="100%" src={"/elements/joker.png"} borderRadius="25px" alt="Joker boosting card" />
         </Flex>
       </Flex>
     </Flex>
@@ -209,7 +209,7 @@ export const BoxSection = () => {
         zIndex={1}
         height={"100%"}
       >
-        <Image w="100%" src={"/elements/leaderboard.png"} borderRadius="25px" />
+        <Image w="100%" src={"/elements/leaderboard.png"} borderRadius="25px" alt="Competitive leaderboard" />
       </Flex>
     </Flex>
   );

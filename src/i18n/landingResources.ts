@@ -24,7 +24,7 @@ export const landingResources = {
         loader: "loading . . .",
         heroTagline: "Build your deck, rule the game",
         subtitle: "A strategy card game where collecting cards <lineBreak/> unlocks new ways to win.",
-        playGame: "Play game",
+        playGame: "Play Free Now",
       },
       cards: {
         marquee: "Build your deck, rule the game",
@@ -120,7 +120,7 @@ export const landingResources = {
         loader: "cargando . . .",
         heroTagline: "Arma tu mazo, domina el juego",
         subtitle: "Un juego de cartas estratégico donde coleccionar cartas <lineBreak/> desbloquea nuevas formas de ganar.",
-        playGame: "Jugar",
+        playGame: "Jugar Gratis",
       },
       cards: {
         marquee: "Arma tu mazo, domina el juego",
@@ -216,7 +216,7 @@ export const landingResources = {
         loader: "carregando . . .",
         heroTagline: "Monte seu baralho, domine o jogo",
         subtitle: "Um jogo de cartas estratégico onde colecionar cartas <lineBreak/> desbloqueia novas formas de vencer.",
-        playGame: "Jogar",
+        playGame: "Jogar Gratis",
       },
       cards: {
         marquee: "Monte seu baralho, domine o jogo",
