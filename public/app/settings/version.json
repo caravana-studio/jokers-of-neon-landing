@@ -4,7 +4,8 @@
         "prod": "jokers-core-season1",
         "prods2": "jokers-core-season2",
         "dev": "testing-jokers-game",
-        "test": "testing-jokers-game"
+        "test": "testing-jokers-game",
+        "rogue": "jokers-roguelike"
     },
     "maintenance": false
 }
