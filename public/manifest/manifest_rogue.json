@@ -205,7 +205,7 @@
     },
     {
       "address": "0x706b5b9045629169a01ac852dd004a85340f22756e0969aa76df7f709f78163",
-      "class_hash": "0x2085f2a3b6f3c57e926811852ae9bb331687dbcc3d3b911a7912feef2aaa349",
+      "class_hash": "0x4295f93bc2f4225063d44ba78d0946958ec176d200e3d54c4f2e2e51d04d13b",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-mods_info_system",
       "selector": "0x49501e11d21a12c5803e098cfd1a2eed9799540d9e069dac3a244e8e6df0de",
@@ -8258,7 +8258,12 @@
         {
           "type": "function",
           "name": "get_game_config_for_player",
-          "inputs": [],
+          "inputs": [
+            {
+              "name": "player",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
           "outputs": [
             {
               "type": "jokers_of_neon_lib::configs::game::GameConfig"
