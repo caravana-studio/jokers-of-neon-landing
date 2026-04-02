@@ -15,7 +15,8 @@
         "id": "s2-tourney",
         "position": 3,
         "type": "image",
-        "url": "https://jokersofneon.com/app/banners/s2-tournament.png"
+        "url": "https://jokersofneon.com/app/banners/s2-tournament.png",
+        "navigateTo": "/tournament"
       }
     ]
   }
