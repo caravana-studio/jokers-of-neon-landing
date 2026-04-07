@@ -33,8 +33,8 @@
   },
   "contracts": [
     {
-      "address": "0x7fdf9fb815cc73226f2c3ac08077b03612f05bcfe2b80a4ef4d082946c06460",
-      "class_hash": "0x194655dacb86f21f74ae5d4f81ff1d5eb36fb8433257d7384f10107f0151173",
+      "address": "0x1e0bc89d9510fcf1611add068ead238c45789dc7a621049664bb9505e9df36b",
+      "class_hash": "0x6c8c9b8b98073f8b7a2e0debf73df7ccbe59a24634a5201811482c26af34a57",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-action_system",
       "selector": "0x7818a1d55aa438edfc913a34975c6fdf37d2b250f797fb51ba10872bea762f2",
@@ -55,8 +55,8 @@
       ]
     },
     {
-      "address": "0xb999b3771d21769c19c3211af6194cbf83c23fc5ed1300aacd7b0295ee5801",
-      "class_hash": "0x54ea4cc3c6397d9f717818c63ecfc2f1bca553711834fdbdab71aec085f6a91",
+      "address": "0x835b1f096141feb7aaf4ea4f68e8283c7f8342ac0f452a9339feb47b7daa6d",
+      "class_hash": "0x2e65ce985765e8cae0bb42c52902c334714af51712b60e60141143b7ea82718",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-condition",
       "selector": "0x15416aacbbba42e17bdd71f984126502020576c75ffd3b6e7e58e5aff602039",
@@ -66,8 +66,8 @@
       ]
     },
     {
-      "address": "0x75f302b745b4b0e34ca2474700e0229f437c94192e66d4eb58e68942456e176",
-      "class_hash": "0x6cf779525d9a3e735d4e13d4b4391d5d1a999010d38658ebc6ff40ff86df7c8",
+      "address": "0x6e642287bd0821a9879f4d414fe551f9d810f81afa31ad9b3ae01c435f1bb5b",
+      "class_hash": "0x168af1c9e42ce80fd37a09d9ac250cb34f5cd158dee84f39221583e824d0bf1",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-converter",
       "selector": "0x511cda0ff878c3ddac5076352f886ce0c271551d4c60df58449b306a6372f2d",
@@ -88,8 +88,8 @@
       ]
     },
     {
-      "address": "0x441b8aa253c458fbd61b4a87324e918df6357a9f205c51aae86e4d9b6d5fdaf",
-      "class_hash": "0x68744c4734c8c1775bfe120b93339baff4e6f41b0beb5d8c8bc3f53b537b715",
+      "address": "0x22b15655ed092b555f7a57c1f0801dd851b82417b3bd46cb99e3aca30269308",
+      "class_hash": "0x21369fb6eae337bc80745ba3111dc4027ad1df05cd02f353097c125a1a74cf7",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-game_system",
       "selector": "0x102c03c5c4e784fdf2f7007866d5fe26033d7c371533dbaa7b1375dd616093d",
@@ -103,8 +103,8 @@
       ]
     },
     {
-      "address": "0x18f95ac96591ffabdc65084179983075f86d97df382004752babec920c63f02",
-      "class_hash": "0x202583080e6e2ff8dcb975894ab8f2f9c39c02bdcc0c32e8852e83f5906271",
+      "address": "0x62026e86d41fc6f723106a03a5388f6ea7ccf74b27040819c9e73cad41e672d",
+      "class_hash": "0x37b618906ff018078bc31e41c44c6e6cb1cfdbe59e893406a18c215d8da8ed5",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-game_views",
       "selector": "0x76d5d3b88a6df58809f5adc13d97b6f04db21a0ddf1f68119a24d588ff3e77b",
@@ -123,8 +123,8 @@
       ]
     },
     {
-      "address": "0x2c7ffaf79080509ff05810a1fabd7759ca9e5a0830315bace33cdf706987497",
-      "class_hash": "0x7d48376f5a5bb3dc3eb3cdc9a104870ecddae113de874209a184f75229069e5",
+      "address": "0x515c6454f164f3be4bf09321bffa166965e1b6de0645c6a6207eacc11040b71",
+      "class_hash": "0x39bd218c35d824a3f0e651f31e91e0b47f631890b32b02234cf7471fd475110",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-hand",
       "selector": "0x4b4475220e19cb7dfa836b5ae98ce5ccb25d651e80b2c702fa0a49d753254f5",
@@ -134,8 +134,8 @@
       ]
     },
     {
-      "address": "0x6c3878115b0b2ae88772f93ad10fc67903b1b322fa85f6e3bffe0f1b61ed5a5",
-      "class_hash": "0x6e6d608c9d4eea994809e7ae8264fb8d8f70421ab92d059a3066b7a33599e0b",
+      "address": "0x8345627e3505490e1a39d329fa0bf5cc6886ea1d32502d10481c2e9e3f8866",
+      "class_hash": "0x30861e5d13ce8e7955607b38baec802a8dc4fb1354400d1d12fa75ccf2fc0ba",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-level_up_play",
       "selector": "0x6b47670ba8da1afea7389d2892498a05fa2227d7df40a584c02bec8d57c634c",
@@ -171,8 +171,8 @@
       ]
     },
     {
-      "address": "0x4fb81687f36c0d08831f62e8b62abee8eef562143df08119537f9a72adae671",
-      "class_hash": "0x18a69c8c5df2f65c94da8f282087073113344a6675469a1a80524bae2acc8c4",
+      "address": "0x4256b2950930457311a98bfa1f9f9b73d0e3e3a3f76b372a9e5d5b888ed9de6",
+      "class_hash": "0x36ee75f816175271b2f1ee28ea4fbf8953d68ebb2007651111d4aba1fea1d82",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-lose",
       "selector": "0x559597ad20cdaaffb0302dac4783fe95420e83e9e3ec99bfbcd4975f23dd35c",
@@ -182,8 +182,8 @@
       ]
     },
     {
-      "address": "0x68221ba875705634271b795df59fd9263c3ac62be18ddb8da3276ab166e6033",
-      "class_hash": "0x18ea72ccb86758e901adcaa08bc2aba29323639dd76ea13f1a40300760d162c",
+      "address": "0x3c5028ba744286d16b42625226e8642f50674943e74b94410cc2799f627da9d",
+      "class_hash": "0x54de97f9eaec1cf5bfeb43139bda17d720c98f2a9a6556971640a4bf8ea3224",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-map_system",
       "selector": "0x71f0e07009ce93b04a0eacd60f84a5157e9c87953b46a14467df64cee04e4bf",
@@ -246,8 +246,8 @@
       ]
     },
     {
-      "address": "0x56008c3bba1d83ef1801f0adeab0002e80a1b59a31800a5a14cdf0f9a20fd21",
-      "class_hash": "0x64e381ae5ab4a859d86b6eb356f2899c48de2c37a18c445133dd3b03f25d499",
+      "address": "0x74a495144094a5f1d582f928713fbcd371d0d1bb6af1ad07276cd2984a0add8",
+      "class_hash": "0x9fd00a6d738a2f954d56fa58b0a381337c61eb4c2e417159eef9d0f91417ba",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-play",
       "selector": "0xd32f342becd02bf227e9bb53fe041550078bcfbde674fae689949c351fa3be",
@@ -257,8 +257,8 @@
       ]
     },
     {
-      "address": "0x54002fbba758ef117486acb3cb484affb10eb02ca0a9b4dac7168c255353688",
-      "class_hash": "0x53806b86379d129cfe464365ce7cd66df1d7cbffe9615b011fa170be1da9e30",
+      "address": "0x77a7f6439b765f8fccbcd3cc7a4b2854f37b20e01f86801894c3af3ece4b756",
+      "class_hash": "0x1f20aeae4885dde38786be3e508ae007f77d9147b6b74f03cf712b48296f67c",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-play_system",
       "selector": "0xe9b7c6dea9cc75259c88fa913fc033e0a7c5945c64b850cd2b6950e36cb008",
@@ -278,8 +278,8 @@
       ]
     },
     {
-      "address": "0x696c556847b21dfca15cd32e9c7e5aae0aa7dfeda588e8d095772e691f5bbec",
-      "class_hash": "0x7118a0fac944230a28ae71efa68568f0a13dbf98541e148d75b4d5427214a1f",
+      "address": "0x53ab43740d8e979137086dbff34919754bdbbc1fea11affabfc241188d299b1",
+      "class_hash": "0x62c20d9b0665ad4051c9611b9970b14fdef5771b11584b8f445c21d41088f2c",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-power_up",
       "selector": "0xd2147549599d06376b543fa4510d79c3318b1b1d8929c8ae63c0187fcdf499",
@@ -289,8 +289,8 @@
       ]
     },
     {
-      "address": "0x6709c86ceb7addb73af43de1687f6cb9d5bdf1b23b418ab11913f6f3a00bf88",
-      "class_hash": "0x38aee1eef2ca41b31337470b404d7d8f0af8370475282cedba228465017299c",
+      "address": "0x1606d9a8508c3cdf24f78ade0d7c59019b602a4b12134469329801ee6532ea4",
+      "class_hash": "0x3ffb9c7881244b1583ab01cfc6ccde42e88dbd5b1f922439715421b1f257462",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-practice_system",
       "selector": "0x1e4ee2dc82a8f622a380cee38cda254af166be6255c2a377cb4feacbc0d6496",
@@ -323,8 +323,8 @@
       ]
     },
     {
-      "address": "0x4156540f6b9023b0cad39cd7b52762c25135e10154d4c253bea57cd6735402f",
-      "class_hash": "0x7f7dc74bac4658385eca75bc8ca32cf24f46567b1cfed0a000a5f50122c42be",
+      "address": "0x5c91c5e95753b3bce1130e43878b7e58cc162f5304d193a72f28653b4f8ba9d",
+      "class_hash": "0x399e469b814df00e653061c5fc79b03b121e962ac311c384db1ce375deeeb30",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-shop_system",
       "selector": "0x566e6f8c02e3fb42edc0ebbd5ec94a99e5ed8f43e5f614c342316c5b74e3770",
@@ -346,8 +346,8 @@
       ]
     },
     {
-      "address": "0x348a6fdc152fd5fae01b95d27e725f6598ca7c6b2fb3c4182763f1b692982a7",
-      "class_hash": "0x20520e0d7bfeb788fb62367c41f92f91a626158701b5273f15206502ead990b",
+      "address": "0x3de30758add616fa18433b645d33a52494f0ab7ddb188d7f56ae824727b8398",
+      "class_hash": "0x2c3cd196c2b720034e9f762e70954578b86af8b412d11be336b379e07317401",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-shop_views",
       "selector": "0x6f9cf00df698dd210696bf65cc7d70f7f55a4b4ff12e2e4880bc194e658ee22",
@@ -356,8 +356,8 @@
       ]
     },
     {
-      "address": "0x38bd682d2cd5af3f79a0811049be7fb1ddba5de7bcc8f055de825b169c6b8d1",
-      "class_hash": "0x36c96564c29602262a9662e7093a88e6692ec5df177f723c962c1301037a09d",
+      "address": "0x66a6bac46bc8317629ce7c0b2156202116799171fff4ee4d4caae0b8c7880a5",
+      "class_hash": "0x29f18b597d0ce5da23845989d4afa4c8187714854c71c79cb65604db5ab10ad",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-silence",
       "selector": "0x438292d2301679f7389600affe3f6da35d7a90a8281a7cf14ea8abb1e238306",
@@ -754,12 +754,12 @@
           "key": false
         },
         {
-          "name": "game_mode",
-          "type": "core::integer::u8",
+          "name": "is_tournament",
+          "type": "core::bool",
           "key": false
         }
       ],
-      "class_hash": "0x2008c9c0d0bd505602f4ea27d49dcf770ad4ebc3caf7961b4bd166da76d20b3",
+      "class_hash": "0x3d45905dd5ed10143084f0cf175f7dce16be7163a0f3920b6e436705b148089",
       "tag": "jokers_of_neon_core-Game",
       "selector": "0x471153aaeb9b649e2e3a7709bcbe22e2f1c574e092379a6c5938fefe4f1f305"
     },
@@ -2509,28 +2509,6 @@
     {
       "members": [
         {
-          "name": "game_id",
-          "type": "core::integer::u64",
-          "key": true
-        },
-        {
-          "name": "action_type",
-          "type": "core::integer::u8",
-          "key": false
-        },
-        {
-          "name": "effect_card_id",
-          "type": "core::integer::u32",
-          "key": false
-        }
-      ],
-      "class_hash": "0x2e4997aaf80624ec0f66d08ca896f6c3082dfa581d88a7219095f4e409716fb",
-      "tag": "jokers_of_neon_core-FreeActionEvent",
-      "selector": "0x193f9ceacbb5b7b3e5e1ce0362650c554b692ea29b62e8423bbf9e8bee46eb2"
-    },
-    {
-      "members": [
-        {
           "name": "id",
           "type": "core::integer::u32",
           "key": true
@@ -2914,6 +2892,28 @@
       "class_hash": "0x667897feb4854a8045a1c872272ce9dfe597262f61a07f1791a9559a7407ffe",
       "tag": "jokers_of_neon_core-PokerHandLevelUpEvent",
       "selector": "0x711e3a9a2593d32b3815a426c107d70a4d1a26277a7de660342a63564f3a5d1"
+    },
+    {
+      "members": [
+        {
+          "name": "game_id",
+          "type": "core::integer::u64",
+          "key": true
+        },
+        {
+          "name": "action_type",
+          "type": "core::integer::u8",
+          "key": false
+        },
+        {
+          "name": "effect_card_id",
+          "type": "core::integer::u32",
+          "key": false
+        }
+      ],
+      "class_hash": "0x37202f0d1e4dc70bd31b540601228d6b41091a855bf1a09e28d516452107514",
+      "tag": "jokers_of_neon_core-PostActionEvent",
+      "selector": "0x368ffd61a18b4c545f3a04590f32048b27247961f656e02a185ea69c1ec96b5"
     },
     {
       "members": [
@@ -5934,38 +5934,6 @@
     },
     {
       "type": "struct",
-      "name": "jokers_of_neon_core::models::events::FreeActionEvent",
-      "members": [
-        {
-          "name": "game_id",
-          "type": "core::integer::u64"
-        },
-        {
-          "name": "action_type",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "effect_card_id",
-          "type": "core::integer::u32"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "jokers_of_neon_core::models::events::FreeActionEventValue",
-      "members": [
-        {
-          "name": "action_type",
-          "type": "core::integer::u8"
-        },
-        {
-          "name": "effect_card_id",
-          "type": "core::integer::u32"
-        }
-      ]
-    },
-    {
-      "type": "struct",
       "name": "jokers_of_neon_core::models::events::GameEvent",
       "members": [
         {
@@ -6542,6 +6510,38 @@
     },
     {
       "type": "struct",
+      "name": "jokers_of_neon_core::models::events::PostActionEvent",
+      "members": [
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "action_type",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "effect_card_id",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::events::PostActionEventValue",
+      "members": [
+        {
+          "name": "action_type",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "effect_card_id",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
       "name": "jokers_of_neon_core::models::events::PowerUpEvent",
       "members": [
         {
@@ -6776,12 +6776,6 @@
     },
     {
       "type": "event",
-      "name": "jokers_of_neon_core::models::events::e_FreeActionEvent::Event",
-      "kind": "enum",
-      "variants": []
-    },
-    {
-      "type": "event",
       "name": "jokers_of_neon_core::models::events::e_GameEvent::Event",
       "kind": "enum",
       "variants": []
@@ -6843,6 +6837,12 @@
     {
       "type": "event",
       "name": "jokers_of_neon_core::models::events::e_PokerHandLevelUpEvent::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "event",
+      "name": "jokers_of_neon_core::models::events::e_PostActionEvent::Event",
       "kind": "enum",
       "variants": []
     },
@@ -9744,7 +9744,7 @@
           "type": "()"
         },
         {
-          "name": "FreeAction",
+          "name": "PostAction",
           "type": "()"
         },
         {
@@ -10528,8 +10528,8 @@
           "type": "core::integer::u128"
         },
         {
-          "name": "game_mode",
-          "type": "core::integer::u8"
+          "name": "is_tournament",
+          "type": "core::bool"
         }
       ]
     },
@@ -10644,8 +10644,8 @@
           "type": "core::integer::u128"
         },
         {
-          "name": "game_mode",
-          "type": "core::integer::u8"
+          "name": "is_tournament",
+          "type": "core::bool"
         }
       ]
     },
