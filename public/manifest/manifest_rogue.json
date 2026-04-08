@@ -55,8 +55,8 @@
       ]
     },
     {
-      "address": "0x835b1f096141feb7aaf4ea4f68e8283c7f8342ac0f452a9339feb47b7daa6d",
-      "class_hash": "0x2e65ce985765e8cae0bb42c52902c334714af51712b60e60141143b7ea82718",
+      "address": "0x2d2e2ab45e3d0715343bd7d1bf1a3faa896815a29ebc2cc82ad0cb574dba4fb",
+      "class_hash": "0x4daf60fde57b721bf19c35e741353707fcd415061181e2066704ddf5bf24fed",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-condition",
       "selector": "0x15416aacbbba42e17bdd71f984126502020576c75ffd3b6e7e58e5aff602039",
@@ -66,8 +66,8 @@
       ]
     },
     {
-      "address": "0x6e642287bd0821a9879f4d414fe551f9d810f81afa31ad9b3ae01c435f1bb5b",
-      "class_hash": "0x168af1c9e42ce80fd37a09d9ac250cb34f5cd158dee84f39221583e824d0bf1",
+      "address": "0xbff0723dba08fe3e2d8334374934152d0fd02b566f373d417f2d64b5002c7d",
+      "class_hash": "0x32e5e10e466a001d90a541982fcc83dff63227af29bd20c29f69e9785391791",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-converter",
       "selector": "0x511cda0ff878c3ddac5076352f886ce0c271551d4c60df58449b306a6372f2d",
@@ -88,8 +88,8 @@
       ]
     },
     {
-      "address": "0x22b15655ed092b555f7a57c1f0801dd851b82417b3bd46cb99e3aca30269308",
-      "class_hash": "0x21369fb6eae337bc80745ba3111dc4027ad1df05cd02f353097c125a1a74cf7",
+      "address": "0x3fa18307aa48ccd1255d261fa602673a0c4404170a487067af48f18e0d75d5a",
+      "class_hash": "0x73a49aac4a9091a7d0b51baf365df08f69e3c8f6730de8b625c1bf0216dea94",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-game_system",
       "selector": "0x102c03c5c4e784fdf2f7007866d5fe26033d7c371533dbaa7b1375dd616093d",
@@ -123,8 +123,8 @@
       ]
     },
     {
-      "address": "0x515c6454f164f3be4bf09321bffa166965e1b6de0645c6a6207eacc11040b71",
-      "class_hash": "0x39bd218c35d824a3f0e651f31e91e0b47f631890b32b02234cf7471fd475110",
+      "address": "0x18586003d476275680a6ead41337b52a716fd0e2d469a5b455a747a75c98776",
+      "class_hash": "0x6819a50eeb2909a6542972cd01c5bf25beafc85ca9276d11ee0f7be59fe8149",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-hand",
       "selector": "0x4b4475220e19cb7dfa836b5ae98ce5ccb25d651e80b2c702fa0a49d753254f5",
@@ -134,8 +134,8 @@
       ]
     },
     {
-      "address": "0x8345627e3505490e1a39d329fa0bf5cc6886ea1d32502d10481c2e9e3f8866",
-      "class_hash": "0x30861e5d13ce8e7955607b38baec802a8dc4fb1354400d1d12fa75ccf2fc0ba",
+      "address": "0x284e44c5ffccb871d46a3b2e20b61d864559c12ede17467513c322ce26bea6c",
+      "class_hash": "0x69e282041cb645bf6fbb7f2e47b0ee20d393091be6202a427e2e6c62bcf00b6",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-level_up_play",
       "selector": "0x6b47670ba8da1afea7389d2892498a05fa2227d7df40a584c02bec8d57c634c",
@@ -157,8 +157,8 @@
       ]
     },
     {
-      "address": "0x7066ab3a8b2fae74e3c6e727d01f87d22aad2074a0190e4940c4c5ff7f0819b",
-      "class_hash": "0x3fb592484b5624563d3b68d5a999ce87619eb8f5f4d4bd1240a0fcbcb84bf7d",
+      "address": "0x46d2c2201175ba08123342d0aa8af09e153d610bfe8dc38e32877182b9df8f",
+      "class_hash": "0xaf50437d4cd5337da107881506ac7b662ebe06398ff4ec29f8dfa3fc7bfbbd",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-lives_system",
       "selector": "0x1e84902ee9df6e10b386a5ec1267ff601604f7aa6ddbd592c8a6565812eb6ea",
@@ -171,8 +171,8 @@
       ]
     },
     {
-      "address": "0x4256b2950930457311a98bfa1f9f9b73d0e3e3a3f76b372a9e5d5b888ed9de6",
-      "class_hash": "0x36ee75f816175271b2f1ee28ea4fbf8953d68ebb2007651111d4aba1fea1d82",
+      "address": "0x709734303ddcbbb3d9803ffe5ebffef1d0eae4591b71f1ecfd5a645e509fc5b",
+      "class_hash": "0x5dcd3ef4084767cc4cf1276b3a0e57eaf1fa1aa6abc8f92f96b3a23f68fbe89",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-lose",
       "selector": "0x559597ad20cdaaffb0302dac4783fe95420e83e9e3ec99bfbcd4975f23dd35c",
@@ -182,8 +182,8 @@
       ]
     },
     {
-      "address": "0x3c5028ba744286d16b42625226e8642f50674943e74b94410cc2799f627da9d",
-      "class_hash": "0x54de97f9eaec1cf5bfeb43139bda17d720c98f2a9a6556971640a4bf8ea3224",
+      "address": "0x61e093913bc921cdde3a3bd8f852ae6200d762c038a9b88a24fa3f1c9dcde9c",
+      "class_hash": "0x3f0cdeeb6ba3f8cbddd7060b0e9f97364b2ac34c442bee53aca6704becef905",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-map_system",
       "selector": "0x71f0e07009ce93b04a0eacd60f84a5157e9c87953b46a14467df64cee04e4bf",
@@ -246,8 +246,8 @@
       ]
     },
     {
-      "address": "0x74a495144094a5f1d582f928713fbcd371d0d1bb6af1ad07276cd2984a0add8",
-      "class_hash": "0x9fd00a6d738a2f954d56fa58b0a381337c61eb4c2e417159eef9d0f91417ba",
+      "address": "0x174b06b695c38e4db9121b52b97aa3031b0bfc7fb22f7d688bdc85e23bbd925",
+      "class_hash": "0x520d85ee5ab7e1e081c52bfcf4eaec1b40df03eb64807bcedf1677f180b7f1a",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-play",
       "selector": "0xd32f342becd02bf227e9bb53fe041550078bcfbde674fae689949c351fa3be",
@@ -278,8 +278,8 @@
       ]
     },
     {
-      "address": "0x53ab43740d8e979137086dbff34919754bdbbc1fea11affabfc241188d299b1",
-      "class_hash": "0x62c20d9b0665ad4051c9611b9970b14fdef5771b11584b8f445c21d41088f2c",
+      "address": "0x4f03110f215a51549e4c759ad5ace0c31f91ea0bd151f999bd10af90555a51b",
+      "class_hash": "0x58b03fb5fd2f990c6ae8d849dd5c4d529137dfc17899f343896ea3fa65bb5e4",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-power_up",
       "selector": "0xd2147549599d06376b543fa4510d79c3318b1b1d8929c8ae63c0187fcdf499",
@@ -300,14 +300,16 @@
       ]
     },
     {
-      "address": "0x1a788d7141a87c68a85d09d8a7d65c263ff8ddbf3be59f8e046885b83c68da3",
-      "class_hash": "0x31edd7f07b6b8e3fee93f76bc380b89bff84ca1c1e356948e7e1021140fe09c",
+      "address": "0x127a8210d37ffbe00ae3906b6af3118ad27fb1af921e87cc98625b8e2298327",
+      "class_hash": "0x1dafe69722b27e2b282e49dbea1355ec00eacdc6b47d432857adbe0678c009b",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-progression_seed_system",
       "selector": "0x1ffc592d84bc7f46929281f17827fe81068bdd5d591d21b96e1f62b1d635729",
       "systems": [
         "seed_progression",
         "seed_progressions",
+        "seed_max_progression",
+        "seed_max_progressions",
         "upgrade"
       ]
     },
@@ -356,8 +358,8 @@
       ]
     },
     {
-      "address": "0x66a6bac46bc8317629ce7c0b2156202116799171fff4ee4d4caae0b8c7880a5",
-      "class_hash": "0x29f18b597d0ce5da23845989d4afa4c8187714854c71c79cb65604db5ab10ad",
+      "address": "0x3f0d212b84e9a64330347e59f0aeaf5282d79d2333ebf29294352b9018f8cfd",
+      "class_hash": "0xacd5fb92288d37eae8ce85ef76573dccad57c4aa6c724681d0537dda867ba4",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-silence",
       "selector": "0x438292d2301679f7389600affe3f6da35d7a90a8281a7cf14ea8abb1e238306",
@@ -3450,6 +3452,16 @@
         {
           "name": "snapshot",
           "type": "@core::array::Array::<core::integer::u8>"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "core::array::Span::<core::starknet::contract_address::ContractAddress>",
+      "members": [
+        {
+          "name": "snapshot",
+          "type": "@core::array::Array::<core::starknet::contract_address::ContractAddress>"
         }
       ]
     },
@@ -8603,6 +8615,30 @@
           ],
           "outputs": [],
           "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "seed_max_progression",
+          "inputs": [
+            {
+              "name": "player",
+              "type": "core::starknet::contract_address::ContractAddress"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
+          "name": "seed_max_progressions",
+          "inputs": [
+            {
+              "name": "players",
+              "type": "core::array::Span::<core::starknet::contract_address::ContractAddress>"
+            }
+          ],
+          "outputs": [],
+          "state_mutability": "external"
         }
       ]
     },
@@ -9736,7 +9772,7 @@
           "type": "()"
         },
         {
-          "name": "PostDeal",
+          "name": "HandSetup",
           "type": "()"
         },
         {
