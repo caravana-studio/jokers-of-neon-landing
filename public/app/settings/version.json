@@ -3,13 +3,15 @@
   "slot": {
     "prod": "jokers-core-season1",
     "prods2": "jokers-core-season2",
+    "prods3": "jokers-core-season3",
     "dev": "testing-jokers-game",
     "test": "testing-jokers-game",
     "rogue": "jokers-core-season3"
   },
   "api": {
-    "prod": "https://jokers-of-neon-api-zf1x.onrender.com/",
-    "prods2": "https://jokers-of-neon-api-zf1x.onrender.com/",
+    "prod": "https://jokers-of-neon-api-zf1x.onrender.com",
+    "prods2": "https://jokers-of-neon-api-zf1x.onrender.com",
+    "prods3": "https://mainnet-jokers-of-neon-api.onrender.com",
     "dev": "https://mainnet-jokers-of-neon-api.onrender.com",
     "test": "https://mainnet-jokers-of-neon-api.onrender.com",
     "rogue": "https://mainnet-jokers-of-neon-api.onrender.com"
