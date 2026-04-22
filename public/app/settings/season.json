@@ -1,10 +1,10 @@
 {
   "number": 3,
-  "finishDate": "2026-06-11T23:59:59.999Z",
+  "finishDate": "2026-07-02T23:59:59.999Z",
   "xp-event": {
     "multiplier": 2,
-    "startDate": "2026-04-10T00:00:00.000Z",
-    "finishDate": "2026-04-12T23:59:59.999Z"
+    "startDate": "2026-04-18T00:00:00.000Z",
+    "finishDate": "2026-04-19T23:59:59.999Z"
   },
   "daily-prizes": [
     {
