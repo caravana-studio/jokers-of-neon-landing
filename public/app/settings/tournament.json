@@ -1,8 +1,8 @@
 {
   "startDate": "2026-04-03T00:00:00.000Z",
   "finishDate": "2026-04-12T23:59:59.999Z",
-  "start-counting-at-game-id": 5027,
-  "isActive": true,
+  "start-counting-at-game-id": 9074,
+  "isActive": false,
   "prizes": [
     {
       "position": "1",
