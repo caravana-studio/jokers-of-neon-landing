@@ -22,6 +22,6 @@
     "test": "https://mainnet-jokers-of-neon-api.onrender.com",
     "rogue": "https://mainnet-jokers-of-neon-api.onrender.com"
   },
-  "maintenance": false,
+  "maintenance": true,
   "applelogin": "x"
 }
