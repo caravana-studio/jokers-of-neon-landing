@@ -7,7 +7,7 @@
     "devcelo": "jokers-core-season3",
     "devs3": "jokers-core-season3",
     "prodcavos": "jokers-core-season3",
-    "dev": "testing-jokers-game",
+    "dev": "season3dev",
     "test": "testing-jokers-game",
     "rogue": "jokers-core-season3"
   },
