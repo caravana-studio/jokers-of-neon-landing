@@ -8,13 +8,11 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
   <>
     <Heading as="h1" mb={6}>
       Jokers of Neon – Terms and Conditions
-      <br />
-      Season 1
     </Heading>
 
     <Stack spacing={4}>
       <Text>
-        <strong>Effective Date:</strong> March 13, 2026
+        <strong>Effective Date:</strong> May 15, 2026
         <br />
         <strong>Entity:</strong> Caravana Studio LLC (Delaware, USA)
         <br />
@@ -26,7 +24,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         TL;DR (Summary)
       </Heading>
       <Text>
-        – Jokers of Neon is a skill-based strategy card game in <strong>Season 1</strong>.
+        – Jokers of Neon is a live-service, skill-based strategy card game.
         <br />
         – You must be at least <strong>13 years old</strong> to play and <strong>18 years old</strong> to use the official Marketplace.
         <br />
@@ -74,8 +72,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
       <Text>
         Jokers of Neon is a digital strategy card game developed and operated by{" "}
         <strong>Caravana Studio LLC</strong> (“Caravana Studio”, “we”, “us”).
-        The Game is offered as <strong>Season 1</strong> and is
-        under active development.
+        The Game is offered as a live service and is under active development.
       </Text>
 
       {/* 3 */}
@@ -110,7 +107,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         The Game is a live service and may contain bugs, errors, incomplete
         features, balance issues, or temporary outages. Game content,
         progression, rankings, rewards, or mechanics may change, reset, or be
-        removed at any time, including during Season 1 or between seasons.
+        removed at any time, including during or between seasons.
       </Text>
 
       {/* 5 */}
@@ -145,7 +142,7 @@ const ENGLISH_TERMS_AND_CONDITIONS = (
         6. Digital Assets and NFTs
       </Heading>
       <Text>
-        As you progress through the Season or make purchases, you may receive
+        As you progress through the Game or make purchases, you may receive
         digital collectibles represented as{" "}
         <strong>non-fungible tokens (NFTs)</strong> minted automatically on the{" "}
         <strong>Starknet mainnet</strong>.
@@ -323,13 +320,11 @@ const SPANISH_TERMS_AND_CONDITIONS = (
   <>
     <Heading as="h1" mb={6}>
       Jokers of Neon – Términos y Condiciones
-      <br />
-      Temporada 1
     </Heading>
 
     <Stack spacing={4}>
       <Text>
-        <strong>Fecha de vigencia:</strong> 13 de marzo de 2026
+        <strong>Fecha de vigencia:</strong> 15 de mayo de 2026
         <br />
         <strong>Entidad:</strong> Caravana Studio LLC (Delaware, EE. UU.)
         <br />
@@ -341,7 +336,7 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         – Jokers of Neon es un juego de cartas estratégico basado en habilidad
-        en la <strong>Temporada 1</strong>.
+        operado como servicio en vivo.
         <br />
         – Debes tener al menos <strong>13 años</strong> para jugar y <strong>18 años</strong> para usar el Marketplace oficial.
         <br />
@@ -389,8 +384,8 @@ const SPANISH_TERMS_AND_CONDITIONS = (
       <Text>
         Jokers of Neon es un juego digital de cartas estratégicas desarrollado y
         operado por <strong>Caravana Studio LLC</strong> (“Caravana Studio”,
-        “nosotros”). El Juego se ofrece como <strong>Temporada 1</strong>
-        y se encuentra en desarrollo activo.
+        “nosotros”). El Juego se ofrece como un servicio en vivo y se
+        encuentra en desarrollo activo.
       </Text>
 
       <Heading as="h2" size="md">
@@ -422,7 +417,7 @@ const SPANISH_TERMS_AND_CONDITIONS = (
         funcionalidades incompletas, problemas de balance o interrupciones
         temporales. El contenido, progreso, rankings, recompensas o mecánicas
         pueden cambiar, reiniciarse o eliminarse en cualquier momento, incluso
-        durante la Temporada 1 o entre temporadas.
+        durante una temporada o entre temporadas.
       </Text>
 
       <Heading as="h2" size="md">
@@ -455,7 +450,7 @@ const SPANISH_TERMS_AND_CONDITIONS = (
         6. Activos Digitales y NFTs
       </Heading>
       <Text>
-        Al progresar durante la Temporada o realizar compras, puedes recibir
+        Al progresar en el Juego o realizar compras, puedes recibir
         coleccionables digitales representados como{" "}
         <strong>tokens no fungibles (NFTs)</strong> acuñados automáticamente en
         la <strong>mainnet de Starknet</strong>.
@@ -619,13 +614,11 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
   <>
     <Heading as="h1" mb={6}>
       Jokers of Neon – Termos e Condições
-      <br />
-      Temporada 1
     </Heading>
 
     <Stack spacing={4}>
       <Text>
-        <strong>Data de vigência:</strong> 13 de março de 2026
+        <strong>Data de vigência:</strong> 15 de maio de 2026
         <br />
         <strong>Entidade:</strong> Caravana Studio LLC (Delaware, EUA)
         <br />
@@ -637,7 +630,7 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       </Heading>
       <Text>
         – Jokers of Neon é um jogo de cartas estratégico baseado em habilidade
-        na <strong>Temporada 1</strong>.
+        operado como um serviço ao vivo.
         <br />
         – É necessário ter pelo menos <strong>13 anos</strong> para jogar e <strong>18 anos</strong> para usar o Marketplace oficial.
         <br />
@@ -686,8 +679,8 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
       <Text>
         Jokers of Neon é um jogo digital de cartas estratégicas desenvolvido e
         operado pela <strong>Caravana Studio LLC</strong> (“Caravana Studio”,
-        “nós”). O Jogo é oferecido como <strong>Temporada 1</strong>
-        e está em desenvolvimento ativo.
+        “nós”). O Jogo é oferecido como um serviço ao vivo e está em
+        desenvolvimento ativo.
       </Text>
 
       <Heading as="h2" size="md">
@@ -721,7 +714,7 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
         funcionalidades incompletas, problemas de balanceamento ou interrupções
         temporárias. Conteúdo, progresso, rankings, recompensas ou mecânicas
         podem ser alterados, redefinidos ou removidos a qualquer momento,
-        inclusive durante a Temporada 1 ou entre temporadas.
+        inclusive durante uma temporada ou entre temporadas.
       </Text>
 
       <Heading as="h2" size="md">
@@ -754,7 +747,7 @@ const PORTUGUESE_TERMS_AND_CONDITIONS = (
         6. Ativos Digitais e NFTs
       </Heading>
       <Text>
-        Ao progredir durante a Temporada ou realizar compras, você pode receber
+        Ao progredir no Jogo ou realizar compras, você pode receber
         colecionáveis digitais representados como{" "}
         <strong>tokens não fungíveis (NFTs)</strong> cunhados automaticamente na{" "}
         <strong>mainnet da Starknet</strong>.
