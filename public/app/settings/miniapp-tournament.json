@@ -1,0 +1,40 @@
+{
+  "isActive": true,
+  "prizes": [
+    {
+      "position": "1",
+      "token": {
+        "amount": 100,
+        "type": "USDT"
+      }
+    },
+    {
+      "position": "2",
+      "token": {
+        "amount": 50,
+        "type": "USDT"
+      }
+    },
+    {
+      "position": "3",
+      "token": {
+        "amount": 25,
+        "type": "USDT"
+      }
+    },
+    {
+      "position": "4-5",
+      "token": {
+        "amount": 10,
+        "type": "USDT"
+      }
+    },
+    {
+      "position": "6-10",
+      "token": {
+        "amount": 5,
+        "type": "USDT"
+      }
+    }
+  ]
+}
