@@ -34,7 +34,7 @@
   "contracts": [
     {
       "address": "0x662301b2de82913d6581c72da28fe8151872954f87badf691a0c1a1be7faae7",
-      "class_hash": "0x3a7d78c9ccbf1dc45ba3063510687d990bf573242c87421bc4ad8c63152bb33",
+      "class_hash": "0x360747b74971e5baf3a36d3b8c3719cd42c138efc3cec00462c077a39c93c77",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-action_system",
       "selector": "0x7818a1d55aa438edfc913a34975c6fdf37d2b250f797fb51ba10872bea762f2",
@@ -78,18 +78,19 @@
     },
     {
       "address": "0x48a758d52699b9bcda6abd6aca1058236ca3cd60ce14096b2c2011ea4e19f57",
-      "class_hash": "0x5f0260813431ec0f9d770845492333f1b4df3f20c4f83769b18fc978ec2ba9f",
+      "class_hash": "0x11a648672f56a9d443758e4e863100952f27f556e9e10c398fbbf833c516259",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-daily_missions_system",
       "selector": "0x156eeb853e4394f56b8042873481ea1614c697db1e95a75dde9bb75750b441e",
       "systems": [
         "generate_daily_missions",
+        "generate_weekly_missions",
         "upgrade"
       ]
     },
     {
       "address": "0x3647a784a50695123e041642b9fa57fe8f18d0c3873b3f6d27ab4ce27747e2d",
-      "class_hash": "0x3f29a2a49b89a3b7181816a7a3c9845035be26551ef798975e2b67415fbf148",
+      "class_hash": "0x6ba9f1802bc45120640cf3a09d7fb592597f0b19941511e7d18d58cc6f9087b",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-game_system",
       "selector": "0x102c03c5c4e784fdf2f7007866d5fe26033d7c371533dbaa7b1375dd616093d",
@@ -137,7 +138,7 @@
     },
     {
       "address": "0x320f2cb082cfe3a3b64328a4e011faae8f5e82d92144c212bb21b9bdb0fcd24",
-      "class_hash": "0x47a0cb049eea9168a5e3b873acad31df4e8d8db8f2eec73fdf947a692562f11",
+      "class_hash": "0x47dade3fa3f1b9ae88b23df64236a948e87d2a7be43f40a01a8cdb330befda4",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-level_xp_system",
       "selector": "0x32e519e064496f23aba8c3c52f221badca6f212b144c7741a46228aaf282015",
@@ -211,7 +212,7 @@
     },
     {
       "address": "0x4cdc9c54714ec9f09935a0eefa499ec3600297735eec8384c262f394448fe94",
-      "class_hash": "0x4f2d803eecbedb001798fe89b499ed5843c0fdd55a0638c5abe386f358bfd95",
+      "class_hash": "0x4d3762606701b7ab33dc12c38f3612010c93988074a1ec54687fd3ebde30ed",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-pack_system",
       "selector": "0x36e99b2a908b50c341dd172c2cd143e86305a51c218291f755dcfbff41d0041",
@@ -253,7 +254,7 @@
     },
     {
       "address": "0x2747c6a4da02683b3c6ebd08bc93efc1159fea1eed1b9f2ce3cf67f0a5d97c6",
-      "class_hash": "0xaf695533eec8df9e435a78812b097e8e4aa6d55187e3de361612bc89e0c099",
+      "class_hash": "0x2e05a4031fa6a12c4b640e73b7c82b5fe141a608d7b055b0aa42f89979d1fe8",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-play_system",
       "selector": "0xe9b7c6dea9cc75259c88fa913fc033e0a7c5945c64b850cd2b6950e36cb008",
@@ -296,7 +297,7 @@
     },
     {
       "address": "0x25498dd48f361de2ffe85695a4a05cfd35ac2a7372eb8dd1438dc72a4da9f67",
-      "class_hash": "0x6001bd9ef3c1bb98ed618d7a1bfc7404f9f6648d1f81a22b1a81c716fd549dc",
+      "class_hash": "0x2956cece2605b959c8a4d7f8f78f61a1e05b2b17b27fa625d71741d73620765",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-progression_seed_system",
       "selector": "0x1ffc592d84bc7f46929281f17827fe81068bdd5d591d21b96e1f62b1d635729",
@@ -321,7 +322,7 @@
     },
     {
       "address": "0x443f58e4afc2c67b481cd579a3898ac24b22dd07ca8ee5c142568b6218280db",
-      "class_hash": "0x286d4561381be074f68f9c4e72b34c425021e55f688ea567541ddc2623af14f",
+      "class_hash": "0x2d522b3aa39a5337210a227c25637aa28cf54e59cbe463ccdd8cfcbf3ce2df8",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-shop_system",
       "selector": "0x566e6f8c02e3fb42edc0ebbd5ec94a99e5ed8f43e5f614c342316c5b74e3770",
@@ -378,6 +379,28 @@
   ],
   "libraries": [],
   "models": [
+    {
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "key": true
+        },
+        {
+          "name": "id",
+          "type": "core::felt252",
+          "key": true
+        },
+        {
+          "name": "completed",
+          "type": "core::bool",
+          "key": false
+        }
+      ],
+      "class_hash": "0x2334870dac68a9cc38e99273c99af90adcffb8d1bb7cd4ae302c1f8fcafc93f",
+      "tag": "jokers_of_neon_core-AchievementsTracker",
+      "selector": "0x1126c16327cc9549ca0ed49bc7dfadda5a1a3c12d3fc2529b0e690b91dcfcd5"
+    },
     {
       "members": [
         {
@@ -676,6 +699,98 @@
     {
       "members": [
         {
+          "name": "game_id",
+          "type": "core::integer::u64",
+          "key": true
+        },
+        {
+          "name": "total_cards",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "traditional_cards",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "modifier_cards",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "neon_cards",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "jokers",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "neon_jokers",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "wild_cards",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "neon_wild_cards",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "clubs",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "diamonds",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "hearts",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "spades",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "neon_clubs",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "neon_diamonds",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "neon_hearts",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "neon_spades",
+          "type": "core::integer::u32",
+          "key": false
+        }
+      ],
+      "class_hash": "0x1dfaf6a17b8c860180d2a5f99033647d1e9cdb905e463abeb8e9eb74620574d",
+      "tag": "jokers_of_neon_core-DeckInfo",
+      "selector": "0x40e74fd16436d6284d568ba846f398d0aa2eb0778e0cb79c608dddb08404138"
+    },
+    {
+      "members": [
+        {
           "name": "id",
           "type": "core::integer::u64",
           "key": true
@@ -830,6 +945,38 @@
       "class_hash": "0x7050de4b954fe93e8278a6be193e5b8b5e82b96c58d1bd78572be5781031aba",
       "tag": "jokers_of_neon_core-GameMissionCompleted",
       "selector": "0x10a569d32a8d8bc720d7fadae2b93a1c24266e3ab94df43a90265e24eb49263"
+    },
+    {
+      "members": [
+        {
+          "name": "game_id",
+          "type": "core::integer::u64",
+          "key": true
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64",
+          "key": true
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252",
+          "key": true
+        },
+        {
+          "name": "progress",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "completed",
+          "type": "core::bool",
+          "key": false
+        }
+      ],
+      "class_hash": "0x29b4217f52ad783303c75d5d65871501aaac7917702554395bf8e719215075a",
+      "tag": "jokers_of_neon_core-GameMissionProgress",
+      "selector": "0x4df1a66eb6658893157c5be6e744c8032e23c9cf4542c9eb5d614b57c4d8e3b"
     },
     {
       "members": [
@@ -1073,6 +1220,58 @@
       "class_hash": "0x5c18505b81dbecb1d00924e43d9ff0f1430aea6b72e50558aeb33cfda858806",
       "tag": "jokers_of_neon_core-LivesConfig",
       "selector": "0x60a94a555a6e4c9f9ef7d525558fb732a90702ed2b40490a2da9c5a1d4bcc7c"
+    },
+    {
+      "members": [
+        {
+          "name": "period_type",
+          "type": "core::integer::u8",
+          "key": true
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64",
+          "key": true
+        },
+        {
+          "name": "difficulty",
+          "type": "core::integer::u8",
+          "key": true
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252",
+          "key": false
+        },
+        {
+          "name": "template_id",
+          "type": "core::felt252",
+          "key": false
+        },
+        {
+          "name": "target",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "param_1",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "param_2",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "xp",
+          "type": "core::integer::u32",
+          "key": false
+        }
+      ],
+      "class_hash": "0x600a07bd86da1169f40b1954c1c7c60bee37a901ea4b08bfbea5929aec08f18",
+      "tag": "jokers_of_neon_core-MissionSlot",
+      "selector": "0x3ed08dddeb5cbd5e900fd8d4d01c7e560554826e81d0449885572d45141aa67"
     },
     {
       "members": [
@@ -1348,6 +1547,43 @@
       "class_hash": "0x5798de599cf687e5cb6ee840f045e19d365d10fe13900b378c50cc85c7ec61b",
       "tag": "jokers_of_neon_core-PlayerLives",
       "selector": "0x13f1d19b42e8fda1cbd842550d5382da070e33a198388a7492814748822ba25"
+    },
+    {
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "key": true
+        },
+        {
+          "name": "period_type",
+          "type": "core::integer::u8",
+          "key": true
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64",
+          "key": true
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252",
+          "key": true
+        },
+        {
+          "name": "progress",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "completed",
+          "type": "core::bool",
+          "key": false
+        }
+      ],
+      "class_hash": "0x5695b13dbeed905016f5993a9306f1b797fbed675087eb64350ccd59b00882",
+      "tag": "jokers_of_neon_core-PlayerMissionProgress",
+      "selector": "0x3022612784120e0ec1ce0d0f35409ea45fe4ade2f13e11b6983835917f03b40"
     },
     {
       "members": [
@@ -2812,6 +3048,63 @@
           "key": true
         },
         {
+          "name": "period_type",
+          "type": "core::integer::u8",
+          "key": false
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64",
+          "key": false
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252",
+          "key": false
+        },
+        {
+          "name": "template_id",
+          "type": "core::felt252",
+          "key": false
+        },
+        {
+          "name": "difficulty",
+          "type": "core::integer::u8",
+          "key": false
+        },
+        {
+          "name": "target",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "progress",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "xp",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "game_id",
+          "type": "core::integer::u64",
+          "key": false
+        }
+      ],
+      "class_hash": "0x2e488e66868c0e73799da3bbfdbe3f86fe4e8ad31d3221b6cdf980cea57169c",
+      "tag": "jokers_of_neon_core-MissionCompletedV2Event",
+      "selector": "0x6465607564969058f6be1cf9e22186b689d8393c1f76152fa4403c8ffc2cab9"
+    },
+    {
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "key": true
+        },
+        {
           "name": "game_id",
           "type": "core::integer::u64",
           "key": false
@@ -3048,6 +3341,43 @@
           "key": true
         },
         {
+          "name": "game_id",
+          "type": "core::integer::u64",
+          "key": false
+        },
+        {
+          "name": "tier",
+          "type": "core::integer::u8",
+          "key": false
+        },
+        {
+          "name": "total_runs",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "max_level",
+          "type": "core::integer::u32",
+          "key": false
+        },
+        {
+          "name": "max_round",
+          "type": "core::integer::u32",
+          "key": false
+        }
+      ],
+      "class_hash": "0x3cff0df57c8aa8ba9ce36222c9f49d8701f087f183b273f226889dcf058f579",
+      "tag": "jokers_of_neon_core-ProgressionGameUpdateEvent",
+      "selector": "0x38f3f9fbb100d902d69608646a2f768b7adb6a7d6dd27854883aaf6aee73d96"
+    },
+    {
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "key": true
+        },
+        {
           "name": "tier",
           "type": "core::integer::u8",
           "key": false
@@ -3142,10 +3472,274 @@
       "class_hash": "0x6e238fa511a171738670c6173c75e5068e89b5958e2127c188788827065203a",
       "tag": "jokers_of_neon_core-TierUnlockedEvent",
       "selector": "0xd48ba1103dbd4703cd57339f08e44b56bc64017baf12063cc43be3645deda1"
+    },
+    {
+      "members": [
+        {
+          "name": "id",
+          "type": "core::felt252",
+          "key": true
+        },
+        {
+          "name": "hidden",
+          "type": "core::bool",
+          "key": false
+        },
+        {
+          "name": "index",
+          "type": "core::integer::u8",
+          "key": false
+        },
+        {
+          "name": "points",
+          "type": "core::integer::u16",
+          "key": false
+        },
+        {
+          "name": "start",
+          "type": "core::integer::u64",
+          "key": false
+        },
+        {
+          "name": "end",
+          "type": "core::integer::u64",
+          "key": false
+        },
+        {
+          "name": "group",
+          "type": "core::felt252",
+          "key": false
+        },
+        {
+          "name": "icon",
+          "type": "core::felt252",
+          "key": false
+        },
+        {
+          "name": "title",
+          "type": "core::felt252",
+          "key": false
+        },
+        {
+          "name": "description",
+          "type": "core::byte_array::ByteArray",
+          "key": false
+        },
+        {
+          "name": "tasks",
+          "type": "core::array::Span::<achievement::types::index::Task>",
+          "key": false
+        },
+        {
+          "name": "data",
+          "type": "core::byte_array::ByteArray",
+          "key": false
+        }
+      ],
+      "class_hash": "0x3c3d75546664437c554e7aff87944454f57b43d3baef047c645e6a771bf6261",
+      "tag": "jokers_of_neon_core-TrophyCreation",
+      "selector": "0x755abea9e75fbf35fbb4f1be02da784239e268a1a2358c9de58c7f8b06b93ce"
+    },
+    {
+      "members": [
+        {
+          "name": "player_id",
+          "type": "core::felt252",
+          "key": true
+        },
+        {
+          "name": "task_id",
+          "type": "core::felt252",
+          "key": true
+        },
+        {
+          "name": "count",
+          "type": "core::integer::u128",
+          "key": false
+        },
+        {
+          "name": "time",
+          "type": "core::integer::u64",
+          "key": false
+        }
+      ],
+      "class_hash": "0x313c566ceee5bdcaed4accfedc707b6b5a02feb96f9448a18bfa97bf43811e4",
+      "tag": "jokers_of_neon_core-TrophyProgression",
+      "selector": "0x2d10f9dfe06f43a2b98a82e6c7e32124dfe847eae9b4677b5b9836efd52d928"
     }
   ],
   "external_contracts": [],
   "abis": [
+    {
+      "type": "struct",
+      "name": "achievement::events::index::TrophyCreation",
+      "members": [
+        {
+          "name": "id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "hidden",
+          "type": "core::bool"
+        },
+        {
+          "name": "index",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "points",
+          "type": "core::integer::u16"
+        },
+        {
+          "name": "start",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "end",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "group",
+          "type": "core::felt252"
+        },
+        {
+          "name": "icon",
+          "type": "core::felt252"
+        },
+        {
+          "name": "title",
+          "type": "core::felt252"
+        },
+        {
+          "name": "description",
+          "type": "core::byte_array::ByteArray"
+        },
+        {
+          "name": "tasks",
+          "type": "core::array::Span::<achievement::types::index::Task>"
+        },
+        {
+          "name": "data",
+          "type": "core::byte_array::ByteArray"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "achievement::events::index::TrophyCreationValue",
+      "members": [
+        {
+          "name": "hidden",
+          "type": "core::bool"
+        },
+        {
+          "name": "index",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "points",
+          "type": "core::integer::u16"
+        },
+        {
+          "name": "start",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "end",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "group",
+          "type": "core::felt252"
+        },
+        {
+          "name": "icon",
+          "type": "core::felt252"
+        },
+        {
+          "name": "title",
+          "type": "core::felt252"
+        },
+        {
+          "name": "description",
+          "type": "core::byte_array::ByteArray"
+        },
+        {
+          "name": "tasks",
+          "type": "core::array::Span::<achievement::types::index::Task>"
+        },
+        {
+          "name": "data",
+          "type": "core::byte_array::ByteArray"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "achievement::events::index::TrophyProgression",
+      "members": [
+        {
+          "name": "player_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "task_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "count",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "time",
+          "type": "core::integer::u64"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "achievement::events::index::TrophyProgressionValue",
+      "members": [
+        {
+          "name": "count",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "time",
+          "type": "core::integer::u64"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "achievement::events::index::e_TrophyCreation::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "event",
+      "name": "achievement::events::index::e_TrophyProgression::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "struct",
+      "name": "achievement::types::index::Task",
+      "members": [
+        {
+          "name": "id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "total",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "description",
+          "type": "core::byte_array::ByteArray"
+        }
+      ]
+    },
     {
       "type": "constructor",
       "name": "constructor",
@@ -3208,6 +3802,16 @@
         {
           "name": "snapshot",
           "type": "@core::array::Array::<(jokers_of_neon_lib::models::data::map::Node, jokers_of_neon_lib::models::data::map::NodeChilds)>"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "core::array::Span::<achievement::types::index::Task>",
+      "members": [
+        {
+          "name": "snapshot",
+          "type": "@core::array::Array::<achievement::types::index::Task>"
         }
       ]
     },
@@ -5191,7 +5795,7 @@
       "inputs": [
         {
           "name": "event",
-          "type": "jokers_of_neon_core::models::events::TierUnlockedEvent"
+          "type": "achievement::events::index::TrophyProgression"
         }
       ],
       "outputs": [],
@@ -5210,11 +5814,45 @@
       "inputs": [
         {
           "name": "value",
-          "type": "jokers_of_neon_core::models::events::TierUnlockedEventValue"
+          "type": "achievement::events::index::TrophyProgressionValue"
         }
       ],
       "outputs": [],
       "state_mutability": "view"
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::achievements_tracker::AchievementsTracker",
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "completed",
+          "type": "core::bool"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::achievements_tracker::AchievementsTrackerValue",
+      "members": [
+        {
+          "name": "completed",
+          "type": "core::bool"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "jokers_of_neon_core::models::achievements_tracker::m_AchievementsTracker::Event",
+      "kind": "enum",
+      "variants": []
     },
     {
       "type": "struct",
@@ -5364,6 +6002,46 @@
     },
     {
       "type": "struct",
+      "name": "jokers_of_neon_core::models::daily_missions::GameMissionProgress",
+      "members": [
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "progress",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "completed",
+          "type": "core::bool"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::daily_missions::GameMissionProgressValue",
+      "members": [
+        {
+          "name": "progress",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "completed",
+          "type": "core::bool"
+        }
+      ]
+    },
+    {
+      "type": "struct",
       "name": "jokers_of_neon_core::models::daily_missions::LevelCompletionTracker",
       "members": [
         {
@@ -5428,6 +6106,122 @@
     },
     {
       "type": "struct",
+      "name": "jokers_of_neon_core::models::daily_missions::MissionSlot",
+      "members": [
+        {
+          "name": "period_type",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "difficulty",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "template_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "target",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "param_1",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "param_2",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "xp",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::daily_missions::MissionSlotValue",
+      "members": [
+        {
+          "name": "mission_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "template_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "target",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "param_1",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "param_2",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "xp",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::daily_missions::PlayerMissionProgress",
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "period_type",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "progress",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "completed",
+          "type": "core::bool"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::daily_missions::PlayerMissionProgressValue",
+      "members": [
+        {
+          "name": "progress",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "completed",
+          "type": "core::bool"
+        }
+      ]
+    },
+    {
+      "type": "struct",
       "name": "jokers_of_neon_core::models::daily_missions::XPMultiplier",
       "members": [
         {
@@ -5470,6 +6264,12 @@
     },
     {
       "type": "event",
+      "name": "jokers_of_neon_core::models::daily_missions::m_GameMissionProgress::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "event",
       "name": "jokers_of_neon_core::models::daily_missions::m_LevelCompletionTracker::Event",
       "kind": "enum",
       "variants": []
@@ -5482,7 +6282,169 @@
     },
     {
       "type": "event",
+      "name": "jokers_of_neon_core::models::daily_missions::m_MissionSlot::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "event",
+      "name": "jokers_of_neon_core::models::daily_missions::m_PlayerMissionProgress::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "event",
       "name": "jokers_of_neon_core::models::daily_missions::m_XPMultiplier::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::data::deck_info::DeckInfo",
+      "members": [
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "total_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "traditional_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "modifier_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "jokers",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_jokers",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "wild_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_wild_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "clubs",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "diamonds",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "hearts",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "spades",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_clubs",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_diamonds",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_hearts",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_spades",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::data::deck_info::DeckInfoValue",
+      "members": [
+        {
+          "name": "total_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "traditional_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "modifier_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "jokers",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_jokers",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "wild_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_wild_cards",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "clubs",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "diamonds",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "hearts",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "spades",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_clubs",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_diamonds",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_hearts",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "neon_spades",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "jokers_of_neon_core::models::data::deck_info::m_DeckInfo::Event",
       "kind": "enum",
       "variants": []
     },
@@ -6056,6 +7018,94 @@
     },
     {
       "type": "struct",
+      "name": "jokers_of_neon_core::models::events::MissionCompletedV2Event",
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "period_type",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "template_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "difficulty",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "target",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "progress",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "xp",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::events::MissionCompletedV2EventValue",
+      "members": [
+        {
+          "name": "period_type",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "period_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "mission_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "template_id",
+          "type": "core::felt252"
+        },
+        {
+          "name": "difficulty",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "target",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "progress",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "xp",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        }
+      ]
+    },
+    {
+      "type": "struct",
       "name": "jokers_of_neon_core::models::events::ModifierCardSuitEvent",
       "members": [
         {
@@ -6408,6 +7458,62 @@
     },
     {
       "type": "struct",
+      "name": "jokers_of_neon_core::models::events::ProgressionGameUpdateEvent",
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "tier",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "total_runs",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "max_level",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "max_round",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_core::models::events::ProgressionGameUpdateEventValue",
+      "members": [
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "tier",
+          "type": "core::integer::u8"
+        },
+        {
+          "name": "total_runs",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "max_level",
+          "type": "core::integer::u32"
+        },
+        {
+          "name": "max_round",
+          "type": "core::integer::u32"
+        }
+      ]
+    },
+    {
+      "type": "struct",
       "name": "jokers_of_neon_core::models::events::ProgressionUpdatedEvent",
       "members": [
         {
@@ -6626,6 +7732,12 @@
     },
     {
       "type": "event",
+      "name": "jokers_of_neon_core::models::events::e_MissionCompletedV2Event::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "event",
       "name": "jokers_of_neon_core::models::events::e_ModifierCardSuitEvent::Event",
       "kind": "enum",
       "variants": []
@@ -6669,6 +7781,12 @@
     {
       "type": "event",
       "name": "jokers_of_neon_core::models::events::e_PowerUpEvent::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "event",
+      "name": "jokers_of_neon_core::models::events::e_ProgressionGameUpdateEvent::Event",
       "kind": "enum",
       "variants": []
     },
@@ -7409,6 +8527,13 @@
         },
         {
           "type": "function",
+          "name": "generate_weekly_missions",
+          "inputs": [],
+          "outputs": [],
+          "state_mutability": "external"
+        },
+        {
+          "type": "function",
           "name": "get_daily_missions_for_day",
           "inputs": [
             {
@@ -7462,6 +8587,88 @@
           "outputs": [
             {
               "type": "core::array::Array::<jokers_of_neon_core::models::daily_missions::DailyMissionTracker>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_missions_for_period",
+          "inputs": [
+            {
+              "name": "period_type",
+              "type": "core::integer::u8"
+            },
+            {
+              "name": "period_id",
+              "type": "core::integer::u64"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<jokers_of_neon_core::models::daily_missions::MissionSlot>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_today_missions",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::array::Array::<jokers_of_neon_core::models::daily_missions::MissionSlot>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_this_week_missions",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::array::Array::<jokers_of_neon_core::models::daily_missions::MissionSlot>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_player_mission_progress",
+          "inputs": [
+            {
+              "name": "player",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "period_type",
+              "type": "core::integer::u8"
+            },
+            {
+              "name": "period_id",
+              "type": "core::integer::u64"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<jokers_of_neon_core::models::daily_missions::PlayerMissionProgress>"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "get_game_daily_mission_progress",
+          "inputs": [
+            {
+              "name": "game_id",
+              "type": "core::integer::u64"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::array::Array::<jokers_of_neon_core::models::daily_missions::GameMissionProgress>"
             }
           ],
           "state_mutability": "view"
