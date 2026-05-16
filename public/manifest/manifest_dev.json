@@ -78,7 +78,7 @@
     },
     {
       "address": "0x48a758d52699b9bcda6abd6aca1058236ca3cd60ce14096b2c2011ea4e19f57",
-      "class_hash": "0x845d957b0fedd09e944ee3c61ef1cc30c8ade9245a2425b15f526be6e3420f",
+      "class_hash": "0x3de71c3e0486d6f35aa7bdc8e11e0b98df1167a49fa6471b9759b07e3914fdd",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-daily_missions_system",
       "selector": "0x156eeb853e4394f56b8042873481ea1614c697db1e95a75dde9bb75750b441e",
@@ -324,7 +324,7 @@
     },
     {
       "address": "0x443f58e4afc2c67b481cd579a3898ac24b22dd07ca8ee5c142568b6218280db",
-      "class_hash": "0x2d522b3aa39a5337210a227c25637aa28cf54e59cbe463ccdd8cfcbf3ce2df8",
+      "class_hash": "0x4b7fe613ad4b3b11e4acf3c831bb78111d9112c11a79000b128acfc0a663f69",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-shop_system",
       "selector": "0x566e6f8c02e3fb42edc0ebbd5ec94a99e5ed8f43e5f614c342316c5b74e3770",
