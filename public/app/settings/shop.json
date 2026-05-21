@@ -6,6 +6,7 @@
   "ios": {
     "season_pass": "season_pass_s3",
     "packs": [
+      { "shopId": "pack_collector_s3", "packId": 35 },
       { "shopId": "pack_legendary_s3", "packId": 34 },
       { "shopId": "pack_epic_s3", "packId": 33 },
       { "shopId": "pack_advanced_s3", "packId": 32 }
@@ -14,6 +15,7 @@
   "web": {
     "season_pass": "season_pass_s3",
     "packs": [
+      { "shopId": "pack_collector_s3", "packId": 35 },
       { "shopId": "pack_legendary_s3", "packId": 34 },
       { "shopId": "pack_epic_s3", "packId": 33 },
       { "shopId": "pack_advanced_s3", "packId": 32 }
