@@ -79,6 +79,7 @@ export const landingResources = {
           all: "ALL CHAINS",
           starknet: "STARKNET",
           celo: "CELO",
+          total: "TOTAL",
         },
         chart: {
           noData: "No data available",
@@ -180,6 +181,7 @@ export const landingResources = {
           all: "TODAS",
           starknet: "STARKNET",
           celo: "CELO",
+          total: "TOTAL",
         },
         chart: {
           noData: "No hay datos disponibles",
@@ -281,6 +283,7 @@ export const landingResources = {
           all: "TODAS",
           starknet: "STARKNET",
           celo: "CELO",
+          total: "TOTAL",
         },
         chart: {
           noData: "Sem dados disponíveis",
