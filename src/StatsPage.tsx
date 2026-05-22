@@ -471,38 +471,6 @@ const normalizeTransactionSeriesData = (
   };
 };
 
-const sumSeries = (series: TimeSeriesData[]) => series.reduce((total, row) => total + row.value, 0);
-
-const fetchLegacyMetricTotal = async (metric: MetricType, selectedChain: ChainFilter, endDate: string) => {
-  const params = new URLSearchParams({
-    granularity: "day",
-    start_date: ALL_STATS_START_DATE,
-    end_date: endDate,
-  });
-  if (selectedChain !== "all") params.set("blockchain", selectedChain);
-
-  const response = await fetchGameApi(`/api/stats/${metric}?${params}`);
-  if (metric === "transactions") {
-    const transactionSeries = normalizeTransactionSeriesData(response, "day");
-    return sumSeries(transactionSeries[selectedChain === "all" ? "total" : selectedChain]);
-  }
-  return sumSeries(normalizeSeriesData(response, metric, "day", false, selectedChain));
-};
-
-const fetchLegacyGlobalFromSeries = async (selectedChain: ChainFilter, endDate: string): Promise<GlobalStats> => {
-  const [transactions, games] = await Promise.all(
-    (["transactions", "games"] as MetricType[]).map((metric) =>
-      fetchLegacyMetricTotal(metric, selectedChain, endDate).catch(() => null)
-    )
-  );
-
-  return {
-    total_transactions: transactions,
-    total_games: games,
-    total_unique_players: null,
-  };
-};
-
 // Custom Neon Line Chart Component
 const NeonLineChart = ({
   data,
@@ -1156,24 +1124,11 @@ export const StatsPage = () => {
         const legacyParams = new URLSearchParams();
         if (selectedChain !== "all") legacyParams.set("blockchain", selectedChain);
         const legacyEndpoint = `/api/stats/global${legacyParams.toString() ? `?${legacyParams}` : ""}`;
-        const endDate = new Date().toISOString().split("T")[0];
-        const legacyGlobalPromise = fetchGameApi(legacyEndpoint)
-          .then((payload) => normalizeGlobalStats(payload, selectedChain))
-          .catch(() => null);
-        const legacySeriesPromise = fetchLegacyGlobalFromSeries(selectedChain, endDate);
-        const firstStats = await Promise.race([legacyGlobalPromise, legacySeriesPromise]);
-        const fallbackStats = hasKnownGlobalStatsValues(firstStats) ? firstStats : await legacySeriesPromise;
-        setGlobalStats(fallbackStats);
+        const legacyGlobalStats = await fetchGameApi(legacyEndpoint).then((payload) => normalizeGlobalStats(payload, selectedChain));
+        setGlobalStats(legacyGlobalStats);
       } catch (error) {
         console.error("Failed to fetch global stats:", error);
-        if (selectedChain !== "celo") {
-          try {
-            const endDate = new Date().toISOString().split("T")[0];
-            setGlobalStats(await fetchLegacyGlobalFromSeries(selectedChain, endDate));
-          } catch (seriesError) {
-            console.error("Failed to fetch global stats from legacy series:", seriesError);
-          }
-        }
+        setGlobalStats(null);
       } finally {
         setIsLoadingGlobal(false);
       }
