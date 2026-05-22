@@ -54,12 +54,15 @@ const STATS_API_BASE_URL =
   API_BASE_URL;
 const API_KEY = import.meta.env.VITE_GAME_API_KEY || import.meta.env.VITE_API_KEY || "";
 const STATS_API_KEY = import.meta.env.VITE_STATS_API_KEY || "";
+const ENABLE_ANALYTICS_STATS =
+  import.meta.env.VITE_ENABLE_ANALYTICS_STATS === "true" ||
+  Boolean(import.meta.env.VITE_STATS_API_URL || import.meta.env.VITE_ANALYTICS_API_URL);
 
 // Types
 interface GlobalStats {
-  total_transactions: number;
-  total_games: number;
-  total_unique_players: number;
+  total_transactions: number | null;
+  total_games: number | null;
+  total_unique_players: number | null;
 }
 
 interface TimeSeriesData {
@@ -290,8 +293,13 @@ const normalizeGlobalStats = (payload: unknown, chain: ChainFilter = "all"): Glo
   };
 };
 
-const hasGlobalStatsValues = (stats: GlobalStats | null) =>
-  Boolean(stats && stats.total_transactions + stats.total_games + stats.total_unique_players > 0);
+const hasKnownGlobalStatsValues = (stats: GlobalStats | null) =>
+  Boolean(
+    stats &&
+      [stats.total_transactions, stats.total_games, stats.total_unique_players].some(
+        (value) => typeof value === "number" && value > 0
+      )
+  );
 
 const hasAnalyticsSummaryRows = (payload: unknown) => {
   const data = unwrapData(payload);
@@ -482,16 +490,16 @@ const fetchLegacyMetricTotal = async (metric: MetricType, selectedChain: ChainFi
 };
 
 const fetchLegacyGlobalFromSeries = async (selectedChain: ChainFilter, endDate: string): Promise<GlobalStats> => {
-  const [transactions, games, players] = await Promise.all(
-    (["transactions", "games", "players"] as MetricType[]).map((metric) =>
-      fetchLegacyMetricTotal(metric, selectedChain, endDate).catch(() => 0)
+  const [transactions, games] = await Promise.all(
+    (["transactions", "games"] as MetricType[]).map((metric) =>
+      fetchLegacyMetricTotal(metric, selectedChain, endDate).catch(() => null)
     )
   );
 
   return {
     total_transactions: transactions,
     total_games: games,
-    total_unique_players: players,
+    total_unique_players: null,
   };
 };
 
@@ -697,7 +705,7 @@ const NeonLineChart = ({
       return `${monthNames[monthIndex]} ${year}`;
     }
 
-    const dayMatch = period.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    const dayMatch = period.match(/^(\d{4})-(\d{2})-(\d{2})(?:T.*)?$/);
     if (dayMatch) {
       const [, year, month, day] = dayMatch;
       const monthIndex = Number(month) - 1;
@@ -909,35 +917,37 @@ const StatCard = ({
   formatNumber,
 }: {
   title: string;
-  value: number;
+  value: number | null;
   color: string;
   delay: number;
   isLoading: boolean;
   formatNumber: (value: number) => string;
 }) => {
   const [displayValue, setDisplayValue] = useState(0);
+  const showLoading = isLoading || value === null;
 
   useEffect(() => {
-    if (isLoading || value === 0) {
+    const targetValue = value ?? 0;
+    if (showLoading || targetValue === 0) {
       setDisplayValue(0);
       return;
     }
 
     const duration = 650;
     const steps = 26;
-    const increment = value / steps;
+    const increment = targetValue / steps;
     let current = 0;
     let step = 0;
 
     const timer = setInterval(() => {
       step++;
-      current = Math.min(Math.round(increment * step), value);
+      current = Math.min(Math.round(increment * step), targetValue);
       setDisplayValue(current);
       if (step >= steps) clearInterval(timer);
     }, duration / steps);
 
     return () => clearInterval(timer);
-  }, [value, isLoading]);
+  }, [value, showLoading]);
 
   return (
     <Box
@@ -998,7 +1008,7 @@ const StatCard = ({
         >
           {title}
         </Text>
-        {isLoading ? (
+        {showLoading ? (
           <Skeleton height="40px" width="120px" startColor={`${color}20`} endColor={`${color}40`} />
         ) : (
           <Text
@@ -1128,17 +1138,19 @@ export const StatsPage = () => {
     const fetchGlobalStats = async () => {
       setIsLoadingGlobal(true);
       try {
-        const analyticsParams = new URLSearchParams({ blockchain: selectedChain });
+        if (ENABLE_ANALYTICS_STATS) {
+          const analyticsParams = new URLSearchParams({ blockchain: selectedChain });
 
-        try {
-          const analyticsResponse = await fetchStatsApi(`/api/analytics/summary?${analyticsParams}`);
-          const analyticsStats = normalizeGlobalStats(analyticsResponse, selectedChain);
-          if (analyticsStats && (selectedChain === "celo" || hasGlobalStatsValues(analyticsStats) || hasAnalyticsSummaryRows(analyticsResponse))) {
-            setGlobalStats(analyticsStats);
-            return;
+          try {
+            const analyticsResponse = await fetchStatsApi(`/api/analytics/summary?${analyticsParams}`);
+            const analyticsStats = normalizeGlobalStats(analyticsResponse, selectedChain);
+            if (analyticsStats && (selectedChain === "celo" || hasKnownGlobalStatsValues(analyticsStats) || hasAnalyticsSummaryRows(analyticsResponse))) {
+              setGlobalStats(analyticsStats);
+              return;
+            }
+          } catch {
+            // Analytics endpoints are optional while deployments migrate; legacy stats remain the fallback.
           }
-        } catch {
-          // Analytics endpoints are optional while deployments migrate; legacy stats remain the fallback.
         }
 
         const legacyParams = new URLSearchParams();
@@ -1150,7 +1162,7 @@ export const StatsPage = () => {
           .catch(() => null);
         const legacySeriesPromise = fetchLegacyGlobalFromSeries(selectedChain, endDate);
         const firstStats = await Promise.race([legacyGlobalPromise, legacySeriesPromise]);
-        const fallbackStats = hasGlobalStatsValues(firstStats) ? firstStats : await legacySeriesPromise;
+        const fallbackStats = hasKnownGlobalStatsValues(firstStats) ? firstStats : await legacySeriesPromise;
         setGlobalStats(fallbackStats);
       } catch (error) {
         console.error("Failed to fetch global stats:", error);
@@ -1198,7 +1210,7 @@ export const StatsPage = () => {
     setIsLoadingChart(true);
     try {
       const analyticsChain = selectedMetric === "transactions" ? "all" : selectedChain;
-      if (granularity !== "hour") {
+      if (ENABLE_ANALYTICS_STATS && granularity !== "hour") {
         try {
           const analyticsParams = new URLSearchParams({
             blockchain: analyticsChain,
@@ -1435,7 +1447,7 @@ export const StatsPage = () => {
           <GridItem>
             <StatCard
               title={t("stats.cards.totalTransactions")}
-              value={globalStats?.total_transactions || 0}
+              value={globalStats?.total_transactions ?? null}
               color={colors.neonCyan}
               delay={0}
               isLoading={isLoadingGlobal}
@@ -1445,7 +1457,7 @@ export const StatsPage = () => {
           <GridItem>
             <StatCard
               title={t("stats.cards.totalGames")}
-              value={globalStats?.total_games || 0}
+              value={globalStats?.total_games ?? null}
               color={colors.neonViolet}
               delay={0.15}
               isLoading={isLoadingGlobal}
@@ -1455,7 +1467,7 @@ export const StatsPage = () => {
           <GridItem>
             <StatCard
               title={t("stats.cards.uniquePlayers")}
-              value={globalStats?.total_unique_players || 0}
+              value={globalStats?.total_unique_players ?? null}
               color={colors.neonPink}
               delay={0.3}
               isLoading={isLoadingGlobal}
