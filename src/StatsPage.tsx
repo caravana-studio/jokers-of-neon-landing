@@ -1036,7 +1036,7 @@ export const StatsPage = () => {
   const [selectedMetric, setSelectedMetric] = useState<MetricType>("transactions");
   const [selectedChain, setSelectedChain] = useState<ChainFilter>("all");
   const [showTotalSeries, setShowTotalSeries] = useState(true);
-  const [timeRange, setTimeRange] = useState<TimeRange>("all");
+  const [timeRange, setTimeRange] = useState<TimeRange>("1M");
   const [granularity, setGranularity] = useState<Granularity>("day");
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
   const [isLoadingChart, setIsLoadingChart] = useState(true);
