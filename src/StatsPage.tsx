@@ -892,11 +892,11 @@ const StatCard = ({
   formatNumber: (value: number) => string;
 }) => {
   const [displayValue, setDisplayValue] = useState(0);
-  const showLoading = isLoading || value === null;
+  const isUnavailable = !isLoading && value === null;
 
   useEffect(() => {
     const targetValue = value ?? 0;
-    if (showLoading || targetValue === 0) {
+    if (isLoading || value === null || targetValue === 0) {
       setDisplayValue(0);
       return;
     }
@@ -915,7 +915,7 @@ const StatCard = ({
     }, duration / steps);
 
     return () => clearInterval(timer);
-  }, [value, showLoading]);
+  }, [value, isLoading]);
 
   return (
     <Box
@@ -976,7 +976,7 @@ const StatCard = ({
         >
           {title}
         </Text>
-        {showLoading ? (
+        {isLoading ? (
           <Skeleton height="40px" width="120px" startColor={`${color}20`} endColor={`${color}40`} />
         ) : (
           <Text
@@ -987,7 +987,7 @@ const StatCard = ({
             animation={`${numberFlicker} 4s infinite`}
             textShadow={`0 0 20px ${color}, 0 0 40px ${color}80`}
           >
-            {formatNumber(displayValue)}
+            {isUnavailable ? "--" : formatNumber(displayValue)}
           </Text>
         )}
       </VStack>
