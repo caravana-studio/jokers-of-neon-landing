@@ -1,5 +1,5 @@
 {
-  "version": "5.2.5",
+  "version": "5.3.4",
   "slot": {
     "prod": "jokers-core-season1",
     "prods2": "jokers-core-season2",
@@ -8,7 +8,7 @@
     "devs3": "jokers-core-season3",
     "prodcavos": "jokers-core-season3",
     "dev": "season3dev",
-    "prodmissions": "season3dev",
+    "prodmissions": "jokers-core-season3",
     "test": "testing-jokers-game",
     "rogue": "jokers-core-season3"
   },
@@ -20,7 +20,7 @@
     "devs3": "https://mainnet-jokers-of-neon-api.onrender.com",
     "prodcavos": "https://jokers-of-neon-api-zf1x.onrender.com",
     "dev": "https://mainnet-jokers-of-neon-api.onrender.com",
-    "prodmissions": "https://mainnet-jokers-of-neon-api.onrender.com",
+    "prodmissions": "https://jokers-of-neon-api-zf1x.onrender.com",
     "test": "https://mainnet-jokers-of-neon-api.onrender.com",
     "rogue": "https://mainnet-jokers-of-neon-api.onrender.com"
   },
