@@ -75,6 +75,12 @@ export const landingResources = {
           games: "GAMES",
           players: "PLAYERS",
         },
+        networks: {
+          all: "ALL CHAINS",
+          starknet: "STARKNET",
+          celo: "CELO",
+          total: "TOTAL",
+        },
         chart: {
           noData: "No data available",
           all: "ALL",
@@ -171,6 +177,12 @@ export const landingResources = {
           games: "PARTIDAS",
           players: "JUGADORES",
         },
+        networks: {
+          all: "TODAS",
+          starknet: "STARKNET",
+          celo: "CELO",
+          total: "TOTAL",
+        },
         chart: {
           noData: "No hay datos disponibles",
           all: "TODO",
@@ -266,6 +278,12 @@ export const landingResources = {
           transactions: "TRANSAÇÕES",
           games: "PARTIDAS",
           players: "JOGADORES",
+        },
+        networks: {
+          all: "TODAS",
+          starknet: "STARKNET",
+          celo: "CELO",
+          total: "TOTAL",
         },
         chart: {
           noData: "Sem dados disponíveis",

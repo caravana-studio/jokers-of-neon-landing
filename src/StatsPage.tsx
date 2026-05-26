@@ -48,13 +48,21 @@ const API_BASE_URL =
   import.meta.env.VITE_GAME_API_URL ||
   import.meta.env.VITE_API_URL ||
   "https://jokers-of-neon-api-zf1x.onrender.com";
-const API_KEY = import.meta.env.VITE_GAME_API_KEY || "";
+const STATS_API_BASE_URL =
+  import.meta.env.VITE_STATS_API_URL ||
+  import.meta.env.VITE_ANALYTICS_API_URL ||
+  API_BASE_URL;
+const API_KEY = import.meta.env.VITE_GAME_API_KEY || import.meta.env.VITE_API_KEY || "";
+const STATS_API_KEY = import.meta.env.VITE_STATS_API_KEY || "";
+const ENABLE_ANALYTICS_STATS =
+  import.meta.env.VITE_ENABLE_ANALYTICS_STATS === "true" ||
+  Boolean(import.meta.env.VITE_STATS_API_URL || import.meta.env.VITE_ANALYTICS_API_URL);
 
 // Types
 interface GlobalStats {
-  total_transactions: number;
-  total_games: number;
-  total_unique_players: number;
+  total_transactions: number | null;
+  total_games: number | null;
+  total_unique_players: number | null;
 }
 
 interface TimeSeriesData {
@@ -62,9 +70,57 @@ interface TimeSeriesData {
   value: number;
 }
 
+interface ChartSeries {
+  id: string;
+  label: string;
+  color: string;
+  data: TimeSeriesData[];
+}
+
+interface TransactionSeriesData {
+  total: TimeSeriesData[];
+  starknet: TimeSeriesData[];
+  celo: TimeSeriesData[];
+}
+
 type MetricType = "transactions" | "games" | "players";
+type ChainFilter = "all" | "starknet" | "celo";
 type Granularity = "hour" | "day" | "week" | "month";
 type TimeRange = "1D" | "1W" | "1M" | "1Y" | "all";
+const ALL_STATS_START_DATE = "2025-12-01";
+
+interface AnalyticsMetric {
+  blockchain?: string;
+  tx_count?: number | string;
+  game_count?: number | string;
+  player_count?: number | string;
+  total_transactions?: number | string;
+  total_games?: number | string;
+  total_unique_players?: number | string;
+  starknet_transactions?: number | string;
+  celo_transactions?: number | string;
+  starknet_games?: number | string;
+  celo_games?: number | string;
+  starknet_unique_players?: number | string;
+  celo_unique_players?: number | string;
+}
+
+interface AnalyticsSummary {
+  blockchain?: string;
+  total?: AnalyticsMetric;
+  chains?: AnalyticsMetric[];
+}
+
+interface AnalyticsPoint extends AnalyticsMetric {
+  day?: string;
+  period?: string;
+  periodo?: string;
+}
+
+interface AnalyticsTimeseries {
+  blockchain?: string;
+  points?: AnalyticsPoint[];
+}
 
 // Animations
 const pulseGlow = keyframes`
@@ -114,6 +170,7 @@ const glowPulse = keyframes`
 const colors = {
   neonCyan: BLUE_LIGHT,
   neonViolet: VIOLET_LIGHT,
+  neonYellow: "#FFD84D",
   neonBlue: BLUE,
   neonPink: DIAMONDS,
   neonGreen: GREEN_LIGHT,
@@ -127,20 +184,297 @@ const metricConfigBase: Record<MetricType, { labelKey: string; color: string; ic
   games: { labelKey: "stats.metrics.games", color: colors.neonViolet, icon: "🃏" },
   players: { labelKey: "stats.metrics.players", color: colors.neonPink, icon: "👥" },
 };
+const chainConfigBase: Record<ChainFilter, { labelKey: string; color: string }> = {
+  all: { labelKey: "stats.networks.all", color: colors.neonGreen },
+  starknet: { labelKey: "stats.networks.starknet", color: colors.neonViolet },
+  celo: { labelKey: "stats.networks.celo", color: colors.neonYellow },
+};
 const defaultMonthsShort = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
 
 // API fetch helper
-const fetchApi = async (endpoint: string) => {
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    headers: { "X-API-Key": API_KEY },
+const buildApiUrl = (baseUrl: string, endpoint: string) => {
+  const normalizedBase = baseUrl.replace(/\/+$/, "");
+  const normalizedEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+  return `${normalizedBase}${normalizedEndpoint}`;
+};
+
+const fetchJson = async (baseUrl: string, endpoint: string, apiKey?: string) => {
+  const headers: HeadersInit = {};
+  if (apiKey) headers["X-API-Key"] = apiKey;
+
+  const response = await fetch(buildApiUrl(baseUrl, endpoint), {
+    headers,
   });
-  if (!response.ok) throw new Error("API request failed");
-  return response.json();
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) {
+    const errorMessage =
+      payload && typeof payload === "object" && "error" in payload
+        ? String(payload.error)
+        : "API request failed";
+    throw new Error(errorMessage);
+  }
+  return payload;
+};
+
+const fetchGameApi = (endpoint: string) => fetchJson(API_BASE_URL, endpoint, API_KEY);
+const fetchStatsApi = (endpoint: string) => fetchJson(STATS_API_BASE_URL, endpoint, STATS_API_KEY);
+
+const unwrapData = (payload: unknown): unknown => {
+  if (!payload || typeof payload !== "object") return payload;
+  if ("success" in payload && (payload as { success?: boolean }).success === false) {
+    const error = "error" in payload ? String((payload as { error?: unknown }).error) : "API request failed";
+    throw new Error(error);
+  }
+  if ("data" in payload) return (payload as { data?: unknown }).data;
+  return payload;
+};
+
+const toNumber = (value: unknown): number => {
+  const numberValue = typeof value === "number" ? value : typeof value === "string" ? Number(value) : 0;
+  return Number.isFinite(numberValue) ? numberValue : 0;
+};
+
+const getFirstNumber = (record: Record<string, unknown>, keys: string[]): number => {
+  for (const key of keys) {
+    if (record[key] !== undefined && record[key] !== null) {
+      return toNumber(record[key]);
+    }
+  }
+  return 0;
+};
+
+const normalizeGlobalStats = (payload: unknown, chain: ChainFilter = "all"): GlobalStats | null => {
+  const data = unwrapData(payload);
+  const stats = Array.isArray(data) ? data[0] : data;
+  if (!stats || typeof stats !== "object") return null;
+
+  const source =
+    "total" in stats && (stats as AnalyticsSummary).total
+      ? (stats as AnalyticsSummary).total
+      : stats;
+
+  if (!source || typeof source !== "object") return null;
+  const record = source as Record<string, unknown>;
+
+  if (chain !== "all") {
+    const chainKeys: Record<Exclude<ChainFilter, "all">, [string, string, string]> = {
+      starknet: ["starknet_transactions", "starknet_games", "starknet_unique_players"],
+      celo: ["celo_transactions", "celo_games", "celo_unique_players"],
+    };
+    const [transactionsKey, gamesKey, playersKey] = chainKeys[chain];
+    const hasChainStats =
+      record[transactionsKey] !== undefined ||
+      record[gamesKey] !== undefined ||
+      record[playersKey] !== undefined;
+
+    if (hasChainStats) {
+      return {
+        total_transactions: toNumber(record[transactionsKey]),
+        total_games: toNumber(record[gamesKey]),
+        total_unique_players: toNumber(record[playersKey]),
+      };
+    }
+
+    if ("blockchain" in record || "tx_count" in record || "game_count" in record || "player_count" in record) {
+      return {
+        total_transactions: getFirstNumber(record, ["total_transactions", "tx_count", "transactions"]),
+        total_games: getFirstNumber(record, ["total_games", "game_count", "games"]),
+        total_unique_players: getFirstNumber(record, ["total_unique_players", "player_count", "unique_players", "players"]),
+      };
+    }
+
+    return null;
+  }
+
+  return {
+    total_transactions: getFirstNumber(record, ["total_transactions", "tx_count", "transactions"]),
+    total_games: getFirstNumber(record, ["total_games", "game_count", "games"]),
+    total_unique_players: getFirstNumber(record, ["total_unique_players", "player_count", "unique_players", "players"]),
+  };
+};
+
+const hasKnownGlobalStatsValues = (stats: GlobalStats | null) =>
+  Boolean(
+    stats &&
+      [stats.total_transactions, stats.total_games, stats.total_unique_players].some(
+        (value) => typeof value === "number" && value > 0
+      )
+  );
+
+const hasAnalyticsSummaryRows = (payload: unknown) => {
+  const data = unwrapData(payload);
+  const chains = data && typeof data === "object" && "chains" in data ? (data as AnalyticsSummary).chains : null;
+  return Boolean(Array.isArray(chains) && chains.length > 0);
+};
+
+const metricValueKeys: Record<MetricType, string[]> = {
+  transactions: ["total_transactions", "tx_count", "transactions", "transaction_count", "value"],
+  games: ["total_games", "game_count", "games", "value"],
+  players: ["unique_players", "total_unique_players", "player_count", "players", "unique_player_count", "value"],
+};
+
+const getMetricValueKeys = (metric: MetricType, chain: ChainFilter): string[] => {
+  if (chain === "starknet") {
+    if (metric === "transactions") return ["starknet_transactions", "starknet_tx_count", "starknet", "value"];
+    if (metric === "games") return ["starknet_games", "starknet_game_count", "value"];
+    return ["starknet_players", "starknet_unique_players", "starknet_player_count", "value"];
+  }
+
+  if (chain === "celo") {
+    if (metric === "transactions") return ["celo_transactions", "celo_tx_count", "celo", "value"];
+    if (metric === "games") return ["celo_games", "celo_game_count", "value"];
+    return ["celo_players", "celo_unique_players", "celo_player_count", "value"];
+  }
+
+  return metricValueKeys[metric];
+};
+
+const getPeriodValue = (record: Record<string, unknown>): string => {
+  const period = record.periodo ?? record.period ?? record.day ?? record.date ?? record.bucket;
+  return typeof period === "string" ? period : "";
+};
+
+const parseDateOnly = (value: string): Date | null => {
+  const match = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (!match) return null;
+  const [, year, month, day] = match;
+  return new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+};
+
+const formatDateOnly = (date: Date) => date.toISOString().slice(0, 10);
+
+const getAggregatedPeriod = (period: string, granularity: Granularity) => {
+  if (granularity === "day" || granularity === "hour") return period.slice(0, 10);
+
+  const date = parseDateOnly(period);
+  if (!date) return period;
+
+  if (granularity === "month") {
+    return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-01`;
+  }
+
+  const day = date.getUTCDay() || 7;
+  date.setUTCDate(date.getUTCDate() - day + 1);
+  return formatDateOnly(date);
+};
+
+const normalizeSeriesData = (
+  payload: unknown,
+  metric: MetricType,
+  granularity: Granularity,
+  aggregate = false,
+  chain: ChainFilter = "all"
+): TimeSeriesData[] => {
+  const data = unwrapData(payload);
+  const rows: unknown[] = Array.isArray(data)
+    ? data
+    : data && typeof data === "object" && Array.isArray((data as AnalyticsTimeseries).points)
+      ? (data as AnalyticsTimeseries).points ?? []
+      : [];
+
+  const mappedRows = rows
+    .map((row) => {
+      if (!row || typeof row !== "object") return null;
+      const record = row as Record<string, unknown>;
+      const period = getPeriodValue(record);
+      if (!period) return null;
+      return {
+        period: aggregate ? getAggregatedPeriod(period, granularity) : period,
+        value: getFirstNumber(record, getMetricValueKeys(metric, chain)),
+      };
+    })
+    .filter((row): row is TimeSeriesData => Boolean(row));
+
+  const aggregated = aggregate
+    ? Array.from(
+        mappedRows
+          .reduce((acc, row) => acc.set(row.period, (acc.get(row.period) ?? 0) + row.value), new Map<string, number>())
+          .entries()
+      ).map(([period, value]) => ({ period, value }))
+    : mappedRows;
+
+  return aggregated.sort((a, b) => new Date(a.period).getTime() - new Date(b.period).getTime());
+};
+
+const normalizeChainId = (value: unknown): ChainFilter | null => {
+  const chain = typeof value === "string" ? value.trim().toLowerCase() : "";
+  if (chain === "starknet" || chain === "celo") return chain;
+  return null;
+};
+
+const addSeriesPoint = (series: Map<string, number>, period: string, value: number) => {
+  if (!period || value === 0) return;
+  series.set(period, (series.get(period) ?? 0) + value);
+};
+
+const mapToSortedSeries = (series: Map<string, number>): TimeSeriesData[] =>
+  Array.from(series.entries())
+    .map(([period, value]) => ({ period, value }))
+    .sort((a, b) => new Date(a.period).getTime() - new Date(b.period).getTime());
+
+const normalizeTransactionSeriesData = (
+  payload: unknown,
+  granularity: Granularity,
+  aggregate = false
+): TransactionSeriesData => {
+  const data = unwrapData(payload);
+  const rows: unknown[] = Array.isArray(data)
+    ? data
+    : data && typeof data === "object" && Array.isArray((data as AnalyticsTimeseries).points)
+      ? (data as AnalyticsTimeseries).points ?? []
+      : [];
+
+  const total = new Map<string, number>();
+  const starknet = new Map<string, number>();
+  const celo = new Map<string, number>();
+
+  rows.forEach((row) => {
+    if (!row || typeof row !== "object") return;
+    const record = row as Record<string, unknown>;
+    const rawPeriod = getPeriodValue(record);
+    if (!rawPeriod) return;
+    const period = aggregate ? getAggregatedPeriod(rawPeriod, granularity) : rawPeriod;
+    const rowChain = normalizeChainId(record.blockchain);
+
+    if (rowChain) {
+      const value = getFirstNumber(record, ["total_transactions", "tx_count", "transactions", "transaction_count", "value"]);
+      addSeriesPoint(rowChain === "celo" ? celo : starknet, period, value);
+      addSeriesPoint(total, period, value);
+      return;
+    }
+
+    const starknetValue = getFirstNumber(record, ["starknet_transactions", "starknet_tx_count", "starknet"]);
+    const celoValue = getFirstNumber(record, ["celo_transactions", "celo_tx_count", "celo"]);
+    const hasChainValues =
+      record.starknet_transactions !== undefined ||
+      record.starknet_tx_count !== undefined ||
+      record.celo_transactions !== undefined ||
+      record.celo_tx_count !== undefined;
+    const totalValue = getFirstNumber(record, ["total_transactions", "tx_count", "transactions", "transaction_count", "value"]);
+
+    if (hasChainValues) {
+      addSeriesPoint(starknet, period, starknetValue);
+      addSeriesPoint(celo, period, celoValue);
+      addSeriesPoint(total, period, totalValue || starknetValue + celoValue);
+      return;
+    }
+
+    // Old stats responses only exposed a total; those transactions were Starknet-era legacy data.
+    addSeriesPoint(starknet, period, totalValue);
+    addSeriesPoint(total, period, totalValue);
+  });
+
+  return {
+    total: mapToSortedSeries(total),
+    starknet: mapToSortedSeries(starknet),
+    celo: mapToSortedSeries(celo),
+  };
 };
 
 // Custom Neon Line Chart Component
 const NeonLineChart = ({
   data,
+  series,
   color,
   isLoading,
   granularity,
@@ -149,6 +483,7 @@ const NeonLineChart = ({
   formatNumber,
 }: {
   data: TimeSeriesData[];
+  series?: ChartSeries[];
   color: string;
   isLoading: boolean;
   granularity: Granularity;
@@ -161,12 +496,20 @@ const NeonLineChart = ({
   const [tooltip, setTooltip] = useState<{
     x: number;
     y: number;
-    value: number;
     period: string;
+    values: { label: string; color: string; value: number }[];
     isFirst: boolean;
     isLast: boolean;
     index: number;
   } | null>(null);
+  const visibleSeries = useMemo<ChartSeries[]>(() => {
+    const nextSeries = series?.filter((item) => item.data.length > 0);
+    if (nextSeries && nextSeries.length > 0) return nextSeries;
+    if (data.length === 0) return [];
+    return [{ id: "default", label: "", color, data }];
+  }, [color, data, series]);
+  const primarySeries = visibleSeries[0] ?? { id: "empty", label: "", color, data: [] };
+  const allData = visibleSeries.flatMap((item) => item.data);
 
   useEffect(() => {
     const svg = svgRef.current;
@@ -195,9 +538,9 @@ const NeonLineChart = ({
       cancelAnimationFrame(frameId);
       observer.disconnect();
     };
-  }, [data.length, isLoading]);
+  }, [isLoading, visibleSeries]);
 
-  const maxValue = Math.max(...data.map((d) => d.value), 1);
+  const maxValue = Math.max(...allData.map((d) => d.value), 1);
   const chartHeight = 280;
   const chartWidth = 840;
   const paddingX = 16;
@@ -221,7 +564,7 @@ const NeonLineChart = ({
     );
   }
 
-  if (data.length === 0) {
+  if (visibleSeries.length === 0) {
     return (
       <Box h="100%" display="flex" alignItems="center" justifyContent="center">
         <Text color="whiteAlpha.500" fontFamily="Oxanium">
@@ -242,16 +585,22 @@ const NeonLineChart = ({
   const niceMax = roundToNice(maxValue);
 
   // Generate path for the line chart
-  const points = data.map((d, i) => ({
-    x: paddingX + (i / (data.length - 1 || 1)) * (chartWidth - paddingX * 2),
+  const buildPoints = (seriesData: TimeSeriesData[]) => seriesData.map((d, i) => ({
+    x: paddingX + (i / (seriesData.length - 1 || 1)) * (chartWidth - paddingX * 2),
     y: chartHeight - paddingY - (d.value / niceMax) * (chartHeight - paddingY * 2),
     value: d.value,
     period: d.period,
   }));
+  const seriesPoints = visibleSeries.map((item) => ({
+    ...item,
+    points: buildPoints(item.data),
+  }));
+  const points = seriesPoints[0]?.points ?? [];
 
-  const linePath = points
+  const buildLinePath = (pointsForPath: typeof points) => pointsForPath
     .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
     .join(" ");
+  const linePath = buildLinePath(points);
 
   const areaPath = `${linePath} L ${points[points.length - 1]?.x || paddingX} ${chartHeight - paddingY} L ${paddingX} ${chartHeight - paddingY} Z`;
 
@@ -277,11 +626,21 @@ const NeonLineChart = ({
     }
 
     const point = points[closestIndex];
+    const values = seriesPoints
+      .map((item) => {
+        const matchingValue = item.data.find((row) => row.period === point.period)?.value ?? 0;
+        return {
+          label: item.label,
+          color: item.color,
+          value: matchingValue,
+        };
+      })
+      .filter((item) => item.value > 0 || seriesPoints.length <= 1);
     setTooltip({
       x: (point.x / chartWidth) * rect.width,
       y: (point.y / chartHeight) * rect.height,
-      value: point.value,
       period: point.period,
+      values,
       isFirst: closestIndex === 0,
       isLast: closestIndex === points.length - 1,
       index: closestIndex,
@@ -314,7 +673,7 @@ const NeonLineChart = ({
       return `${monthNames[monthIndex]} ${year}`;
     }
 
-    const dayMatch = period.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    const dayMatch = period.match(/^(\d{4})-(\d{2})-(\d{2})(?:T.*)?$/);
     if (dayMatch) {
       const [, year, month, day] = dayMatch;
       const monthIndex = Number(month) - 1;
@@ -338,8 +697,8 @@ const NeonLineChart = ({
       >
         <defs>
           <linearGradient id="chart-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor={color} stopOpacity="0.3" />
-            <stop offset="100%" stopColor={color} stopOpacity="0" />
+            <stop offset="0%" stopColor={primarySeries.color} stopOpacity="0.22" />
+            <stop offset="100%" stopColor={primarySeries.color} stopOpacity="0" />
           </linearGradient>
           <filter id="chart-glow">
             <feGaussianBlur stdDeviation="0.8" result="coloredBlur" />
@@ -364,12 +723,12 @@ const NeonLineChart = ({
         ))}
 
         {/* Vertical grid lines for weeks */}
-        {data.map((_, i) => (
+        {primarySeries.data.map((_, i) => (
           <line
             key={`v-${i}`}
-            x1={paddingX + (i / (data.length - 1 || 1)) * (chartWidth - paddingX * 2)}
+            x1={paddingX + (i / (primarySeries.data.length - 1 || 1)) * (chartWidth - paddingX * 2)}
             y1={paddingY}
-            x2={paddingX + (i / (data.length - 1 || 1)) * (chartWidth - paddingX * 2)}
+            x2={paddingX + (i / (primarySeries.data.length - 1 || 1)) * (chartWidth - paddingX * 2)}
             y2={chartHeight - paddingY}
             stroke={colors.gridLine}
             strokeWidth="0.1"
@@ -379,16 +738,20 @@ const NeonLineChart = ({
         {/* Area fill */}
         <path d={areaPath} fill="url(#chart-gradient)" />
 
-        {/* Line */}
-        <path
-          d={linePath}
-          fill="none"
-          stroke={color}
-          strokeWidth="0.6"
-          filter="url(#chart-glow)"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
+        {/* Lines */}
+        {seriesPoints.map((item) => (
+          <path
+            key={item.id}
+            d={buildLinePath(item.points)}
+            fill="none"
+            stroke={item.color}
+            strokeWidth={item.id === "total" ? "0.75" : "0.65"}
+            filter="url(#chart-glow)"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeOpacity={item.id === "total" ? 0.9 : 1}
+          />
+        ))}
 
         {/* Hover line */}
         {tooltip && (
@@ -397,7 +760,7 @@ const NeonLineChart = ({
             x2={points[tooltip.index].x}
             y1={paddingY}
             y2={chartHeight - paddingY}
-            stroke={color}
+            stroke={primarySeries.color}
             strokeOpacity="0.35"
             strokeWidth="0.35"
             strokeDasharray="1 1.5"
@@ -427,7 +790,7 @@ const NeonLineChart = ({
                 cx={p.x}
                 cy={p.y}
                 r="4.1"
-                fill={color}
+                fill={primarySeries.color}
                 fillOpacity="0.16"
                 pointerEvents="none"
                 transform={pointTransform}
@@ -437,7 +800,7 @@ const NeonLineChart = ({
                 cx={p.x}
                 cy={p.y}
                 r="2.4"
-                fill={color}
+                fill={primarySeries.color}
                 pointerEvents="none"
                 transform={pointTransform}
               />
@@ -455,13 +818,13 @@ const NeonLineChart = ({
           transform={`translate(${tooltip.isFirst ? "0" : tooltip.isLast ? "-100%" : "-50%"}, -100%) translateY(-8px)`}
           bg="rgba(0, 0, 0, 0.95)"
           border="1px solid"
-          borderColor={color}
+          borderColor={primarySeries.color}
           borderRadius="md"
           px={3}
           py={2}
           zIndex={1000}
           pointerEvents="none"
-          boxShadow={`0 0 15px ${color}50`}
+          boxShadow={`0 0 15px ${primarySeries.color}50`}
           _after={{
             content: '""',
             position: "absolute",
@@ -470,12 +833,18 @@ const NeonLineChart = ({
             transform: tooltip.isFirst || tooltip.isLast ? "none" : "translateX(-50%)",
             borderWidth: "6px",
             borderStyle: "solid",
-            borderColor: `${color} transparent transparent transparent`,
+            borderColor: `${primarySeries.color} transparent transparent transparent`,
           }}
         >
-          <Text fontFamily="Orbitron" fontSize="md" color={color} fontWeight="bold">
-            {formatNumber(tooltip.value)}
-          </Text>
+          {tooltip.values.map((item) => (
+            <Flex key={item.label || "value"} align="center" gap={2}>
+              {item.label && <Box w="7px" h="7px" borderRadius="full" bg={item.color} />}
+              <Text fontFamily="Orbitron" fontSize="md" color={item.color} fontWeight="bold">
+                {item.label ? `${item.label}: ` : ""}
+                {formatNumber(item.value)}
+              </Text>
+            </Flex>
+          ))}
           <Text fontFamily="Oxanium" fontSize="sm" color="whiteAlpha.700">
             {formatPeriodLabel(tooltip.period)}
           </Text>
@@ -516,29 +885,31 @@ const StatCard = ({
   formatNumber,
 }: {
   title: string;
-  value: number;
+  value: number | null;
   color: string;
   delay: number;
   isLoading: boolean;
   formatNumber: (value: number) => string;
 }) => {
   const [displayValue, setDisplayValue] = useState(0);
+  const isUnavailable = !isLoading && value === null;
 
   useEffect(() => {
-    if (isLoading || value === 0) {
+    const targetValue = value ?? 0;
+    if (isLoading || value === null || targetValue === 0) {
       setDisplayValue(0);
       return;
     }
 
-    const duration = 1500;
-    const steps = 60;
-    const increment = value / steps;
+    const duration = 650;
+    const steps = 26;
+    const increment = targetValue / steps;
     let current = 0;
     let step = 0;
 
     const timer = setInterval(() => {
       step++;
-      current = Math.min(Math.round(increment * step), value);
+      current = Math.min(Math.round(increment * step), targetValue);
       setDisplayValue(current);
       if (step >= steps) clearInterval(timer);
     }, duration / steps);
@@ -616,7 +987,7 @@ const StatCard = ({
             animation={`${numberFlicker} 4s infinite`}
             textShadow={`0 0 20px ${color}, 0 0 40px ${color}80`}
           >
-            {formatNumber(displayValue)}
+            {isUnavailable ? "--" : formatNumber(displayValue)}
           </Text>
         )}
       </VStack>
@@ -629,8 +1000,11 @@ export const StatsPage = () => {
   const { t, i18n } = useTranslation("landing");
   const [globalStats, setGlobalStats] = useState<GlobalStats | null>(null);
   const [chartData, setChartData] = useState<TimeSeriesData[]>([]);
+  const [transactionSeriesData, setTransactionSeriesData] = useState<TransactionSeriesData | null>(null);
   const [selectedMetric, setSelectedMetric] = useState<MetricType>("transactions");
-  const [timeRange, setTimeRange] = useState<TimeRange>("all");
+  const [selectedChain, setSelectedChain] = useState<ChainFilter>("all");
+  const [showTotalSeries, setShowTotalSeries] = useState(true);
+  const [timeRange, setTimeRange] = useState<TimeRange>("1M");
   const [granularity, setGranularity] = useState<Granularity>("day");
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
   const [isLoadingChart, setIsLoadingChart] = useState(true);
@@ -665,6 +1039,24 @@ export const StatsPage = () => {
           label: t(metricConfigBase.players.labelKey),
         },
       }) as Record<MetricType, { labelKey: string; label: string; color: string; icon: string }>,
+    [t]
+  );
+  const chainConfig = useMemo(
+    () =>
+      ({
+        all: {
+          ...chainConfigBase.all,
+          label: t(chainConfigBase.all.labelKey),
+        },
+        starknet: {
+          ...chainConfigBase.starknet,
+          label: t(chainConfigBase.starknet.labelKey),
+        },
+        celo: {
+          ...chainConfigBase.celo,
+          label: t(chainConfigBase.celo.labelKey),
+        },
+      }) as Record<ChainFilter, { labelKey: string; label: string; color: string }>,
     [t]
   );
 
@@ -702,7 +1094,7 @@ export const StatsPage = () => {
       }
       case "all":
       default:
-        startDate = "2025-12-01";
+        startDate = ALL_STATS_START_DATE;
         break;
     }
 
@@ -714,18 +1106,35 @@ export const StatsPage = () => {
     const fetchGlobalStats = async () => {
       setIsLoadingGlobal(true);
       try {
-        const response = await fetchApi("/api/stats/global");
-        if (response.success) {
-          setGlobalStats(response.data);
+        if (ENABLE_ANALYTICS_STATS) {
+          const analyticsParams = new URLSearchParams({ blockchain: selectedChain });
+
+          try {
+            const analyticsResponse = await fetchStatsApi(`/api/analytics/summary?${analyticsParams}`);
+            const analyticsStats = normalizeGlobalStats(analyticsResponse, selectedChain);
+            if (analyticsStats && (selectedChain === "celo" || hasKnownGlobalStatsValues(analyticsStats) || hasAnalyticsSummaryRows(analyticsResponse))) {
+              setGlobalStats(analyticsStats);
+              return;
+            }
+          } catch {
+            // Analytics endpoints are optional while deployments migrate; legacy stats remain the fallback.
+          }
         }
+
+        const legacyParams = new URLSearchParams();
+        if (selectedChain !== "all") legacyParams.set("blockchain", selectedChain);
+        const legacyEndpoint = `/api/stats/global${legacyParams.toString() ? `?${legacyParams}` : ""}`;
+        const legacyGlobalStats = await fetchGameApi(legacyEndpoint).then((payload) => normalizeGlobalStats(payload, selectedChain));
+        setGlobalStats(legacyGlobalStats);
       } catch (error) {
         console.error("Failed to fetch global stats:", error);
+        setGlobalStats(null);
       } finally {
         setIsLoadingGlobal(false);
       }
     };
     fetchGlobalStats();
-  }, []);
+  }, [selectedChain]);
 
   // Fetch minted cards from Starknet contract
   useEffect(() => {
@@ -755,7 +1164,43 @@ export const StatsPage = () => {
   const fetchChartData = useCallback(async () => {
     setIsLoadingChart(true);
     try {
-      const params = `granularity=${granularity}&start_date=${dateRange.startDate}&end_date=${dateRange.endDate}`;
+      const analyticsChain = selectedMetric === "transactions" ? "all" : selectedChain;
+      if (ENABLE_ANALYTICS_STATS && granularity !== "hour") {
+        try {
+          const analyticsParams = new URLSearchParams({
+            blockchain: analyticsChain,
+            from: dateRange.startDate,
+            to: dateRange.endDate,
+          });
+          const analyticsResponse = await fetchStatsApi(`/api/analytics/timeseries?${analyticsParams}`);
+          if (selectedMetric === "transactions") {
+            const analyticsTransactionSeries = normalizeTransactionSeriesData(analyticsResponse, granularity, true);
+            const selectedSeries = analyticsTransactionSeries[selectedChain === "all" ? "total" : selectedChain];
+            if (selectedSeries.length > 0) {
+              setTransactionSeriesData(analyticsTransactionSeries);
+              setChartData(selectedSeries);
+              return;
+            }
+          }
+
+          const analyticsData = normalizeSeriesData(analyticsResponse, selectedMetric, granularity, true, selectedChain);
+
+          if (analyticsData.length > 0) {
+            setTransactionSeriesData(null);
+            setChartData(analyticsData);
+            return;
+          }
+        } catch {
+          // Analytics endpoints are optional while deployments migrate; legacy stats remain the fallback.
+        }
+      }
+
+      const params = new URLSearchParams({
+        granularity,
+        start_date: dateRange.startDate,
+        end_date: dateRange.endDate,
+      });
+      if (selectedMetric !== "transactions" && selectedChain !== "all") params.set("blockchain", selectedChain);
 
       const endpointMap: Record<MetricType, string> = {
         transactions: `/api/stats/transactions?${params}`,
@@ -763,40 +1208,70 @@ export const StatsPage = () => {
         players: `/api/stats/players?${params}`,
       };
 
-      const response = await fetchApi(endpointMap[selectedMetric]);
-
-      if (response.success) {
-        const fieldMap: Record<MetricType, string> = {
-          transactions: "total_transactions",
-          games: "total_games",
-          players: "unique_players",
-        };
-
-        const mappedData = response.data.map((d: Record<string, unknown>) => ({
-          period: (d.periodo || d.period) as string,
-          value: d[fieldMap[selectedMetric]] as number,
-        }));
-
-        // Sort by date ascending (oldest first on left, newest on right)
-        mappedData.sort((a: TimeSeriesData, b: TimeSeriesData) =>
-          new Date(a.period).getTime() - new Date(b.period).getTime()
-        );
-
-        setChartData(mappedData);
+      const response = await fetchGameApi(endpointMap[selectedMetric]);
+      if (selectedMetric === "transactions") {
+        const transactionSeries = normalizeTransactionSeriesData(response, granularity);
+        setTransactionSeriesData(transactionSeries);
+        setChartData(transactionSeries[selectedChain === "all" ? "total" : selectedChain]);
+        return;
       }
+
+      setTransactionSeriesData(null);
+      setChartData(normalizeSeriesData(response, selectedMetric, granularity, false, selectedChain));
     } catch (error) {
       console.error("Failed to fetch chart data:", error);
+      setTransactionSeriesData(null);
       setChartData([]);
     } finally {
       setIsLoadingChart(false);
     }
-  }, [selectedMetric, dateRange, granularity]);
+  }, [selectedMetric, selectedChain, dateRange, granularity]);
 
   useEffect(() => {
     fetchChartData();
   }, [fetchChartData]);
 
   const currentMetricConfig = metricConfig[selectedMetric];
+  const currentChainConfig = chainConfig[selectedChain];
+  const chartSeries = useMemo<ChartSeries[]>(() => {
+    if (selectedMetric === "transactions" && transactionSeriesData) {
+      const seriesList: ChartSeries[] = [];
+      if (selectedChain === "all" && showTotalSeries) {
+        seriesList.push({
+          id: "total",
+          label: t("stats.networks.total"),
+          color: colors.neonCyan,
+          data: transactionSeriesData.total,
+        });
+      }
+      if (selectedChain === "all" || selectedChain === "starknet") {
+        seriesList.push({
+          id: "starknet",
+          label: chainConfig.starknet.label,
+          color: colors.neonViolet,
+          data: transactionSeriesData.starknet,
+        });
+      }
+      if (selectedChain === "all" || selectedChain === "celo") {
+        seriesList.push({
+          id: "celo",
+          label: chainConfig.celo.label,
+          color: colors.neonYellow,
+          data: transactionSeriesData.celo,
+        });
+      }
+      return seriesList.filter((item) => item.data.length > 0);
+    }
+
+    return [
+      {
+        id: selectedMetric,
+        label: currentMetricConfig.label,
+        color: currentMetricConfig.color,
+        data: chartData,
+      },
+    ];
+  }, [chainConfig, chartData, currentMetricConfig, selectedChain, selectedMetric, showTotalSeries, t, transactionSeriesData]);
   const avg = useMemo(() => {
     if (!chartData.length) return 0;
     const total = chartData.reduce((acc, d) => acc + d.value, 0);
@@ -907,12 +1382,12 @@ export const StatsPage = () => {
               w="8px"
               h="8px"
               borderRadius="full"
-              bg={colors.neonGreen}
-              boxShadow={`0 0 10px ${colors.neonGreen}`}
+              bg={currentChainConfig.color}
+              boxShadow={`0 0 10px ${currentChainConfig.color}`}
               animation={`${pulseGlow} 2s ease-in-out infinite`}
             />
             <Text fontFamily="Oxanium" fontSize="xs" color="whiteAlpha.600">
-              {t("stats.header.network")}
+              {currentChainConfig.label} - {t("stats.header.network")}
             </Text>
           </Flex>
         </Flex>
@@ -927,7 +1402,7 @@ export const StatsPage = () => {
           <GridItem>
             <StatCard
               title={t("stats.cards.totalTransactions")}
-              value={globalStats?.total_transactions || 0}
+              value={globalStats?.total_transactions ?? null}
               color={colors.neonCyan}
               delay={0}
               isLoading={isLoadingGlobal}
@@ -937,7 +1412,7 @@ export const StatsPage = () => {
           <GridItem>
             <StatCard
               title={t("stats.cards.totalGames")}
-              value={globalStats?.total_games || 0}
+              value={globalStats?.total_games ?? null}
               color={colors.neonViolet}
               delay={0.15}
               isLoading={isLoadingGlobal}
@@ -947,7 +1422,7 @@ export const StatsPage = () => {
           <GridItem>
             <StatCard
               title={t("stats.cards.uniquePlayers")}
-              value={globalStats?.total_unique_players || 0}
+              value={globalStats?.total_unique_players ?? null}
               color={colors.neonPink}
               delay={0.3}
               isLoading={isLoadingGlobal}
@@ -1023,6 +1498,33 @@ export const StatsPage = () => {
                 ))}
               </ButtonGroup>
 
+              {/* Network Selector */}
+              <ButtonGroup size={{ base: "xs", md: "sm" }} isAttached variant="outline" w={{ base: "100%", md: "auto" }}>
+                {(["all", "starknet", "celo"] as ChainFilter[]).map((chain) => (
+                  <Button
+                    key={chain}
+                    onClick={() => {
+                      setSelectedChain(chain);
+                      if (chain === "celo" && granularity === "hour") setGranularity("day");
+                    }}
+                    bg={selectedChain === chain ? `${chainConfig[chain].color}20` : "transparent"}
+                    borderColor={selectedChain === chain ? chainConfig[chain].color : "whiteAlpha.300"}
+                    color={selectedChain === chain ? chainConfig[chain].color : "whiteAlpha.700"}
+                    fontFamily="Orbitron"
+                    fontSize={{ base: "9px !important", md: "12px !important" }}
+                    px={{ base: 2, md: 4 }}
+                    flex="1"
+                    minW={0}
+                    _hover={{
+                      bg: `${chainConfig[chain].color}10`,
+                      borderColor: chainConfig[chain].color,
+                    }}
+                  >
+                    {chainConfig[chain].label}
+                  </Button>
+                ))}
+              </ButtonGroup>
+
               <Flex
                 w="100%"
                 align="center"
@@ -1068,12 +1570,47 @@ export const StatsPage = () => {
                     _hover={{ borderColor: currentMetricConfig.color }}
                     _focus={{ borderColor: currentMetricConfig.color, boxShadow: `0 0 0 1px ${currentMetricConfig.color}` }}
                   >
-                    <option value="hour">{t("stats.chart.granularity.hour")}</option>
+                    <option value="hour" disabled={selectedChain === "celo"}>
+                      {t("stats.chart.granularity.hour")}
+                    </option>
                     <option value="day">{t("stats.chart.granularity.day")}</option>
                     <option value="week">{t("stats.chart.granularity.week")}</option>
                     <option value="month">{t("stats.chart.granularity.month")}</option>
                   </Select>
                 </Flex>
+
+                {selectedMetric === "transactions" && selectedChain === "all" && (
+                  <Button
+                    size={{ base: "xs", md: "sm" }}
+                    variant="outline"
+                    onClick={() => setShowTotalSeries((value) => !value)}
+                    bg={showTotalSeries ? `${colors.neonCyan}20` : "transparent"}
+                    borderColor={showTotalSeries ? colors.neonCyan : "whiteAlpha.300"}
+                    color={showTotalSeries ? colors.neonCyan : "whiteAlpha.700"}
+                    fontFamily="Orbitron"
+                    fontSize={{ base: "9px !important", md: "12px !important" }}
+                    px={{ base: 2, md: 3 }}
+                    _hover={{
+                      bg: `${colors.neonCyan}10`,
+                      borderColor: colors.neonCyan,
+                    }}
+                  >
+                    {t("stats.networks.total")}
+                  </Button>
+                )}
+
+                {selectedMetric === "transactions" && chartSeries.length > 1 && (
+                  <Flex align="center" gap={3} flexWrap="wrap">
+                    {chartSeries.map((item) => (
+                      <Flex key={item.id} align="center" gap={1.5}>
+                        <Box w="8px" h="8px" borderRadius="full" bg={item.color} boxShadow={`0 0 8px ${item.color}`} />
+                        <Text fontFamily="Oxanium" fontSize="xs" color="whiteAlpha.700">
+                          {item.label}
+                        </Text>
+                      </Flex>
+                    ))}
+                  </Flex>
+                )}
 
                 <Box textAlign={{ base: "left", md: "right" }} ml={{ md: "auto" }}>
                   <Text fontSize="xs" color="whiteAlpha.500" fontFamily="Oxanium">
@@ -1091,6 +1628,7 @@ export const StatsPage = () => {
           <Box flex="1" minH={{ base: "220px", md: 0 }}>
             <NeonLineChart
               data={chartData}
+              series={chartSeries}
               color={currentMetricConfig.color}
               isLoading={isLoadingChart}
               granularity={granularity}
