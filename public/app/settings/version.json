@@ -10,7 +10,8 @@
     "dev": "season3dev",
     "prodmissions": "jokers-core-season3",
     "test": "testing-jokers-game",
-    "rogue": "jokers-core-season3"
+    "rogue": "jokers-core-season3",
+    "testnet": "jokers-testing"
   },
   "api": {
     "prod": "https://jokers-of-neon-api-zf1x.onrender.com",
@@ -22,7 +23,8 @@
     "dev": "https://mainnet-jokers-of-neon-api.onrender.com",
     "prodmissions": "https://jokers-of-neon-api-zf1x.onrender.com",
     "test": "https://mainnet-jokers-of-neon-api.onrender.com",
-    "rogue": "https://mainnet-jokers-of-neon-api.onrender.com"
+    "rogue": "https://mainnet-jokers-of-neon-api.onrender.com",
+    "testnet": "https://testnet-jokers-of-neon-api.onrender.com"
   },
   "maintenance": false
 }
