@@ -1,7 +1,11 @@
 {
   "android": {
     "season_pass": "season_pass_s3",
-    "packs": []
+    "packs": [
+      { "shopId": "pack_legendary_s3", "packId": 34 },
+      { "shopId": "pack_epic_s3", "packId": 33 },
+      { "shopId": "pack_advanced_s3", "packId": 32 }
+    ]
   },
   "ios": {
     "season_pass": "season_pass_s3",
