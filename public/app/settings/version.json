@@ -26,5 +26,5 @@
     "rogue": "https://mainnet-jokers-of-neon-api.onrender.com",
     "testnet": "https://testnet-jokers-of-neon-api.onrender.com"
   },
-  "maintenance": false
+  "maintenance": true
 }
