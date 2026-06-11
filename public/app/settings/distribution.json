@@ -15,8 +15,7 @@
         "id": "s3",
         "position": 3,
         "type": "image",
-        "navigateTo": "/shop",
-        "url": "https://jokersofneon.com/app/banners/collectors-s3.png"
+        "url": "https://jokersofneon.com/app/banners/s3-live.png"
       }
     ]
   },
@@ -31,8 +30,7 @@
         "id": "App",
         "position": 2,
         "type": "image",
-        "url": "https://jokersofneon.com/app/banners/download-app.png",
-        "navigateTo": "https://play.jokersofneon.com/"
+        "url": "https://jokersofneon.com/app/banners/download-app.png"
       }
     ]
   }
