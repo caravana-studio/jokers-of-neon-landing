@@ -77,8 +77,8 @@
       ]
     },
     {
-      "address": "0x4f8911e54ec5a70dafeb5a3fc05cd88c076203bcd207857b600a1644da3512f",
-      "class_hash": "0x1efaf9030fe5cc158ba8956c4ba16624c44e6f26ccdf0e5a131b75578bc490d",
+      "address": "0x3200de8caf2f6bd2253c2dd1164be4fae5ed01e8d7899f07ef53a6482d9b311",
+      "class_hash": "0x63551e5596d42c7d90d4de5f26a111dc656578a15be0e1dc0a9dae490966c81",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-daily_missions_system",
       "selector": "0x156eeb853e4394f56b8042873481ea1614c697db1e95a75dde9bb75750b441e",
@@ -367,14 +367,13 @@
       ]
     },
     {
-      "address": "0x4e2dd853d70142563b7511c7ce233df0b4d24b1b676019c7efd2d98c40e5eaa",
-      "class_hash": "0xc4748381e01e60dbd7e5076121e3bfb3a75de697bd354707acd10c4d7d2f22",
+      "address": "0x661f3841df22cdac91c31102770b46845570430d2c89f4afbef531998e0f3da",
+      "class_hash": "0x6533b46ef4ccf8c8263b210a34453f8ecc49709c6e235511608ee3444efa8b4",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-ticket_system",
       "selector": "0x1742421831d58cebe990bf20adac7160ae2bd9030cf5e3f716088b78c21b06",
       "systems": [
         "add",
-        "grant",
         "remove",
         "upgrade"
       ]
@@ -2176,43 +2175,6 @@
       "class_hash": "0x1ee383ea823fe8a8c284e17967ac2e107dd07285478f6aa1d34687210335285",
       "tag": "jokers_of_neon_core-StageTracker",
       "selector": "0x389c47e25bc27e8d7d18c91304689e4858742e056263b2451cdc5e8f817522a"
-    },
-    {
-      "members": [
-        {
-          "name": "player",
-          "type": "core::starknet::contract_address::ContractAddress",
-          "key": true
-        },
-        {
-          "name": "source",
-          "type": "core::felt252",
-          "key": true
-        },
-        {
-          "name": "source_id",
-          "type": "core::felt252",
-          "key": true
-        },
-        {
-          "name": "season_id",
-          "type": "core::integer::u32",
-          "key": false
-        },
-        {
-          "name": "quantity",
-          "type": "core::integer::u32",
-          "key": false
-        },
-        {
-          "name": "claimed",
-          "type": "core::bool",
-          "key": false
-        }
-      ],
-      "class_hash": "0x5d9e25600704181978348a73edeb8774c28b68c3ecf0ec5bc427f76acbef614",
-      "tag": "jokers_of_neon_core-TicketGrant",
-      "selector": "0x7871bafcf56243a35f6e2f4a0d6704e29a782bc5151b2da8fd738382e37f400"
     },
     {
       "members": [
@@ -8424,54 +8386,6 @@
     },
     {
       "type": "struct",
-      "name": "jokers_of_neon_core::models::tournament::TicketGrant",
-      "members": [
-        {
-          "name": "player",
-          "type": "core::starknet::contract_address::ContractAddress"
-        },
-        {
-          "name": "source",
-          "type": "core::felt252"
-        },
-        {
-          "name": "source_id",
-          "type": "core::felt252"
-        },
-        {
-          "name": "season_id",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "quantity",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "claimed",
-          "type": "core::bool"
-        }
-      ]
-    },
-    {
-      "type": "struct",
-      "name": "jokers_of_neon_core::models::tournament::TicketGrantValue",
-      "members": [
-        {
-          "name": "season_id",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "quantity",
-          "type": "core::integer::u32"
-        },
-        {
-          "name": "claimed",
-          "type": "core::bool"
-        }
-      ]
-    },
-    {
-      "type": "struct",
       "name": "jokers_of_neon_core::models::tournament::Tickets",
       "members": [
         {
@@ -8497,12 +8411,6 @@
           "type": "core::integer::u32"
         }
       ]
-    },
-    {
-      "type": "event",
-      "name": "jokers_of_neon_core::models::tournament::m_TicketGrant::Event",
-      "kind": "enum",
-      "variants": []
     },
     {
       "type": "event",
@@ -10521,34 +10429,6 @@
             {
               "name": "quantity",
               "type": "core::integer::u32"
-            }
-          ],
-          "outputs": [],
-          "state_mutability": "external"
-        },
-        {
-          "type": "function",
-          "name": "grant",
-          "inputs": [
-            {
-              "name": "player",
-              "type": "core::starknet::contract_address::ContractAddress"
-            },
-            {
-              "name": "season_id",
-              "type": "core::integer::u32"
-            },
-            {
-              "name": "quantity",
-              "type": "core::integer::u32"
-            },
-            {
-              "name": "source",
-              "type": "core::felt252"
-            },
-            {
-              "name": "source_id",
-              "type": "core::felt252"
             }
           ],
           "outputs": [],
