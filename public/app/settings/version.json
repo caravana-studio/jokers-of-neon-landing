@@ -13,6 +13,17 @@
     "rogue": "jokers-core-season3",
     "testnet": "jokers-testing"
   },
+  "slotEndpoints": {
+    "aws-testnet": {
+      "kind": "katana",
+      "slotInstance": "aws-testnet",
+      "rpcUrl": "https://katana.testnet.jokersofneon.com",
+      "toriiUrl": "https://torii.testnet.jokersofneon.com",
+      "graphqlUrl": "https://torii.testnet.jokersofneon.com/graphql",
+      "relayUrl": "/dns4/torii.testnet.jokersofneon.com/tcp/443/x-parity-wss/%2Fwss",
+      "chainId": "KATANA"
+    }
+  },
   "api": {
     "prod": "https://jokers-of-neon-api-zf1x.onrender.com",
     "prods2": "https://jokers-of-neon-api-zf1x.onrender.com",
@@ -24,7 +35,8 @@
     "prodmissions": "https://jokers-of-neon-api-zf1x.onrender.com",
     "test": "https://mainnet-jokers-of-neon-api.onrender.com",
     "rogue": "https://mainnet-jokers-of-neon-api.onrender.com",
-    "testnet": "https://testnet-jokers-of-neon-api.onrender.com"
+    "testnet": "https://testnet-jokers-of-neon-api.onrender.com",
+    "aws-testnet": "https://testnet-jokers-of-neon-api.onrender.com"
   },
   "maintenance": false
 }
