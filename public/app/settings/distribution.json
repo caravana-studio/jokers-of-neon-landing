@@ -2,9 +2,9 @@
   "home": {
     "banners": [
       {
-        "id": "LEADERBOARD",
+        "id": "TOURNAMENT",
         "position": 1,
-        "type": "LEADERBOARD"
+        "type": "TOURNAMENT"
       },
       {
         "id": "daily-missions",
@@ -12,10 +12,11 @@
         "type": "DAILY_MISSIONS"
       },
       {
-        "id": "s3",
+        "id": "s3-tournament",
         "position": 3,
         "type": "image",
-        "url": "https://jokersofneon.com/app/banners/s3-live.png"
+        "navigateTo": "/tournament",
+        "url": "https://jokersofneon.com/app/banners/s3-tourney.png"
       }
     ]
   },
