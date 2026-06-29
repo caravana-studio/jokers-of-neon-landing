@@ -12,11 +12,10 @@
         "type": "DAILY_MISSIONS"
       },
       {
-        "id": "s3-tournament",
+        "id": "s3-live",
         "position": 3,
         "type": "image",
-        "navigateTo": "/tournament",
-        "url": "https://jokersofneon.com/app/banners/s3-tourney.png"
+        "url": "https://jokersofneon.com/app/banners/s3-live.png"
       }
     ]
   },
