@@ -34,7 +34,7 @@
   "contracts": [
     {
       "address": "0x55ece7b2ff95b8c7f0053b899156c27e23d8b053e26ce5f3bfe1523038c4e4e",
-      "class_hash": "0x77ab689431c78f849b5e00d61ccdd7f4de6f1ff1f60bad9312cb6547653c7d6",
+      "class_hash": "0x3eca82cb1506b56126e9378e86049044b887c6c3203f5688cd1d94ad5667e0d",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-action_system",
       "selector": "0x7818a1d55aa438edfc913a34975c6fdf37d2b250f797fb51ba10872bea762f2",
@@ -217,7 +217,7 @@
     },
     {
       "address": "0x13abcef4401cee458ea7a81b1a2108f9ce068978cc8c04fdc2af967834d9199",
-      "class_hash": "0x4fd53cbd1a1a4bdc4859eb9493116c5a2373ae0c571185ccc6f96e52a861b01",
+      "class_hash": "0x10d8ee5ac4c4f345e00d5df32bc01f9fa41bd273c5924dde34cd705bf488090",
       "init_calldata": [],
       "tag": "jokers_of_neon_core-play_system",
       "selector": "0xe9b7c6dea9cc75259c88fa913fc033e0a7c5945c64b850cd2b6950e36cb008",
@@ -2893,6 +2893,33 @@
       "class_hash": "0x303644aa5fa7e88243c33ea9bfd659c5d431595f558a3edd451e5a0fb004b2d",
       "tag": "jokers_of_neon_core-GamePowerUpEvent",
       "selector": "0x3a8d4d88197b260ebdfbbbb3de2b8ab5e900209bcd208195fb85b9f8ebac613"
+    },
+    {
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress",
+          "key": true
+        },
+        {
+          "name": "game_id",
+          "type": "core::integer::u64",
+          "key": false
+        },
+        {
+          "name": "source",
+          "type": "jokers_of_neon_lib::events::hand_discard_event::DiscardSource",
+          "key": false
+        },
+        {
+          "name": "discarded_hand_indexes",
+          "type": "core::array::Span::<core::integer::u32>",
+          "key": false
+        }
+      ],
+      "class_hash": "0x4516bcc78c6eabb8c5d0c4959e85f26ea6927cde827e2ef09b797664750445f",
+      "tag": "jokers_of_neon_core-HandDiscardEvent",
+      "selector": "0x7bdd12e8692ee42fb5fd90bec4c1f81cfed05804c1b970a0963a5bcdb33f235"
     },
     {
       "members": [
@@ -10941,6 +10968,66 @@
     {
       "type": "event",
       "name": "jokers_of_neon_lib::events::card_play_event::e_CardPlayEvent::Event",
+      "kind": "enum",
+      "variants": []
+    },
+    {
+      "type": "enum",
+      "name": "jokers_of_neon_lib::events::hand_discard_event::DiscardSource",
+      "variants": [
+        {
+          "name": "Play",
+          "type": "()"
+        },
+        {
+          "name": "Discard",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_lib::events::hand_discard_event::HandDiscardEvent",
+      "members": [
+        {
+          "name": "player",
+          "type": "core::starknet::contract_address::ContractAddress"
+        },
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "source",
+          "type": "jokers_of_neon_lib::events::hand_discard_event::DiscardSource"
+        },
+        {
+          "name": "discarded_hand_indexes",
+          "type": "core::array::Span::<core::integer::u32>"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "jokers_of_neon_lib::events::hand_discard_event::HandDiscardEventValue",
+      "members": [
+        {
+          "name": "game_id",
+          "type": "core::integer::u64"
+        },
+        {
+          "name": "source",
+          "type": "jokers_of_neon_lib::events::hand_discard_event::DiscardSource"
+        },
+        {
+          "name": "discarded_hand_indexes",
+          "type": "core::array::Span::<core::integer::u32>"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "jokers_of_neon_lib::events::hand_discard_event::e_HandDiscardEvent::Event",
       "kind": "enum",
       "variants": []
     },
