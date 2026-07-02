@@ -30,7 +30,8 @@
         "id": "App",
         "position": 2,
         "type": "image",
-        "url": "https://jokersofneon.com/app/banners/download-app.png"
+        "navigateTo": "/my-games",
+        "url": "https://jokersofneon.com/app/banners/my-games-banner.png"
       }
     ]
   }
