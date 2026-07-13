@@ -1,19 +1,15 @@
 {
   "version": "5.4.0",
-  "slot": {
-    "prod": "jokers-core-season1",
-    "prods2": "jokers-core-season2",
-    "prods3": "jokers-core-season3",
-    "devcelo": "jokers-core-season3",
-    "devs3": "jokers-core-season3",
-    "prodcavos": "jokers-core-season3",
-    "dev": "season3dev",
-    "prodmissions": "jokers-core-season3",
-    "test": "testing-jokers-game",
-    "rogue": "jokers-core-season3",
-    "testnet": "jokers-testing"
-  },
   "slotEndpoints": {
+    "aws-mainnet": {
+      "kind": "katana",
+      "slotInstance": "aws-mainnet",
+      "rpcUrl": "https://katana.mainnet.jokersofneon.com",
+      "toriiUrl": "https://torii.mainnet.jokersofneon.com",
+      "graphqlUrl": "https://torii.mainnet.jokersofneon.com/graphql",
+      "relayUrl": "/dns4/torii.mainnet.jokersofneon.com/tcp/443/x-parity-wss/%2Fwss",
+      "chainId": "KATANA"
+    },
     "aws-testnet": {
       "kind": "katana",
       "slotInstance": "aws-testnet",
@@ -25,18 +21,9 @@
     }
   },
   "api": {
-    "prod": "https://jokers-of-neon-api-zf1x.onrender.com",
-    "prods2": "https://jokers-of-neon-api-zf1x.onrender.com",
-    "prods3": "https://jokers-of-neon-api-zf1x.onrender.com",
-    "devcelo": "https://jokers-of-neon-api-zf1x.onrender.com",
-    "devs3": "https://mainnet-jokers-of-neon-api.onrender.com",
-    "prodcavos": "https://jokers-of-neon-api-zf1x.onrender.com",
-    "dev": "https://mainnet-jokers-of-neon-api.onrender.com",
-    "prodmissions": "https://jokers-of-neon-api-zf1x.onrender.com",
-    "test": "https://mainnet-jokers-of-neon-api.onrender.com",
-    "rogue": "https://mainnet-jokers-of-neon-api.onrender.com",
-    "testnet": "https://testnet-jokers-of-neon-api.onrender.com",
-    "aws-testnet": "https://testnet-jokers-of-neon-api.onrender.com"
+    "aws-mainnet": "https://jokers-of-neon-api-zf1x.onrender.com",
+    "aws-testnet": "https://testnet-jokers-of-neon-api.onrender.com",
+    "devcelo": "https://jokers-of-neon-api-zf1x.onrender.com"
   },
   "maintenance": true
 }
