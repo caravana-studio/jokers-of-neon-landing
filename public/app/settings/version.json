@@ -25,5 +25,6 @@
     "aws-testnet": "https://testnet-jokers-of-neon-api.onrender.com",
     "devcelo": "https://jokers-of-neon-api-zf1x.onrender.com"
   },
-  "maintenance": true
+  "maintenance": true,
+  "marketplace-maintenance": true
 }
