@@ -88,6 +88,7 @@ type ChainFilter = "all" | "starknet" | "celo";
 type Granularity = "hour" | "day" | "week" | "month";
 type TimeRange = "1D" | "1W" | "1M" | "1Y" | "all";
 const ALL_STATS_START_DATE = "2025-12-01";
+const IGNORED_STATS_DATES = new Set(["2026-07-08"]);
 
 interface AnalyticsMetric {
   blockchain?: string;
@@ -334,6 +335,8 @@ const getPeriodValue = (record: Record<string, unknown>): string => {
   return typeof period === "string" ? period : "";
 };
 
+const isIgnoredStatsDate = (period: string) => IGNORED_STATS_DATES.has(period.slice(0, 10));
+
 const parseDateOnly = (value: string): Date | null => {
   const match = value.match(/^(\d{4})-(\d{2})-(\d{2})/);
   if (!match) return null;
@@ -377,7 +380,7 @@ const normalizeSeriesData = (
       if (!row || typeof row !== "object") return null;
       const record = row as Record<string, unknown>;
       const period = getPeriodValue(record);
-      if (!period) return null;
+      if (!period || isIgnoredStatsDate(period)) return null;
       return {
         period: aggregate ? getAggregatedPeriod(period, granularity) : period,
         value: getFirstNumber(record, getMetricValueKeys(metric, chain)),
@@ -432,7 +435,7 @@ const normalizeTransactionSeriesData = (
     if (!row || typeof row !== "object") return;
     const record = row as Record<string, unknown>;
     const rawPeriod = getPeriodValue(record);
-    if (!rawPeriod) return;
+    if (!rawPeriod || isIgnoredStatsDate(rawPeriod)) return;
     const period = aggregate ? getAggregatedPeriod(rawPeriod, granularity) : rawPeriod;
     const rowChain = normalizeChainId(record.blockchain);
 
