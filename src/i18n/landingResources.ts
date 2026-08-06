@@ -80,10 +80,14 @@ export const landingResources = {
           starknet: "STARKNET",
           celo: "CELO",
           total: "TOTAL",
+          select: "Select chain",
         },
         chart: {
           noData: "No data available",
           all: "ALL",
+          compare: "COMPARE",
+          summarize: "SUMMARIZE",
+          viewMode: "Chart view mode",
           granularity: {
             hour: "HOURLY",
             day: "DAILY",
@@ -182,10 +186,14 @@ export const landingResources = {
           starknet: "STARKNET",
           celo: "CELO",
           total: "TOTAL",
+          select: "Seleccionar red",
         },
         chart: {
           noData: "No hay datos disponibles",
           all: "TODO",
+          compare: "COMPARAR",
+          summarize: "RESUMIR",
+          viewMode: "Modo de visualización del gráfico",
           granularity: {
             hour: "HORARIO",
             day: "DIARIO",
@@ -284,10 +292,14 @@ export const landingResources = {
           starknet: "STARKNET",
           celo: "CELO",
           total: "TOTAL",
+          select: "Selecionar rede",
         },
         chart: {
           noData: "Sem dados disponíveis",
           all: "TUDO",
+          compare: "COMPARAR",
+          summarize: "RESUMIR",
+          viewMode: "Modo de visualização do gráfico",
           granularity: {
             hour: "HORÁRIO",
             day: "DIÁRIO",

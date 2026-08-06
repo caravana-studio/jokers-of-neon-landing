@@ -9,6 +9,7 @@ import {
   Select,
   Skeleton,
   Spinner,
+  Switch,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -77,7 +78,7 @@ interface ChartSeries {
   data: TimeSeriesData[];
 }
 
-interface TransactionSeriesData {
+interface MultiChainSeriesData {
   total: TimeSeriesData[];
   starknet: TimeSeriesData[];
   celo: TimeSeriesData[];
@@ -85,6 +86,7 @@ interface TransactionSeriesData {
 
 type MetricType = "transactions" | "games" | "players";
 type ChainFilter = "all" | "starknet" | "celo";
+type ChartViewMode = "compare" | "summarize";
 type Granularity = "hour" | "day" | "week" | "month";
 type TimeRange = "1D" | "1W" | "1M" | "1Y" | "all";
 const ALL_STATS_START_DATE = "2025-12-01";
@@ -361,44 +363,6 @@ const getAggregatedPeriod = (period: string, granularity: Granularity) => {
   return formatDateOnly(date);
 };
 
-const normalizeSeriesData = (
-  payload: unknown,
-  metric: MetricType,
-  granularity: Granularity,
-  aggregate = false,
-  chain: ChainFilter = "all"
-): TimeSeriesData[] => {
-  const data = unwrapData(payload);
-  const rows: unknown[] = Array.isArray(data)
-    ? data
-    : data && typeof data === "object" && Array.isArray((data as AnalyticsTimeseries).points)
-      ? (data as AnalyticsTimeseries).points ?? []
-      : [];
-
-  const mappedRows = rows
-    .map((row) => {
-      if (!row || typeof row !== "object") return null;
-      const record = row as Record<string, unknown>;
-      const period = getPeriodValue(record);
-      if (!period || isIgnoredStatsDate(period)) return null;
-      return {
-        period: aggregate ? getAggregatedPeriod(period, granularity) : period,
-        value: getFirstNumber(record, getMetricValueKeys(metric, chain)),
-      };
-    })
-    .filter((row): row is TimeSeriesData => Boolean(row));
-
-  const aggregated = aggregate
-    ? Array.from(
-        mappedRows
-          .reduce((acc, row) => acc.set(row.period, (acc.get(row.period) ?? 0) + row.value), new Map<string, number>())
-          .entries()
-      ).map(([period, value]) => ({ period, value }))
-    : mappedRows;
-
-  return aggregated.sort((a, b) => new Date(a.period).getTime() - new Date(b.period).getTime());
-};
-
 const normalizeChainId = (value: unknown): ChainFilter | null => {
   const chain = typeof value === "string" ? value.trim().toLowerCase() : "";
   if (chain === "starknet" || chain === "celo") return chain;
@@ -406,20 +370,17 @@ const normalizeChainId = (value: unknown): ChainFilter | null => {
 };
 
 const addSeriesPoint = (series: Map<string, number>, period: string, value: number) => {
-  if (!period || value === 0) return;
+  if (!period) return;
   series.set(period, (series.get(period) ?? 0) + value);
 };
 
-const mapToSortedSeries = (series: Map<string, number>): TimeSeriesData[] =>
-  Array.from(series.entries())
-    .map(([period, value]) => ({ period, value }))
-    .sort((a, b) => new Date(a.period).getTime() - new Date(b.period).getTime());
-
-const normalizeTransactionSeriesData = (
+const normalizeMultiChainSeriesData = (
   payload: unknown,
+  metric: MetricType,
   granularity: Granularity,
-  aggregate = false
-): TransactionSeriesData => {
+  aggregate = false,
+  requestedChain: ChainFilter = "all"
+): MultiChainSeriesData => {
   const data = unwrapData(payload);
   const rows: unknown[] = Array.isArray(data)
     ? data
@@ -430,6 +391,8 @@ const normalizeTransactionSeriesData = (
   const total = new Map<string, number>();
   const starknet = new Map<string, number>();
   const celo = new Map<string, number>();
+  let hasStarknetRows = false;
+  let hasCeloRows = false;
 
   rows.forEach((row) => {
     if (!row || typeof row !== "object") return;
@@ -440,37 +403,86 @@ const normalizeTransactionSeriesData = (
     const rowChain = normalizeChainId(record.blockchain);
 
     if (rowChain) {
-      const value = getFirstNumber(record, ["total_transactions", "tx_count", "transactions", "transaction_count", "value"]);
+      const value = getFirstNumber(record, metricValueKeys[metric]);
+      if (rowChain === "celo") hasCeloRows = true;
+      else hasStarknetRows = true;
       addSeriesPoint(rowChain === "celo" ? celo : starknet, period, value);
       addSeriesPoint(total, period, value);
       return;
     }
 
-    const starknetValue = getFirstNumber(record, ["starknet_transactions", "starknet_tx_count", "starknet"]);
-    const celoValue = getFirstNumber(record, ["celo_transactions", "celo_tx_count", "celo"]);
-    const hasChainValues =
-      record.starknet_transactions !== undefined ||
-      record.starknet_tx_count !== undefined ||
-      record.celo_transactions !== undefined ||
-      record.celo_tx_count !== undefined;
-    const totalValue = getFirstNumber(record, ["total_transactions", "tx_count", "transactions", "transaction_count", "value"]);
+    const starknetKeys = getMetricValueKeys(metric, "starknet").filter((key) => key !== "value");
+    const celoKeys = getMetricValueKeys(metric, "celo").filter((key) => key !== "value");
+    const starknetValue = getFirstNumber(record, starknetKeys);
+    const celoValue = getFirstNumber(record, celoKeys);
+    const hasStarknetValue = starknetKeys.some((key) => record[key] !== undefined && record[key] !== null);
+    const hasCeloValue = celoKeys.some((key) => record[key] !== undefined && record[key] !== null);
+    const hasChainValues = hasStarknetValue || hasCeloValue;
+    const totalValue = getFirstNumber(record, metricValueKeys[metric]);
 
     if (hasChainValues) {
+      hasStarknetRows ||= hasStarknetValue;
+      hasCeloRows ||= hasCeloValue;
       addSeriesPoint(starknet, period, starknetValue);
       addSeriesPoint(celo, period, celoValue);
-      addSeriesPoint(total, period, totalValue || starknetValue + celoValue);
+      addSeriesPoint(total, period, starknetValue + celoValue);
       return;
     }
 
-    // Old stats responses only exposed a total; those transactions were Starknet-era legacy data.
-    addSeriesPoint(starknet, period, totalValue);
+    if (requestedChain !== "all") {
+      if (requestedChain === "celo") hasCeloRows = true;
+      else hasStarknetRows = true;
+      addSeriesPoint(requestedChain === "celo" ? celo : starknet, period, totalValue);
+    } else if (metric === "transactions") {
+      // Old transaction responses only exposed a total; those rows are Starknet-era legacy data.
+      hasStarknetRows = true;
+      addSeriesPoint(starknet, period, totalValue);
+    }
     addSeriesPoint(total, period, totalValue);
   });
 
+  const periods = Array.from(new Set([...total.keys(), ...starknet.keys(), ...celo.keys()])).sort(
+    (a, b) => new Date(a).getTime() - new Date(b).getTime()
+  );
+  const buildAlignedSeries = (series: Map<string, number>, hasRows: boolean): TimeSeriesData[] =>
+    hasRows ? periods.map((period) => ({ period, value: series.get(period) ?? 0 })) : [];
+
   return {
-    total: mapToSortedSeries(total),
-    starknet: mapToSortedSeries(starknet),
-    celo: mapToSortedSeries(celo),
+    total: periods.map((period) => ({ period, value: total.get(period) ?? 0 })),
+    starknet: buildAlignedSeries(starknet, hasStarknetRows),
+    celo: buildAlignedSeries(celo, hasCeloRows),
+  };
+};
+
+const mergeMultiChainSeriesData = (
+  base: MultiChainSeriesData,
+  overrides: Partial<Record<Exclude<ChainFilter, "all">, MultiChainSeriesData>>
+): MultiChainSeriesData => {
+  const starknetData = overrides.starknet?.starknet.length
+    ? overrides.starknet.starknet
+    : base.starknet;
+  const celoData = overrides.celo?.celo.length ? overrides.celo.celo : base.celo;
+  const totalByPeriod = new Map(base.total.map((point) => [point.period, point.value]));
+  const starknetByPeriod = new Map(starknetData.map((point) => [point.period, point.value]));
+  const celoByPeriod = new Map(celoData.map((point) => [point.period, point.value]));
+  const periods = Array.from(
+    new Set([...totalByPeriod.keys(), ...starknetByPeriod.keys(), ...celoByPeriod.keys()])
+  ).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  const hasCompleteBreakdown = starknetData.length > 0 && celoData.length > 0;
+
+  return {
+    total: periods.map((period) => ({
+      period,
+      value: hasCompleteBreakdown
+        ? (starknetByPeriod.get(period) ?? 0) + (celoByPeriod.get(period) ?? 0)
+        : totalByPeriod.get(period) ?? 0,
+    })),
+    starknet: starknetData.length > 0
+      ? periods.map((period) => ({ period, value: starknetByPeriod.get(period) ?? 0 }))
+      : [],
+    celo: celoData.length > 0
+      ? periods.map((period) => ({ period, value: celoByPeriod.get(period) ?? 0 }))
+      : [],
   };
 };
 
@@ -507,7 +519,7 @@ const NeonLineChart = ({
   } | null>(null);
   const visibleSeries = useMemo<ChartSeries[]>(() => {
     const nextSeries = series?.filter((item) => item.data.length > 0);
-    if (nextSeries && nextSeries.length > 0) return nextSeries;
+    if (series !== undefined) return nextSeries ?? [];
     if (data.length === 0) return [];
     return [{ id: "default", label: "", color, data }];
   }, [color, data, series]);
@@ -739,7 +751,7 @@ const NeonLineChart = ({
         ))}
 
         {/* Area fill */}
-        <path d={areaPath} fill="url(#chart-gradient)" />
+        {visibleSeries.length === 1 && <path d={areaPath} fill="url(#chart-gradient)" />}
 
         {/* Lines */}
         {seriesPoints.map((item) => (
@@ -771,45 +783,49 @@ const NeonLineChart = ({
         )}
 
         {/* Data points with hover areas */}
-        {points.map((p, i) => {
-          const pointTransform =
-            pointScaleX === 1
-              ? undefined
-              : `translate(${p.x} ${p.y}) scale(${pointScaleX} 1) translate(${-p.x} ${-p.y})`;
+        {seriesPoints.map((item) => (
+          <g key={`${item.id}-points`}>
+            {item.points.map((point, index) => {
+              const pointTransform =
+                pointScaleX === 1
+                  ? undefined
+                  : `translate(${point.x} ${point.y}) scale(${pointScaleX} 1) translate(${-point.x} ${-point.y})`;
 
-          return (
-            <g key={i}>
-              {/* Invisible larger hit area */}
-              <circle
-                cx={p.x}
-                cy={p.y}
-                r="5"
-                fill="transparent"
-                pointerEvents="none"
-                transform={pointTransform}
-              />
-              {/* Soft circular halo without blur distortion */}
-              <circle
-                cx={p.x}
-                cy={p.y}
-                r="4.1"
-                fill={primarySeries.color}
-                fillOpacity="0.16"
-                pointerEvents="none"
-                transform={pointTransform}
-              />
-              {/* Core point */}
-              <circle
-                cx={p.x}
-                cy={p.y}
-                r="2.4"
-                fill={primarySeries.color}
-                pointerEvents="none"
-                transform={pointTransform}
-              />
-            </g>
-          );
-        })}
+              return (
+                <g key={`${item.id}-${index}`}>
+                  {/* Invisible larger hit area */}
+                  <circle
+                    cx={point.x}
+                    cy={point.y}
+                    r="5"
+                    fill="transparent"
+                    pointerEvents="none"
+                    transform={pointTransform}
+                  />
+                  {/* Soft circular halo without blur distortion */}
+                  <circle
+                    cx={point.x}
+                    cy={point.y}
+                    r="4.1"
+                    fill={item.color}
+                    fillOpacity="0.16"
+                    pointerEvents="none"
+                    transform={pointTransform}
+                  />
+                  {/* Core point */}
+                  <circle
+                    cx={point.x}
+                    cy={point.y}
+                    r="2.4"
+                    fill={item.color}
+                    pointerEvents="none"
+                    transform={pointTransform}
+                  />
+                </g>
+              );
+            })}
+          </g>
+        ))}
       </svg>
 
       {/* Tooltip */}
@@ -1003,10 +1019,10 @@ export const StatsPage = () => {
   const { t, i18n } = useTranslation("landing");
   const [globalStats, setGlobalStats] = useState<GlobalStats | null>(null);
   const [chartData, setChartData] = useState<TimeSeriesData[]>([]);
-  const [transactionSeriesData, setTransactionSeriesData] = useState<TransactionSeriesData | null>(null);
+  const [multiChainSeriesData, setMultiChainSeriesData] = useState<MultiChainSeriesData | null>(null);
   const [selectedMetric, setSelectedMetric] = useState<MetricType>("transactions");
   const [selectedChain, setSelectedChain] = useState<ChainFilter>("all");
-  const [showTotalSeries, setShowTotalSeries] = useState(true);
+  const [chartViewMode, setChartViewMode] = useState<ChartViewMode>("summarize");
   const [timeRange, setTimeRange] = useState<TimeRange>("1M");
   const [granularity, setGranularity] = useState<Granularity>("day");
   const [isLoadingGlobal, setIsLoadingGlobal] = useState(true);
@@ -1176,21 +1192,51 @@ export const StatsPage = () => {
             to: dateRange.endDate,
           });
           const analyticsResponse = await fetchStatsApi(`/api/analytics/timeseries?${analyticsParams}`);
-          if (selectedMetric === "transactions") {
-            const analyticsTransactionSeries = normalizeTransactionSeriesData(analyticsResponse, granularity, true);
-            const selectedSeries = analyticsTransactionSeries[selectedChain === "all" ? "total" : selectedChain];
-            if (selectedSeries.length > 0) {
-              setTransactionSeriesData(analyticsTransactionSeries);
-              setChartData(selectedSeries);
-              return;
+          let analyticsSeries = normalizeMultiChainSeriesData(
+            analyticsResponse,
+            selectedMetric,
+            granularity,
+            true,
+            analyticsChain
+          );
+
+          if (selectedChain === "all") {
+            const missingChains = (["starknet", "celo"] as const).filter(
+              (chain) => analyticsSeries[chain].length === 0
+            );
+            if (missingChains.length > 0) {
+              const chainSeriesResults = await Promise.allSettled(
+                missingChains.map(async (chain) => {
+                  const chainParams = new URLSearchParams({
+                    blockchain: chain,
+                    from: dateRange.startDate,
+                    to: dateRange.endDate,
+                  });
+                  const response = await fetchStatsApi(`/api/analytics/timeseries?${chainParams}`);
+                  return [
+                    chain,
+                    normalizeMultiChainSeriesData(response, selectedMetric, granularity, true, chain),
+                  ] as const;
+                })
+              );
+              const chainSeriesEntries = chainSeriesResults.flatMap((result) =>
+                result.status === "fulfilled" ? [result.value] : []
+              );
+              if (chainSeriesEntries.length > 0) {
+                analyticsSeries = mergeMultiChainSeriesData(
+                  analyticsSeries,
+                  Object.fromEntries(chainSeriesEntries) as Partial<
+                    Record<Exclude<ChainFilter, "all">, MultiChainSeriesData>
+                  >
+                );
+              }
             }
           }
 
-          const analyticsData = normalizeSeriesData(analyticsResponse, selectedMetric, granularity, true, selectedChain);
-
-          if (analyticsData.length > 0) {
-            setTransactionSeriesData(null);
-            setChartData(analyticsData);
+          const selectedSeries = analyticsSeries[selectedChain === "all" ? "total" : selectedChain];
+          if (selectedSeries.length > 0) {
+            setMultiChainSeriesData(analyticsSeries);
+            setChartData(selectedSeries);
             return;
           }
         } catch {
@@ -1212,18 +1258,50 @@ export const StatsPage = () => {
       };
 
       const response = await fetchGameApi(endpointMap[selectedMetric]);
-      if (selectedMetric === "transactions") {
-        const transactionSeries = normalizeTransactionSeriesData(response, granularity);
-        setTransactionSeriesData(transactionSeries);
-        setChartData(transactionSeries[selectedChain === "all" ? "total" : selectedChain]);
-        return;
+      const legacySeriesChain = selectedMetric === "transactions" ? "all" : selectedChain;
+      let metricSeries = normalizeMultiChainSeriesData(
+        response,
+        selectedMetric,
+        granularity,
+        false,
+        legacySeriesChain
+      );
+
+      if (selectedChain === "all" && selectedMetric !== "transactions") {
+        const missingChains = (["starknet", "celo"] as const).filter(
+          (chain) => metricSeries[chain].length === 0
+        );
+        if (missingChains.length > 0) {
+          const chainSeriesResults = await Promise.allSettled(
+            missingChains.map(async (chain) => {
+              const chainParams = new URLSearchParams(params);
+              chainParams.set("blockchain", chain);
+              const chainResponse = await fetchGameApi(`/api/stats/${selectedMetric}?${chainParams}`);
+              return [
+                chain,
+                normalizeMultiChainSeriesData(chainResponse, selectedMetric, granularity, false, chain),
+              ] as const;
+            })
+          );
+          const chainSeriesEntries = chainSeriesResults.flatMap((result) =>
+            result.status === "fulfilled" ? [result.value] : []
+          );
+          if (chainSeriesEntries.length > 0) {
+            metricSeries = mergeMultiChainSeriesData(
+              metricSeries,
+              Object.fromEntries(chainSeriesEntries) as Partial<
+                Record<Exclude<ChainFilter, "all">, MultiChainSeriesData>
+              >
+            );
+          }
+        }
       }
 
-      setTransactionSeriesData(null);
-      setChartData(normalizeSeriesData(response, selectedMetric, granularity, false, selectedChain));
+      setMultiChainSeriesData(metricSeries);
+      setChartData(metricSeries[selectedChain === "all" ? "total" : selectedChain]);
     } catch (error) {
       console.error("Failed to fetch chart data:", error);
-      setTransactionSeriesData(null);
+      setMultiChainSeriesData(null);
       setChartData([]);
     } finally {
       setIsLoadingChart(false);
@@ -1237,33 +1315,32 @@ export const StatsPage = () => {
   const currentMetricConfig = metricConfig[selectedMetric];
   const currentChainConfig = chainConfig[selectedChain];
   const chartSeries = useMemo<ChartSeries[]>(() => {
-    if (selectedMetric === "transactions" && transactionSeriesData) {
-      const seriesList: ChartSeries[] = [];
-      if (selectedChain === "all" && showTotalSeries) {
-        seriesList.push({
+    if (multiChainSeriesData) {
+      if (selectedChain === "all" && chartViewMode === "summarize") {
+        return [{
           id: "total",
           label: t("stats.networks.total"),
-          color: colors.neonCyan,
-          data: transactionSeriesData.total,
-        });
+          color: currentMetricConfig.color,
+          data: multiChainSeriesData.total,
+        }].filter((item) => item.data.length > 0);
       }
-      if (selectedChain === "all" || selectedChain === "starknet") {
-        seriesList.push({
-          id: "starknet",
-          label: chainConfig.starknet.label,
-          color: colors.neonViolet,
-          data: transactionSeriesData.starknet,
-        });
+
+      if (selectedChain === "all") {
+        return [
+          {
+            id: "starknet",
+            label: chainConfig.starknet.label,
+            color: colors.neonViolet,
+            data: multiChainSeriesData.starknet,
+          },
+          {
+            id: "celo",
+            label: chainConfig.celo.label,
+            color: colors.neonYellow,
+            data: multiChainSeriesData.celo,
+          },
+        ].filter((item) => item.data.length > 0);
       }
-      if (selectedChain === "all" || selectedChain === "celo") {
-        seriesList.push({
-          id: "celo",
-          label: chainConfig.celo.label,
-          color: colors.neonYellow,
-          data: transactionSeriesData.celo,
-        });
-      }
-      return seriesList.filter((item) => item.data.length > 0);
     }
 
     return [
@@ -1274,7 +1351,7 @@ export const StatsPage = () => {
         data: chartData,
       },
     ];
-  }, [chainConfig, chartData, currentMetricConfig, selectedChain, selectedMetric, showTotalSeries, t, transactionSeriesData]);
+  }, [chainConfig, chartData, chartViewMode, currentMetricConfig, multiChainSeriesData, selectedChain, selectedMetric, t]);
   const avg = useMemo(() => {
     if (!chartData.length) return 0;
     const total = chartData.reduce((acc, d) => acc + d.value, 0);
@@ -1379,20 +1456,34 @@ export const StatsPage = () => {
             </Box>
           </Flex>
 
-          {/* Status indicator */}
-          <Flex align="center" gap={2}>
-            <Box
-              w="8px"
-              h="8px"
-              borderRadius="full"
-              bg={currentChainConfig.color}
-              boxShadow={`0 0 10px ${currentChainConfig.color}`}
-              animation={`${pulseGlow} 2s ease-in-out infinite`}
-            />
-            <Text fontFamily="Oxanium" fontSize="xs" color="whiteAlpha.600">
-              {currentChainConfig.label} - {t("stats.header.network")}
-            </Text>
-          </Flex>
+          {/* Network Selector */}
+          <Select
+            size={{ base: "xs", md: "sm" }}
+            value={selectedChain}
+            onChange={(event) => {
+              const chain = event.target.value as ChainFilter;
+              setSelectedChain(chain);
+              if (chain === "celo" && granularity === "hour") setGranularity("day");
+            }}
+            aria-label={t("stats.networks.select")}
+            bg="rgba(0, 0, 0, 0.45)"
+            borderColor={currentChainConfig.color}
+            color={currentChainConfig.color}
+            fontFamily="Orbitron"
+            fontSize={{ base: "9px", md: "xs" }}
+            fontWeight="bold"
+            letterSpacing="wide"
+            w={{ base: "135px", md: "170px" }}
+            boxShadow={`0 0 12px ${currentChainConfig.color}30`}
+            _hover={{ borderColor: currentChainConfig.color }}
+            _focus={{ borderColor: currentChainConfig.color, boxShadow: `0 0 0 1px ${currentChainConfig.color}` }}
+          >
+            {(["all", "starknet", "celo"] as ChainFilter[]).map((chain) => (
+              <option key={chain} value={chain}>
+                {chainConfig[chain].label}
+              </option>
+            ))}
+          </Select>
         </Flex>
 
         {/* Global Stats Cards */}
@@ -1477,56 +1568,62 @@ export const StatsPage = () => {
             flexShrink={0}
           >
             <Flex w="100%" flexDir="column" gap={{ base: 3, md: 2 }}>
-              {/* Metric Selector */}
-              <ButtonGroup size={{ base: "xs", md: "sm" }} isAttached variant="outline" w={{ base: "100%", md: "auto" }}>
-                {(Object.keys(metricConfigBase) as MetricType[]).map((metric) => (
-                  <Button
-                    key={metric}
-                    onClick={() => setSelectedMetric(metric)}
-                    bg={selectedMetric === metric ? `${metricConfig[metric].color}20` : "transparent"}
-                    borderColor={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.300"}
-                    color={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.700"}
-                    fontFamily="Orbitron"
-                    fontSize={{ base: "9px !important", md: "12px !important" }}
-                    px={{ base: 2, md: 4 }}
-                    flex="1"
-                    minW={0}
-                    _hover={{
-                      bg: `${metricConfig[metric].color}10`,
-                      borderColor: metricConfig[metric].color,
-                    }}
+              <Flex w="100%" align="center" justify="space-between" gap={3} flexWrap="wrap">
+                {/* Metric Selector */}
+                <ButtonGroup
+                  size={{ base: "xs", md: "sm" }}
+                  isAttached
+                  variant="outline"
+                  w={{ base: "100%", md: "auto" }}
+                >
+                  {(Object.keys(metricConfigBase) as MetricType[]).map((metric) => (
+                    <Button
+                      key={metric}
+                      onClick={() => setSelectedMetric(metric)}
+                      bg={selectedMetric === metric ? `${metricConfig[metric].color}20` : "transparent"}
+                      borderColor={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.300"}
+                      color={selectedMetric === metric ? metricConfig[metric].color : "whiteAlpha.700"}
+                      fontFamily="Orbitron"
+                      fontSize={{ base: "9px !important", md: "12px !important" }}
+                      px={{ base: 2, md: 4 }}
+                      flex="1"
+                      minW={0}
+                      _hover={{
+                        bg: `${metricConfig[metric].color}10`,
+                        borderColor: metricConfig[metric].color,
+                      }}
                     >
-                    {metricConfig[metric].label}
-                  </Button>
-                ))}
-              </ButtonGroup>
+                      {metricConfig[metric].label}
+                    </Button>
+                  ))}
+                </ButtonGroup>
 
-              {/* Network Selector */}
-              <ButtonGroup size={{ base: "xs", md: "sm" }} isAttached variant="outline" w={{ base: "100%", md: "auto" }}>
-                {(["all", "starknet", "celo"] as ChainFilter[]).map((chain) => (
-                  <Button
-                    key={chain}
-                    onClick={() => {
-                      setSelectedChain(chain);
-                      if (chain === "celo" && granularity === "hour") setGranularity("day");
-                    }}
-                    bg={selectedChain === chain ? `${chainConfig[chain].color}20` : "transparent"}
-                    borderColor={selectedChain === chain ? chainConfig[chain].color : "whiteAlpha.300"}
-                    color={selectedChain === chain ? chainConfig[chain].color : "whiteAlpha.700"}
-                    fontFamily="Orbitron"
-                    fontSize={{ base: "9px !important", md: "12px !important" }}
-                    px={{ base: 2, md: 4 }}
-                    flex="1"
-                    minW={0}
-                    _hover={{
-                      bg: `${chainConfig[chain].color}10`,
-                      borderColor: chainConfig[chain].color,
-                    }}
-                  >
-                    {chainConfig[chain].label}
-                  </Button>
-                ))}
-              </ButtonGroup>
+                {selectedChain === "all" && (
+                  <Flex align="center" gap={2} ml={{ md: "auto" }}>
+                    <Text
+                      fontFamily="Orbitron"
+                      fontSize={{ base: "9px", md: "xs" }}
+                      color={chartViewMode === "compare" ? currentMetricConfig.color : "whiteAlpha.500"}
+                    >
+                      {t("stats.chart.compare")}
+                    </Text>
+                    <Switch
+                      size="sm"
+                      isChecked={chartViewMode === "summarize"}
+                      onChange={(event) => setChartViewMode(event.target.checked ? "summarize" : "compare")}
+                      aria-label={t("stats.chart.viewMode")}
+                      colorScheme="cyan"
+                    />
+                    <Text
+                      fontFamily="Orbitron"
+                      fontSize={{ base: "9px", md: "xs" }}
+                      color={chartViewMode === "summarize" ? currentMetricConfig.color : "whiteAlpha.500"}
+                    >
+                      {t("stats.chart.summarize")}
+                    </Text>
+                  </Flex>
+                )}
+              </Flex>
 
               <Flex
                 w="100%"
@@ -1582,27 +1679,7 @@ export const StatsPage = () => {
                   </Select>
                 </Flex>
 
-                {selectedMetric === "transactions" && selectedChain === "all" && (
-                  <Button
-                    size={{ base: "xs", md: "sm" }}
-                    variant="outline"
-                    onClick={() => setShowTotalSeries((value) => !value)}
-                    bg={showTotalSeries ? `${colors.neonCyan}20` : "transparent"}
-                    borderColor={showTotalSeries ? colors.neonCyan : "whiteAlpha.300"}
-                    color={showTotalSeries ? colors.neonCyan : "whiteAlpha.700"}
-                    fontFamily="Orbitron"
-                    fontSize={{ base: "9px !important", md: "12px !important" }}
-                    px={{ base: 2, md: 3 }}
-                    _hover={{
-                      bg: `${colors.neonCyan}10`,
-                      borderColor: colors.neonCyan,
-                    }}
-                  >
-                    {t("stats.networks.total")}
-                  </Button>
-                )}
-
-                {selectedMetric === "transactions" && chartSeries.length > 1 && (
+                {selectedChain === "all" && chartViewMode === "compare" && chartSeries.length > 0 && (
                   <Flex align="center" gap={3} flexWrap="wrap">
                     {chartSeries.map((item) => (
                       <Flex key={item.id} align="center" gap={1.5}>
