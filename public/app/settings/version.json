@@ -25,6 +25,11 @@
     "aws-testnet": "https://testnet-jokers-of-neon-api.onrender.com",
     "devcelo": "https://jokers-of-neon-api-zf1x.onrender.com"
   },
+  "share-api": {
+    "aws-mainnet": "https://share.jokersofneon.com",
+    "aws-testnet": "https://testnet-jokers-of-neon-api.onrender.com",
+    "devcelo": "https://jokers-of-neon-api-zf1x.onrender.com"
+  },
   "maintenance": false,
   "marketplace-maintenance": true
 }
