@@ -21,14 +21,14 @@
     }
   },
   "api": {
-    "aws-mainnet": "https://jokers-of-neon-api-zf1x.onrender.com",
-    "aws-testnet": "https://testnet-jokers-of-neon-api.onrender.com",
-    "devcelo": "https://jokers-of-neon-api-zf1x.onrender.com"
+    "aws-mainnet": "https://api.jokersofneon.com",
+    "aws-testnet": "https://testapi.jokersofneon.com",
+    "devcelo": "https://api.jokersofneon.com"
   },
   "share-api": {
     "aws-mainnet": "https://share.jokersofneon.com",
-    "aws-testnet": "https://testnet-jokers-of-neon-api.onrender.com",
-    "devcelo": "https://jokers-of-neon-api-zf1x.onrender.com"
+    "aws-testnet": "https://testapi.jokersofneon.com",
+    "devcelo": "https://api.jokersofneon.com"
   },
   "maintenance": false,
   "marketplace-maintenance": true
