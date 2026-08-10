@@ -39,7 +39,7 @@ const LanguageSwitcher = ({
       right={isMobile ? "5px" : "45px"}
       top={isMobile ? "5px" : "40px"}
     >
-      <Menu>
+      <Menu placement="bottom-end">
         <MenuButton as={Button} p={"0 !important"} width={"auto"}>
           <Flex width={"25px"} m={"0 auto"}>
             <CircleFlagLanguage languageCode={language} />

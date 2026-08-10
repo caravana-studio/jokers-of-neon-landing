@@ -28,8 +28,11 @@ img {
   pointer-events: none;
 }
 
+html,
 body {
+  max-width: 100%;
   overflow-x: hidden !important;
+  overscroll-behavior-x: none;
 }
 
 .login-button {
