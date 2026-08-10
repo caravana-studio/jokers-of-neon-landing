@@ -19,10 +19,12 @@ export enum Languages {
 
 interface LanguageSwitcherProps {
     onLanguageChange: (lng: Languages) => void;
+    placement?: "bottom" | "bottom-end";
 }
 
 const LanguageSwitcher = ({
-    onLanguageChange
+    onLanguageChange,
+    placement
 }: LanguageSwitcherProps) => {
   const [language, setLanguage] = useState<Languages>(Languages.EN);
 
@@ -39,7 +41,7 @@ const LanguageSwitcher = ({
       right={isMobile ? "5px" : "45px"}
       top={isMobile ? "5px" : "40px"}
     >
-      <Menu placement="bottom-end">
+      <Menu placement={placement}>
         <MenuButton as={Button} p={"0 !important"} width={"auto"}>
           <Flex width={"25px"} m={"0 auto"}>
             <CircleFlagLanguage languageCode={language} />
