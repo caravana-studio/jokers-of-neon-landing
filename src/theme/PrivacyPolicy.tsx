@@ -1,5 +1,5 @@
 import { Box, Heading, Link, Stack, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import LanguageSwitcher, { Languages } from "../Components/LanguageSwitcher";
 
 /** ================= EN ================= **/
@@ -509,21 +509,12 @@ export const PrivacyPolicy = () => {
     window.self !== window.top &&
     new URLSearchParams(window.location.search).get("embed") === "miniapp";
 
-  useEffect(() => {
-    if (!isMiniappEmbed) return;
-
-    document.documentElement.classList.add("miniapp-privacy-policy");
-
-    return () => {
-      document.documentElement.classList.remove("miniapp-privacy-policy");
-    };
-  }, [isMiniappEmbed]);
-
   return (
     <Box maxW="800px" mx="auto" px={4} py={8}>
       <LanguageSwitcher
         onLanguageChange={(l) => setLanguage(l)}
         placement={isMiniappEmbed ? "bottom-end" : undefined}
+        unmountMenuWhenClosed={isMiniappEmbed}
       />
       {getPrivacyByLanguage(language)}
     </Box>

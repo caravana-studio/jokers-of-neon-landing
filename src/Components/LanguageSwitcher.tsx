@@ -20,13 +20,16 @@ export enum Languages {
 interface LanguageSwitcherProps {
     onLanguageChange: (lng: Languages) => void;
     placement?: "bottom" | "bottom-end";
+    unmountMenuWhenClosed?: boolean;
 }
 
 const LanguageSwitcher = ({
     onLanguageChange,
-    placement
+    placement,
+    unmountMenuWhenClosed = false
 }: LanguageSwitcherProps) => {
   const [language, setLanguage] = useState<Languages>(Languages.EN);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const changeLanguage = (lng: Languages) => {
     setLanguage(lng);
@@ -41,32 +44,40 @@ const LanguageSwitcher = ({
       right={isMobile ? "5px" : "45px"}
       top={isMobile ? "5px" : "40px"}
     >
-      <Menu placement={placement}>
+      <Menu
+        onClose={
+          unmountMenuWhenClosed ? () => setIsMenuOpen(false) : undefined
+        }
+        onOpen={unmountMenuWhenClosed ? () => setIsMenuOpen(true) : undefined}
+        placement={placement}
+      >
         <MenuButton as={Button} p={"0 !important"} width={"auto"}>
           <Flex width={"25px"} m={"0 auto"}>
             <CircleFlagLanguage languageCode={language} />
           </Flex>
         </MenuButton>
-        <MenuList>
-          <MenuItem onClick={() => changeLanguage(Languages.EN)} gap={2}>
-            <Box width={"30px"}>
-              <CircleFlagLanguage languageCode="en-us" />
-            </Box>
-            English
-          </MenuItem>
-          <MenuItem onClick={() => changeLanguage(Languages.ES)} gap={2}>
-            <Box width={"30px"}>
-              <CircleFlagLanguage languageCode="es" />
-            </Box>
-            Español
-          </MenuItem>
-          <MenuItem onClick={() => changeLanguage(Languages.PT)} gap={2}>
-            <Box width={"30px"}>
-              <CircleFlagLanguage languageCode="pt" />
-            </Box>
-            Português
-          </MenuItem>
-        </MenuList>
+        {(!unmountMenuWhenClosed || isMenuOpen) && (
+          <MenuList>
+            <MenuItem onClick={() => changeLanguage(Languages.EN)} gap={2}>
+              <Box width={"30px"}>
+                <CircleFlagLanguage languageCode="en-us" />
+              </Box>
+              English
+            </MenuItem>
+            <MenuItem onClick={() => changeLanguage(Languages.ES)} gap={2}>
+              <Box width={"30px"}>
+                <CircleFlagLanguage languageCode="es" />
+              </Box>
+              Español
+            </MenuItem>
+            <MenuItem onClick={() => changeLanguage(Languages.PT)} gap={2}>
+              <Box width={"30px"}>
+                <CircleFlagLanguage languageCode="pt" />
+              </Box>
+              Português
+            </MenuItem>
+          </MenuList>
+        )}
       </Menu>
     </Box>
   );
