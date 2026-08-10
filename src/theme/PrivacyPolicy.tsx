@@ -505,10 +505,17 @@ const getPrivacyByLanguage = (lang: Languages) => {
 
 export const PrivacyPolicy = () => {
   const [language, setLanguage] = useState<Languages>(Languages.EN);
+  const isMiniappEmbed =
+    window.self !== window.top &&
+    new URLSearchParams(window.location.search).get("embed") === "miniapp";
 
   return (
     <Box maxW="800px" mx="auto" px={4} py={8}>
-      <LanguageSwitcher onLanguageChange={(l) => setLanguage(l)} />
+      <LanguageSwitcher
+        onLanguageChange={(l) => setLanguage(l)}
+        placement={isMiniappEmbed ? "bottom-end" : undefined}
+        unmountMenuWhenClosed={isMiniappEmbed}
+      />
       {getPrivacyByLanguage(language)}
     </Box>
   );
