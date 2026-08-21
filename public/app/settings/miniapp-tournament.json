@@ -1,41 +1,48 @@
 {
-  "isActive": false,
-  "startDate": "2026-05-03T00:00:00.000Z",
-  "finishDate": "2026-05-20T23:59:59.999Z",
+  "isActive": true,
+  "startDate": "2026-08-21T00:00:00.000Z",
+  "finishDate": "2026-08-30T23:59:59.999Z",
   "prizes": [
     {
       "position": "1",
       "token": {
-        "amount": 100,
-        "type": "USDT"
+        "amount": 60,
+        "type": "USDC"
       }
     },
     {
       "position": "2",
       "token": {
-        "amount": 50,
-        "type": "USDT"
+        "amount": 45,
+        "type": "USDC"
       }
     },
     {
       "position": "3",
       "token": {
-        "amount": 25,
-        "type": "USDT"
+        "amount": 35,
+        "type": "USDC"
       }
     },
     {
       "position": "4-5",
       "token": {
-        "amount": 10,
-        "type": "USDT"
+        "amount": 20,
+        "type": "USDC"
       }
     },
     {
       "position": "6-10",
       "token": {
-        "amount": 5,
-        "type": "USDT"
+        "amount": 12,
+        "type": "USDC"
+      }
+    },
+    {
+      "position": "11-20",
+      "token": {
+        "amount": 6,
+        "type": "USDC"
       }
     }
   ]
