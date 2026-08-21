@@ -30,6 +30,7 @@
         "id": "App",
         "position": 2,
         "type": "image",
+        "navigateTo": "/leaderboard",
         "url": "https://jokersofneon.com/app/banners/tournament-celo-usdc4.png"
       }
     ]
