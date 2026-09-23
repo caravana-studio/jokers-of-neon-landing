@@ -30,6 +30,6 @@
     "aws-testnet": "https://testapi.jokersofneon.com",
     "devcelo": "https://api.jokersofneon.com"
   },
-  "maintenance": false,
+  "maintenance": true,
   "marketplace-maintenance": true
 }
