@@ -1,5 +1,5 @@
 {
-  "version": "5.8.6",
+  "version": "5.8.10",
   "slotEndpoints": {
     "aws-mainnet": {
       "kind": "katana",
