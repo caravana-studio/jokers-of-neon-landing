@@ -20,9 +20,9 @@
       "chainId": "KATANA"
     },
     "v2-staging": {
-      "rpcUrl": "https://macbook-pro-de-damian-2.tail5a5d99.ts.net",
-      "toriiUrl": "https://macbook-pro-de-damian-2.tail5a5d99.ts.net:8443",
-      "graphqlUrl": "https://macbook-pro-de-damian-2.tail5a5d99.ts.net:8443/graphql"
+      "rpcUrl": "https://katana.testnet.jokersofneon.com",
+      "toriiUrl": "https://torii.testnet.jokersofneon.com",
+      "graphqlUrl": "https://torii.testnet.jokersofneon.com/graphql"
     }
   },
   "api": {
