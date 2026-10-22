@@ -19,6 +19,26 @@
       }
     ]
   },
+  "full-miniapp": {
+    "banners": [
+      {
+        "id": "LEADERBOARD",
+        "position": 1,
+        "type": "LEADERBOARD"
+      },
+      {
+        "id": "daily-missions",
+        "position": 2,
+        "type": "DAILY_MISSIONS"
+      },
+      {
+        "id": "s1",
+        "position": 3,
+        "type": "image",
+        "url": "https://jokersofneon.com/app/banners/season1-live.png"
+      }
+    ]
+  },
   "miniapp": {
     "banners": [
       {
