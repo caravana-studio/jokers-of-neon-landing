@@ -43,6 +43,6 @@
     "devcelo": "https://api.jokersofneon.com"
   },
   "maintenance": false,
-  "miniapp-maintenance": true,
+  "miniapp-maintenance": false,
   "marketplace-maintenance": true
 }
