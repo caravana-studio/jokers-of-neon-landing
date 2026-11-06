@@ -23,13 +23,19 @@
       "rpcUrl": "https://katana.testnet.jokersofneon.com",
       "toriiUrl": "https://torii.testnet.jokersofneon.com",
       "graphqlUrl": "https://torii.testnet.jokersofneon.com/graphql"
+    },
+    "celo-prod-v2": {
+      "rpcUrl": "https://katana.testnet.jokersofneon.com",
+      "toriiUrl": "https://torii.testnet.jokersofneon.com",
+      "graphqlUrl": "https://torii.testnet.jokersofneon.com/graphql"
     }
   },
   "api": {
     "aws-mainnet": "https://api.jokersofneon.com",
     "aws-testnet": "https://testapi.jokersofneon.com",
     "devcelo": "https://api.jokersofneon.com",
-    "v2-staging": "https://testnet-jokers-of-neon-api.onrender.com"
+    "v2-staging": "https://testnet-jokers-of-neon-api.onrender.com",
+    "celo-prod-v2": "https://testnet-jokers-of-neon-api.onrender.com"
   },
   "share-api": {
     "aws-mainnet": "https://share.jokersofneon.com",
